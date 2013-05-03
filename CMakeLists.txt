@@ -64,3 +64,4 @@ add_executable( QLabelling ${MOCS_QLABELLING_HPP}
                            ${ALL_UI_QLABELLING}
                            ${RCS_QLABELLING} )
 target_link_libraries( QLabelling ${QT_LIBRARIES} )
+set_target_properties( QLabelling PROPERTIES DEBUG_POSTFIX "_debug" )
