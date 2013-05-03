@@ -5,6 +5,7 @@
 #include <QSettings>
 
 #include <iostream>
+#include <fstream>
 
 #include "QLabellingMainWindow.hpp"
 #include "QLabellingWidget.hpp"
@@ -83,6 +84,25 @@ void QLabellingMainWindow::saveLabels()
 
     // Now, save the image
     _labellingWidget->labelsImage().save(fileName);
+    // And a file which stores labelling infos
+    QString labelsFilename = info.filePath();
+    labelsFilename += ".labels";
+    ofstream of(labelsFilename.toStdString().c_str());
+    if(of.good())
+    {
+        QLabellingView* v = _labellingWidget->view();
+        of << v->imageToLabelFilename().toStdString() << endl;
+        of << fileName.toStdString() << endl;
+        of << "Window " << v->windowColor().red() << " " << v->windowColor().green() << " " << v->windowColor().blue() << " " << v->windowColor().alpha() << endl;
+        of << "Wall " << v->wallColor().red() << " " << v->wallColor().green() << " " << v->wallColor().blue() << " " << v->wallColor().alpha() << endl;
+        of << "Balcony " << v->balconyColor().red() << " " << v->balconyColor().green() << " " << v->balconyColor().blue() << " " << v->balconyColor().alpha() << endl;
+        of << "Door " << v->doorColor().red() << " " << v->doorColor().green() << " " << v->doorColor().blue() << " " << v->doorColor().alpha() << endl;
+        of << "Shop " << v->shopColor().red() << " " << v->shopColor().green() << " " << v->shopColor().blue() << " " << v->shopColor().alpha() << endl;
+        of << "Roof " << v->roofColor().red() << " " << v->roofColor().green() << " " << v->roofColor().blue() << " " << v->roofColor().alpha() << endl;
+        of << "Sky " << v->skyColor().red() << " " << v->skyColor().green() << " " << v->skyColor().blue() << " " << v->skyColor().alpha() << endl;
+        of << "Unknow " << v->unknowColor().red() << " " << v->unknowColor().green() << " " << v->unknowColor().blue() << " " << v->unknowColor().alpha() << endl;
+        of.close();
+    }
 }
 
 void QLabellingMainWindow::updateLabelImage()

@@ -82,9 +82,10 @@ public:
         _unknowColor.setAlpha(alpha);
     }
 
+    const QString& imageToLabelFilename() const { return _imageToLabelFilename; }
+
     QPixmap imageToLabel() const;
     void setImageToLabel(const QString& filename);
-    void setImageToLabel(const QPixmap &imageToLabel);
 
     QImage labelsImage() const;
     void setLabelsImage(const QImage &labelsImage);
@@ -100,6 +101,8 @@ protected:
     void wheelEvent(QWheelEvent *event);
     void scaleView(qreal scaleFactor);
     void mousePressEvent(QMouseEvent *event);
+
+    QString _imageToLabelFilename;
 
     QPixmap _imageToLabel;
     QImage _labelsImage;

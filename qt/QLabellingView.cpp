@@ -359,15 +359,11 @@ QPixmap QLabellingView::imageToLabel() const
 
 void QLabellingView::setImageToLabel(const QString& filename)
 {
+    _imageToLabelFilename = filename;
     _imageToLabel = QPixmap(filename);
     removeAllItemsFromScene();
     _scene->addPixmap(_imageToLabel);
     _labelsImage = QImage(_imageToLabel.width(), _imageToLabel.height(), QImage::Format_RGB32);
     _labelsImage.fill( _unknowColor );
     buildImageBoundaryRect();
-}
-
-void QLabellingView::setImageToLabel(const QPixmap &imageToLabel)
-{
-    _imageToLabel = imageToLabel;
 }
