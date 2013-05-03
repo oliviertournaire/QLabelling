@@ -19,20 +19,6 @@ if(WIN32)
 	add_definitions( -D_SCL_SECURE_NO_WARNINGS )
 endif()
 
-# Boost
-set(BOOST_REQUIRED_LIBRARIES program_options thread system date_time)
-if(WIN32)
-	# On Windows, need to add chrono...
-	set(BOOST_REQUIRED_LIBRARIES ${BOOST_REQUIRED_LIBRARIES} chrono)
-else()
-endif()
-find_package( Boost COMPONENTS ${BOOST_REQUIRED_LIBRARIES} )
-add_definitions("-DBOOST_ALL_DYN_LINK")
-set(Boost_USE_STATIC_LIBS       OFF)
-set(Boost_USE_MULTITHREADED      ON)
-set(Boost_USE_STATIC_RUNTIME    OFF)
-include_directories(${Boost_INCLUDE_DIRS} )
-
 # Qt
 find_package( Qt4 REQUIRED )
 include( ${QT_USE_FILE} )
