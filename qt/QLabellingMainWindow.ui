@@ -14,7 +14,7 @@
    <string>QLabelling</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="rc/RessourcesQSnapEdit.qrc">
+   <iconset resource="../rc/RessourcesQLabelling.qrc">
     <normaloff>:/QSnapEdit/QSnapEditIcon.png</normaloff>:/QSnapEdit/QSnapEditIcon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -70,7 +70,7 @@
   </widget>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="rc/RessourcesQSnapEdit.qrc">
+    <iconset resource="../rc/RessourcesQLabelling.qrc">
      <normaloff>:/QSnapEdit/folder-open.png</normaloff>:/QSnapEdit/folder-open.png</iconset>
    </property>
    <property name="text">
@@ -85,7 +85,7 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="rc/RessourcesQSnapEdit.qrc">
+    <iconset resource="../rc/RessourcesQLabelling.qrc">
      <normaloff>:/QSnapEdit/process-stop.png</normaloff>:/QSnapEdit/process-stop.png</iconset>
    </property>
    <property name="text">
@@ -100,7 +100,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="rc/RessourcesQSnapEdit.qrc">
+    <iconset resource="../rc/RessourcesQLabelling.qrc">
      <normaloff>:/QSnapEdit/dialog-information.png</normaloff>:/QSnapEdit/dialog-information.png</iconset>
    </property>
    <property name="text">
@@ -112,7 +112,7 @@
   </action>
   <action name="actionSaveLabelsImage">
    <property name="icon">
-    <iconset resource="rc/RessourcesQSnapEdit.qrc">
+    <iconset resource="../rc/RessourcesQLabelling.qrc">
      <normaloff>:/QSnapEdit/document-save.png</normaloff>:/QSnapEdit/document-save.png</iconset>
    </property>
    <property name="text">
@@ -127,7 +127,7 @@
   </action>
  </widget>
  <resources>
-  <include location="rc/RessourcesQSnapEdit.qrc"/>
+  <include location="../rc/RessourcesQLabelling.qrc"/>
  </resources>
  <connections/>
 </ui>
