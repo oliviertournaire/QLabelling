@@ -75,6 +75,9 @@ void QLabellingMainWindow::saveLabels()
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save labels image"), defaultDirectory, tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif *.tiff)"));
 
     QFileInfo info(fileName);
+    // Here, we automatically add a ".tif" extension if the user did not select explicitely an extension
+    if ( info.completeSuffix() == "" )
+        fileName += ".tif";
     settings.setValue("defaultDirectory", info.absolutePath());
     settings.endGroup();
 
