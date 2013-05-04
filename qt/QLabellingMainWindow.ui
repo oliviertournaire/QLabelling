@@ -56,9 +56,9 @@
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QToolBar" name="toolBar">
+  <widget class="QToolBar" name="_toolbar">
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>Toolbar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -67,6 +67,12 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSaveLabelsImage"/>
+   <addaction name="separator"/>
+   <addaction name="actionAbout"/>
+   <addaction name="separator"/>
+   <addaction name="actionQuit"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
