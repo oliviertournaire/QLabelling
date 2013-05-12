@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../rc/RessourcesQLabelling.qrc">
-    <normaloff>:/QLabelling/QSnapEditIcon.png</normaloff>:/QLabelling/QSnapEditIcon.png</iconset>
+    <normaloff>:/QLabelling/QLabellingIcon.png</normaloff>:/QLabelling/QLabellingIcon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">

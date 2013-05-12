@@ -35,7 +35,7 @@ void QLabellingView::writeSettings()
 {
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
-    settings.beginGroup("QSnapEditView");
+    settings.beginGroup("QLabellingView");
     settings.setValue("lineWidth",    _lineWidth   );
     settings.setValue("lineColor",    _lineColor   );
     settings.setValue("lineStyle",    _lineStyle   );
@@ -55,7 +55,7 @@ void QLabellingView::readSettings()
 {
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
-    settings.beginGroup("QSnapEditView");
+    settings.beginGroup("QLabellingView");
     _lineWidth    = settings.value("lineWidth", qreal(1.)).toReal();
     _lineColor    = settings.value("lineColor", Qt::red).value<QColor>();
     _lineStyle    = (Qt::PenStyle)settings.value("lineStyle", Qt::SolidLine).toInt();

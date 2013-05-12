@@ -18,7 +18,7 @@ QLabellingWidget::QLabellingWidget(QWidget *parent) :
 
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
-    settings.beginGroup("QSnapEditView");
+    settings.beginGroup("QLabellingView");
 
     qreal lineWidth = settings.value("lineWidth", 1.).toReal();
     _view->setLineWidth(lineWidth);
