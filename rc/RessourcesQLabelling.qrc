@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/QLabelling">
+        <file>logo_imagine.png</file>
+        <file>document-save.png</file>
+        <file>dialog-information.png</file>
+        <file>process-stop.png</file>
+        <file>QLabellingIcon.png</file>
+        <file>edit-clear.png</file>
+        <file>folder-open.png</file>
+        <file>folder.png</file>
+        <file>options.png</file>
+    </qresource>
+</RCC>
