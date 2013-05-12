@@ -19,6 +19,7 @@ class QLabellingMainWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit QLabellingMainWindow(QWidget *parent = 0);
+    ~QLabellingMainWindow();
     
     QLabellingWidget *snapEditWidget() const;
     void setSnapEditWidget(QLabellingWidget *snapEditWidget);
@@ -34,6 +35,10 @@ public slots:
     void saveLabels();
     void showAbout();
     void updateLabelImage();
+
+protected:
+    void connectAll();
+    void disconnectAll();
 
 private:
     Ui::QLabellingMainWindow* _mainWindow;

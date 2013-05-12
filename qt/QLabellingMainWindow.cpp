@@ -37,6 +37,16 @@ QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
     _mainWindow->_tabWidget->insertTab(0, _labellingWidget->view(), tr("Image to label"));
     _mainWindow->_tabWidget->insertTab(1, _labelsView, tr("Labels image"));
 
+    connectAll();
+}
+
+QLabellingMainWindow::~QLabellingMainWindow()
+{
+    disconnectAll();
+}
+
+void QLabellingMainWindow::connectAll()
+{
     connect(_mainWindow->actionOpen,
             SIGNAL(triggered()),
             this,
@@ -56,6 +66,29 @@ QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
             SIGNAL(labelImageChanged()),
             this,
             SLOT(updateLabelImage()));
+}
+
+void QLabellingMainWindow::disconnectAll()
+{
+    disconnect(_mainWindow->actionOpen,
+               SIGNAL(triggered()),
+               this,
+               SLOT(openImageToLabel()));
+
+    disconnect(_mainWindow->actionSaveLabelsImage,
+               SIGNAL(triggered()),
+               this,
+               SLOT(saveLabels()));
+
+    disconnect(_mainWindow->actionAbout,
+               SIGNAL(triggered()),
+               this,
+               SLOT(showAbout()));
+
+    disconnect(_labellingWidget->view(),
+               SIGNAL(labelImageChanged()),
+               this,
+               SLOT(updateLabelImage()));
 }
 
 void QLabellingMainWindow::openImageToLabel()
