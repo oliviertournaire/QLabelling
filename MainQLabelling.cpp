@@ -1,7 +1,9 @@
 #include <QApplication>
 #include <QtGui>
 #include <QMenuBar>
+#include <QObject>
 
+#include "ui_QLabellingMainWindow.h"
 #include "QLabellingMainWindow.hpp"
 #include "config.hpp"
 
@@ -15,6 +17,12 @@ int main(int argc, char** argv)
     app.setOrganizationDomain(QLABELLING_DOMAIN_STRING);
 
     QLabellingMainWindow mainWindow;
+
+    QObject::connect(mainWindow.mainWindow()->actionQuit,
+                     SIGNAL(triggered()),
+                     &app,
+                     SLOT(quit()));
+
     mainWindow.show();
 
     return app.exec();

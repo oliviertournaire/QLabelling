@@ -186,3 +186,13 @@ void QLabellingMainWindow::setLabelsScene(QGraphicsScene *labelsScene)
 {
     _labelsScene = labelsScene;
 }
+
+Ui::QLabellingMainWindow *QLabellingMainWindow::mainWindow() const
+{
+    return _mainWindow;
+}
+
+void QLabellingMainWindow::setMainWindow(Ui::QLabellingMainWindow *mainWindow)
+{
+    _mainWindow = mainWindow;
+}

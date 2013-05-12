@@ -30,6 +30,9 @@ public:
     QGraphicsView *labelsView() const;
     void setLabelsView(QGraphicsView *labelsView);
     
+    Ui::QLabellingMainWindow *mainWindow() const;
+    void setMainWindow(Ui::QLabellingMainWindow *mainWindow);
+
 public slots:
     void openImageToLabel();
     void saveLabels();
