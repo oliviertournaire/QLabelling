@@ -9,6 +9,7 @@ QLabellingAbout::QLabellingAbout(QWidget *parent) :
     ui->setupUi(this);
 
     ui->_labelVersion->setText( ui->_labelVersion->text() + QLABELLING_VERSION_STRING );
+    ui->_labelDomain->setText( QString("<a href=\"http://") + QLABELLING_DOMAIN_STRING + QString("\">") + QLABELLING_DOMAIN_STRING + QString("</a>") );
 }
 
 QLabellingAbout::~QLabellingAbout()
