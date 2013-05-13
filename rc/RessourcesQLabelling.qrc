@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/QLabelling">
-        <file>logo_imagine.png</file>
         <file>document-save.png</file>
         <file>dialog-information.png</file>
         <file>process-stop.png</file>
