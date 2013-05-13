@@ -188,8 +188,8 @@ void QLabellingView::fillLabelsImage(const QRect& rect, const QColor& color)
     }
     */
 
-    for(unsigned int i=y0;i<y1;++i)
-        for (unsigned int j=x0;j<x1;++j)
+    for(int i=y0;i<y1;++i)
+        for (int j=x0;j<x1;++j)
             _labelsImage.setPixel(j,i,pixelsValue);
 }
 
@@ -206,14 +206,14 @@ void QLabellingView::buildImageBoundaryRect()
 void QLabellingView::removeAllItemsFromScene()
 {
     QList<QGraphicsItem *> items = _scene->items();
-    for(unsigned int i=0;i<items.size();++i)
+    for(int i=0;i<items.size();++i)
         _scene->removeItem(items[i]);
 }
 
 void QLabellingView::removeImagesFromScene()
 {
     QList<QGraphicsItem *> items = _scene->items();
-    for(unsigned int i=0;i<items.size();++i)
+    for(int i=0;i<items.size();++i)
         if ( qgraphicsitem_cast<QGraphicsPixmapItem*>(items[i]) )
             _scene->removeItem(items[i]);
 }
@@ -221,7 +221,7 @@ void QLabellingView::removeImagesFromScene()
 void QLabellingView::removeAllRectanglesFromScene()
 {
     QList<QGraphicsItem *> items = _scene->items();
-    for(unsigned int i=0;i<items.size();++i)
+    for(int i=0;i<items.size();++i)
         if ( qgraphicsitem_cast<QGraphicsRectItem*>(items[i]) )
             _scene->removeItem(items[i]);
 }
@@ -240,7 +240,7 @@ void QLabellingView::rebuildRectanglesFromLastLine(const QLineF& line)
     QGraphicsLineItem lineItem;
     lineItem.setLine(line);
     QList<QGraphicsItem *> collidingItems = _scene->collidingItems (&lineItem);
-    for(unsigned int i=0;i<collidingItems.size();++i)
+    for(int i=0;i<collidingItems.size();++i)
         if ( QGraphicsRectWithLabelItem* collidedRect = qgraphicsitem_cast<QGraphicsRectWithLabelItem*>(collidingItems[i]) )
         {
             ++numIntersectedRectWithLabel;
