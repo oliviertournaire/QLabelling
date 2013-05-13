@@ -22,8 +22,7 @@ QLabellingView::QLabellingView() :
     QGraphicsView(),
     _labellingMode(false),
     _scene(new QGraphicsScene),
-    _editMode(EDIT_MODE_NONE),
-    _lineWidth(qreal(1.))
+    _editMode(EDIT_MODE_NONE)
 {
     qsrand(QTime::currentTime().msec());
     this->setScene(_scene);
@@ -36,9 +35,6 @@ void QLabellingView::writeSettings()
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
     settings.beginGroup("QLabellingView");
-    settings.setValue("lineWidth",    _lineWidth   );
-    settings.setValue("lineColor",    _lineColor   );
-    settings.setValue("lineStyle",    _lineStyle   );
     settings.setValue("alpha",        _alpha       );
     settings.setValue("windowColor",  _windowColor );
     settings.setValue("wallColor",    _wallColor   );
@@ -56,9 +52,6 @@ void QLabellingView::readSettings()
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
     settings.beginGroup("QLabellingView");
-    _lineWidth    = settings.value("lineWidth", qreal(1.)).toReal();
-    _lineColor    = settings.value("lineColor", Qt::red).value<QColor>();
-    _lineStyle    = (Qt::PenStyle)settings.value("lineStyle", Qt::SolidLine).toInt();
     _alpha        = settings.value("alpha", 127).toInt();
     _windowColor  = settings.value("windowColor", Qt::yellow).value<QColor>();
     _wallColor    = settings.value("wallColor", Qt::gray).value<QColor>();
@@ -157,11 +150,6 @@ void QLabellingView::mousePressEvent(QMouseEvent *event)
         if ( x < 0. || y < 0. || x > _imageToLabel.width()-1 || y > _imageToLabel.height()-1 )
             return;
 
-        QPen pen;
-        pen.setWidthF(_lineWidth);
-        pen.setColor(_lineColor);
-        //pen.setStyle(_lineStyle);
-
         QLineF lastLine;
 
         if (_editMode == EDIT_MODE_HORIZONTAL_LINE)
@@ -246,10 +234,6 @@ void QLabellingView::removeAllRectanglesWithLabelFromScene()
 
 void QLabellingView::rebuildRectanglesFromLastLine(const QLineF& line)
 {
-    QPen pen;
-    pen.setWidthF(_lineWidth);
-    pen.setColor(_lineColor);
-
     vector<QGraphicsRectWithLabelItem*> collidingRects;
 
     unsigned int numIntersectedRectWithLabel = 0;

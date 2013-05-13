@@ -20,16 +20,6 @@ QLabellingWidget::QLabellingWidget(QWidget *parent) :
 
     settings.beginGroup("QLabellingView");
 
-    qreal lineWidth = settings.value("lineWidth", 1.).toReal();
-    _view->setLineWidth(lineWidth);
-    ui->_doubleSpinBoxLineWidth->setValue(lineWidth);
-
-    QColor lineColor = _view->lineColor();
-    ui->_toolButtonLineColor->setStyleSheet(_stylesheetString.arg(lineColor.name()));
-
-    Qt::PenStyle lineStyle = _view->lineStyle();
-    ui->_comboBoxLineStyle->setCurrentIndex((int)lineStyle);
-
     QColor windowColor = _view->windowColor();
     ui->_toolButtonWindowColor->setStyleSheet(_stylesheetString.arg(windowColor.name()));
 
@@ -156,24 +146,6 @@ void QLabellingWidget::on__radioButtonLabellingUnknow_toggled(bool checked)
     _view->setMode(QLabellingView::EDIT_MODE_LABELLING_UNKNOW);
 }
 
-void QLabellingWidget::on__doubleSpinBoxLineWidth_valueChanged(double d)
-{
-    _view->setLineWidth(qreal(d));
-}
-
-void QLabellingWidget::on__comboBoxLineStyle_currentIndexChanged(int index)
-{
-    _view->setLineStyle( (Qt::PenStyle)index );
-}
-
-void QLabellingWidget::on__toolButtonLineColor_clicked(bool)
-{
-    QColor lineColor = QColorDialog::getColor(_view->lineColor());
-    if (lineColor.isValid())
-        _view->setLineColor(lineColor);
-    ui->_toolButtonLineColor->setStyleSheet(_stylesheetString.arg(lineColor.name()));
-}
-
 void QLabellingWidget::on__toolButtonWindowColor_clicked(bool)
 {
     QColor windowColor = QColorDialog::getColor(_view->windowColor());
@@ -236,9 +208,4 @@ void QLabellingWidget::on__toolButtonUnknowColor_clicked(bool)
     if (unknowColor.isValid())
         _view->setUnknowColor(unknowColor);
     ui->_toolButtonUnknowColor->setStyleSheet(_stylesheetString.arg(unknowColor.name()));
-}
-
-void QLabellingWidget::on__sliderAlpha_sliderReleased()
-{
-    _view->setAlpha( ui->_sliderAlpha->value() );
 }

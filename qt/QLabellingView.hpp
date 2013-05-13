@@ -41,14 +41,6 @@ public:
 
     void fillLabelsImage(const QRect& rect, const QColor& color);
 
-    inline void setLineWidth(const qreal width)         { _lineWidth = width; }
-    inline void setLineColor(const QColor& color)       { _lineColor = color; }
-    inline void setLineStyle(const Qt::PenStyle& style) { _lineStyle = style; }
-
-    inline qreal        lineWidth() { return _lineWidth; }
-    inline QColor       lineColor() { return _lineColor; }
-    inline Qt::PenStyle lineStyle() { return _lineStyle; }
-
     inline void setWindowColor(const QColor& color)  { _windowColor  = color; }
     inline void setWallColor(const QColor& color)    { _wallColor    = color; }
     inline void setBalconyColor(const QColor& color) { _balconyColor = color; }
@@ -112,10 +104,6 @@ protected:
 
     void writeSettings();
     void readSettings();
-
-    qreal _lineWidth;
-    QColor _lineColor;
-    Qt::PenStyle _lineStyle;
 
     int _alpha;
     QColor _windowColor;

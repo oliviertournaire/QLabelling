@@ -33,9 +33,6 @@ public slots:
     void on__radioButtonLabellingRoof_toggled(bool checked);
     void on__radioButtonLabellingSky_toggled(bool checked);
     void on__radioButtonLabellingUnknow_toggled(bool checked);
-    void on__doubleSpinBoxLineWidth_valueChanged(double d);
-    void on__toolButtonLineColor_clicked(bool checked = false);
-    void on__comboBoxLineStyle_currentIndexChanged(int index);
     void on__toolButtonWindowColor_clicked(bool checked = false);
     void on__toolButtonWallColor_clicked(bool checked = false);
     void on__toolButtonBalconyColor_clicked(bool checked = false);
@@ -44,7 +41,6 @@ public slots:
     void on__toolButtonRoofColor_clicked(bool checked = false);
     void on__toolButtonSkyColor_clicked(bool checked = false);
     void on__toolButtonUnknowColor_clicked(bool checked = false);
-    void on__sliderAlpha_sliderReleased();
 
 protected:
     Ui::QLabellingWidget *ui;
