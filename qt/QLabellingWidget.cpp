@@ -3,9 +3,13 @@
 
 #include <QSettings>
 #include <QColorDialog>
+#include <QPushButton>
 
 #include "QLabellingView.hpp"
 #include "config.hpp"
+
+// Task #2: testing
+// #include "QLabelItem.hpp"
 
 QLabellingWidget::QLabellingWidget(QWidget *parent) :
     QWidget(parent),
@@ -14,7 +18,13 @@ QLabellingWidget::QLabellingWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    _stylesheetString = QString("QToolButton{ background: %1; border: 2px solid #8f8f91; border-radius: 6px;}");
+    _stylesheetString = QString(QLABELLING_TOOLBUTTON_STYLESHEET_STRING);
+
+    /*
+    QLabelItem *item = new QLabelItem("Long item name", Qt::red);
+    ui->_gridLayoutLabels->addWidget(item->radioButtonlabel());
+    ui->_gridLayoutLabels->addWidget(item->toolButtonLabelColor());
+    */
 
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
