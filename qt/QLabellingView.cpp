@@ -1,6 +1,5 @@
 #include "QLabellingView.hpp"
 
-#include <QWheelEvent>
 #include <QGraphicsScene>
 #include <QMouseEvent>
 #include <QGraphicsRectItem>
@@ -8,8 +7,6 @@
 #include <QTime>
 #include <QSettings>
 #include <QDebug>
-
-#include <math.h>
 
 #include <iostream>
 
@@ -19,7 +16,7 @@
 using namespace std;
 
 QLabellingView::QLabellingView() :
-    QGraphicsView(),
+    QZoomableGraphicsView(),
     _labellingMode(false),
     _scene(new QGraphicsScene),
     _editMode(EDIT_MODE_NONE)
@@ -63,20 +60,6 @@ void QLabellingView::readSettings()
     _unknowColor  = settings.value("unknowColor", Qt::darkGray).value<QColor>();
     setAlpha(_alpha);
     settings.endGroup();
-}
-
-void QLabellingView::wheelEvent(QWheelEvent *event)
-{
-    scaleView(pow((double)2, -event->delta() / 240.0));
-}
-
-void QLabellingView::scaleView(qreal scaleFactor)
-{
-    qreal factor = transform().scale(scaleFactor, scaleFactor).mapRect(QRectF(0, 0, 1, 1)).width();
-    if (factor < 0.07 || factor > 100)
-        return;
-
-    scale(scaleFactor, scaleFactor);
 }
 
 void QLabellingView::mousePressEvent(QMouseEvent *event)
