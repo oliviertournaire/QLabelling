@@ -69,7 +69,7 @@ void QLabellingView::mousePressEvent(QMouseEvent *event)
     qreal y = pScene.y();
 
     // Selection mode
-    if ( event->modifiers() == Qt::ControlModifier && _labellingMode )
+    if ( /*event->modifiers() == Qt::ControlModifier &&*/ _labellingMode )
     {
         QGraphicsItem* selectedItem = _scene->itemAt(x, y, QTransform());
         if ( QGraphicsRectWithLabelItem* rectItem = qgraphicsitem_cast<QGraphicsRectWithLabelItem*>(selectedItem) )
