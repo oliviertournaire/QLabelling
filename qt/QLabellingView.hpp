@@ -116,8 +116,6 @@ protected:
     QColor _unknowColor;
 
 private:
-    int randInt(int low, int high);
-
     void removeAllItemsFromScene();
     void removeImagesFromScene();
     void removeAllRectanglesFromScene();

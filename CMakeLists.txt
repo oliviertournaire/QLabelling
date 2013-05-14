@@ -26,6 +26,8 @@ add_definitions( ${QT_DEFINITIONS} )
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
+file( GLOB ALL_UTILITIES_HPP ${CMAKE_SOURCE_DIR}/utilities/*.hpp )
+
 file( GLOB MOCS_QLABELLING_HPP ${CMAKE_SOURCE_DIR}/qt/*.hpp )
 file( GLOB MOCS_QLABELLING_CPP ${CMAKE_SOURCE_DIR}/qt/*.cpp )
 file( GLOB MOCS_QLABELLING_UI  ${CMAKE_SOURCE_DIR}/qt/*.ui  )
@@ -41,7 +43,8 @@ include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 include_directories( ${CMAKE_SOURCE_DIR} )
 include_directories( ${CMAKE_SOURCE_DIR}/qt )
 
-add_executable( QLabelling ${MOCS_QLABELLING_HPP}
+add_executable( QLabelling ${ALL_UTILITIES_HPP}
+                           ${MOCS_QLABELLING_HPP}
                            ${MOCS_QLABELLING_CPP}
                            ${MOCS_QLABELLING_UI}
                            ${ALL_QLABELLING_HPP}

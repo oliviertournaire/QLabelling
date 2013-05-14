@@ -79,12 +79,6 @@ void QLabellingView::scaleView(qreal scaleFactor)
     scale(scaleFactor, scaleFactor);
 }
 
-int QLabellingView::randInt(int low, int high)
-{
-    // Random number between low and high
-    return qrand() % ((high + 1) - low) + low;
-}
-
 void QLabellingView::mousePressEvent(QMouseEvent *event)
 {
     QPointF pScene = this->mapToScene(event->pos());
