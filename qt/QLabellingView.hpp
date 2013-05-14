@@ -15,6 +15,7 @@ class QLabellingView : public QZoomableGraphicsView
     Q_OBJECT;
 
 public:
+    // Task #2: begins here!!!
     typedef enum
     {
         EDIT_MODE_NONE,
@@ -27,17 +28,21 @@ public:
         EDIT_MODE_LABELLING_SHOP,
         EDIT_MODE_LABELLING_ROOF,
         EDIT_MODE_LABELLING_SKY,
-        EDIT_MODE_LABELLING_UNKNOW // You should use this edit mode ...
+        EDIT_MODE_LABELLING_UNKNOW
     } EditMode;
+    // Task #2: ends here!!!
 
     QLabellingView();
     ~QLabellingView() { writeSettings(); }
 
+    // Task #2: begins here!!!
     inline void setMode(const EditMode mode) { _editMode = mode; }
     inline void setLabellingMode(const bool labelling) { _labellingMode = labelling; }
+    // Task #2: ends here!!!
 
     void fillLabelsImage(const QRect& rect, const QColor& color);
 
+    // Task #2: begins here!!!
     inline void setWindowColor(const QColor& color)  { _windowColor  = color; }
     inline void setWallColor(const QColor& color)    { _wallColor    = color; }
     inline void setBalconyColor(const QColor& color) { _balconyColor = color; }
@@ -68,6 +73,7 @@ public:
         _skyColor.setAlpha(alpha);
         _unknowColor.setAlpha(alpha);
     }
+    // Task #2: ends here!!!
 
     const QString& imageToLabelFilename() const { return _imageToLabelFilename; }
 
@@ -91,12 +97,15 @@ protected:
     std::vector<QGraphicsRectWithLabelItem*> _rects;
 
     bool _labellingMode;
+    // Task #2: begins here!!!
     EditMode _editMode;
+    // Task #2: ends here!!!
 
     void writeSettings();
     void readSettings();
 
     int _alpha;
+    // Task #2: begins here!!!
     QColor _windowColor;
     QColor _wallColor;
     QColor _balconyColor;
@@ -105,6 +114,7 @@ protected:
     QColor _roofColor;
     QColor _skyColor;
     QColor _unknowColor;
+    // Task #2: ends here!!!
 
 private:
     void removeAllItemsFromScene();

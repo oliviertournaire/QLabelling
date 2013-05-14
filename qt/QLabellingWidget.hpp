@@ -25,6 +25,7 @@ public slots:
     void on__radioButtonHorizontal_toggled(bool checked);
     void on__radioButtonVertical_toggled(bool checked);
     void on__radioButtonLabelling_toggled(bool checked);
+    // Task #2: begins here!!!
     void on__radioButtonLabellingWindow_toggled(bool checked);
     void on__radioButtonLabellingWall_toggled(bool checked);
     void on__radioButtonLabellingBalcony_toggled(bool checked);
@@ -41,6 +42,7 @@ public slots:
     void on__toolButtonRoofColor_clicked(bool checked = false);
     void on__toolButtonSkyColor_clicked(bool checked = false);
     void on__toolButtonUnknowColor_clicked(bool checked = false);
+    // Task #2: ends here!!!
 
 protected:
     Ui::QLabellingWidget *ui;
