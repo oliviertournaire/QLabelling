@@ -35,4 +35,14 @@
 
 #define QLABELLING_DOMAIN_STRING "imagine.enpc.fr"
 
+//
+//  QLABELLING_TOOLBUTTON_ICON_SIZE: guess what it defines?
+
+#define QLABELLING_TOOLBUTTON_ICON_SIZE 16
+
+//
+//  QLABELLING_TOOLBUTTON_STYLESHEET_STRING: guess what it defines?
+
+#define QLABELLING_TOOLBUTTON_STYLESHEET_STRING "QToolButton{ background: %1; border: 2px solid #8f8f91; border-radius: 6px;}"
+
 #endif // QLABELLING_CONFIG_HPP
