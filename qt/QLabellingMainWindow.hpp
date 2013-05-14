@@ -13,6 +13,7 @@ class QZoomableGraphicsView;
 class QGraphicsPixmapItem;
 class QGraphicsScene;
 class QPixmap;
+class QCloseEvent;
 
 class QLabellingMainWindow : public QMainWindow
 {
@@ -38,18 +39,21 @@ public slots:
     void saveLabels();
     void showAbout();
     void updateLabelImage();
+    void quit();
 
 protected:
     void connectAll();
     void disconnectAll();
 
-private:
+    virtual void closeEvent(QCloseEvent *event);
+
     Ui::QLabellingMainWindow* _mainWindow;
     QLabellingWidget *_labellingWidget;
     QGraphicsScene *_labelsScene;
     QZoomableGraphicsView *_labelsView;
     QPixmap *_labelsPixmap;
     QGraphicsPixmapItem *_labelsPixmapItem;
+    bool _labelsPixmapSaved;
 };
 
 #endif // QSLABELLINGMAINWINDOW_HPP

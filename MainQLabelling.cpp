@@ -18,11 +18,6 @@ int main(int argc, char** argv)
 
     QLabellingMainWindow mainWindow;
 
-    QObject::connect(mainWindow.mainWindow()->actionQuit,
-                     SIGNAL(triggered()),
-                     &app,
-                     SLOT(quit()));
-
     mainWindow.show();
 
     return app.exec();

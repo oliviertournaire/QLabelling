@@ -3,6 +3,8 @@
 #include <QDockWidget>
 #include <QFileDialog>
 #include <QSettings>
+#include <QMessageBox>
+#include <QCloseEvent>
 
 #include <iostream>
 #include <fstream>
@@ -21,7 +23,8 @@ QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
     _labellingWidget(new QLabellingWidget),
     _labelsScene(new QGraphicsScene),
     _labelsView(new QZoomableGraphicsView),
-    _labelsPixmap(new QPixmap)
+    _labelsPixmap(new QPixmap),
+    _labelsPixmapSaved(true)
 {
     _mainWindow = new Ui::QLabellingMainWindow;
     _mainWindow->setupUi(this);
@@ -67,6 +70,16 @@ void QLabellingMainWindow::connectAll()
             SIGNAL(labelImageChanged()),
             this,
             SLOT(updateLabelImage()));
+
+    connect(_mainWindow->actionQuit,
+            SIGNAL(triggered()),
+            this,
+            SLOT(quit()));
+
+    connect(qApp,
+            SIGNAL(aboutToQuit()),
+            this,
+            SLOT(quit()));
 }
 
 void QLabellingMainWindow::disconnectAll()
@@ -90,6 +103,19 @@ void QLabellingMainWindow::disconnectAll()
                SIGNAL(labelImageChanged()),
                this,
                SLOT(updateLabelImage()));
+
+    disconnect(_mainWindow->actionQuit,
+               SIGNAL(triggered()),
+               this,
+               SLOT(quit()));
+}
+
+void QLabellingMainWindow::closeEvent(QCloseEvent *event)
+{
+    if (_labelsPixmapSaved)
+        event->accept();
+    else
+        quit();
 }
 
 void QLabellingMainWindow::openImageToLabel()
@@ -144,6 +170,7 @@ void QLabellingMainWindow::saveLabels()
         of << "Unknow " << v->unknowColor().red() << " " << v->unknowColor().green() << " " << v->unknowColor().blue() << " " << v->unknowColor().alpha() << endl;
         of.close();
     }
+    _labelsPixmapSaved = true;
 }
 
 void QLabellingMainWindow::showAbout()
@@ -156,6 +183,40 @@ void QLabellingMainWindow::updateLabelImage()
 {
     _labelsScene->removeItem(_labelsPixmapItem);
     _labelsPixmapItem = _labelsScene->addPixmap( _labelsPixmap->fromImage( _labellingWidget->view()->labelsImage() ) );
+    _labelsPixmapSaved = false;
+}
+
+void QLabellingMainWindow::quit()
+{
+    if (!_labelsPixmapSaved)
+    {
+        QMessageBox msgBox;
+        msgBox.setText( tr("Labels image has been modified but not saved!") );
+        msgBox.setInformativeText( tr("Do you want to save your changes?") );
+        msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Save);
+        msgBox.setIcon(QMessageBox::Warning);
+        int ret = msgBox.exec();
+
+        switch (ret)
+        {
+        case QMessageBox::Save:
+            // Save was clicked: save labels image
+            saveLabels();
+            break;
+        case QMessageBox::Discard:
+            // Don't Save was clicked: exit
+            qApp->quit();
+            break;
+        case QMessageBox::Cancel:
+            // Cancel was clicked: do nothing
+            break;
+        default:
+            // should never be reached
+            break;
+        }
+    }
+    qApp->quit();
 }
 
 QLabellingWidget *QLabellingMainWindow::snapEditWidget() const
