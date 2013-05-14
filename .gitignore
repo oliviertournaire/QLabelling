@@ -1,4 +1,4 @@
-build/*
+build*/*
 
 #ignore thumbnails created by windows
 Thumbs.db
