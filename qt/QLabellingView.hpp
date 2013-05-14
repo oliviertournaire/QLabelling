@@ -1,10 +1,7 @@
 #ifndef QLABELLINGVIEW_HPP
 #define QLABELLINGVIEW_HPP
 
-class QWheelEvent;
-class QMouseEvent;
-
-#include <QGraphicsView>
+#include "QZoomableGraphicsView.hpp"
 #include <QGraphicsLineItem>
 
 #include <set>
@@ -13,7 +10,7 @@ class QGraphicsScene;
 class QGraphicsRectItem;
 class QGraphicsRectWithLabelItem;
 
-class QLabellingView : public QGraphicsView
+class QLabellingView : public QZoomableGraphicsView
 {
     Q_OBJECT;
 
@@ -83,13 +80,7 @@ public:
 signals:
     void labelImageChanged();
 
-public slots:
-    void zoomIn()  { scaleView(qreal(1.2));     }
-    void zoomOut() { scaleView(1 / qreal(1.2)); }
-
 protected:
-    void wheelEvent(QWheelEvent *event);
-    void scaleView(qreal scaleFactor);
     void mousePressEvent(QMouseEvent *event);
 
     QString _imageToLabelFilename;
