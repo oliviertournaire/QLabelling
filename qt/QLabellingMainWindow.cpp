@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "QZoomableGraphicsView.hpp"
 #include "QLabellingMainWindow.hpp"
 #include "QLabellingWidget.hpp"
 #include "QLabellingView.hpp"
@@ -19,7 +20,7 @@ QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
     QMainWindow(parent),
     _labellingWidget(new QLabellingWidget),
     _labelsScene(new QGraphicsScene),
-    _labelsView(new QGraphicsView),
+    _labelsView(new QZoomableGraphicsView),
     _labelsPixmap(new QPixmap)
 {
     _mainWindow = new Ui::QLabellingMainWindow;
@@ -167,12 +168,12 @@ void QLabellingMainWindow::setSnapEditWidget(QLabellingWidget *snapEditWidget)
     _labellingWidget = snapEditWidget;
 }
 
-QGraphicsView *QLabellingMainWindow::labelsView() const
+QZoomableGraphicsView *QLabellingMainWindow::labelsView() const
 {
     return _labelsView;
 }
 
-void QLabellingMainWindow::setLabelsView(QGraphicsView *labelsView)
+void QLabellingMainWindow::setLabelsView(QZoomableGraphicsView *labelsView)
 {
     _labelsView = labelsView;
 }

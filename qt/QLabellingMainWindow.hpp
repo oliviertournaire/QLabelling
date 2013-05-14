@@ -8,10 +8,10 @@ namespace Ui {
 }
 
 class QLabellingWidget;
+class QZoomableGraphicsView;
 
 class QGraphicsPixmapItem;
 class QGraphicsScene;
-class QGraphicsView;
 class QPixmap;
 
 class QLabellingMainWindow : public QMainWindow
@@ -27,8 +27,8 @@ public:
     QGraphicsScene *labelsScene() const;
     void setLabelsScene(QGraphicsScene *labelsScene);
 
-    QGraphicsView *labelsView() const;
-    void setLabelsView(QGraphicsView *labelsView);
+    QZoomableGraphicsView *labelsView() const;
+    void setLabelsView(QZoomableGraphicsView *labelsView);
     
     Ui::QLabellingMainWindow *mainWindow() const;
     void setMainWindow(Ui::QLabellingMainWindow *mainWindow);
@@ -47,7 +47,7 @@ private:
     Ui::QLabellingMainWindow* _mainWindow;
     QLabellingWidget *_labellingWidget;
     QGraphicsScene *_labelsScene;
-    QGraphicsView *_labelsView;
+    QZoomableGraphicsView *_labelsView;
     QPixmap *_labelsPixmap;
     QGraphicsPixmapItem *_labelsPixmapItem;
 };
