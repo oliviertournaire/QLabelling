@@ -30,11 +30,6 @@ QLabelItem::~QLabelItem()
 
 void QLabelItem::connectAll()
 {
-    connect(_radioButtonlabel,
-            SIGNAL(toggled(bool)),
-            this,
-            SLOT(radioButtonLabel_toggled(bool)));
-
     connect(_toolButtonLabelColor,
             SIGNAL(clicked(bool)),
             this,
@@ -43,20 +38,10 @@ void QLabelItem::connectAll()
 
 void QLabelItem::disconnectAll()
 {
-    disconnect(_radioButtonlabel,
-               SIGNAL(toggled(bool)),
-               this,
-               SLOT(radioButtonLabel_toggled(bool)));
-
     disconnect(_toolButtonLabelColor,
                SIGNAL(clicked(bool)),
                this,
                SLOT(toolButtonLabelColor_clicked(bool)));
-}
-
-void QLabelItem::radioButtonLabel_toggled(bool checked)
-{
-    qDebug() << __FUNCTION__;
 }
 
 void QLabelItem::toolButtonLabelColor_clicked(bool checked)

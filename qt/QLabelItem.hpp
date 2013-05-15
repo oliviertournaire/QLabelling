@@ -36,7 +36,6 @@ public:
 signals:
     
 public slots:
-    void radioButtonLabel_toggled(bool checked);
     void toolButtonLabelColor_clicked(bool checked = false);
 
 protected:
