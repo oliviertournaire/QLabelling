@@ -111,9 +111,9 @@ void QLabellingMainWindow::disconnectAll()
                SLOT(updateLabelImage()));
 
     disconnect(_labellingWidget->view(),
-               SIGNAL(alphaValueChanged(const int alpha)),
+               SIGNAL(alphaValueChanged(const int)),
                _labellingWidget,
-               SLOT(updateAlphaValue(const int alpha)));
+               SLOT(updateAlphaValue(const int)));
 
     disconnect(_mainWindow->actionQuit,
                SIGNAL(triggered()),

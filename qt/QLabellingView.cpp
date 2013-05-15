@@ -117,20 +117,8 @@ void QLabellingView::fillLabelsImage(const QRect& rect, const QColor& color)
 
     int x0 = rect.x();
     int y0 = rect.y();
-    int x1 = rect.right();
-    int y1 = rect.bottom();
-
-    /*
-    for(unsigned int i=y0;i<y1;++i)
-    {
-        QRgb* pixelsLine = (QRgb*)_labelsImage.scanLine(i);
-        for (unsigned int j=x0;j<x1;++j)
-        {
-            QRgb* currentPixel = pixelsLine + j*sizeof(QImage::Format_RGB32);
-            currentPixel = &pixelsValue;
-        }
-    }
-    */
+    int x1 = rect.right() + 1;
+    int y1 = rect.bottom() + 1;
 
     for(int i=y0;i<y1;++i)
         for (int j=x0;j<x1;++j)

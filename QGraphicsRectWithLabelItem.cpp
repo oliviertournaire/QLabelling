@@ -6,5 +6,8 @@ void QGraphicsRectWithLabelItem::paint(QPainter *painter, const QStyleOptionGrap
 {
     painter->setPen(_pen);
     painter->setBrush(_brush);
-    painter->drawRect(rect().toRect());
+    QRect rectToDraw = rect().toRect();
+    rectToDraw.setRight( rectToDraw.right() + 1 );
+    rectToDraw.setBottom( rectToDraw.bottom() + 1 );
+    painter->drawRect(rectToDraw);
 }
