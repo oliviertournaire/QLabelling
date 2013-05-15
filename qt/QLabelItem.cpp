@@ -21,7 +21,12 @@ QLabelItem::QLabelItem(QString labelName, QColor labelColor, QWidget *parent) :
     connectAll();
 }
 
-QLabelItem::~QLabelItem() { disconnectAll(); }
+QLabelItem::~QLabelItem()
+{
+    disconnectAll();
+    delete _radioButtonlabel;
+    delete _toolButtonLabelColor;
+}
 
 void QLabelItem::connectAll()
 {

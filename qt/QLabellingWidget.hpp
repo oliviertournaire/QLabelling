@@ -19,7 +19,7 @@ class QLabellingWidget : public QWidget
     Q_OBJECT
     
 public:
-    explicit QLabellingWidget(QWidget *parent = 0);
+    explicit QLabellingWidget(const QString &labelsPath, QWidget *parent = 0);
     ~QLabellingWidget();
 
     QLabellingView* view();
@@ -28,10 +28,14 @@ public:
 
     void setEnabledAllLabelButtons(bool enabled);
 
+    void parseLabels();
+    void setLabelsPath(const QString &labelsPath);
+
     const QLabelItem* findActiveLabelItem() const;
     const QLabelItem* findLabelItemFromName(const QString &name) const;
 
 public slots:
+    void on__toolButtonChooseLabelsPath_clicked(bool checked = false);
     void on__radioButtonNone_toggled(bool checked);
     void on__radioButtonHorizontal_toggled(bool checked);
     void on__radioButtonVertical_toggled(bool checked);
@@ -45,6 +49,7 @@ protected:
     QString _stylesheetString;
     std::vector<QLabelItem*> _labelItems;
     QButtonGroup *_buttonGroup;
+    QString _labelsPath;
 };
 
 #endif // QLABELLINGWIDGET_HPP

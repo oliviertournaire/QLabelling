@@ -5,6 +5,9 @@
 #include <QColorDialog>
 #include <QToolButton>
 #include <QButtonGroup>
+#include <QFileDialog>
+
+#include <fstream>
 
 #include "QLabellingView.hpp"
 #include "config.hpp"
@@ -13,33 +16,18 @@
 
 using namespace std;
 
-QLabellingWidget::QLabellingWidget(QWidget *parent) :
-    QWidget(parent),
+QLabellingWidget::QLabellingWidget( const QString &labelsPath, QWidget *parent /*= 0*/ ) :
+QWidget(parent),
     ui(new Ui::QLabellingWidget),
     _stylesheetString(""),
-    _buttonGroup( new QButtonGroup(parent) )
+    _buttonGroup( new QButtonGroup(parent) ),
+    _labelsPath(labelsPath)
 {
     ui->setupUi(this);
 
+    parseLabels();
+
     _stylesheetString = QString(QLABELLING_TOOLBUTTON_STYLESHEET_STRING);
-
-    QLabelItem *wallItem = new QLabelItem("Wall", Qt::red);
-    ui->_gridLayoutLabels->addWidget(wallItem->radioButtonlabel(), 0, 0);
-    ui->_gridLayoutLabels->addWidget(wallItem->toolButtonLabelColor(), 0, 1);
-    _labelItems.push_back(wallItem);
-    _buttonGroup->addButton(wallItem->radioButtonlabel());
-
-    QLabelItem *windowItem = new QLabelItem("Window", Qt::yellow);
-    ui->_gridLayoutLabels->addWidget(windowItem->radioButtonlabel(), 0, 2);
-    ui->_gridLayoutLabels->addWidget(windowItem->toolButtonLabelColor(), 0, 3);
-    _labelItems.push_back(windowItem);
-    _buttonGroup->addButton(windowItem->radioButtonlabel());
-
-    QLabelItem *unknowItem = new QLabelItem(QLABELLING_UNKNOW_LABEL_STRING, Qt::gray);
-    ui->_gridLayoutLabels->addWidget(unknowItem->radioButtonlabel(), 1, 0);
-    ui->_gridLayoutLabels->addWidget(unknowItem->toolButtonLabelColor(), 1, 1);
-    _labelItems.push_back(unknowItem);
-    _buttonGroup->addButton(unknowItem->radioButtonlabel());
 
     setEnabledAllLabelButtons(false);
     setWindowIcon( QIcon(":/QLabelling/QLabellingIcon.png") );
@@ -71,6 +59,56 @@ void QLabellingWidget::setEnabledAllLabelButtons( bool enabled )
         _labelItems[i]->radioButtonlabel()->setEnabled(enabled);
 }
 
+void QLabellingWidget::parseLabels()
+{
+    ui->_lineEditLabelsPath->setText(_labelsPath);
+    // First, empty existing labels
+    for(unsigned int i=0;i<_labelItems.size();++i)
+    {
+        ui->_gridLayoutLabels->removeWidget(_labelItems[i]->radioButtonlabel());
+        ui->_gridLayoutLabels->removeWidget(_labelItems[i]->toolButtonLabelColor());
+    }
+    QList<QAbstractButton *> allButtons = _buttonGroup->buttons();
+    for (int i=0;i<allButtons.size();++i)
+        _buttonGroup->removeButton(allButtons[i]);
+    for(unsigned int i=0;i<_labelItems.size();++i)
+        delete _labelItems[i];
+    _labelItems.erase(_labelItems.begin(), _labelItems.end());
+
+    // Then, parse file
+    ifstream ifs(_labelsPath.toStdString().c_str());
+    string labelname;
+    int r, g, b, a;
+    if(ifs.good())
+    {
+        int row = 0, col = 0;
+        int cpt = 0;
+        while(!ifs.eof())
+        {
+            if (cpt%2 == 0)
+            {
+                ++row;
+                col = 0;
+            }
+            ifs >> labelname >> r >> g >> b >> a;
+            QColor labelcolor(r,g,b,a);
+            QLabelItem *item = new QLabelItem(QString::fromStdString(labelname), labelcolor);
+            ui->_gridLayoutLabels->addWidget(item->radioButtonlabel(), row, col);
+            ui->_gridLayoutLabels->addWidget(item->toolButtonLabelColor(), row, col+1);
+            _labelItems.push_back(item);
+            _buttonGroup->addButton(item->radioButtonlabel());
+            ++cpt;
+            col += 2;
+        }
+    }
+}
+
+void QLabellingWidget::setLabelsPath(const QString &labelsPath)
+{
+    _labelsPath = labelsPath;
+    parseLabels();
+}
+
 const QLabelItem* QLabellingWidget::findActiveLabelItem() const
 {
     QAbstractButton *selectedButton = _buttonGroup->checkedButton();
@@ -89,6 +127,12 @@ const QLabelItem* QLabellingWidget::findLabelItemFromName(const QString &name) c
         if ( _labelItems[i]->labelName() == name )
             return _labelItems[i];
     return NULL;
+}
+
+void QLabellingWidget::on__toolButtonChooseLabelsPath_clicked(bool checked)
+{
+    _labelsPath = QFileDialog::getOpenFileName(this, tr("Open label file"), "", tr("Label Files (*.txt)"));
+    parseLabels();
 }
 
 void QLabellingWidget::on__radioButtonNone_toggled(bool)

@@ -19,6 +19,9 @@ if(WIN32)
 	add_definitions( -D_SCL_SECURE_NO_WARNINGS )
 endif()
 
+set( DEFAULT_LABEL_PATH ${CMAKE_SOURCE_DIR}/rc/labels_facade_simple.txt )
+configure_file( ${CMAKE_SOURCE_DIR}/config.hpp.cmake.in ${CMAKE_SOURCE_DIR}/config.hpp )
+
 # Qt
 find_package( Qt4 REQUIRED )
 include( ${QT_USE_FILE} )
@@ -54,3 +57,5 @@ add_executable( QLabelling ${ALL_UTILITIES_HPP}
                            ${RCS_QLABELLING} )
 target_link_libraries( QLabelling ${QT_LIBRARIES} )
 set_target_properties( QLabelling PROPERTIES DEBUG_POSTFIX "_debug" )
+add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp.cmake.in )
+add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp )

@@ -21,7 +21,7 @@ using namespace std;
 
 QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
     QMainWindow(parent),
-    _labellingWidget(new QLabellingWidget),
+    _labellingWidget(new QLabellingWidget(QLABELLING_DEFAULT_LABEL_PATH)),
     _labelsScene(new QGraphicsScene),
     _labelsView(new QZoomableGraphicsView),
     _labelsPixmap(new QPixmap),

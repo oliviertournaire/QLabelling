@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>183</width>
-    <height>136</height>
+    <width>295</width>
+    <height>164</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -74,7 +74,25 @@
      <property name="title">
       <string>Labels</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLineEdit" name="_lineEditLabelsPath">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="_toolButtonChooseLabelsPath">
+          <property name="text">
+           <string>Choose labels</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
       <item>
        <layout class="QGridLayout" name="_gridLayoutLabels"/>
       </item>
