@@ -99,7 +99,8 @@ QColor QLabelItem::labelColor() const
     return _labelColor;
 }
 
-void QLabelItem::setLabelColor(const QColor &labelColor)
+void QLabelItem::setLabelColor( const QColor &labelColor, const int alpha )
 {
     _labelColor = labelColor;
+    _labelColor.setAlpha(127);
 }

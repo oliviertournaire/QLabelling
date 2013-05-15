@@ -11,6 +11,8 @@
 #include <iostream>
 
 #include "QGraphicsRectWithLabelItem.hpp"
+#include "QLabellingWidget.hpp"
+#include "QLabelItem.hpp"
 #include "config.hpp"
 
 using namespace std;
@@ -21,10 +23,12 @@ QLabellingView::QLabellingView() :
     _scene(new QGraphicsScene),
     _editMode(EDIT_MODE_NONE)
 {
-    qsrand(QTime::currentTime().msec());
     this->setScene(_scene);
+}
 
-    readSettings();
+void QLabellingView::setLabellingWidget(QLabellingWidget* labellingWidget)
+{
+    _labellingWidget = labellingWidget;
 }
 
 void QLabellingView::writeSettings()
@@ -32,19 +36,10 @@ void QLabellingView::writeSettings()
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
     settings.beginGroup("QLabellingView");
-    settings.setValue("alpha",        _alpha       );
-    // Task #2: begins here!!!
-    /*
-    settings.setValue("windowColor",  _windowColor );
-    settings.setValue("wallColor",    _wallColor   );
-    settings.setValue("balconyColor", _balconyColor);
-    settings.setValue("doorColor",    _doorColor   );
-    settings.setValue("shopColor",    _shopColor   );
-    settings.setValue("roofColor",    _roofColor   );
-    settings.setValue("skyColor",     _skyColor    );
-    settings.setValue("unknowColor",  _unknowColor );
-    */
-    // Task #2: ends here!!!
+    settings.setValue("alpha", _alpha);
+    const vector<QLabelItem*>& labelItems = _labellingWidget->labelItems();
+    for(unsigned int i=0;i<labelItems.size();++i)
+        settings.setValue( labelItems[i]->labelName(), labelItems[i]->labelColor() );
     settings.endGroup();
 }
 
@@ -53,19 +48,10 @@ void QLabellingView::readSettings()
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
     settings.beginGroup("QLabellingView");
-    _alpha        = settings.value("alpha", 127).toInt();
-    // Task #2: begins here!!!
-    /*
-    _windowColor  = settings.value("windowColor", Qt::yellow).value<QColor>();
-    _wallColor    = settings.value("wallColor", Qt::gray).value<QColor>();
-    _balconyColor = settings.value("balconyColor", Qt::blue).value<QColor>();
-    _doorColor    = settings.value("doorColor", QColor(0,255,0)).value<QColor>();
-    _shopColor    = settings.value("shopColor", Qt::magenta).value<QColor>();
-    _roofColor    = settings.value("roofColor", Qt::cyan).value<QColor>();
-    _skyColor     = settings.value("skyColor", Qt::darkBlue).value<QColor>();
-    _unknowColor  = settings.value("unknowColor", Qt::darkGray).value<QColor>();
-    */
-    // Task #2: ends here!!!
+    _alpha = settings.value("alpha", 127).toInt();
+    const vector<QLabelItem*>& labelItems = _labellingWidget->labelItems();
+    for(unsigned int i=0;i<labelItems.size();++i)
+        labelItems[i]->setLabelColor( settings.value( labelItems[i]->labelName(), labelItems[i]->labelColor() ).value<QColor>() );
     setAlpha(_alpha);
     settings.endGroup();
 }
@@ -77,7 +63,7 @@ void QLabellingView::mousePressEvent(QMouseEvent *event)
     qreal y = pScene.y();
 
     // Selection mode
-    if ( /*event->modifiers() == Qt::ControlModifier &&*/ _labellingMode )
+    if ( _labellingMode )
     {
         QGraphicsItem* selectedItem = _scene->itemAt(x, y, QTransform());
         if ( QGraphicsRectWithLabelItem* rectItem = qgraphicsitem_cast<QGraphicsRectWithLabelItem*>(selectedItem) )
@@ -85,45 +71,14 @@ void QLabellingView::mousePressEvent(QMouseEvent *event)
             vector<QGraphicsRectWithLabelItem*>::iterator it;
             it = std::find(_rects.begin(), _rects.end(), rectItem);
 
-            // Task #2: begins here!!!
-            /*
-            switch (_editMode)
+            const QLabelItem *activeLabelItem = _labellingWidget->findActiveLabelItem();
+            if ( activeLabelItem )
             {
-            case EDIT_MODE_LABELLING_WINDOW:
-                rectItem->setBrush( QBrush(_windowColor, Qt::SolidPattern) );
-                (*it)->setLabel( QGraphicsRectWithLabelItem::LABEL_WINDOW );
-                break;
-            case EDIT_MODE_LABELLING_WALL:
-                rectItem->setBrush( QBrush(_wallColor, Qt::SolidPattern) );
-                (*it)->setLabel( QGraphicsRectWithLabelItem::LABEL_WALL );
-                break;
-            case EDIT_MODE_LABELLING_BALCONY:
-                rectItem->setBrush( QBrush(_balconyColor, Qt::SolidPattern) );
-                (*it)->setLabel( QGraphicsRectWithLabelItem::LABEL_BALCONY );
-                break;
-            case EDIT_MODE_LABELLING_DOOR:
-                rectItem->setBrush( QBrush(_doorColor, Qt::SolidPattern) );
-                (*it)->setLabel( QGraphicsRectWithLabelItem::LABEL_DOOR );
-                break;
-            case EDIT_MODE_LABELLING_SHOP:
-                rectItem->setBrush( QBrush(_shopColor, Qt::SolidPattern) );
-                (*it)->setLabel( QGraphicsRectWithLabelItem::LABEL_SHOP );
-                break;
-            case EDIT_MODE_LABELLING_ROOF:
-                rectItem->setBrush( QBrush(_roofColor, Qt::SolidPattern) );
-                (*it)->setLabel( QGraphicsRectWithLabelItem::LABEL_ROOF );
-                break;
-            case EDIT_MODE_LABELLING_SKY:
-                rectItem->setBrush( QBrush(_skyColor, Qt::SolidPattern) );
-                (*it)->setLabel( QGraphicsRectWithLabelItem::LABEL_SKY );
-                break;
-            default:
-                rectItem->setBrush( QBrush(_unknowColor, Qt::SolidPattern) );
-                (*it)->setLabel( QGraphicsRectWithLabelItem::LABEL_UNKNOW );
-                break;
+                rectItem->setBrush( QBrush(activeLabelItem->labelColor(), Qt::SolidPattern) );
+                (*it)->setLabel( activeLabelItem->labelName() );
             }
-            */
-            // Task #2: ends here!!!
+            else
+                qDebug() << __FUNCTION__ << "No active label found!!!";
 
             fillLabelsImage(rectItem->rect().toRect(), rectItem->brush().color());
             emit labelImageChanged();
@@ -288,26 +243,12 @@ void QLabellingView::rebuildRectanglesFromLastLine(const QLineF& line)
                 _rects.push_back(newRect2);
 
                 QBrush brush(Qt::SolidPattern);
-                // Task #2: begins here!!!
-                /*
-                if(intersectedLabel == QGraphicsRectWithLabelItem::LABEL_WINDOW)
-                    brush.setColor( _windowColor );
-                else if(intersectedLabel == QGraphicsRectWithLabelItem::LABEL_WALL)
-                    brush.setColor( _wallColor );
-                else if(intersectedLabel == QGraphicsRectWithLabelItem::LABEL_BALCONY)
-                    brush.setColor( _balconyColor );
-                else if(intersectedLabel == QGraphicsRectWithLabelItem::LABEL_DOOR)
-                    brush.setColor( _doorColor );
-                else if(intersectedLabel == QGraphicsRectWithLabelItem::LABEL_SHOP)
-                    brush.setColor( _shopColor );
-                else if(intersectedLabel == QGraphicsRectWithLabelItem::LABEL_ROOF)
-                    brush.setColor( _roofColor );
-                else if(intersectedLabel == QGraphicsRectWithLabelItem::LABEL_SKY)
-                    brush.setColor( _skyColor );
+
+                const QLabelItem *intersectedLabelItem = _labellingWidget->findLabelItemFromName(intersectedLabel);
+                if ( intersectedLabelItem )
+                    brush.setColor( intersectedLabelItem->labelColor() );
                 else
-                    brush.setColor( _unknowColor );
-                    */
-                // Task #2: ends here!!!
+                    qDebug() << __FUNCTION__ << "No active label found!!!";
 
                 newRect1->setBrush(brush);
                 newRect2->setBrush(brush);

@@ -31,7 +31,7 @@ public:
     void setToolButtonLabelColor(QToolButton *toolButtonLabelColor);
 
     QColor labelColor() const;
-    void setLabelColor(const QColor &labelColor);
+    void setLabelColor(const QColor &labelColor, const int alpha = 127);
 
 signals:
     

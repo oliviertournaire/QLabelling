@@ -24,14 +24,20 @@ public:
 
     QLabellingView* view();
     QImage labelsImage();
+    const std::vector<QLabelItem*>& labelItems() const { return _labelItems; }
 
     void setEnabledAllLabelButtons(bool enabled);
+
+    const QLabelItem* findActiveLabelItem() const;
+    const QLabelItem* findLabelItemFromName(const QString &name) const;
 
 public slots:
     void on__radioButtonNone_toggled(bool checked);
     void on__radioButtonHorizontal_toggled(bool checked);
     void on__radioButtonVertical_toggled(bool checked);
     void on__radioButtonLabelling_toggled(bool checked);
+
+    void updateAlphaValue(const int alpha);
 
 protected:
     Ui::QLabellingWidget *ui;

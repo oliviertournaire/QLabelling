@@ -9,6 +9,7 @@
 class QGraphicsScene;
 class QGraphicsRectItem;
 class QGraphicsRectWithLabelItem;
+class QLabellingWidget;
 
 class QLabellingView : public QZoomableGraphicsView
 {
@@ -26,6 +27,7 @@ public:
     QLabellingView();
     ~QLabellingView() { writeSettings(); }
 
+    void setLabellingWidget(QLabellingWidget* labellingWidget);
     inline void setMode(const EditMode mode) { _editMode = mode; }
     inline void setLabellingMode(const bool labelling) { _labellingMode = labelling; }
 
@@ -34,18 +36,7 @@ public:
     inline void setAlpha( const int alpha )
     {
         _alpha = alpha;
-        // Task #2: begins here!!!
-        /*
-        _windowColor.setAlpha(alpha);
-        _wallColor.setAlpha(alpha);
-        _balconyColor.setAlpha(alpha);
-        _doorColor.setAlpha(alpha);
-        _shopColor.setAlpha(alpha);
-        _roofColor.setAlpha(alpha);
-        _skyColor.setAlpha(alpha);
-        _unknowColor.setAlpha(alpha);
-        */
-        // Task #2: ends here!!!
+        emit alphaValueChanged(alpha);
     }
 
     const QString& imageToLabelFilename() const { return _imageToLabelFilename; }
@@ -56,8 +47,12 @@ public:
     QImage labelsImage() const;
     void setLabelsImage(const QImage &labelsImage);
 
+    void writeSettings();
+    void readSettings();
+
 signals:
     void labelImageChanged();
+    void alphaValueChanged(const int alpha);
 
 protected:
     void mousePressEvent(QMouseEvent *event);
@@ -72,10 +67,8 @@ protected:
     bool _labellingMode;
     EditMode _editMode;
 
-    void writeSettings();
-    void readSettings();
-
     int _alpha;
+    QLabellingWidget *_labellingWidget;
 
 private:
     void removeAllItemsFromScene();

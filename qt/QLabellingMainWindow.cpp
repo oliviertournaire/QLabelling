@@ -14,6 +14,7 @@
 #include "QLabellingWidget.hpp"
 #include "QLabellingView.hpp"
 #include "QLabellingAbout.hpp"
+#include "QLabelItem.hpp"
 #include "config.hpp"
 
 using namespace std;
@@ -67,6 +68,11 @@ void QLabellingMainWindow::connectAll()
             SLOT(showAbout()));
 
     connect(_labellingWidget->view(),
+            SIGNAL(alphaValueChanged(const int)),
+            _labellingWidget,
+            SLOT(updateAlphaValue(const int)));
+
+    connect(_labellingWidget->view(),
             SIGNAL(labelImageChanged()),
             this,
             SLOT(updateLabelImage()));
@@ -103,6 +109,11 @@ void QLabellingMainWindow::disconnectAll()
                SIGNAL(labelImageChanged()),
                this,
                SLOT(updateLabelImage()));
+
+    disconnect(_labellingWidget->view(),
+               SIGNAL(alphaValueChanged(const int alpha)),
+               _labellingWidget,
+               SLOT(updateAlphaValue(const int alpha)));
 
     disconnect(_mainWindow->actionQuit,
                SIGNAL(triggered()),
@@ -160,18 +171,12 @@ void QLabellingMainWindow::saveLabels()
         QLabellingView* v = _labellingWidget->view();
         of << v->imageToLabelFilename().toStdString() << endl;
         of << fileName.toStdString() << endl;
-        // Task #2: begins here!!!
-        /*
-        of << "Window " << v->windowColor().red() << " " << v->windowColor().green() << " " << v->windowColor().blue() << " " << v->windowColor().alpha() << endl;
-        of << "Wall " << v->wallColor().red() << " " << v->wallColor().green() << " " << v->wallColor().blue() << " " << v->wallColor().alpha() << endl;
-        of << "Balcony " << v->balconyColor().red() << " " << v->balconyColor().green() << " " << v->balconyColor().blue() << " " << v->balconyColor().alpha() << endl;
-        of << "Door " << v->doorColor().red() << " " << v->doorColor().green() << " " << v->doorColor().blue() << " " << v->doorColor().alpha() << endl;
-        of << "Shop " << v->shopColor().red() << " " << v->shopColor().green() << " " << v->shopColor().blue() << " " << v->shopColor().alpha() << endl;
-        of << "Roof " << v->roofColor().red() << " " << v->roofColor().green() << " " << v->roofColor().blue() << " " << v->roofColor().alpha() << endl;
-        of << "Sky " << v->skyColor().red() << " " << v->skyColor().green() << " " << v->skyColor().blue() << " " << v->skyColor().alpha() << endl;
-        of << "Unknow " << v->unknowColor().red() << " " << v->unknowColor().green() << " " << v->unknowColor().blue() << " " << v->unknowColor().alpha() << endl;
-        */
-        // Task #2: end here!!!
+        const vector<QLabelItem*>& labelItems = _labellingWidget->labelItems();
+        for(unsigned int i=0;i<labelItems.size();++i)
+        {
+            QColor labelItemColor = labelItems[i]->labelColor();
+            of << labelItems[i]->labelName().toStdString() << " " << labelItemColor.red() << " " << labelItemColor.green() << " " << labelItemColor.blue() << " " << labelItemColor.alpha() << endl;
+        }
         of.close();
     }
     _labelsPixmapSaved = true;
