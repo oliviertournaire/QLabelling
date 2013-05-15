@@ -161,6 +161,7 @@ void QLabellingMainWindow::saveLabels()
         of << v->imageToLabelFilename().toStdString() << endl;
         of << fileName.toStdString() << endl;
         // Task #2: begins here!!!
+        /*
         of << "Window " << v->windowColor().red() << " " << v->windowColor().green() << " " << v->windowColor().blue() << " " << v->windowColor().alpha() << endl;
         of << "Wall " << v->wallColor().red() << " " << v->wallColor().green() << " " << v->wallColor().blue() << " " << v->wallColor().alpha() << endl;
         of << "Balcony " << v->balconyColor().red() << " " << v->balconyColor().green() << " " << v->balconyColor().blue() << " " << v->balconyColor().alpha() << endl;
@@ -169,6 +170,7 @@ void QLabellingMainWindow::saveLabels()
         of << "Roof " << v->roofColor().red() << " " << v->roofColor().green() << " " << v->roofColor().blue() << " " << v->roofColor().alpha() << endl;
         of << "Sky " << v->skyColor().red() << " " << v->skyColor().green() << " " << v->skyColor().blue() << " " << v->skyColor().alpha() << endl;
         of << "Unknow " << v->unknowColor().red() << " " << v->unknowColor().green() << " " << v->unknowColor().blue() << " " << v->unknowColor().alpha() << endl;
+        */
         // Task #2: end here!!!
         of.close();
     }

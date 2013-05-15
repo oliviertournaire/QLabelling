@@ -13,30 +13,17 @@ public:
     //! Return the object type to be used by qgraphicsitem_cast
     virtual int type() const { return Type; }
 
-    //! Defined the label type
-    typedef enum
-    {
-        LABEL_WINDOW,
-        LABEL_WALL,
-        LABEL_BALCONY,
-        LABEL_DOOR,
-        LABEL_SHOP,
-        LABEL_ROOF,
-        LABEL_SKY,
-        LABEL_UNKNOW
-    } Label;
-
     //! Constructor: init all to default
     QGraphicsRectWithLabelItem():
-        _label(LABEL_UNKNOW),
+        _label("UNKNOW"),
         _pen( QPen() ),
         _brush( QBrush() ),
         QGraphicsRectItem() {}
 
     //! Write access to the label of the item
-    inline void setLabel(const Label label) { _label = label; }
+    inline void setLabel(const QString& label) { _label = label; }
     //! Read only access to the label of the item
-    inline const Label& label() const { return _label; }
+    inline const QString& label() const { return _label; }
 
     //! Set the pen with which the rectangle item is drawn
     inline void setPen(const QPen& pen) { _pen= pen; }
@@ -59,7 +46,7 @@ public:
 
 protected:
     //! The label of te item
-    Label _label;
+    QString _label;
     //! The pen to draw the item
     QPen _pen;
     //! The brush to draw the item

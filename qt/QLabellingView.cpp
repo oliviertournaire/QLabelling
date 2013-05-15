@@ -19,9 +19,7 @@ QLabellingView::QLabellingView() :
     QZoomableGraphicsView(),
     _labellingMode(false),
     _scene(new QGraphicsScene),
-    // Task #2: begins here!!!
     _editMode(EDIT_MODE_NONE)
-  // Task #2: ends here!!!
 {
     qsrand(QTime::currentTime().msec());
     this->setScene(_scene);
@@ -36,6 +34,7 @@ void QLabellingView::writeSettings()
     settings.beginGroup("QLabellingView");
     settings.setValue("alpha",        _alpha       );
     // Task #2: begins here!!!
+    /*
     settings.setValue("windowColor",  _windowColor );
     settings.setValue("wallColor",    _wallColor   );
     settings.setValue("balconyColor", _balconyColor);
@@ -44,6 +43,7 @@ void QLabellingView::writeSettings()
     settings.setValue("roofColor",    _roofColor   );
     settings.setValue("skyColor",     _skyColor    );
     settings.setValue("unknowColor",  _unknowColor );
+    */
     // Task #2: ends here!!!
     settings.endGroup();
 }
@@ -55,6 +55,7 @@ void QLabellingView::readSettings()
     settings.beginGroup("QLabellingView");
     _alpha        = settings.value("alpha", 127).toInt();
     // Task #2: begins here!!!
+    /*
     _windowColor  = settings.value("windowColor", Qt::yellow).value<QColor>();
     _wallColor    = settings.value("wallColor", Qt::gray).value<QColor>();
     _balconyColor = settings.value("balconyColor", Qt::blue).value<QColor>();
@@ -63,6 +64,7 @@ void QLabellingView::readSettings()
     _roofColor    = settings.value("roofColor", Qt::cyan).value<QColor>();
     _skyColor     = settings.value("skyColor", Qt::darkBlue).value<QColor>();
     _unknowColor  = settings.value("unknowColor", Qt::darkGray).value<QColor>();
+    */
     // Task #2: ends here!!!
     setAlpha(_alpha);
     settings.endGroup();
@@ -84,6 +86,7 @@ void QLabellingView::mousePressEvent(QMouseEvent *event)
             it = std::find(_rects.begin(), _rects.end(), rectItem);
 
             // Task #2: begins here!!!
+            /*
             switch (_editMode)
             {
             case EDIT_MODE_LABELLING_WINDOW:
@@ -119,6 +122,7 @@ void QLabellingView::mousePressEvent(QMouseEvent *event)
                 (*it)->setLabel( QGraphicsRectWithLabelItem::LABEL_UNKNOW );
                 break;
             }
+            */
             // Task #2: ends here!!!
 
             fillLabelsImage(rectItem->rect().toRect(), rectItem->brush().color());
@@ -182,10 +186,8 @@ void QLabellingView::buildImageBoundaryRect()
 {
     QGraphicsRectWithLabelItem* boundaries = new QGraphicsRectWithLabelItem;
     boundaries->setRect(0, 0, _imageToLabel.width(), _imageToLabel.height());
-    // Task #2: begins here!!!
-    boundaries->setLabel(QGraphicsRectWithLabelItem::LABEL_UNKNOW);
-    // Task #2: ends here!!!
-    boundaries->setBrush( QColor(0,0,0,0) );
+    boundaries->setLabel(QLABELLING_UNKNOW_LABEL_STRING);
+    boundaries->setBrush( QLABELLING_UNKNOW_LABEL_BRUSH_COLOR );
     _scene->addItem(boundaries);
     _rects.push_back( boundaries );
 }
@@ -247,7 +249,7 @@ void QLabellingView::rebuildRectanglesFromLastLine(const QLineF& line)
             }
             if (found)
             {
-                QGraphicsRectWithLabelItem::Label intersectedLabel = _rects[j]->label();
+                QString intersectedLabel = _rects[j]->label();
                 QGraphicsRectWithLabelItem* newRect1 = new QGraphicsRectWithLabelItem;
                 QGraphicsRectWithLabelItem* newRect2 = new QGraphicsRectWithLabelItem;
 
@@ -287,6 +289,7 @@ void QLabellingView::rebuildRectanglesFromLastLine(const QLineF& line)
 
                 QBrush brush(Qt::SolidPattern);
                 // Task #2: begins here!!!
+                /*
                 if(intersectedLabel == QGraphicsRectWithLabelItem::LABEL_WINDOW)
                     brush.setColor( _windowColor );
                 else if(intersectedLabel == QGraphicsRectWithLabelItem::LABEL_WALL)
@@ -303,6 +306,7 @@ void QLabellingView::rebuildRectanglesFromLastLine(const QLineF& line)
                     brush.setColor( _skyColor );
                 else
                     brush.setColor( _unknowColor );
+                    */
                 // Task #2: ends here!!!
 
                 newRect1->setBrush(brush);
@@ -338,6 +342,6 @@ void QLabellingView::setImageToLabel(const QString& filename)
     removeAllItemsFromScene();
     _scene->addPixmap(_imageToLabel);
     _labelsImage = QImage(_imageToLabel.width(), _imageToLabel.height(), QImage::Format_RGB32);
-    _labelsImage.fill( _unknowColor );
+    _labelsImage.fill( QLABELLING_UNKNOW_LABEL_BRUSH_COLOR );
     buildImageBoundaryRect();
 }

@@ -1,6 +1,8 @@
 #ifndef QLABELLING_CONFIG_HPP
 #define QLABELLING_CONFIG_HPP
 
+#include <QColor>
+
 //
 //  Caution, this is the only QLabelling header that is guarenteed
 //  to change with every QLabelling release, including this header
@@ -44,5 +46,15 @@
 //  QLABELLING_TOOLBUTTON_STYLESHEET_STRING: guess what it defines?
 
 #define QLABELLING_TOOLBUTTON_STYLESHEET_STRING "QToolButton{ background: %1; border: 2px solid #8f8f91; border-radius: 6px;}"
+
+//
+//  QLABELLING_UNKNOW_LABEL_STRING
+
+#define QLABELLING_UNKNOW_LABEL_STRING "UNKNOW"
+
+//
+//  QLABELLING_UNKNOW_LABEL_BRUSH_COLOR
+
+#define QLABELLING_UNKNOW_LABEL_BRUSH_COLOR QColor(0,0,0,0)
 
 #endif // QLABELLING_CONFIG_HPP
