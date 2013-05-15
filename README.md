@@ -7,6 +7,7 @@ _QLabelling_ is a simple GUI to label rectified images. It was initially develop
 * Labels rectangles
 * Choose a color for each label
 * Save a labels image with associated information (labels' colors, input and label images) in a raw ASCII file <image_label_filename>.labels
+* Dynamic labels: you must defines labels names and colors in a separate text file. See files rc/labels_facade_simple.txt or rc/labels_facade_enhanced.txt for examples. **Note that you always must to define a label named _unknow_ (case sensitive)!**
 
 ## What _QLabelling_ does not do
 * Delete lines or rectangles
