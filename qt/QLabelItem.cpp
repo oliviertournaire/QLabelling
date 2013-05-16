@@ -5,8 +5,6 @@
 #include <QRadioButton>
 #include <QToolButton>
 
-#include "config.hpp"
-
 QLabelItem::QLabelItem(QString labelName, QColor labelColor, QWidget *parent) :
     QWidget(parent),
     _labelName(labelName),
@@ -49,7 +47,7 @@ void QLabelItem::toolButtonLabelColor_clicked(bool checked)
     QColor choosedColor = QColorDialog::getColor(_labelColor);
     if (choosedColor.isValid())
     {
-        _labelColor = choosedColor;
+        setLabelColor(choosedColor);
         _toolButtonLabelColor->setStyleSheet( QString(QLABELLING_TOOLBUTTON_STYLESHEET_STRING).arg(_labelColor.name()) );
     }
 }
@@ -92,5 +90,5 @@ QColor QLabelItem::labelColor() const
 void QLabelItem::setLabelColor( const QColor &labelColor, const int alpha )
 {
     _labelColor = labelColor;
-    _labelColor.setAlpha(127);
+    _labelColor.setAlpha(alpha);
 }

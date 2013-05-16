@@ -51,7 +51,7 @@ void QLabellingView::readSettings()
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
     settings.beginGroup("QLabellingView");
-    _alpha = settings.value("alpha", 127).toInt();
+    _alpha = settings.value("alpha", QLABELLING_DEFAULT_ALPHA).toInt();
     const vector<QLabelItem*>& labelItems = _labellingWidget->labelItems();
     for(unsigned int i=0;i<labelItems.size();++i)
         labelItems[i]->setLabelColor( settings.value( labelItems[i]->labelName(), labelItems[i]->labelColor() ).value<QColor>() );

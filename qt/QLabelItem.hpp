@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "config.hpp"
+
 class QRadioButton;
 class QToolButton;
 
@@ -31,7 +33,7 @@ public:
     void setToolButtonLabelColor(QToolButton *toolButtonLabelColor);
 
     QColor labelColor() const;
-    void setLabelColor(const QColor &labelColor, const int alpha = 127);
+    void setLabelColor(const QColor &labelColor, const int alpha = QLABELLING_DEFAULT_ALPHA);
 
 signals:
     
