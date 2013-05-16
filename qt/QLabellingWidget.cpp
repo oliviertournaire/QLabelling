@@ -77,11 +77,12 @@ void QLabellingWidget::parseLabels()
 
     // Then, parse file
     ifstream ifs(_labelsPath.toStdString().c_str());
+    bool foundUnknowLabel = false;
     string labelname;
     int r, g, b, a;
+    int row = 0, col = 0;
     if(ifs.good())
     {
-        int row = 0, col = 0;
         int cpt = 0;
         while(!ifs.eof())
         {
@@ -99,8 +100,23 @@ void QLabellingWidget::parseLabels()
             _buttonGroup->addButton(item->radioButtonlabel());
             ++cpt;
             col += 2;
+            // Check if "unknow" label has been found
+            if(!foundUnknowLabel)
+                if(QString::fromStdString(labelname).toLower() == "unknow")
+                    foundUnknowLabel = true;
         }
     }
+
+    if(!foundUnknowLabel)
+    {
+        QLabelItem *item = new QLabelItem(QLABELLING_UNKNOW_LABEL_STRING, QLABELLING_UNKNOW_LABEL_BRUSH_COLOR);
+        ui->_gridLayoutLabels->addWidget(item->radioButtonlabel(), row, col);
+        ui->_gridLayoutLabels->addWidget(item->toolButtonLabelColor(), row, col+1);
+        _labelItems.push_back(item);
+        _buttonGroup->addButton(item->radioButtonlabel());
+    }
+
+    ifs.close();
 }
 
 void QLabellingWidget::setLabelsPath(const QString &labelsPath)
