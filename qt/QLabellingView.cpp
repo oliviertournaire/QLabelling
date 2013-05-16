@@ -33,6 +33,7 @@ void QLabellingView::setLabellingWidget(QLabellingWidget* labellingWidget)
 
 void QLabellingView::writeSettings()
 {
+    /*
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
     settings.beginGroup("QLabellingView");
@@ -41,10 +42,12 @@ void QLabellingView::writeSettings()
     for(unsigned int i=0;i<labelItems.size();++i)
         settings.setValue( labelItems[i]->labelName(), labelItems[i]->labelColor() );
     settings.endGroup();
+    */
 }
 
 void QLabellingView::readSettings()
 {
+    /*
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
     settings.beginGroup("QLabellingView");
@@ -54,6 +57,7 @@ void QLabellingView::readSettings()
         labelItems[i]->setLabelColor( settings.value( labelItems[i]->labelName(), labelItems[i]->labelColor() ).value<QColor>() );
     setAlpha(_alpha);
     settings.endGroup();
+    */
 }
 
 void QLabellingView::mousePressEvent(QMouseEvent *event)
