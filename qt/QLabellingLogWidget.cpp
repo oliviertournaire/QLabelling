@@ -24,11 +24,13 @@ QLabellingLogWidget::~QLabellingLogWidget()
 
 void QLabellingLogWidget::on__toolButtonClear_clicked(bool checked)
 {
+    Q_UNUSED(checked);
     ui->_textEdit->clear();
 }
 
 void QLabellingLogWidget::on__toolButtonSave_clicked(bool checked)
 {
+    Q_UNUSED(checked);
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
     settings.beginGroup("QLabellingMainWindow");
     QString defaultLogDirectory = settings.value("defaultLogDirectory", "").toString();
