@@ -148,7 +148,8 @@ const QLabelItem* QLabellingWidget::findLabelItemFromName(const QString &name) c
 void QLabellingWidget::on__toolButtonChooseLabelsPath_clicked(bool checked)
 {
     _labelsPath = QFileDialog::getOpenFileName(this, tr("Open label file"), "", tr("Label Files (*.txt)"));
-    parseLabels();
+    if(!_labelsPath.isNull())
+        parseLabels();
 }
 
 void QLabellingWidget::on__radioButtonNone_toggled(bool)

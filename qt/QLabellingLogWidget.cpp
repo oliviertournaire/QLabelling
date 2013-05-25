@@ -44,8 +44,8 @@ void QLabellingLogWidget::on__toolButtonSave_clicked(bool checked)
 
         QFileInfo info(fileName);
         settings.setValue("defaultLogDirectory", info.absolutePath());
-        settings.endGroup();
     }
+    settings.endGroup();
 }
 
 void QLabellingLogWidget::logFatalError(const QString& text)

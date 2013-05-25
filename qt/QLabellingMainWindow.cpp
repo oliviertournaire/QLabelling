@@ -147,10 +147,13 @@ void QLabellingMainWindow::openImageToLabel()
     QString defaultDirectory = settings.value("defaultDirectory", "").toString();
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open image to label"), defaultDirectory, tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif *.tiff)"));
-    _labellingWidget->view()->setImageToLabel(fileName);
+    if(!fileName.isNull())
+    {
+        _labellingWidget->view()->setImageToLabel(fileName);
 
-    QFileInfo info(fileName);
-    settings.setValue("defaultDirectory", info.absolutePath());
+        QFileInfo info(fileName);
+        settings.setValue("defaultDirectory", info.absolutePath());
+    }
     settings.endGroup();
 }
 
@@ -163,33 +166,36 @@ void QLabellingMainWindow::saveLabels()
 
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save labels image"), defaultDirectory, tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif *.tiff)"));
 
-    QFileInfo info(fileName);
-    // Here, we automatically add a ".tif" extension if the user did not select explicitely an extension
-    if ( info.completeSuffix() == "" )
-        fileName += ".tif";
-    settings.setValue("defaultDirectory", info.absolutePath());
-    settings.endGroup();
-
-    // Now, save the image
-    _labellingWidget->labelsImage().save(fileName);
-    // And a file which stores labelling infos
-    QString labelsFilename = info.filePath();
-    labelsFilename += ".labels";
-    ofstream of(labelsFilename.toStdString().c_str());
-    if(of.good())
+    if(!fileName.isNull())
     {
-        QLabellingView* v = _labellingWidget->view();
-        of << v->imageToLabelFilename().toStdString() << endl;
-        of << fileName.toStdString() << endl;
-        const vector<QLabelItem*>& labelItems = _labellingWidget->labelItems();
-        for(unsigned int i=0;i<labelItems.size();++i)
+        QFileInfo info(fileName);
+        // Here, we automatically add a ".tif" extension if the user did not select explicitely an extension
+        if ( info.completeSuffix() == "" )
+            fileName += ".tif";
+        settings.setValue("defaultDirectory", info.absolutePath());
+
+        // Now, save the image
+        _labellingWidget->labelsImage().save(fileName);
+        // And a file which stores labelling infos
+        QString labelsFilename = info.filePath();
+        labelsFilename += ".labels";
+        ofstream of(labelsFilename.toStdString().c_str());
+        if(of.good())
         {
-            QColor labelItemColor = labelItems[i]->labelColor();
-            of << labelItems[i]->labelName().toStdString() << " " << labelItemColor.red() << " " << labelItemColor.green() << " " << labelItemColor.blue() << " " << labelItemColor.alpha() << endl;
+            QLabellingView* v = _labellingWidget->view();
+            of << v->imageToLabelFilename().toStdString() << endl;
+            of << fileName.toStdString() << endl;
+            const vector<QLabelItem*>& labelItems = _labellingWidget->labelItems();
+            for(unsigned int i=0;i<labelItems.size();++i)
+            {
+                QColor labelItemColor = labelItems[i]->labelColor();
+                of << labelItems[i]->labelName().toStdString() << " " << labelItemColor.red() << " " << labelItemColor.green() << " " << labelItemColor.blue() << " " << labelItemColor.alpha() << endl;
+            }
+            of.close();
         }
-        of.close();
+        _labelsPixmapSaved = true;
     }
-    _labelsPixmapSaved = true;
+    settings.endGroup();
 }
 
 void QLabellingMainWindow::showAbout()
