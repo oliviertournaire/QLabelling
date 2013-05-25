@@ -85,7 +85,7 @@
      <item>
       <widget class="QToolButton" name="_toolButtonSave">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="toolTip">
         <string>Save log</string>
