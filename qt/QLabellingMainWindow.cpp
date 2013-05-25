@@ -11,6 +11,7 @@
 
 #include "QZoomableGraphicsView.hpp"
 #include "QLabellingMainWindow.hpp"
+#include "QLabellingLogWidget.hpp"
 #include "QLabellingWidget.hpp"
 #include "QLabellingView.hpp"
 #include "QLabellingAbout.hpp"
@@ -24,6 +25,7 @@ QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
     _labellingWidget(new QLabellingWidget(QLABELLING_DEFAULT_LABEL_PATH)),
     _labelsScene(new QGraphicsScene),
     _labelsView(new QZoomableGraphicsView),
+    _loggerWidget(new QLabellingLogWidget),
     _labelsPixmap(new QPixmap),
     _labelsPixmapSaved(true)
 {
@@ -33,16 +35,24 @@ QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
     _labelsView->setScene(_labelsScene);
     _labelsPixmapItem = _labelsScene->addPixmap( _labelsPixmap->fromImage( _labellingWidget->view()->labelsImage() ) );
 
-    QDockWidget* dock = new QDockWidget;
-    dock->setWidget(_labellingWidget);
-    dock->setWindowTitle( _labellingWidget->windowTitle() );
-    dock->setWindowIcon( dock->windowIcon() );
-    this->addDockWidget(Qt::RightDockWidgetArea, dock);
+    QDockWidget* dockLabellingWidget = new QDockWidget;
+    dockLabellingWidget->setWidget(_labellingWidget);
+    dockLabellingWidget->setWindowTitle( _labellingWidget->windowTitle() );
+    dockLabellingWidget->setWindowIcon( dockLabellingWidget->windowIcon() );
+    this->addDockWidget(Qt::RightDockWidgetArea, dockLabellingWidget);
+
+    QDockWidget* dockLogWidget = new QDockWidget;
+    dockLogWidget->setWidget(_loggerWidget);
+    dockLogWidget->setWindowTitle( _loggerWidget->windowTitle() );
+    dockLogWidget->setWindowIcon( dockLogWidget->windowIcon() );
+    this->addDockWidget(Qt::BottomDockWidgetArea, dockLogWidget);
 
     _mainWindow->_tabWidget->insertTab(0, _labellingWidget->view(), tr("Image to label"));
     _mainWindow->_tabWidget->insertTab(1, _labelsView, tr("Labels image"));
 
     connectAll();
+
+    _loggerWidget->logInfo( "QLabelling application started" );
 }
 
 QLabellingMainWindow::~QLabellingMainWindow()
@@ -251,6 +261,16 @@ void QLabellingMainWindow::setLabelsView(QZoomableGraphicsView *labelsView)
 QGraphicsScene *QLabellingMainWindow::labelsScene() const
 {
     return _labelsScene;
+}
+
+QLabellingLogWidget* QLabellingMainWindow::loggerWidget() const
+{
+    return _loggerWidget;
+}
+
+void QLabellingMainWindow::setLoggerWidget(QLabellingLogWidget *loggerWidget)
+{
+    _loggerWidget = loggerWidget;
 }
 
 void QLabellingMainWindow::setLabelsScene(QGraphicsScene *labelsScene)

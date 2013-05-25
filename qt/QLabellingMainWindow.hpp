@@ -9,6 +9,7 @@ namespace Ui {
 
 class QLabellingWidget;
 class QZoomableGraphicsView;
+class QLabellingLogWidget;
 
 class QGraphicsPixmapItem;
 class QGraphicsScene;
@@ -34,6 +35,9 @@ public:
     Ui::QLabellingMainWindow *mainWindow() const;
     void setMainWindow(Ui::QLabellingMainWindow *mainWindow);
 
+    QLabellingLogWidget* loggerWidget() const;
+    void setLoggerWidget(QLabellingLogWidget *loggerWidget);
+
 public slots:
     void openImageToLabel();
     void saveLabels();
@@ -51,6 +55,7 @@ protected:
     QLabellingWidget *_labellingWidget;
     QGraphicsScene *_labelsScene;
     QZoomableGraphicsView *_labelsView;
+    QLabellingLogWidget *_loggerWidget;
     QPixmap *_labelsPixmap;
     QGraphicsPixmapItem *_labelsPixmapItem;
     bool _labelsPixmapSaved;

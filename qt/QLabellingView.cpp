@@ -272,6 +272,8 @@ void QLabellingView::setImageToLabel(const QString& filename)
 {
     _imageToLabelFilename = filename;
     _imageToLabel = QPixmap(filename);
+    if(_imageToLabel.isNull())
+        cout << "Problem ompening image ..." << endl;
     removeAllItemsFromScene();
     _scene->addPixmap(_imageToLabel);
     _labelsImage = QImage(_imageToLabel.width(), _imageToLabel.height(), QImage::Format_RGB32);
