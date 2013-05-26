@@ -27,6 +27,10 @@ find_package( Qt4 REQUIRED )
 include( ${QT_USE_FILE} )
 add_definitions( ${QT_DEFINITIONS} )
 
+# CGAL
+find_package( CGAL COMPONENTS Core Qt4 REQUIRED )
+include( ${CGAL_USE_FILE} )
+
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
 file( GLOB ALL_UTILITIES_HPP ${CMAKE_SOURCE_DIR}/utilities/*.hpp )
@@ -55,7 +59,7 @@ add_executable( QLabelling ${ALL_UTILITIES_HPP}
                            ${ALL_MOCS_QLABELLING}
                            ${ALL_UI_QLABELLING}
                            ${RCS_QLABELLING} )
-target_link_libraries( QLabelling ${QT_LIBRARIES} )
+target_link_libraries( QLabelling ${QT_LIBRARIES} ${CGAL_LIBRARIES} )
 set_target_properties( QLabelling PROPERTIES DEBUG_POSTFIX "_debug" )
 add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp.cmake.in )
 add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp )
