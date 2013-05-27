@@ -76,3 +76,7 @@ target_link_libraries( QLabelling ${QT_LIBRARIES} ${CGAL_LIBRARIES} ${Boost_LIBR
 set_target_properties( QLabelling PROPERTIES DEBUG_POSTFIX "_debug" )
 add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp.cmake.in )
 add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp )
+
+# Test executable --> replaced with the code from <CGAL>/demo/Arrangement_on_surface_2
+# add_subdirectory( test/QCGALArrangement )
+add_subdirectory( demo/Arrangement_on_surface_2 )
