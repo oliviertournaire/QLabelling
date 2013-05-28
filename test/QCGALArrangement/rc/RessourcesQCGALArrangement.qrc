@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="/QCGALArrangement">
+    <file>dialog-information.png</file>
+    <file>document-save.png</file>
+    <file>edit-clear.png</file>
+    <file>folder-open.png</file>
+    <file>options.png</file>
+    <file>process-stop.png</file>
+    <file>inputPoint.png</file>
+    <file>inputPolyline.png</file>
+  </qresource>
+</RCC>
