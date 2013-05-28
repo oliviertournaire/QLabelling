@@ -70,11 +70,6 @@ OverlayDialog::OverlayDialog( ArrangementDemoWindow* parent,
       icon.addFile(QString::fromUtf8(":/icons/blue_icon.xpm"), QSize(),
                    QIcon::Normal, QIcon::Off);
     }
-    else if ( CGAL::assign( arc, arrangements[ i ] ) )
-    {
-      icon.addFile(QString::fromUtf8(":/icons/green_icon.xpm"), QSize(),
-                   QIcon::Normal, QIcon::Off);
-    }
     item->setIcon( icon );
   }
 }

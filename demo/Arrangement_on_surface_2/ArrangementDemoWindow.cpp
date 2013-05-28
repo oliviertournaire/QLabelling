@@ -72,7 +72,6 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
   Seg_arr* seg_arr;
   Pol_arr* pol_arr;
   Lin_arr* lin_arr;
-  Arc_arr* arc_arr;
   CGAL::Object arr;
 
   switch ( tt )
@@ -654,8 +653,6 @@ void ArrangementDemoWindow::on_tabWidget_currentChanged( )
   {
     this->ui->actionCurveRay->setVisible( true );
     this->ui->actionCurveLine->setVisible( true );
-
-    this->conicTypeGroup->setEnabled( true );
   }
   else
   { // segment or polyline
@@ -668,8 +665,6 @@ void ArrangementDemoWindow::on_tabWidget_currentChanged( )
     this->ui->actionConicEllipse->setVisible( false );
     this->ui->actionConicThreePoint->setVisible( false );
     this->ui->actionConicFivePoint->setVisible( false );
-
-    this->conicTypeGroup->setEnabled( true );
   }
 }
 
