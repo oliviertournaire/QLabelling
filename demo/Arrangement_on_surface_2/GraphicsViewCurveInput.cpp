@@ -33,13 +33,6 @@ void GraphicsViewCurveInputBase::setScene( QGraphicsScene* scene_ )
   }
 }
 
-#if 0
-QGraphicsScene* GraphicsViewCurveInputBase::getScene( ) const
-{
-  return this->scene;
-}
-#endif
-
 void GraphicsViewCurveInputBase::setSnappingEnabled( bool b )
 {
   this->snappingEnabled = b;
@@ -100,30 +93,6 @@ QColor GraphicsViewCurveInputBase::getColor( ) const
 {
   return this->color;
 }
-
-#if 0
-QRectF GraphicsViewCurveInputBase::viewportRect( ) const
-{
-  QRectF res;
-  if ( this->scene == NULL )
-  {
-    return res;
-  }
-
-  QList< QGraphicsView* > views = this->scene->views( );
-  if ( views.size( ) == 0 )
-  {
-    return res;
-  }
-  // assumes the first view is the right one
-  QGraphicsView* viewport = views.first( );
-  QPointF p1 = viewport->mapToScene( 0, 0 );
-  QPointF p2 = viewport->mapToScene( viewport->width( ), viewport->height( ) );
-  res = QRectF( p1, p2 );
-
-  return res;
-}
-#endif
 
 } // namespace Qt
 } // namespace CGAL

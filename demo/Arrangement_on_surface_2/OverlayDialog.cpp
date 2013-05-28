@@ -39,7 +39,6 @@ OverlayDialog::OverlayDialog( ArrangementDemoWindow* parent,
   // on clang
   QBrush segColor( ( QColor( ::Qt::red ) ) );
   QBrush polyColor( ( QColor( ::Qt::darkGreen ) ) );
-  QBrush conicColor( ( QColor( ::Qt::blue ) ) );
   this->ui->setupUi( this );
 
   std::vector< QString > labels = parent->getTabLabels( );
@@ -54,9 +53,7 @@ OverlayDialog::OverlayDialog( ArrangementDemoWindow* parent,
     QIcon icon;
     Seg_arr* seg;
     Pol_arr* pol;
-    Conic_arr* conic;
     Lin_arr* lin;
-    Arc_arr* arc;
     // Alg_seg_arr* alg;
     if ( CGAL::assign( seg, arrangements[ i ] ) )
     {
@@ -66,11 +63,6 @@ OverlayDialog::OverlayDialog( ArrangementDemoWindow* parent,
     else if ( CGAL::assign( pol, arrangements[ i ] ) )
     {
       icon.addFile(QString::fromUtf8(":/icons/yellow_icon.xpm"), QSize(),
-                   QIcon::Normal, QIcon::Off);
-    }
-    else if ( CGAL::assign( conic, arrangements[ i ] ) )
-    {
-      icon.addFile(QString::fromUtf8(":/icons/red_icon.xpm"), QSize(),
                    QIcon::Normal, QIcon::Off);
     }
     else if ( CGAL::assign( lin, arrangements[ i ] ) )
@@ -83,11 +75,6 @@ OverlayDialog::OverlayDialog( ArrangementDemoWindow* parent,
       icon.addFile(QString::fromUtf8(":/icons/green_icon.xpm"), QSize(),
                    QIcon::Normal, QIcon::Off);
     }
-    // else if ( CGAL::assign( alg, arrangements[ i ] ) )
-    // {
-    //   icon.addFile(QString::fromUtf8(":/icons/yellow_icon.xpm"), QSize(),
-    //                QIcon::Normal, QIcon::Off);
-    // }
     item->setIcon( icon );
   }
 }
@@ -162,10 +149,7 @@ void OverlayDialog::restrictSelection( QListWidgetItem* item )
   CGAL::Object o = item->data( ARRANGEMENT ).value< CGAL::Object >( );
   Seg_arr* seg;
   Pol_arr* pol;
-  Conic_arr* conic;
   Lin_arr* lin;
-  Arc_arr* arc;
-  // Alg_seg_arr* alg;
   if ( CGAL::assign( seg, o ) )
   {
     for ( int i = 0; i < this->ui->arrangementsListWidget->count( ); ++i )
@@ -204,25 +188,6 @@ void OverlayDialog::restrictSelection( QListWidgetItem* item )
       otherItem->setFlags( flags );
     }
   }
-  else if ( CGAL::assign( conic, o ) )
-  {
-    for ( int i = 0; i < this->ui->arrangementsListWidget->count( ); ++i )
-    {
-      QListWidgetItem* otherItem = this->ui->arrangementsListWidget->item( i );
-      CGAL::Object o2 = otherItem->data( ARRANGEMENT ).value< CGAL::Object >( );
-      bool enabled = CGAL::assign( conic, o2 );
-      Qt::ItemFlags flags = otherItem->flags( );
-      if ( ! enabled )
-      {
-        flags &= ~( Qt::ItemIsEnabled );
-      }
-      else
-      {
-        flags |= Qt::ItemIsEnabled;
-      }
-      otherItem->setFlags( flags );
-    }
-  }
   else if ( CGAL::assign( lin, o ) )
   {
     for ( int i = 0; i < this->ui->arrangementsListWidget->count( ); ++i )
@@ -242,44 +207,6 @@ void OverlayDialog::restrictSelection( QListWidgetItem* item )
       otherItem->setFlags( flags );
     }
   }
-  else if ( CGAL::assign( arc, o ) )
-  {
-    for ( int i = 0; i < this->ui->arrangementsListWidget->count( ); ++i )
-    {
-      QListWidgetItem* otherItem = this->ui->arrangementsListWidget->item( i );
-      CGAL::Object o2 = otherItem->data( ARRANGEMENT ).value< CGAL::Object >( );
-      bool enabled = CGAL::assign( arc, o2 );
-      Qt::ItemFlags flags = otherItem->flags( );
-      if ( ! enabled )
-      {
-        flags &= ~( Qt::ItemIsEnabled );
-      }
-      else
-      {
-        flags |= Qt::ItemIsEnabled;
-      }
-      otherItem->setFlags( flags );
-    }
-  }
-  // else if ( CGAL::assign( alg, o ) )
-  // {
-  //   for ( int i = 0; i < this->ui->arrangementsListWidget->count( ); ++i )
-  //   {
-  //     QListWidgetItem* otherItem = this->ui->arrangementsListWidget->item( i );
-  //     CGAL::Object o2 = otherItem->data( ARRANGEMENT ).value< CGAL::Object >( );
-  //     bool enabled = CGAL::assign( alg, o2 );
-  //     Qt::ItemFlags flags = otherItem->flags( );
-  //     if ( ! enabled )
-  //     {
-  //       flags &= ~( Qt::ItemIsEnabled );
-  //     }
-  //     else
-  //     {
-  //       flags |= Qt::ItemIsEnabled;
-  //     }
-  //     otherItem->setFlags( flags );
-  //   }
-  // }
 }
 
 void OverlayDialog::unrestrictSelection( )

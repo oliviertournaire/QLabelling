@@ -52,21 +52,14 @@ class ArrangementDemoWindow : public CGAL::Qt::DemosMainWindow
 {
   Q_OBJECT
   public:
-#if 0
-  typedef Seg_traits::Point_2 Point;
-  typedef Seg_traits::Segment_2 Segment;
-#endif
   typedef enum TraitsType {
     SEGMENT_TRAITS,
     POLYLINE_TRAITS,
-    CONIC_TRAITS,
-    LINEAR_TRAITS,
-    CIRCULAR_ARC_TRAITS
-    // ALGEBRAIC_TRAITS
+    LINEAR_TRAITS
   } TraitsType;
     
   ArrangementDemoWindow(QWidget* parent = 0);
-  ~ArrangementDemoWindow();
+  ~ArrangementDemoWindow() {}
 
   ArrangementDemoTabBase* makeTab( TraitsType tt );
   ArrangementDemoTabBase* getTab( unsigned int tabIndex ) const;
@@ -82,7 +75,6 @@ public slots:
   void updateMode( QAction* a );
   void updateEnvelope( QAction* a );
   void updateSnapping( QAction* a );
-  void updateConicType( QAction* a );
   void on_actionNewTab_triggered( );
   void on_actionSaveAs_triggered( );
   void on_actionOpen_triggered( );
@@ -90,12 +82,10 @@ public slots:
   void on_tabWidget_currentChanged( );
   void on_actionOverlay_triggered( );
   void on_actionCloseTab_triggered( );
-  void on_actionPrintConicCurves_triggered( );
   void on_actionZoomIn_triggered( );
   void on_actionZoomOut_triggered( );
   void on_actionPreferences_triggered( );
   void on_actionFillColor_triggered( );
-    
 
 signals:
   void modelChanged( );
@@ -118,7 +108,6 @@ protected:
   QActionGroup* modeGroup;
   QActionGroup* envelopeGroup;
   QActionGroup* snapGroup;
-  QActionGroup* conicTypeGroup;
 };
 
 template < class ArrType >

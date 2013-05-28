@@ -1,4 +1,4 @@
-// Copyright (c) 2012  Tel-Aviv University (Israel).
+﻿// Copyright (c) 2012  Tel-Aviv University (Israel).
 // All rights reserved.
 //
 // This file is part of CGAL (www.cgal.org).
@@ -32,14 +32,8 @@ NewTabDialog::NewTabDialog( QWidget* parent, Qt::WindowFlags f ) :
                                 ArrangementDemoWindow::SEGMENT_TRAITS );
   this->buttonGroup->addButton( this->ui->polylineRadioButton,
                                 ArrangementDemoWindow::POLYLINE_TRAITS );
-  this->buttonGroup->addButton( this->ui->conicRadioButton,
-                                ArrangementDemoWindow::CONIC_TRAITS );
   this->buttonGroup->addButton( this->ui->linearRadioButton,
                                 ArrangementDemoWindow::LINEAR_TRAITS );
-  this->buttonGroup->addButton( this->ui->circularArcRadioButton,
-                                ArrangementDemoWindow::CIRCULAR_ARC_TRAITS );
-  // this->buttonGroup->addButton( this->ui->algebraicRadioButton,
-  //                               ArrangementDemoWindow::ALGEBRAIC_TRAITS );
 }
 
 int NewTabDialog::checkedId( ) const
