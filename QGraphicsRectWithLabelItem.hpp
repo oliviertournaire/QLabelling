@@ -42,7 +42,7 @@ public:
     }
 
     //! Redefines the paint method to take into account pen and brush properties
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 protected:
     //! The label of te item

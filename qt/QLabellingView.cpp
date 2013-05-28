@@ -72,14 +72,11 @@ void QLabellingView::mousePressEvent(QMouseEvent *event)
         QGraphicsItem* selectedItem = _scene->itemAt(x, y, QTransform());
         if ( QGraphicsRectWithLabelItem* rectItem = qgraphicsitem_cast<QGraphicsRectWithLabelItem*>(selectedItem) )
         {
-            vector<QGraphicsRectWithLabelItem*>::iterator it;
-            it = std::find(_rects.begin(), _rects.end(), rectItem);
-
             const QLabelItem *activeLabelItem = _labellingWidget->findActiveLabelItem();
             if ( activeLabelItem )
             {
                 rectItem->setBrush( QBrush(activeLabelItem->labelColor(), Qt::SolidPattern) );
-                (*it)->setLabel( activeLabelItem->labelName() );
+                rectItem->setLabel( activeLabelItem->labelName() );
             }
             else
                 qDebug() << __FUNCTION__ << "No active label found!!!";
@@ -189,12 +186,7 @@ void QLabellingView::rebuildRectanglesFromLastLine(const QLineF& line)
     {
         for(unsigned int j=0;j<_rects.size();++j)
         {
-            bool found = false;
             if ( collidingRects[i]->rect() == _rects[j]->rect() )
-            {
-                found = true;
-            }
-            if (found)
             {
                 QString intersectedLabel = _rects[j]->label();
                 QGraphicsRectWithLabelItem* newRect1 = new QGraphicsRectWithLabelItem;

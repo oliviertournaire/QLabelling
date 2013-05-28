@@ -52,7 +52,7 @@ QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
 
     connectAll();
 
-    _loggerWidget->logInfo( "QLabelling application started" );
+    _loggerWidget->logInfo( tr("QLabelling application started") );
 }
 
 QLabellingMainWindow::~QLabellingMainWindow()
