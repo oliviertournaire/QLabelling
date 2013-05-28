@@ -35,6 +35,11 @@
 #include <CGAL/IO/Arr_text_formatter.h>
 #include <CGAL/IO/Arr_with_history_text_formatter.h>
 
+#ifdef _WINDOWS
+    // for isinf
+    #include <boost/math/special_functions/fpclassify.hpp>
+#endif // _WINDOWS
+
 ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
   CGAL::Qt::DemosMainWindow( parent ),
   lastTabIndex(static_cast<unsigned int>(-1)),
@@ -824,10 +829,17 @@ void ArrangementDemoWindow::on_actionOpen_triggered( )
   QGraphicsView* view = currentTab->getView( );
   // std::cout << bb.left( ) << " " << bb.bottom( ) << ", " << bb.right( )
   //           << " " << bb.top( ) << std::endl;
+#ifndef _WINDOWS
   if ( std::isinf(bb.left( )) || 
        std::isinf(bb.right( )) || 
        std::isinf(bb.top( )) || 
        std::isinf(bb.bottom( )) )
+#else
+  if ( boost::math::isinf(bb.left( )) || 
+       boost::math::isinf(bb.right( )) || 
+       boost::math::isinf(bb.top( )) || 
+       boost::math::isinf(bb.bottom( )) )
+#endif // _WINDOWS
   {
     // std::cout << "unbounded; using default bb" << std::endl;
     bb = QRectF( -100, -100, 200, 200 );
