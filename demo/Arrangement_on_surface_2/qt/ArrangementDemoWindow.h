@@ -30,19 +30,13 @@
 #include "EnvelopeCallback.h"
 #include "ArrangementDemoTab.h"
 
-#include <CGAL/Arr_overlay_2.h>
 #include <CGAL/Arr_default_overlay_traits.h>
 #include <CGAL/Qt/DemosMainWindow.h>
 #include <CGAL/IO/pixmaps/hand.xpm>
 
-#include <Qt>
-
 #include "ui_ArrangementDemoWindow.h"
 
-//#include <QFileDialog>
-//#include <QInputDialog>
-//#include <QMessageBox>
-//#include <QtGui>
+#include <QGraphicsView>
 
 namespace Ui { class ArrangementDemoWindow; }
 
