@@ -1,56 +1,26 @@
-# TODO: refactor ...
+# Qt
+file( GLOB MOCS_QDEMOARRANGEMENT2_HPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/*.h )
+file( GLOB MOCS_QDEMOARRANGEMENT2_CPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/*.cpp )
+file( GLOB MOCS_QDEMOARRANGEMENT2_UI  ${CMAKE_CURRENT_SOURCE_DIR}/qt/*.ui  )
 
-  qt4_wrap_ui( arrangement_2_uis
-    ArrangementDemoWindow.ui
-    NewTabDialog.ui
-    OverlayDialog.ui
-    ArrangementDemoPropertiesDialog.ui
-  )
-  qt4_wrap_cpp( arrangement_2_mocs
-    ArrangementDemoWindow.h
-    ArrangementDemoTab.h
-    Callback.h
-#    NewTabDialog.h
-    OverlayDialog.h
-    ArrangementDemoPropertiesDialog.h
-    ColorItemEditor.h
-    DeleteCurveModeItemEditor.h
-    PropertyValueDelegate.h
-    #PropertyValueDelegate.cpp
-  )
-  qt4_add_resources( arrangement_2_resources
-    ArrangementDemoWindow.qrc
-  )
-  add_executable( QDemoArrangement2
-    arrangement_2.cpp
-    ArrangementGraphicsItem.cpp
-    ArrangementDemoWindow.cpp
-    ArrangementDemoTab.cpp
-    ArrangementDemoGraphicsView.cpp
-    Callback.cpp
-    VerticalRayShootCallback.cpp
-    EnvelopeCallback.cpp
-    SplitEdgeCallback.cpp
-    FillFaceCallback.cpp
-    GraphicsViewSegmentInput.cpp
-    GraphicsViewCurveInput.cpp
-    Utils.cpp
-    NewTabDialog.cpp
-    OverlayDialog.cpp
-    ArrangementDemoPropertiesDialog.cpp
-    ColorItemEditor.cpp
-    PropertyValueDelegate.cpp
-    DeleteCurveMode.cpp
-    DeleteCurveModeItemEditor.cpp
-    PointsGraphicsItem.cpp
-    VerticalRayGraphicsItem.cpp
-   ${arrangement_2_mocs}
-   ${arrangement_2_uis}
-   ${arrangement_2_resources}
-  )
+qt4_wrap_cpp( ALL_MOCS_QDEMOARRANGEMENT2 ${MOCS_QDEMOARRANGEMENT2_HPP} )
+qt4_wrap_ui(  ALL_UI_QDEMOARRANGEMENT2   ${MOCS_QDEMOARRANGEMENT2_UI}  )
+qt4_add_resources( RCS_QDEMOARRANGEMENT2 ${CMAKE_CURRENT_SOURCE_DIR}/rc/ArrangementDemoWindow.qrc )
 
-  target_link_libraries( QDemoArrangement2
-    ${CGAL_LIBRARIES}
-    ${CGAL_3RD_PARTY_LIBRARIES}
-    ${QT_LIBRARIES}
-  )
+# "Classic" C++
+file( GLOB ALL_QDEMOARRANGEMENT2_HPP ${CMAKE_CURRENT_SOURCE_DIR}/*.h )
+file( GLOB ALL_QDEMOARRANGEMENT2_CPP ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
+
+include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR} )
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/qt )
+
+add_executable( QDemoArrangement2 ${MOCS_QDEMOARRANGEMENT2_HPP}
+								  ${MOCS_QDEMOARRANGEMENT2_CPP}
+								  ${MOCS_QDEMOARRANGEMENT2_UI}
+								  ${ALL_MOCS_QDEMOARRANGEMENT2}
+								  ${ALL_UI_QDEMOARRANGEMENT2}
+								  ${RCS_QDEMOARRANGEMENT2}
+								  ${ALL_QDEMOARRANGEMENT2_HPP}
+								  ${ALL_QDEMOARRANGEMENT2_CPP} )
+target_link_libraries( QDemoArrangement2 ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${QT_LIBRARIES} )

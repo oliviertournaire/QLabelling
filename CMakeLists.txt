@@ -50,9 +50,6 @@ file( GLOB MOCS_QLABELLING_UI  ${CMAKE_SOURCE_DIR}/qt/*.ui  )
 file( GLOB ALL_QLABELLING_HPP ${CMAKE_SOURCE_DIR}/*.hpp )
 file( GLOB ALL_QLABELLING_CPP ${CMAKE_SOURCE_DIR}/*.cpp )
 
-file( GLOB ALL_QLABELLING_CGAL_HPP ${CMAKE_SOURCE_DIR}/CGAL/Qt/*.hpp )
-file( GLOB ALL_QLABELLING_CGAL_CPP ${CMAKE_SOURCE_DIR}/CGAL/Qt/*.cpp )
-
 qt4_wrap_cpp( ALL_MOCS_QLABELLING ${MOCS_QLABELLING_HPP} )
 qt4_wrap_ui(  ALL_UI_QLABELLING   ${MOCS_QLABELLING_UI}  )
 qt4_add_resources( RCS_QLABELLING ${CMAKE_SOURCE_DIR}/rc/RessourcesQLabelling.qrc )
@@ -69,9 +66,7 @@ add_executable( QLabelling ${ALL_UTILITIES_HPP}
                            ${ALL_QLABELLING_CPP}
                            ${ALL_MOCS_QLABELLING}
                            ${ALL_UI_QLABELLING}
-                           ${RCS_QLABELLING}
-                           ${ALL_QLABELLING_CGAL_HPP}
-                           ${ALL_QLABELLING_CGAL_CPP} )
+                           ${RCS_QLABELLING} )
 target_link_libraries( QLabelling ${QT_LIBRARIES} ${CGAL_LIBRARIES} ${Boost_LIBRARIES} )
 set_target_properties( QLabelling PROPERTIES DEBUG_POSTFIX "_debug" )
 add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp.cmake.in )
