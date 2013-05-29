@@ -247,6 +247,7 @@ protected:
         }
     }
 
+    
     template < typename Kernel_ >
     void paintFace( Face_handle f, QPainter* painter,
                     CGAL::Arr_polyline_traits_2< Kernel_ > )
@@ -314,33 +315,6 @@ protected:
             QColor color = this->backgroundColor;
             painter->fillRect( rect, color );
         }
-    }
-
-    void drawDiagnosticArc( QPointF c, QPointF s, QPointF t, QPainter* qp )
-    {
-        QBrush saveBrush = qp->brush( );
-        double r = QLineF( c, s ).length();
-        QRectF bb( c.x() - r, c.y() - r, 2*r, 2*r );
-
-        QPainterPath path;
-        // because we flipped the y-axis in our view, we need to flip our angles
-        // with respect to the y-axis. we can do this by flipping s and t, then
-        // negating their y-values
-        std::swap( s, t );
-        double as = atan2( -(s - c).y(), (s - c).x() );
-        double at = atan2( -(t - c).y(), (t - c).x() );
-        double aspan = at - as;
-
-        path.moveTo( c );
-        path.lineTo( s );
-        path.arcTo( bb, as * 180/M_PI, aspan * 180/M_PI );
-        path.closeSubpath( );
-        qp->drawEllipse( bb );
-
-        qp->setBrush( ::Qt::red );
-        qp->fillPath( path, qp->brush() );
-        qp->setBrush( saveBrush );
-
     }
 
     /**

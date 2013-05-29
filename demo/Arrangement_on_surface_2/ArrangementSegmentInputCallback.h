@@ -74,6 +74,7 @@ ArrangementSegmentInputCallback( Arrangement* arrangement_, QObject* parent ):
                     this, SLOT( processInput( CGAL::Object ) ) );
 }
 
+// Inserting a segment into the arrangement
 template < typename Arr_ >
 void
 ArrangementSegmentInputCallback< Arr_ >::
