@@ -21,7 +21,6 @@
 #define ARRANGEMENT_DEMO_WINDOW_H
 
 #include "ArrangementGraphicsItem.h"
-#include "ArrangementTypes.h"
 #include "DeleteCurveCallback.h"
 #include "PointLocationCallback.h"
 #include "VerticalRayShootCallback.h"

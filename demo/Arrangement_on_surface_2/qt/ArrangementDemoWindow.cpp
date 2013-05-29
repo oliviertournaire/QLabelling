@@ -18,6 +18,7 @@
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
 #include "ArrangementDemoWindow.h"
+#include "ArrangementTypes.h"
 #include "NewTabDialog.h"
 #include "OverlayDialog.h"
 #include "ArrangementDemoPropertiesDialog.h"
