@@ -109,9 +109,6 @@ protected:
     template < typename TTraits >
     void paint( QPainter* painter, TTraits traits );
 
-    template < typename Kernel_ >
-    void paint( QPainter* painter, CGAL::Arr_linear_traits_2< Kernel_ > traits );
-
     void paintFaces( QPainter* painter )
     {
         typename Traits::Left_side_category category;
@@ -204,49 +201,6 @@ protected:
     void paintFace(Face_handle /* f */, QPainter* /* painter */,
                    Traits /* traits */)
     { }
-
-    template < typename Kernel_ >
-    void paintFace( Face_handle f, QPainter* painter,
-                    CGAL::Arr_segment_traits_2< Kernel_ > )
-    {
-        if (!f->is_unbounded())  // f is not the unbounded face
-        {
-            QVector< QPointF > pts; // holds the points of the polygon
-
-            /* running with around the outer of the face and generate from it
-       * polygon
-       */
-            Ccb_halfedge_circulator cc=f->outer_ccb();
-            do {
-                double x = CGAL::to_double(cc->source()->point().x());
-                double y = CGAL::to_double(cc->source()->point().y());
-                QPointF coord_source(x , y);
-                pts.push_back(coord_source );
-                //created from the outer boundary of the face
-            } while (++cc != f->outer_ccb());
-
-            // make polygon from the outer ccb of the face 'f'
-            QPolygonF pgn (pts);
-
-            // FIXME: get the bg color
-            QColor color = this->backgroundColor;
-            if ( f->color().isValid() )
-            {
-                color = f->color();
-            }
-            QBrush oldBrush = painter->brush( );
-            painter->setBrush( color );
-            painter->drawPolygon( pgn );
-            painter->setBrush( oldBrush );
-        }
-        else
-        {
-            QRectF rect = this->viewportRect( );
-            QColor color = this->backgroundColor;
-            painter->fillRect( rect, color );
-        }
-    }
-
     
     template < typename Kernel_ >
     void paintFace( Face_handle f, QPainter* painter,
@@ -359,9 +313,6 @@ protected:
     template < typename TTraits>
     void updateBoundingBox(TTraits traits );
 
-    template < typename Kernel_>
-    void updateBoundingBox(CGAL::Arr_linear_traits_2<Kernel_> traits);
-
     Arrangement* arr;
     ArrangementPainterOstream< Traits > painterostream;
     CGAL::Qt::Converter< Kernel > convert;
@@ -428,34 +379,6 @@ paint(QPainter* painter, TTraits /* traits */)
     }
 }
 
-template < typename Arr_, typename ArrTraits >
-template < typename Kernel_ >
-void ArrangementGraphicsItem< Arr_, ArrTraits >::
-paint(QPainter* painter, CGAL::Arr_linear_traits_2< Kernel_ > /* traits */)
-{
-    this->updateBoundingBox( );
-    this->paintFaces( painter );
-    painter->setPen( this->verticesPen );
-
-    this->painterostream =
-            ArrangementPainterOstream< Traits >( painter, this->boundingRect( ) );
-    this->painterostream.setScene( this->scene );
-
-    for ( Vertex_iterator it = this->arr->vertices_begin( );
-          it != this->arr->vertices_end( ); ++it )
-    {
-        Point_2 pt = it->point( );
-        this->painterostream << pt;
-    }
-    painter->setPen( this->edgesPen );
-    for ( Edge_iterator it = this->arr->edges_begin( );
-          it != this->arr->edges_end( ); ++it )
-    {
-        X_monotone_curve_2 curve = it->curve( );
-        this->painterostream << curve;
-    }
-}
-
 // We let the bounding box only grow, so that when vertices get removed
 // the maximal bbox gets refreshed in the GraphicsView
 template < typename Arr_, typename ArrTraits >
@@ -491,51 +414,6 @@ updateBoundingBox(TTraits /* traits */)
             this->curveBboxMap[ it ] = it->bbox( );
         }
         this->bb = this->bb + this->curveBboxMap[ it ];
-    }
-}
-
-template < typename Arr_, typename ArrTraits >
-template < typename Kernel_ >
-void
-ArrangementGraphicsItem< Arr_, ArrTraits >::
-updateBoundingBox(CGAL::Arr_linear_traits_2< Kernel_ > /* traits */)
-{
-    this->prepareGeometryChange( );
-    QRectF clipRect = this->viewportRect( );
-    this->convert = Converter<Kernel>( clipRect );
-
-    if ( ! clipRect.isValid( ) /*|| this->arr->number_of_vertices( ) == 0*/ )
-    {
-        this->bb = Bbox_2( 0, 0, 0, 0 );
-        this->bb_initialized = false;
-        return;
-    }
-    else
-    {
-        this->bb = this->convert( clipRect ).bbox( );
-        this->bb_initialized = true;
-    }
-
-    for ( Curve_iterator it = this->arr->curves_begin( );
-          it != this->arr->curves_end( );
-          ++it )
-    {
-        if ( it->is_segment( ) )
-        {
-            this->bb = this->bb + it->segment( ).bbox( );
-        }
-        else if ( it->is_ray( ) )
-        {
-            QLineF qclippedRay = this->convert( it->ray( ) );
-            Segment_2 clippedRay = this->convert( qclippedRay );
-            this->bb = this->bb + clippedRay.bbox( );
-        }
-        else // ( it->is_line( ) )
-        {
-            QLineF qclippedLine = this->convert( it->line( ) );
-            Segment_2 clippedLine = this->convert( qclippedLine );
-            this->bb = this->bb + clippedLine.bbox( );
-        }
     }
 }
 

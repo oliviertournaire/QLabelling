@@ -27,15 +27,15 @@ class QWidget;
 
 class DeleteCurveModeItemEditor : public QComboBox
 {
-  Q_OBJECT
-  Q_PROPERTY( DeleteCurveMode mode READ mode WRITE setMode USER true )
+    Q_OBJECT
+    Q_PROPERTY( DeleteCurveMode mode READ mode WRITE setMode USER true )
 
 public:
-  DeleteCurveModeItemEditor( QWidget* parent = 0 );
+    DeleteCurveModeItemEditor( QWidget* parent = 0 );
 
 public:
-  DeleteCurveMode mode( ) const;
-  void setMode( DeleteCurveMode m );
+    DeleteCurveMode mode( ) const;
+    void setMode( DeleteCurveMode m );
 
 }; // class DeleteCurveModeItemEditor
 

@@ -25,12 +25,6 @@
 
 #include <CGAL/basic.h>
 
-/*
-#include <CGAL/IO/Qt_widget.h>
-#include <CGAL/IO/Qt_widget_Polygon_2.h>
-#include <CGAL/IO/Qt_help_window.h>
-*/
-
 #include <CGAL/Cartesian.h>
 #include <CGAL/Arr_default_dcel.h>
 #include <CGAL/Arr_segment_traits_2.h>

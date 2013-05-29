@@ -24,7 +24,7 @@
 DeleteCurveMode::DeleteCurveMode( ) : m_mode( DELETE_CURVE ) { }
 
 DeleteCurveMode::DeleteCurveMode( const DeleteCurveMode& dcm ) :
-  m_mode( dcm.mode( ) )
+    m_mode( dcm.mode( ) )
 { }
 
 DeleteCurveMode::DeleteCurveMode( Mode mode ) : m_mode( mode ) { }
@@ -33,16 +33,16 @@ DeleteCurveMode::~DeleteCurveMode( ) { }
 
 DeleteCurveMode::Mode DeleteCurveMode::mode( ) const
 {
-  return this->m_mode;
+    return this->m_mode;
 }
 
 void DeleteCurveMode::setMode( Mode mode )
 {
-  this->m_mode = mode;
+    this->m_mode = mode;
 }
 
 QString DeleteCurveMode::ToString( const DeleteCurveMode& mode )
 {
-  return ( mode.mode( ) == DELETE_CURVE ) ?
-    QString("Delete Curve") : QString("Delete Edge");
+    return ( mode.mode( ) == DELETE_CURVE ) ?
+                QString("Delete Curve") : QString("Delete Edge");
 }
