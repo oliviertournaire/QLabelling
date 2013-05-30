@@ -64,6 +64,15 @@ public:
         {
 	    std::cout << "Insertion d'un objet dans l'arrangement." << std::endl;
             CGAL::insert( *( this->arrangement ), curve );
+	    
+	    
+	    std::cout << "Liste complète des vertices de l'arrangement :" << std::endl;
+	    Vertex_iterator v;
+	    int index;
+	    for (v = this->arrangement->vertices_begin(), index=0 ; v != this->arrangement->vertices_end(); ++v, ++index)
+		std::cout << " Trouvé le vertex #" << index << " : "
+			<< "(" << CGAL::to_double(v->point().x()) << ":" << CGAL::to_double(v->point().y()) << ")"
+			<< " de degré " << v->degree() << "." << std::endl;
         }
 #if 0
         else if ( CGAL::assign( xcurve, o ) )
