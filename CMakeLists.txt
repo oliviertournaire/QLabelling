@@ -30,6 +30,18 @@ add_definitions( ${QT_DEFINITIONS} )
 # CGAL
 find_package( CGAL COMPONENTS Core Qt4 REQUIRED )
 include( ${CGAL_USE_FILE} )
+# We need to check that we are using a CGAL version above 4.2
+message( STATUS "*******************************************" )
+message( STATUS "********** Checking CGAL version **********" )
+IS_VERSION_GREATER( ${CGAL_VERSION} "4.2.0.0" VERSION_GREATER )
+IS_VERSION_EQUAL( ${CGAL_VERSION} "4.2.0.0" VERSION_EQUAL )
+if( ${VERSION_GREATER} OR ${VERSION_EQUAL} )
+	message( STATUS "*  --> Your CGAL version (" ${CGAL_VERSION} ") is OK *" )
+else()
+	message( FATAL_ERROR "!!! You need a CGAL version above 2.4!!! Your CGAL version is " ${CGAL_VERSION} ". Please update your CGAL version ..." )
+endif()
+message( STATUS "******** Checking CGAL version done *******" )
+message( STATUS "*******************************************" )
 
 # BOOST
 find_package( Boost COMPONENTS system thread REQUIRED)
