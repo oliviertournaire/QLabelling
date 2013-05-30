@@ -54,6 +54,7 @@ typedef Coord_kernel::Circle_2                          Coord_circle;
 typedef CGAL::Polygon_2<Coord_kernel> My_polygon;
                                       // polygon is usefull for filling faces
 
+/*
 #ifdef CGAL_USE_GMP
   #include <CGAL/Gmpq.h>
   typedef CGAL::Gmpq                                    NT;
@@ -66,6 +67,10 @@ typedef CGAL::Polygon_2<Coord_kernel> My_polygon;
 //typedef CGAL::Cartesian<NT>                           Kernel;
 // workaround for VC++
 struct Kernel : public CGAL::Cartesian<NT> {};
+*/
+
+#include <CGAL/Exact_predicates_exact_constructions_kernel.h>
+struct Kernel : public CGAL::Epeck {};
 
 class Face_with_color : public CGAL::Arr_face_base
 {

@@ -389,7 +389,7 @@ void ArrangementDemoWindow::openDatFile( QString filename )
             {
                 int ix, iy;
                 inputFile >> ix >> iy;
-                points.push_back (Arr_pol_point_2(NT(ix),NT(iy)));
+                points.push_back (Arr_pol_point_2(CGAL::to_double(ix),CGAL::to_double(iy)));
             }
 
             Arr_pol_2 curve (points.begin(), points.end());

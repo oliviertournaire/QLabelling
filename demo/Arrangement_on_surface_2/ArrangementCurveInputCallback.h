@@ -62,17 +62,17 @@ public:
         X_monotone_curve_2 xcurve;
         if ( CGAL::assign( curve, o ) )
         {
-	    std::cout << "Insertion d'un objet dans l'arrangement." << std::endl;
+            std::cout << "Insertion d'un objet (" << curve.points() << " points) dans l'arrangement." << std::endl;
             CGAL::insert( *( this->arrangement ), curve );
-	    
-	    
-	    std::cout << "Liste complète des vertices de l'arrangement :" << std::endl;
-	    Vertex_iterator v;
-	    int index;
-	    for (v = this->arrangement->vertices_begin(), index=0 ; v != this->arrangement->vertices_end(); ++v, ++index)
-		std::cout << " Trouvé le vertex #" << index << " : "
-			<< "(" << CGAL::to_double(v->point().x()) << ":" << CGAL::to_double(v->point().y()) << ")"
-			<< " de degré " << v->degree() << "." << std::endl;
+
+
+            std::cout << "Liste complète des vertices de l'arrangement :" << std::endl;
+            Vertex_iterator v;
+            int index;
+            for (v = this->arrangement->vertices_begin(), index=0 ; v != this->arrangement->vertices_end(); ++v, ++index)
+                std::cout << " Trouvé le vertex #" << index << " : "
+                          << "(" << CGAL::to_double(v->point().x()) << ":" << CGAL::to_double(v->point().y()) << ")"
+                          << " de degré " << v->degree() << "." << std::endl;
         }
 #if 0
         else if ( CGAL::assign( xcurve, o ) )
