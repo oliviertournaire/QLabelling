@@ -23,9 +23,9 @@
 class ISnappable
 {
 public:
-  virtual ~ISnappable( ) { }
-  virtual void setSnappingEnabled( bool b ) = 0;
-  virtual void setSnapToGridEnabled( bool b ) = 0;
+    virtual ~ISnappable( ) { }
+    virtual void setSnappingEnabled( bool b ) = 0;
+    virtual void setSnapToGridEnabled( bool b ) = 0;
 }; // class ISnappable
 
 

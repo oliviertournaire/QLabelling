@@ -35,24 +35,24 @@ namespace Qt {
 
 class Callback : public QObject, public QGraphicsSceneMixin
 {
-Q_OBJECT
+    Q_OBJECT
 
 public:
-  Callback( QObject* parent );
-  virtual void reset( );
+    Callback( QObject* parent );
+    virtual void reset( );
 
 public slots:
-  virtual void slotModelChanged( );
+    virtual void slotModelChanged( );
 
 signals:
-  void modelChanged( );
+    void modelChanged( );
 
 protected:
-  virtual bool eventFilter( QObject* object, QEvent* event );
-  virtual void mousePressEvent( QGraphicsSceneMouseEvent* event );
-  virtual void mouseMoveEvent( QGraphicsSceneMouseEvent* event );
-  virtual void mouseReleaseEvent( QGraphicsSceneMouseEvent* event );
-  virtual void keyPressEvent( QKeyEvent* event );
+    virtual bool eventFilter( QObject* object, QEvent* event );
+    virtual void mousePressEvent( QGraphicsSceneMouseEvent* event );
+    virtual void mouseMoveEvent( QGraphicsSceneMouseEvent* event );
+    virtual void mouseReleaseEvent( QGraphicsSceneMouseEvent* event );
+    virtual void keyPressEvent( QKeyEvent* event );
 };
 
 } // namespace Qt

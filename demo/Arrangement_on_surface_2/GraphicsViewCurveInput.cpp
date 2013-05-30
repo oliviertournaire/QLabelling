@@ -26,27 +26,27 @@ namespace Qt {
 
 void GraphicsViewCurveInputBase::setScene( QGraphicsScene* scene_ )
 {
-  this->QGraphicsSceneMixin::setScene( scene_ );
-  if ( this->scene != NULL )
-  {
-    this->scene->addItem( &this->pointsGraphicsItem );
-  }
+    this->QGraphicsSceneMixin::setScene( scene_ );
+    if ( this->scene != NULL )
+    {
+        this->scene->addItem( &this->pointsGraphicsItem );
+    }
 }
 
 void GraphicsViewCurveInputBase::setSnappingEnabled( bool b )
 {
-  this->snappingEnabled = b;
+    this->snappingEnabled = b;
 }
 
 void GraphicsViewCurveInputBase::setSnapToGridEnabled( bool b )
 {
-  this->snapToGridEnabled = b;
+    this->snapToGridEnabled = b;
 }
 
 /*! Constructor */
 GraphicsViewCurveInputBase::GraphicsViewCurveInputBase( QObject* parent ) :
     GraphicsViewInput( parent ),
-//    scene( NULL ),
+    //    scene( NULL ),
     snappingEnabled( false ),
     snapToGridEnabled( false ),
     color( ::Qt::blue )
@@ -62,36 +62,36 @@ GraphicsViewCurveInputBase::mouseMoveEvent(QGraphicsSceneMouseEvent* /* event */
 void GraphicsViewCurveInputBase::
 mousePressEvent(QGraphicsSceneMouseEvent* /* event */)
 { 
-  // std::cout << "GraphicsViewCurveInputBase::mousePressEvent" << std::endl;
+    // std::cout << "GraphicsViewCurveInputBase::mousePressEvent" << std::endl;
 }
 
 bool GraphicsViewCurveInputBase::eventFilter( QObject* obj, QEvent* event )
 {
-  if ( event->type( ) == QEvent::GraphicsSceneMouseMove )
-  {
-    QGraphicsSceneMouseEvent* mouseEvent =
-      static_cast< QGraphicsSceneMouseEvent* >( event );
-    this->mouseMoveEvent( mouseEvent );
-  }
-  else if ( event->type( ) == QEvent::GraphicsSceneMousePress )
-  {
-    QGraphicsSceneMouseEvent* mouseEvent =
-      static_cast< QGraphicsSceneMouseEvent* >( event );
-    this->mousePressEvent( mouseEvent );
-  }
+    if ( event->type( ) == QEvent::GraphicsSceneMouseMove )
+    {
+        QGraphicsSceneMouseEvent* mouseEvent =
+                static_cast< QGraphicsSceneMouseEvent* >( event );
+        this->mouseMoveEvent( mouseEvent );
+    }
+    else if ( event->type( ) == QEvent::GraphicsSceneMousePress )
+    {
+        QGraphicsSceneMouseEvent* mouseEvent =
+                static_cast< QGraphicsSceneMouseEvent* >( event );
+        this->mousePressEvent( mouseEvent );
+    }
 
-  return QObject::eventFilter( obj, event );
+    return QObject::eventFilter( obj, event );
 }
 
 void GraphicsViewCurveInputBase::setColor( QColor c )
 {
-  this->color = c;
-  this->pointsGraphicsItem.setColor( this->color );
+    this->color = c;
+    this->pointsGraphicsItem.setColor( this->color );
 }
 
 QColor GraphicsViewCurveInputBase::getColor( ) const
 {
-  return this->color;
+    return this->color;
 }
 
 } // namespace Qt
