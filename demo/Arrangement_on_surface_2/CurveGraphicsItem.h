@@ -81,6 +81,8 @@ public: // methods
         painter->setPen( verticesPen );
         for ( unsigned int i = 0; i < this->points.size( ); ++i )
         {
+	    // Jamais appelé !
+	    std::cout << "On dessine le point situé en " << this->points[i] << std::endl;
             Point_2 arrPoint = this->points[ i ];
             Kernel_point_2 point( CGAL::to_double( arrPoint.x( ) ),
                                   CGAL::to_double( arrPoint.y( ) ) );
