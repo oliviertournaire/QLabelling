@@ -104,9 +104,11 @@ protected:
         Point_2 clickedPoint = this->snapPoint( event );
         if ( this->points.empty( ) )
         { // first
+	    
             // add clicked point to polyline
             this->points.push_back( clickedPoint );
-
+	    std::cout << "Insertion d'un point (premier de la ligne) en " << clickedPoint << "." << std::endl;
+            
             QPointF pt = this->convert( clickedPoint );
             QGraphicsLineItem* lineItem =
                     new QGraphicsLineItem( pt.x( ), pt.y( ), pt.x( ), pt.y( ) );
@@ -124,9 +126,12 @@ protected:
         {
             // add clicked point to polyline
             this->points.push_back( clickedPoint );
+	    std::cout << "Insertion d'un point en " << clickedPoint << "." << std::endl;
 
             if ( event->button( ) == ::Qt::RightButton )
             { // finalize polyline input
+                
+                // Destruction de la Polyline courante
                 for ( unsigned int i = 0; i < this->polylineGuide.size( ); ++i )
                 {
                     if ( this->scene != NULL )
@@ -150,10 +155,10 @@ protected:
                 QPen pen = lineItem->pen( );
                 pen.setColor( this->color );
                 lineItem->setPen( pen );
-                this->polylineGuide.push_back( lineItem );
+                this->polylineGuide.push_back( lineItem ); // Ajout à l'objet Polyline de ce nouveau segment
                 if ( this->scene != NULL )
                 {
-                    this->scene->addItem( this->polylineGuide.back( ) );
+                    this->scene->addItem( this->polylineGuide.back( ) ); // Ajout à la scène du dernier segment (celui qui vient d'être ajouté)
                 }
             }
         }
@@ -169,7 +174,7 @@ protected:
     Converter< Kernel > convert;
     std::vector< Point_2 > points;
 
-    std::vector< QGraphicsLineItem* > polylineGuide;
+    std::vector< QGraphicsLineItem* > polylineGuide; // Polyline courante
 };
 
 } // namespace Qt

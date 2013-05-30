@@ -39,11 +39,12 @@ public:
                         const QStyleOptionGraphicsItem* option, QWidget* widget );
     virtual QRectF boundingRect( ) const;
 
+    // Fonction jamais utilisée
     template < class Point >
     void insert( const Point& point )
     {
         this->prepareGeometryChange( );
-
+	std::cout << "Insertion d'un point." << std::endl;
         double x = CGAL::to_double( point.x( ) );
         double y = CGAL::to_double( point.y( ) );
         this->points.push_back( QPointF( x, y ) );

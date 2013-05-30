@@ -62,6 +62,7 @@ public:
         X_monotone_curve_2 xcurve;
         if ( CGAL::assign( curve, o ) )
         {
+	    std::cout << "Insertion d'un objet dans l'arrangement." << std::endl;
             CGAL::insert( *( this->arrangement ), curve );
         }
 #if 0
