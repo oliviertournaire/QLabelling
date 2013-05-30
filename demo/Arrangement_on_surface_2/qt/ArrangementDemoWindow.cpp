@@ -19,7 +19,6 @@
 
 #include "ArrangementDemoWindow.h"
 #include "ArrangementTypes.h"
-#include "NewTabDialog.h"
 #include "OverlayDialog.h"
 #include "ArrangementDemoPropertiesDialog.h"
 #include "ArrangementDemoTab.h"
@@ -546,20 +545,7 @@ void ArrangementDemoWindow::on_actionQuit_triggered( )
 
 void ArrangementDemoWindow::on_actionNewTab_triggered( )
 {
-    NewTabDialog* newTabDialog = new NewTabDialog;
-    if ( newTabDialog->exec( ) == QDialog::Accepted )
-    {
-        int id = newTabDialog->checkedId( );
-        if ( id == POLYLINE_TRAITS )
-        {
-            this->makeTab( POLYLINE_TRAITS );
-        }
-        else
-        {
-            std::cout << "Sorry, this trait is not yet supported" << std::endl;
-        }
-    }
-    delete newTabDialog;
+    this->makeTab( POLYLINE_TRAITS );
 }
 
 void ArrangementDemoWindow::on_tabWidget_currentChanged( )
