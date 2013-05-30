@@ -92,14 +92,10 @@ public:
     IntersectionResult;
     typedef typename Kernel::Segment_2                    Segment_2;
     typedef typename Kernel::FT                           FT;
-    typedef typename CGAL::Arr_trapezoid_ric_point_location< Arrangement >
-    TrapezoidPointLocationStrategy;
     typedef typename CGAL::Arr_simple_point_location< Arrangement >
     SimplePointLocationStrategy;
     typedef typename CGAL::Arr_walk_along_line_point_location< Arrangement >
     Walk_pl_strategy;
-    typedef typename CGAL::Arr_landmarks_point_location< Arrangement >
-    LandmarksPointLocationStrategy;
 
     VerticalRayShootCallback( Arrangement* arr_, QObject* parent_ );
     void reset( );
@@ -315,9 +311,7 @@ VerticalRayShootCallback< Arr_ >::rayShootUp( const Kernel_point_2& pt )
 {
     CGAL::Object pointLocationResult;
     Walk_pl_strategy* walkStrategy;
-    TrapezoidPointLocationStrategy* trapezoidStrategy;
     SimplePointLocationStrategy* simpleStrategy;
-    LandmarksPointLocationStrategy* landmarksStrategy;
 
     Point_2 point = this->toArrPoint( pt );
 
@@ -325,19 +319,9 @@ VerticalRayShootCallback< Arr_ >::rayShootUp( const Kernel_point_2& pt )
     {
         pointLocationResult = walkStrategy->ray_shoot_up( point );
     }
-    else if ( CGAL::assign( trapezoidStrategy, this->pointLocationStrategy ) )
-    {
-        pointLocationResult = trapezoidStrategy->ray_shoot_up( point );
-    }
     else if ( CGAL::assign( simpleStrategy, this->pointLocationStrategy ) )
     {
         pointLocationResult = simpleStrategy->ray_shoot_up( point );
-    }
-    else if ( CGAL::assign( landmarksStrategy, this->pointLocationStrategy ) )
-    {
-        // pointLocationResult = landmarksStrategy->locate( point );
-        std::cerr << "Warning: landmarks point location strategy doesn't support ray shooting" << std::endl;
-        return CGAL::Object( );
     }
     return pointLocationResult;
 }
@@ -348,9 +332,7 @@ VerticalRayShootCallback< Arr_ >::rayShootDown( const Kernel_point_2& pt )
 {
     CGAL::Object pointLocationResult;
     Walk_pl_strategy* walkStrategy;
-    TrapezoidPointLocationStrategy* trapezoidStrategy;
     SimplePointLocationStrategy* simpleStrategy;
-    LandmarksPointLocationStrategy* landmarksStrategy;
 
     Point_2 point = this->toArrPoint( pt );
 
@@ -358,19 +340,9 @@ VerticalRayShootCallback< Arr_ >::rayShootDown( const Kernel_point_2& pt )
     {
         pointLocationResult = walkStrategy->ray_shoot_down( point );
     }
-    else if ( CGAL::assign( trapezoidStrategy, this->pointLocationStrategy ) )
-    {
-        pointLocationResult = trapezoidStrategy->ray_shoot_down( point );
-    }
     else if ( CGAL::assign( simpleStrategy, this->pointLocationStrategy ) )
     {
         pointLocationResult = simpleStrategy->ray_shoot_down( point );
-    }
-    else if ( CGAL::assign( landmarksStrategy, this->pointLocationStrategy ) )
-    {
-        // pointLocationResult = landmarksStrategy->locate( point );
-        std::cerr << "Warning: landmarks point location strategy doesn't support ray shooting" << std::endl;
-        return CGAL::Object( );
     }
     return pointLocationResult;
 }

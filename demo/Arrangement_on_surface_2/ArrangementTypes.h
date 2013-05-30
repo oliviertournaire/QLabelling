@@ -28,14 +28,10 @@
 #include <CGAL/Cartesian.h>
 #include <CGAL/Arr_default_dcel.h>
 #include <CGAL/Arr_segment_traits_2.h>
-#include <CGAL/Arr_linear_traits_2.h>
 #include <CGAL/Arr_consolidated_curve_data_traits_2.h>
 #include <CGAL/Arr_polyline_traits_2.h>
 #include <CGAL/Arrangement_with_history_2.h>
-#include <CGAL/Arr_trapezoid_ric_point_location.h>
 #include <CGAL/Arr_simple_point_location.h>
-#include <CGAL/Arr_walk_along_line_point_location.h>
-#include <CGAL/Arr_landmarks_point_location.h>
 #include <CGAL/squared_distance_2.h>
 #include <CGAL/point_generators_2.h>
 #include <CGAL/Bbox_2.h>
@@ -113,91 +109,37 @@ typedef Seg_traits::Curve_2                             Arr_seg_2;
 typedef Seg_traits::X_monotone_curve_2                  Arr_xseg_2;
 typedef Seg_traits::Point_2                             Arr_seg_point_2;
 typedef Dcel<Seg_traits>                                Seg_dcel;
-typedef CGAL::Arrangement_with_history_2<Seg_traits, Seg_dcel>
-                                                        Seg_arr;
+typedef CGAL::Arrangement_with_history_2<Seg_traits, Seg_dcel> Seg_arr;
 typedef Seg_arr::Halfedge                               Seg_halfedge;
 typedef Seg_arr::Halfedge_handle                        Seg_halfedge_handle;
 typedef Seg_arr::Face_handle                            Seg_face_handle;
-typedef Seg_arr::Ccb_halfedge_circulator
-  Seg_ccb_halfedge_circulator;
+typedef Seg_arr::Ccb_halfedge_circulator                Seg_ccb_halfedge_circulator;
 typedef Seg_arr::Hole_iterator                          Seg_holes_iterator;
 typedef Seg_arr::Face_iterator                          Seg_face_iterator;
 typedef std::list<Arr_seg_2*>                           Arr_seg_list;
 typedef Arr_seg_list::const_iterator                    Arr_seg_const_iter;
 typedef Arr_seg_list::iterator                          Arr_seg_iter;
-
-
-// point location
-typedef CGAL::Arr_trapezoid_ric_point_location<Seg_arr>
-  Seg_trap_point_location;
-typedef CGAL::Arr_simple_point_location<Seg_arr>
-  Seg_simple_point_location;
-typedef CGAL::Arr_walk_along_line_point_location<Seg_arr>
-  Seg_walk_point_location;
-typedef CGAL::Arr_landmarks_point_location<Seg_arr>
-  Seg_lanmarks_point_location;
+// point location: just use (for simplification) a simple point location policy
+typedef CGAL::Arr_simple_point_location<Seg_arr> Seg_simple_point_location;
 
 // Polyline
 typedef CGAL::Arr_polyline_traits_2<Seg_traits>         Pol_traits;
-
 typedef Pol_traits::Curve_2                             Arr_pol_2;
 typedef Pol_traits::X_monotone_curve_2                  Arr_xpol_2;
-
 typedef Pol_traits::Point_2                             Arr_pol_point_2;
 typedef Dcel<Pol_traits>                                Pol_dcel;
-typedef CGAL::Arrangement_with_history_2<Pol_traits,
-                                         Pol_dcel>      Pol_arr;
+typedef CGAL::Arrangement_with_history_2<Pol_traits, Pol_dcel> Pol_arr;
 typedef Pol_arr::Halfedge_handle                        Pol_halfedge_handle;
 typedef Pol_arr::Face_handle                            Pol_face_handle;
-typedef Pol_arr::Ccb_halfedge_circulator
-  Pol_ccb_halfedge_circulator;
+typedef Pol_arr::Ccb_halfedge_circulator                Pol_ccb_halfedge_circulator;
 typedef Pol_arr::Hole_iterator                          Pol_holes_iterator;
 typedef Pol_arr::Halfedge                               Pol_halfedge;
 typedef Pol_arr::Face_iterator                          Pol_face_iterator;
-
 typedef std::list<Arr_pol_2*>                            Arr_pol_list;
 typedef Arr_pol_list::const_iterator                     Arr_pol_const_iter;
 typedef Arr_pol_list::iterator                           Arr_pol_iter;
-
-// point location
-typedef CGAL::Arr_trapezoid_ric_point_location<Pol_arr>
-  Pol_trap_point_location;
-typedef CGAL::Arr_simple_point_location<Pol_arr>
-  Pol_simple_point_location;
-typedef CGAL::Arr_walk_along_line_point_location<Pol_arr>
-  Pol_walk_point_location;
-typedef CGAL::Arr_landmarks_point_location<Pol_arr>
-  Pol_lanmarks_point_location;
-
-
-// Linear:
-typedef CGAL::Arr_linear_traits_2<Kernel>               Lin_traits;
-typedef Lin_traits::Curve_2                             Arr_lin_2;
-typedef Lin_traits::X_monotone_curve_2                  Arr_xlin_2;
-typedef Lin_traits::Point_2                             Arr_lin_point_2;
-typedef Dcel<Lin_traits>                                Lin_dcel;
-typedef CGAL::Arrangement_with_history_2<Lin_traits, Lin_dcel>
-                                                        Lin_arr;
-typedef Lin_arr::Halfedge                               Lin_halfedge;
-typedef Lin_arr::Halfedge_handle                        Lin_halfedge_handle;
-typedef Lin_arr::Face_handle                            Lin_face_handle;
-typedef Lin_arr::Ccb_halfedge_circulator
-  Lin_ccb_halfedge_circulator;
-typedef Lin_arr::Hole_iterator                          Lin_holes_iterator;
-typedef Lin_arr::Face_iterator                          Lin_face_iterator;
-typedef std::list<Arr_lin_2*>                           Arr_lin_list;
-typedef Arr_lin_list::const_iterator                    Arr_lin_const_iter;
-typedef Arr_lin_list::iterator                          Arr_lin_iter;
-
-//point location
-typedef CGAL::Arr_trapezoid_ric_point_location<Lin_arr>
-  Lin_trap_point_location;
-typedef CGAL::Arr_simple_point_location<Lin_arr>
-  Lin_simple_point_location;
-typedef CGAL::Arr_walk_along_line_point_location<Lin_arr>
-  Lin_walk_point_location;
-typedef CGAL::Arr_landmarks_point_location<Lin_arr>
-  Lin_landmarks_point_location;
+// point location: just use (for simplification) a simple point location policy
+typedef CGAL::Arr_simple_point_location<Pol_arr> Pol_simple_point_location;
 
 template <class Arrangement_>
 class My_observer : public CGAL::Arr_observer<Arrangement_>
@@ -219,9 +161,6 @@ public:
 
 };
 
-//Q_DECLARE_METATYPE( Seg_arr )
-//Q_DECLARE_METATYPE( Pol_arr )
-//Q_DECLARE_METATYPE( Conic_arr )
 Q_DECLARE_METATYPE( CGAL::Object )
 
 #endif // ARRANGEMENT_DEMO_TYPES_H

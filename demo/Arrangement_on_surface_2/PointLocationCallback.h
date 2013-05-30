@@ -67,14 +67,10 @@ public:
     typedef typename Kernel::Point_2 Kernel_point_2;
     typedef typename Traits::Point_2 Point_2;
     typedef typename Kernel::Segment_2 Segment_2;
-    typedef typename CGAL::Arr_trapezoid_ric_point_location< Arrangement >
-    TrapezoidPointLocationStrategy;
     typedef typename CGAL::Arr_simple_point_location< Arrangement >
     SimplePointLocationStrategy;
     typedef typename CGAL::Arr_walk_along_line_point_location< Arrangement >
     Walk_pl_strategy;
-    typedef typename Supports_landmarks< Arrangement >::LandmarksType
-    LandmarksPointLocationStrategy;
 
     PointLocationCallback( Arrangement* arr_, QObject* parent_ );
     void reset( );
@@ -250,21 +246,12 @@ PointLocationCallback< Arr_ >::getFace( const CGAL::Object& obj )
 }
 
 template < typename Arr_ >
-CGAL::Object PointLocationCallback<Arr_>::locate(const Kernel_point_2& point)
-{
-    typename Supports_landmarks< Arrangement >::Tag supportsLandmarks;
-    return this->locate( point, supportsLandmarks );
-}
-
-template < typename Arr_ >
 CGAL::Object PointLocationCallback< Arr_ >::locate( const Kernel_point_2& pt,
                                                     CGAL::Tag_true )
 {
     CGAL::Object pointLocationResult;
     Walk_pl_strategy* walkStrategy;
-    TrapezoidPointLocationStrategy* trapezoidStrategy;
     SimplePointLocationStrategy* simpleStrategy;
-    LandmarksPointLocationStrategy* landmarksStrategy;
 
     Point_2 point = this->toArrPoint( pt );
 
@@ -272,17 +259,9 @@ CGAL::Object PointLocationCallback< Arr_ >::locate( const Kernel_point_2& pt,
     {
         pointLocationResult = walkStrategy->locate( point );
     }
-    else if ( CGAL::assign( trapezoidStrategy, this->pointLocationStrategy ) )
-    {
-        pointLocationResult = trapezoidStrategy->locate( point );
-    }
     else if ( CGAL::assign( simpleStrategy, this->pointLocationStrategy ) )
     {
         pointLocationResult = simpleStrategy->locate( point );
-    }
-    else if ( CGAL::assign( landmarksStrategy, this->pointLocationStrategy ) )
-    {
-        pointLocationResult = landmarksStrategy->locate( point );
     }
     return pointLocationResult;
 }
@@ -293,7 +272,6 @@ CGAL::Object PointLocationCallback< Arr_ >::locate( const Kernel_point_2& pt,
 {
     CGAL::Object pointLocationResult;
     Walk_pl_strategy* walkStrategy;
-    TrapezoidPointLocationStrategy* trapezoidStrategy;
     SimplePointLocationStrategy* simpleStrategy;
 
     Point_2 point = this->toArrPoint( pt );
@@ -301,10 +279,6 @@ CGAL::Object PointLocationCallback< Arr_ >::locate( const Kernel_point_2& pt,
     if ( CGAL::assign( walkStrategy, this->pointLocationStrategy ) )
     {
         pointLocationResult = walkStrategy->locate( point );
-    }
-    else if ( CGAL::assign( trapezoidStrategy, this->pointLocationStrategy ) )
-    {
-        pointLocationResult = trapezoidStrategy->locate( point );
     }
     else if ( CGAL::assign( simpleStrategy, this->pointLocationStrategy ) )
     {

@@ -26,6 +26,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <CGAL/Arr_polyline_traits_2.h>
+#include <CGAL/Arr_simple_point_location.h>
 #include <CGAL/Arr_walk_along_line_point_location.h>
 
 #include "ArrangementTypes.h"
@@ -140,20 +141,6 @@ protected: // fields
 
 BOOST_MPL_HAS_XXX_TRAIT_DEF( Approximate_2 )
 
-template < class Arr_, bool b = has_Approximate_2< Arr_ >::value >
-        struct Supports_landmarks
-{
-        typedef CGAL::Boolean_tag< b > Tag;
-        struct LandmarksType { };
-        };
-
-template < class Arr_ >
-struct Supports_landmarks< Arr_, true >
-{
-    typedef CGAL::Tag_true Tag;
-    typedef CGAL::Arr_landmarks_point_location< Arr_ > LandmarksType;
-};
-
 /**
    Support for new ArrTraits should specify types:
 
@@ -173,16 +160,6 @@ class ArrTraitsAdaptor< CGAL::Arr_segment_traits_2< Kernel_ > >
 public:
     typedef Kernel_ Kernel;
     typedef CGAL::Arr_segment_traits_2< Kernel > ArrTraits;
-    typedef typename ArrTraits::Point_2 Point_2;
-    typedef typename Kernel::FT CoordinateType;
-};
-
-template < class Kernel_ >
-class ArrTraitsAdaptor< CGAL::Arr_linear_traits_2< Kernel_ > >
-{
-public:
-    typedef Kernel_ Kernel;
-    typedef CGAL::Arr_linear_traits_2< Kernel > ArrTraits;
     typedef typename ArrTraits::Point_2 Point_2;
     typedef typename Kernel::FT CoordinateType;
 };
