@@ -72,12 +72,19 @@ class Face_with_color : public CGAL::Arr_face_base
 {
   QColor    m_color;
   bool      m_visited;
+  QString   m_label; // Le label associé à la face
 
 public:
-  Face_with_color() : CGAL::Arr_face_base(), m_color(), m_visited(false) { }
+  Face_with_color() : CGAL::Arr_face_base(), m_color(), m_label("Unknow"), m_visited(false) { }
 
+  // Getting the color for this face
   QColor color() const { return m_color; }
+  // Getting the label for this face
+  QString label() const { return m_label; }
+  // Setting the color for this face
   void set_color(const QColor& c) { m_color = c; }
+  // Setting the label for this face
+  void set_label(const QString& l) { m_label = l; }
   bool visited() const{ return m_visited; }
   void set_visited(bool b) { m_visited = b; }
 };
@@ -152,6 +159,7 @@ public:
 
   My_observer (Arrangement& arr) : Arr_observer (arr) {}
 
+   // Fonction inutilisée :(
    virtual void after_split_face (Face_handle  f ,
                                   Face_handle  new_f ,
                                   bool         /* is_hole */)
