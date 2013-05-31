@@ -141,6 +141,22 @@ protected: // fields
 
 BOOST_MPL_HAS_XXX_TRAIT_DEF( Approximate_2 )
 
+template < class Arr_, bool b = has_Approximate_2< Arr_ >::value >
+struct Supports_landmarks
+{
+    typedef CGAL::Boolean_tag< b > Tag;
+    struct LandmarksType { };
+};
+
+/*
+template < class Arr_ >
+struct Supports_landmarks< Arr_, true >
+{
+    typedef CGAL::Tag_true Tag;
+    typedef CGAL::Arr_landmarks_point_location< Arr_ > LandmarksType;
+};
+*/
+
 /**
    Support for new ArrTraits should specify types:
 

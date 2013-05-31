@@ -94,8 +94,6 @@ protected:
     CGAL::Object locate( const Kernel_point_2& point );
     CGAL::Object locate( const Kernel_point_2& point,
                          CGAL::Tag_false/*supportsLandmarks*/ );
-    CGAL::Object locate( const Kernel_point_2& point,
-                         CGAL::Tag_true /*doesNotSupportLandmarks*/ );
 
     CGAL::Qt::Converter< Kernel > convert;
     CGAL::Object pointLocationStrategy;
@@ -166,27 +164,10 @@ FillFaceCallback< Arr_ >::getFace( const CGAL::Object& obj )
 }
 
 template < class Arr_ >
-CGAL::Object
-FillFaceCallback< Arr_ >::locate( const Kernel_point_2& pt, CGAL::Tag_true )
+CGAL::Object FillFaceCallback< Arr_ >::locate( const Kernel_point_2& point )
 {
-    CGAL::Object pointLocationResult;
-    SimplePointLocationStrategy* simpleStrategy;
-    Walk_pl_strategy* walkStrategy;
-
-    Point_2 point = this->toArrPoint( pt );
-
-    if ( CGAL::assign( simpleStrategy, this->pointLocationStrategy ) )
-    {
-        pointLocationResult = simpleStrategy->locate( point );
-    }
-    else if ( CGAL::assign( walkStrategy, this->pointLocationStrategy ) )
-    {
-        pointLocationResult = walkStrategy->locate( point );
-    }
-
-    else
-        std::cout << "Point location strategy not available!!!" << std::endl;
-    return pointLocationResult;
+    typename Supports_landmarks< Arrangement >::Tag supportsLandmarks;
+    return this->locate( point, supportsLandmarks );
 }
 
 template < class Arr_ >

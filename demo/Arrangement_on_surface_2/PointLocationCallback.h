@@ -246,6 +246,13 @@ PointLocationCallback< Arr_ >::getFace( const CGAL::Object& obj )
 }
 
 template < typename Arr_ >
+CGAL::Object PointLocationCallback<Arr_>::locate(const Kernel_point_2& point)
+{
+    typename Supports_landmarks< Arrangement >::Tag supportsLandmarks;
+    return this->locate( point, supportsLandmarks );
+}
+
+template < typename Arr_ >
 CGAL::Object PointLocationCallback< Arr_ >::locate( const Kernel_point_2& pt,
                                                     CGAL::Tag_true )
 {
