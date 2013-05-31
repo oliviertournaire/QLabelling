@@ -41,6 +41,8 @@ namespace Ui { class ArrangementDemoWindow; }
 
 class QActionGroup;
 
+class QLabellingLogWidget;
+
 class ArrangementDemoWindow : public CGAL::Qt::DemosMainWindow
 {
     Q_OBJECT
@@ -99,6 +101,8 @@ protected:
     QActionGroup* modeGroup;
     QActionGroup* envelopeGroup;
     QActionGroup* snapGroup;
+
+    QLabellingLogWidget *_loggerWidget;
 };
 
 template < class ArrType >

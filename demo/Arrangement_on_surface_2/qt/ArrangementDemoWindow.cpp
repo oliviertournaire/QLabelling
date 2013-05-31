@@ -29,6 +29,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QColorDialog>
+#include <QDockWidget>
 
 #include <CGAL/IO/Arr_with_history_iostream.h>
 #include <CGAL/IO/Arr_text_formatter.h>
@@ -39,12 +40,23 @@
 #include <boost/math/special_functions/fpclassify.hpp>
 #endif // _WINDOWS
 
+#include "QLabellingLogWidget.hpp"
+
 ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
     CGAL::Qt::DemosMainWindow( parent ),
     lastTabIndex(static_cast<unsigned int>(-1)),
-    ui( new Ui::ArrangementDemoWindow )
+    ui( new Ui::ArrangementDemoWindow ),
+    _loggerWidget(new QLabellingLogWidget)
 {
     this->setupUi( );
+
+    QDockWidget* dockLogWidget = new QDockWidget;
+    dockLogWidget->setWidget(_loggerWidget);
+    dockLogWidget->setWindowTitle( _loggerWidget->windowTitle() );
+    dockLogWidget->setWindowIcon( dockLogWidget->windowIcon() );
+    this->addDockWidget(Qt::BottomDockWidgetArea, dockLogWidget);
+
+    _loggerWidget->logInfo( tr("QDemoArrangement application started") );
 
     // set up the demo window
     // ArrangementDemoTabBase* demoTab =
@@ -184,48 +196,61 @@ void ArrangementDemoWindow::updateMode( QAction* newMode )
     // update the active mode
     this->activeModes.at( 0 ) = newMode;
 
+    QString messageToLog("Updating mode --> ");
+
     // hook up the new active mode
     if ( newMode == this->ui->actionInsert )
     {
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
+        messageToLog += "Insertion mode";
     }
     else if ( newMode == this->ui->actionDrag )
     {
         activeView->setDragMode( QGraphicsView::ScrollHandDrag );
+        messageToLog += "Drag mode";
     }
     else if ( newMode == this->ui->actionDelete )
     {
         activeScene->installEventFilter( activeTab->getDeleteCurveCallback( ) );
+        messageToLog += "Delete mode";
     }
     else if ( newMode == this->ui->actionPointLocation )
     {
         activeScene->installEventFilter( activeTab->getPointLocationCallback( ) );
+        messageToLog += "Point location mode";
     }
     else if ( newMode == this->ui->actionRayShootingUp )
     {
         // -y is up for Qt, so we shoot down
         activeTab->getVerticalRayShootCallback( )->setShootingUp( true );
         activeScene->installEventFilter( activeTab->getVerticalRayShootCallback());
+        messageToLog += "Ray shooting up mode";
     }
     else if ( newMode == this->ui->actionRayShootingDown )
     {
         // the bottom of the viewport for Qt is +y, so we shoot up
         activeTab->getVerticalRayShootCallback( )->setShootingUp( false );
         activeScene->installEventFilter( activeTab->getVerticalRayShootCallback());
+        messageToLog += "Ray shooting down mode";
     }
     else if ( newMode == this->ui->actionMerge )
     {
         activeScene->installEventFilter( activeTab->getMergeEdgeCallback( ) );
+        messageToLog += "Merge mode";
     }
     else if ( newMode == this->ui->actionSplit )
     {
         activeScene->installEventFilter( activeTab->getSplitEdgeCallback( ) );
+        messageToLog += "Split mode";
     }
     else if ( newMode == this->ui->actionFill )
     {
         activeScene->installEventFilter( activeTab->getFillFaceCallback( ) );
+        messageToLog += "Fill mode";
     }
     this->updateFillColorSwatch( );
+
+    _loggerWidget->logInfo(messageToLog);
 }
 
 void ArrangementDemoWindow::resetCallbackState( unsigned int tabIndex )
@@ -540,6 +565,7 @@ void ArrangementDemoWindow::on_actionOpen_triggered( )
 
 void ArrangementDemoWindow::on_actionQuit_triggered( )
 {
+    _loggerWidget->logInfo( tr("Quitting QDemoArrangement application") );
     qApp->exit( );
 }
 
