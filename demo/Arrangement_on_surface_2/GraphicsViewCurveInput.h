@@ -107,7 +107,7 @@ protected:
 	    
             // add clicked point to polyline
             this->points.push_back( clickedPoint );
-	    std::cout << "Insertion d'un point (premier de la ligne) en " << clickedPoint << "." << std::endl;
+// 	    std::cout << "Insertion d'un point (premier de la ligne) en " << clickedPoint << "." << std::endl;
             
             QPointF pt = this->convert( clickedPoint );
             QGraphicsLineItem* lineItem =
@@ -126,7 +126,7 @@ protected:
         {
             // add clicked point to polyline
             this->points.push_back( clickedPoint );
-	    std::cout << "Insertion d'un point en " << clickedPoint << "." << std::endl;
+// 	    std::cout << "Insertion d'un point en " << clickedPoint << "." << std::endl;
 
             if ( event->button( ) == ::Qt::RightButton )
             { // finalize polyline input

@@ -62,7 +62,8 @@ public:
         X_monotone_curve_2 xcurve;
         if ( CGAL::assign( curve, o ) )
         {
-            std::cout << "Insertion d'un objet (" << curve.points() << " points) dans l'arrangement." << std::endl;
+// 	   WONTWORK  _loggerWidget->logInfo( tr("Insertion d'un objet (" << curve.points() << " points) dans l'arrangement.") );
+
             CGAL::insert( *( this->arrangement ), curve );
 
 
