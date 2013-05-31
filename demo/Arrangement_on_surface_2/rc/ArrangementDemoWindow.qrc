@@ -28,4 +28,8 @@
     <file>icons/demo_pointlocation.xpm</file>
     <file>help/about.html</file>
   </qresource>
+    <qresource prefix="/QLabelling">
+    <file>document-save.png</file>
+    <file>edit-clear.png</file>
+  </qresource>
 </RCC>
