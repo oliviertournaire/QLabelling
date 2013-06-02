@@ -25,7 +25,7 @@ QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
     _labellingWidget(new QLabellingWidget(QLABELLING_DEFAULT_LABEL_PATH)),
     _labelsScene(new QGraphicsScene),
     _labelsView(new QZoomableGraphicsView),
-    _loggerWidget(new QLabellingLogWidget),
+    _loggerWidget(QLabellingLogWidget::instance()),
     _labelsPixmap(new QPixmap),
     _labelsPixmapSaved(true)
 {

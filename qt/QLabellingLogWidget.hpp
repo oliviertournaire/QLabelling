@@ -1,18 +1,21 @@
 #ifndef QLABELLINGLOGWIDGET_HPP
 #define QLABELLINGLOGWIDGET_HPP
 
+#include "utilities/Singleton.hpp"
+
 #include <QWidget>
 
 namespace Ui {
 class QLabellingLogWidget;
 }
 
-class QLabellingLogWidget : public QWidget
+class QLabellingLogWidget : public QWidget, public Singleton<QLabellingLogWidget>
 {
+    friend class Singleton<QLabellingLogWidget>;
     Q_OBJECT
     
-public:
-    explicit QLabellingLogWidget(QWidget *parent = 0);
+private:
+    explicit QLabellingLogWidget();
     ~QLabellingLogWidget();
 
 public slots:

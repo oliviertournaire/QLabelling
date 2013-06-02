@@ -46,7 +46,7 @@ ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
     CGAL::Qt::DemosMainWindow( parent ),
     lastTabIndex(static_cast<unsigned int>(-1)),
     ui( new Ui::ArrangementDemoWindow ),
-    _loggerWidget(new QLabellingLogWidget)
+    _loggerWidget(QLabellingLogWidget::instance())
 {
     this->setupUi( );
 

@@ -24,6 +24,8 @@
 #include <CGAL/Qt/GraphicsItem.h>
 #include <QPen>
 
+#include "QLabellingLogWidget.hpp"
+
 class QPainter;
 class QPen;
 
@@ -44,7 +46,7 @@ public:
     void insert( const Point& point )
     {
         this->prepareGeometryChange( );
-	std::cout << "Insertion d'un point." << std::endl;
+        QLabellingLogWidget::instance()->logInfo("Insertion d'un point.");
         double x = CGAL::to_double( point.x( ) );
         double y = CGAL::to_double( point.y( ) );
         this->points.push_back( QPointF( x, y ) );

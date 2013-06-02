@@ -29,6 +29,8 @@
 #include "GraphicsViewCurveInput.h"
 #include "Utils.h"
 
+#include "QLabellingLogWidget.hpp"
+
 template <typename Arr_, typename ArrTraits = typename Arr_::Geometry_traits_2>
 class ArrangementCurveInputCallback:
         public CGAL::Qt::GraphicsViewCurveInput< typename Arr_::Geometry_traits_2 >
@@ -62,18 +64,22 @@ public:
         X_monotone_curve_2 xcurve;
         if ( CGAL::assign( curve, o ) )
         {
-// 	   WONTWORK  _loggerWidget->logInfo( tr("Insertion d'un objet (" << curve.points() << " points) dans l'arrangement.") );
+            QLabellingLogWidget::instance()->logInfo("Insertion d'un objet (" + QString::number(curve.points()) + " sommets) dans l'arrangement.");
 
             CGAL::insert( *( this->arrangement ), curve );
 
-
-            std::cout << "Liste complète des vertices de l'arrangement :" << std::endl;
+            QString message("Liste complete des vertices de l'arrangement :\n");
             Vertex_iterator v;
             int index;
             for (v = this->arrangement->vertices_begin(), index=0 ; v != this->arrangement->vertices_end(); ++v, ++index)
-                std::cout << " Trouvé le vertex #" << index << " : "
-                          << "(" << CGAL::to_double(v->point().x()) << ":" << CGAL::to_double(v->point().y()) << ")"
-                          << " de degré " << v->degree() << "." << std::endl;
+            {
+                message = message + "\t* Trouve le vertex #" + QString::number(index) + " : (";
+                message += QString::number(CGAL::to_double(v->point().x()));
+                message += ";";
+                message += QString::number(CGAL::to_double(v->point().y()));
+                message = message + ") de degre " + QString::number(v->degree()) + ".\n";
+            }
+            QLabellingLogWidget::instance()->logInfo(message);
         }
 #if 0
         else if ( CGAL::assign( xcurve, o ) )

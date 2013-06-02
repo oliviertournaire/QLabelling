@@ -10,8 +10,8 @@
 
 #include "config.hpp"
 
-QLabellingLogWidget::QLabellingLogWidget(QWidget *parent) :
-    QWidget(parent),
+QLabellingLogWidget::QLabellingLogWidget() :
+    QWidget(),
     ui(new Ui::QLabellingLogWidget)
 {
     ui->setupUi(this);
