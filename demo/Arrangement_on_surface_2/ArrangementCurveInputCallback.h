@@ -66,7 +66,10 @@ public:
         if ( CGAL::assign( curve, o ) )
         {
             QLabellingLogWidget::instance()->logInfo("Insertion d'un objet (" + QString::number(curve.points()) + " sommets) dans l'arrangement.");
-
+	    
+	    // Sauvegarde de l'ancien arrangement
+	    this->old_arr.assign(*this->arrangement);
+	    
             CGAL::insert( *( this->arrangement ), curve );
 
             QString message("Liste complete des vertices de l'arrangement :\n");
@@ -88,12 +91,23 @@ public:
 	    std::cout << this->arrangement->number_of_faces() << " faces:" << std::endl;
 	    for (fit = this->arrangement->faces_begin(); fit != this->arrangement->faces_end(); ++fit) {
 		// Pour chaque face
-		std::cout << fit->label().toStdString() << " de couleur " << fit->color().name().toStdString()  << std::endl; /*<< " (" << fit << " vertices)"*/
+		std::cout << "  " << fit->label().toStdString() << " de couleur " << fit->color().name().toStdString()  << std::endl; /*<< " (" << fit << " vertices)"*/
 		
 		// Mode par défaut
 		if(fit->label() == "Undefined" && !fit->is_unbounded()){
-		    fit->set_label("Unknow");
-		    fit->set_color(QColor(237,238,243,80));
+		    // Face à définir
+		    
+		    // On cherche un point intérieur à la face
+		    CGAL::Arrangement_2<Traits_2>::Ccb_halfedge_const_circulator curr = fit->outer_ccb();
+		    
+		    // On cherche un éventuel label effacé lors de la division de la cellule
+		    if(false){
+			
+		    }
+		    else{
+			fit->set_label("Unknow");
+			fit->set_color(QColor(237,238,243,80));
+		    }
 		}
 	    }
 	}
@@ -141,6 +155,7 @@ protected:
     }
 
     Arrangement* arrangement;
+    Arrangement old_arr; // Sauvegarde de l'arrangement précédent
     SnapToArrangementVertexStrategy< Arrangement > snapToVertexStrategy;
     SnapToGridStrategy< typename Arrangement::Geometry_traits_2 >
     snapToGridStrategy;
