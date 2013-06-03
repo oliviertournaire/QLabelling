@@ -15,6 +15,9 @@ QLabellingLogWidget::QLabellingLogWidget() :
     ui(new Ui::QLabellingLogWidget)
 {
     ui->setupUi(this);
+    int currentIndex = ui->_comboBoxLogLevel->currentIndex();
+    if(currentIndex>0)
+        _loglevel = currentIndex;
 }
 
 QLabellingLogWidget::~QLabellingLogWidget()
@@ -52,32 +55,38 @@ void QLabellingLogWidget::on__toolButtonSave_clicked(bool checked)
 
 void QLabellingLogWidget::logFatalError(const QString& text)
 {
-    log(QString("[FATAL ERROR]"), text, Qt::red);
+    if(_loglevel>=FATAL_ERROR)
+        log(QString("[FATAL ERROR]"), text, Qt::red);
 }
 
 void QLabellingLogWidget::logError(const QString& text)
 {
-    log(QString("[ERROR]"), text, Qt::red);
-}
-
-void QLabellingLogWidget::logException(const QString& text)
-{
-    log(QString("[EXCEPTION]"), text, Qt::red);
-}
-
-void QLabellingLogWidget::logTrace(const QString& text)
-{
-    log(QString("[TRACE]"), text, Qt::green);
+    if(_loglevel>=ERROR)
+        log(QString("[ERROR]"), text, Qt::red);
 }
 
 void QLabellingLogWidget::logWarning(const QString& text)
 {
-    log(QString("[WARNING]"), text, QColor(255,115,0));
+    if(_loglevel>=WARNING)
+        log(QString("[WARNING]"), text, QColor(255,115,0));
 }
 
 void QLabellingLogWidget::logInfo(const QString& text)
 {
-    log(QString("[INFO]"), text, Qt::blue);
+    if(_loglevel>=INFO)
+        log(QString("[INFO]"), text, Qt::blue);
+}
+
+void QLabellingLogWidget::logTrace(const QString& text)
+{
+    if(_loglevel>=TRACE)
+        log(QString("[TRACE]"), text, Qt::green);
+}
+
+void QLabellingLogWidget::logDebug(const QString& text)
+{
+    if(_loglevel>=DEBUG)
+        log(QString("[DEBUG]"), text, Qt::magenta);
 }
 
 void QLabellingLogWidget::log(const QString& prefix, const QString& text, const QColor& color)

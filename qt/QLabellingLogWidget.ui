@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>365</width>
-    <height>260</height>
+    <width>403</width>
+    <height>211</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,99 +18,136 @@
     <widget class="QTextEdit" name="_textEdit"/>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <spacer name="verticalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>5</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QToolButton" name="_toolButtonClear">
-       <property name="toolTip">
-        <string>Clear log</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../rc/RessourcesQLabelling.qrc">
-         <normaloff>:/QLabelling/edit-clear.png</normaloff>:/QLabelling/edit-clear.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </item>
-   <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <spacer name="verticalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
+      <widget class="QComboBox" name="_comboBoxLogLevel">
+       <property name="currentIndex">
+        <number>2</number>
        </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>5</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QToolButton" name="_toolButtonSave">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="toolTip">
-        <string>Save log</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../rc/RessourcesQLabelling.qrc">
-         <normaloff>:/QLabelling/document-save.png</normaloff>:/QLabelling/document-save.png</iconset>
-       </property>
+       <item>
+        <property name="text">
+         <string>DEBUG</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>TRACE</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>INFO</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>WARNING</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ERROR</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>FATAL_ERROR</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="1">
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0">
+        <widget class="QToolButton" name="_toolButtonClear">
+         <property name="toolTip">
+          <string>Clear log</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../rc/RessourcesQLabelling.qrc">
+           <normaloff>:/QLabelling/edit-clear.png</normaloff>:/QLabelling/edit-clear.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QToolButton" name="_toolButtonSave">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="toolTip">
+          <string>Save log</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../rc/RessourcesQLabelling.qrc">
+           <normaloff>:/QLabelling/document-save.png</normaloff>:/QLabelling/document-save.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="1">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
