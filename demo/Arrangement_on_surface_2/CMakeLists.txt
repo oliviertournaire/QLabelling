@@ -12,7 +12,9 @@ set( LOGWIDGET_HPP ${CMAKE_CURRENT_SOURCE_DIR}/../../qt/QLabellingLogWidget.hpp 
 set( LOGWIDGET_CPP ${CMAKE_CURRENT_SOURCE_DIR}/../../qt/QLabellingLogWidget.cpp )
 set( LOGWIDGET_UI  ${CMAKE_CURRENT_SOURCE_DIR}/../../qt/QLabellingLogWidget.ui )
 qt4_wrap_cpp( MOCS_LOGWIDGET ${LOGWIDGET_HPP} )
-qt4_wrap_ui(  UI_LOGWIDGET   ${LOGWIDGET_UI}  )
+if( NOT WIN32)
+	qt4_wrap_ui( UI_LOGWIDGET ${LOGWIDGET_UI}  )
+endif()
 
 # "Classic" C++
 file( GLOB ALL_QDEMOARRANGEMENT2_HPP ${CMAKE_CURRENT_SOURCE_DIR}/*.h )

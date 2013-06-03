@@ -115,6 +115,8 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
 ArrangementDemoTabBase* ArrangementDemoWindow::getTab( unsigned int tabIndex )
 const
 {
+    QLabellingLogWidget::instance()->logInfo( QString(__FUNCTION__) ); 
+
     if (tabIndex > this->tabs.size()) return NULL;
     return this->tabs[tabIndex];
 }

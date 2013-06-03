@@ -67,6 +67,7 @@ public:
         {
             QLabellingLogWidget::instance()->logInfo("Insertion d'un objet (" + QString::number(curve.points()) + " sommets) dans l'arrangement.");
 
+            My_observer<Arrangement> obs(*( this->arrangement ));
             CGAL::insert( *( this->arrangement ), curve );
 
             QString message("Liste complete des vertices de l'arrangement :\n");
@@ -90,11 +91,13 @@ public:
 		// Pour chaque face
 		std::cout << fit->label().toStdString() << " de couleur " << fit->color().name().toStdString()  << std::endl; /*<< " (" << fit << " vertices)"*/
 		
+        /*
 		// Mode par défaut
 		if(fit->label() == "Undefined" && !fit->is_unbounded()){
 		    fit->set_label("Unknow");
 		    fit->set_color(QColor(237,238,243,80));
 		}
+        */
 	    }
 	}
 #if 0
