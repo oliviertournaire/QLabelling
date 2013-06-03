@@ -75,7 +75,7 @@ class Face_with_color : public CGAL::Arr_face_base
   QString   m_label; // Le label associé à la face
 
 public:
-  Face_with_color() : CGAL::Arr_face_base(), m_color(), m_label("Unknow"), m_visited(false) { }
+  Face_with_color() : CGAL::Arr_face_base(), m_color(), m_label("Undefined"), m_visited(false) { }
 
   // Getting the color for this face
   QColor color() const { return m_color; }
@@ -159,7 +159,7 @@ public:
 
   My_observer (Arrangement& arr) : Arr_observer (arr) {}
 
-   // Fonction inutilisée :(
+   // Fonction inutilisée après le nettoyage...
    virtual void after_split_face (Face_handle  f ,
                                   Face_handle  new_f ,
                                   bool         /* is_hole */)

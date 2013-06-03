@@ -40,6 +40,7 @@ public:
     typedef ArrTraits Traits;
     typedef CGAL::Qt::GraphicsViewCurveInput< Traits >    Superclass;
     typedef typename Arrangement::Vertex_iterator         Vertex_iterator;
+    typedef typename Arrangement::Face_iterator           Face_iterator;
     typedef typename Traits::Curve_2                      Curve_2;
     typedef typename Traits::X_monotone_curve_2           X_monotone_curve_2;
     typedef typename ArrTraitsAdaptor< Traits >::Kernel   Kernel;
@@ -47,7 +48,7 @@ public:
     typedef typename ArrTraitsAdaptor< Traits >::Point_2  Point_2;
     typedef typename Kernel::Segment_2                    Segment_2;
     typedef typename Kernel::FT                           FT;
-
+    
     ArrangementCurveInputCallback( Arrangement* arrangement_, QObject* parent ):
         Superclass( parent ),
         arrangement( arrangement_ )
@@ -81,6 +82,20 @@ public:
             }
             QLabellingLogWidget::instance()->logInfo(message);
         }
+        
+        // On parcourt toutes les faces de l'arrangement (un peu lourd) pour trouver celles qui ne sont pas définies (qui viennent donc d'être crées)
+	Face_iterator fit;
+	std::cout << this->arrangement->number_of_faces() << " faces:" << std::endl;
+	for (fit = this->arrangement->faces_begin(); fit != this->arrangement->faces_end(); ++fit) {
+	    // Pour chaque face
+	    std::cout << fit->label().toStdString() << " de couleur " << fit->color().name().toStdString() << std::endl;
+	    
+	    // Mode par défaut
+	    if(fit->label() == "Undefined"){
+		fit->set_label("Unknow");
+		fit->set_color(QColor(237,238,243,80));
+	    }
+	}
 #if 0
         else if ( CGAL::assign( xcurve, o ) )
         {
