@@ -81,19 +81,20 @@ public:
                 message = message + ") de degre " + QString::number(v->degree()) + ".\n";
             }
             QLabellingLogWidget::instance()->logInfo(message);
-        }
-        
-        // On parcourt toutes les faces de l'arrangement (un peu lourd) pour trouver celles qui ne sont pas définies (qui viennent donc d'être crées)
-	Face_iterator fit;
-	std::cout << this->arrangement->number_of_faces() << " faces:" << std::endl;
-	for (fit = this->arrangement->faces_begin(); fit != this->arrangement->faces_end(); ++fit) {
-	    // Pour chaque face
-	    std::cout << fit->label().toStdString() << " de couleur " << fit->color().name().toStdString() << std::endl;
 	    
-	    // Mode par défaut
-	    if(fit->label() == "Undefined"){
-		fit->set_label("Unknow");
-		fit->set_color(QColor(237,238,243,80));
+        
+	    // On parcourt toutes les faces de l'arrangement (un peu lourd) pour trouver celles qui ne sont pas définies
+	    Face_iterator fit;
+	    std::cout << this->arrangement->number_of_faces() << " faces:" << std::endl;
+	    for (fit = this->arrangement->faces_begin(); fit != this->arrangement->faces_end(); ++fit) {
+		// Pour chaque face
+		std::cout << fit->label().toStdString() << " de couleur " << fit->color().name().toStdString()  << std::endl; /*<< " (" << fit << " vertices)"*/
+		
+		// Mode par défaut
+		if(fit->label() == "Undefined" && !fit->is_unbounded()){
+		    fit->set_label("Unknow");
+		    fit->set_color(QColor(237,238,243,80));
+		}
 	    }
 	}
 #if 0
