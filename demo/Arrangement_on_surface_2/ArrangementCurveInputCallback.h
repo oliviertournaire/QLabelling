@@ -70,6 +70,8 @@ public:
 	    // Sauvegarde de l'ancien arrangement
 	    this->old_arr.assign(*this->arrangement);
 	    
+            My_observer<Arrangement> obs(*( this->arrangement ));
+	    
             CGAL::insert( *( this->arrangement ), curve );
 
             QString message("Liste complete des vertices de l'arrangement :\n");
@@ -93,6 +95,7 @@ public:
 		// Pour chaque face
 		std::cout << "  " << fit->label().toStdString() << " de couleur " << fit->color().name().toStdString()  << std::endl; /*<< " (" << fit << " vertices)"*/
 		
+        /*
 		// Mode par défaut
 		if(fit->label() == "Undefined" && !fit->is_unbounded()){
 		    // Face à définir
@@ -109,6 +112,7 @@ public:
 			fit->set_color(QColor(237,238,243,80));
 		    }
 		}
+        */
 	    }
 	}
 #if 0
