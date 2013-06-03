@@ -36,6 +36,7 @@ public:
     QColor getGridColor( ) const;
     void setBackgroundColor( QColor color );
     QColor getBackgroundColor( ) const;
+    void setImagetoLabel(const QString& filename);
 
 protected:
     void drawForeground( QPainter* painter, const QRectF& rect );
@@ -45,6 +46,18 @@ protected:
     int gridSize;
     QColor gridColor;
     QColor backgroundColor;
+    
+    QString _imageToLabelFilename; // Nom du fichier photo
+    QPixmap _imageToLabel; // Image à labelliser
+    QImage _labelsImage; // Image des labels
+private:
+    void removeAllItemsFromScene();
+    void removeImagesFromScene();
+    void removeAllRectanglesFromScene();
+    void removeAllRectanglesWithLabelFromScene();
+
+    void buildImageBoundaryRect();
+    void rebuildRectanglesFromLastLine(const QLineF& line);
 };
 
 #endif // ARRANGEMENT_DEMO_GRAPHICS_VIEW_H

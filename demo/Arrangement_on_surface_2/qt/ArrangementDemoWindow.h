@@ -37,6 +37,8 @@
 
 #include <QGraphicsView>
 
+#include <QSettings>
+
 namespace Ui { class ArrangementDemoWindow; }
 
 class QActionGroup;
@@ -71,6 +73,7 @@ public slots:
     void on_actionNewTab_triggered( );
     void on_actionSaveAs_triggered( );
     void on_actionOpen_triggered( );
+    void on_actionOpenImage_triggered( );
     void on_actionQuit_triggered( );
     void on_tabWidget_currentChanged( );
     void on_actionOverlay_triggered( );
@@ -103,6 +106,10 @@ protected:
     QActionGroup* snapGroup;
 
     QLabellingLogWidget *_loggerWidget;
+    
+    // Image chargée depuis un fichier
+    QPixmap *_labelsPixmap;
+    
 };
 
 template < class ArrType >

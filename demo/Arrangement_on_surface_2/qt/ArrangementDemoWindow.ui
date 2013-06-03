@@ -75,6 +75,7 @@
     <addaction name="actionNewTab"/>
     <addaction name="actionCloseTab"/>
     <addaction name="separator"/>
+    <addaction name="actionOpenImage"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSaveAs"/>
     <addaction name="separator"/>
@@ -326,7 +327,7 @@
   </action>
   <action name="actionSaveAs">
    <property name="text">
-    <string>Save As...</string>
+    <string>Save arrangement as...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -334,7 +335,10 @@
   </action>
   <action name="actionOpen">
    <property name="text">
-    <string>Open...</string>
+    <string>Open an arrangement...</string>
+   </property>
+   <property name="iconText">
+    <string>Open</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -388,6 +392,11 @@
    </property>
    <property name="toolTip">
     <string>Set the fill color</string>
+   </property>
+  </action>
+  <action name="actionOpenImage">
+   <property name="text">
+    <string>Open an image</string>
    </property>
   </action>
  </widget>

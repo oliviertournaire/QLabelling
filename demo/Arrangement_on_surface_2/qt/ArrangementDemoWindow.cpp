@@ -728,4 +728,22 @@ void ArrangementDemoWindow::on_actionFillColor_triggered( )
     }
 }
 
+void ArrangementDemoWindow::on_actionOpenImage_triggered()
+{
+    // TODO: Récupérer ces informations depuis config.hpp
+    QSettings settings("IMAGINE", "QLabelling");
+
+    settings.beginGroup("QLabellingMainWindow");
+    QString defaultDirectory = settings.value("defaultDirectory", "").toString();
+
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open image to label"), defaultDirectory, tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif *.tiff)"));
+    if(!fileName.isNull())
+    {
+//         _labellingWidget->view()->setImageToLabel(fileName);
+std::cout << "Ola" << std::endl;
+        QFileInfo info(fileName);
+        settings.setValue("defaultDirectory", info.absolutePath());
+    }
+    settings.endGroup();
+}
 

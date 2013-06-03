@@ -95,24 +95,6 @@ public:
 		// Pour chaque face
 		std::cout << "  " << fit->label().toStdString() << " de couleur " << fit->color().name().toStdString()  << std::endl; /*<< " (" << fit << " vertices)"*/
 		
-        /*
-		// Mode par défaut
-		if(fit->label() == "Undefined" && !fit->is_unbounded()){
-		    // Face à définir
-		    
-		    // On cherche un point intérieur à la face
-		    CGAL::Arrangement_2<Traits_2>::Ccb_halfedge_const_circulator curr = fit->outer_ccb();
-		    
-		    // On cherche un éventuel label effacé lors de la division de la cellule
-		    if(false){
-			
-		    }
-		    else{
-			fit->set_label("Unknow");
-			fit->set_color(QColor(237,238,243,80));
-		    }
-		}
-        */
 	    }
 	}
 #if 0
