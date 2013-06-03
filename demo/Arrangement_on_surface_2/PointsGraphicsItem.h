@@ -46,7 +46,7 @@ public:
     void insert( const Point& point )
     {
         this->prepareGeometryChange( );
-        QLabellingLogWidget::instance()->logInfo("Insertion d'un point.");
+        QLabellingLogWidget::instance()->logTrace("Insertion d'un point.");
         double x = CGAL::to_double( point.x( ) );
         double y = CGAL::to_double( point.y( ) );
         this->points.push_back( QPointF( x, y ) );

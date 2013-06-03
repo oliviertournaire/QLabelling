@@ -34,7 +34,7 @@ public slots:
     void on__toolButtonSave_clicked(bool checked = false);
     void on__comboBoxLogLevel_currentIndexChanged(int index)
     {
-        if(index>0)
+        if(index>-1)
             _loglevel = index;
     }
 

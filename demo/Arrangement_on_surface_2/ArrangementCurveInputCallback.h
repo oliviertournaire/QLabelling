@@ -65,7 +65,7 @@ public:
         X_monotone_curve_2 xcurve;
         if ( CGAL::assign( curve, o ) )
         {
-            QLabellingLogWidget::instance()->logInfo("Insertion d'un objet (" + QString::number(curve.points()) + " sommets) dans l'arrangement.");
+            QLabellingLogWidget::instance()->logTrace("Insertion d'un objet (" + QString::number(curve.points()) + " sommets) dans l'arrangement.");
 	    
 	    // Sauvegarde de l'ancien arrangement
 	    this->old_arr.assign(*this->arrangement);
@@ -85,7 +85,7 @@ public:
                 message += QString::number(CGAL::to_double(v->point().y()));
                 message = message + ") de degre " + QString::number(v->degree()) + ".\n";
             }
-            QLabellingLogWidget::instance()->logInfo(message);
+            QLabellingLogWidget::instance()->logTrace(message);
 	    
         
 	    // On parcourt toutes les faces de l'arrangement (un peu lourd) pour trouver celles qui ne sont pas définies

@@ -48,6 +48,8 @@ ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
     ui( new Ui::ArrangementDemoWindow ),
     _loggerWidget(QLabellingLogWidget::instance())
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     this->setupUi( );
 
     QDockWidget* dockLogWidget = new QDockWidget;
@@ -77,6 +79,8 @@ ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
 
 ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     static int tabLabelCounter = 1;
     QString tabLabel;
 
@@ -115,7 +119,7 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
 ArrangementDemoTabBase* ArrangementDemoWindow::getTab( unsigned int tabIndex )
 const
 {
-    QLabellingLogWidget::instance()->logInfo( QString(__FUNCTION__) ); 
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     if (tabIndex > this->tabs.size()) return NULL;
     return this->tabs[tabIndex];
@@ -123,6 +127,8 @@ const
 
 ArrangementDemoTabBase* ArrangementDemoWindow::getCurrentTab( ) const
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     int currentIndex = this->ui->tabWidget->currentIndex( );
     if ( currentIndex == -1 )
         return NULL;
@@ -133,6 +139,8 @@ ArrangementDemoTabBase* ArrangementDemoWindow::getCurrentTab( ) const
 
 std::vector< QString > ArrangementDemoWindow::getTabLabels( ) const
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     std::vector< QString > res;
     for ( int i = 0; i < this->ui->tabWidget->count( ); ++i )
     {
@@ -143,6 +151,8 @@ std::vector< QString > ArrangementDemoWindow::getTabLabels( ) const
 
 std::vector< CGAL::Object > ArrangementDemoWindow::getArrangements( ) const
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     std::vector< CGAL::Object > res;
     for ( unsigned int i = 0; i < this->arrangements.size( ); ++i )
     {
@@ -153,6 +163,8 @@ std::vector< CGAL::Object > ArrangementDemoWindow::getArrangements( ) const
 
 void ArrangementDemoWindow::setupUi( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     this->ui->setupUi( this );
 
     this->modeGroup = new QActionGroup( this );
@@ -183,6 +195,8 @@ void ArrangementDemoWindow::setupUi( )
 
 void ArrangementDemoWindow::updateMode( QAction* newMode )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     // QWidget* widget = this->ui->tabWidget->currentWidget( );
     // ArrangementDemoTabBase* demoTab =
     //   static_cast< ArrangementDemoTabBase* >( widget );
@@ -252,11 +266,13 @@ void ArrangementDemoWindow::updateMode( QAction* newMode )
     }
     this->updateFillColorSwatch( );
 
-    _loggerWidget->logInfo(messageToLog);
+    _loggerWidget->logTrace(messageToLog);
 }
 
 void ArrangementDemoWindow::resetCallbackState( unsigned int tabIndex )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     if (tabIndex == static_cast<unsigned int>(-1)
             || tabIndex >= this->tabs.size( )) return;
 
@@ -301,6 +317,8 @@ void ArrangementDemoWindow::resetCallbackState( unsigned int tabIndex )
 
 void ArrangementDemoWindow::removeCallback( unsigned int tabIndex )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     if (tabIndex == static_cast<unsigned int>(-1)) return;
 
     ArrangementDemoTabBase* activeTab = this->tabs[ tabIndex ];
@@ -323,6 +341,8 @@ void ArrangementDemoWindow::removeCallback( unsigned int tabIndex )
 
 void ArrangementDemoWindow::updateFillColorSwatch( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
     ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
@@ -341,6 +361,8 @@ void ArrangementDemoWindow::updateFillColorSwatch( )
 
 void ArrangementDemoWindow::openArrFile( QString filename )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     int index = this->ui->tabWidget->currentIndex( );
     if ( index == -1 )
     {
@@ -373,6 +395,8 @@ void ArrangementDemoWindow::openArrFile( QString filename )
 
 void ArrangementDemoWindow::openDatFile( QString filename )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     int index = this->ui->tabWidget->currentIndex( );
     if ( index == -1 )
     {
@@ -434,6 +458,8 @@ void ArrangementDemoWindow::openDatFile( QString filename )
 
 void ArrangementDemoWindow::updateEnvelope( QAction* newMode )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     if ( this->ui->tabWidget->currentIndex( ) == -1 ) return;
     ArrangementDemoTabBase* activeTab =
             this->tabs[ this->ui->tabWidget->currentIndex( ) ];
@@ -453,6 +479,8 @@ void ArrangementDemoWindow::updateEnvelope( QAction* newMode )
 
 void ArrangementDemoWindow::updateSnapping( QAction* newMode )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     ArrangementDemoTabBase* activeTab =
             this->tabs[ this->ui->tabWidget->currentIndex( ) ];
     QGraphicsScene* activeScene = activeTab->getScene( );
@@ -486,6 +514,8 @@ void ArrangementDemoWindow::updateSnapping( QAction* newMode )
 
 void ArrangementDemoWindow::on_actionSaveAs_triggered( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     int index = this->ui->tabWidget->currentIndex( );
     if ( index == -1 )
         return;
@@ -511,6 +541,8 @@ void ArrangementDemoWindow::on_actionSaveAs_triggered( )
 
 void ArrangementDemoWindow::on_actionOpen_triggered( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     int index = this->ui->tabWidget->currentIndex( );
     if ( index == -1 )
     {
@@ -573,11 +605,15 @@ void ArrangementDemoWindow::on_actionQuit_triggered( )
 
 void ArrangementDemoWindow::on_actionNewTab_triggered( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     this->makeTab( POLYLINE_TRAITS );
 }
 
 void ArrangementDemoWindow::on_tabWidget_currentChanged( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     // std::cout << "Tab changed" << std::endl;
     // disable the callback for the previously active tab
     this->resetCallbackState( this->lastTabIndex );
@@ -593,6 +629,8 @@ void ArrangementDemoWindow::on_tabWidget_currentChanged( )
 
 void ArrangementDemoWindow::on_actionOverlay_triggered( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     OverlayDialog* overlayDialog = new OverlayDialog( this );
     if ( overlayDialog->exec( ) == QDialog::Accepted )
     {
@@ -613,6 +651,8 @@ void ArrangementDemoWindow::on_actionOverlay_triggered( )
 
 void ArrangementDemoWindow::on_actionCloseTab_triggered( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (! this->ui->tabWidget->count() ||
             (currentTabIndex == static_cast<unsigned int>(-1)))
@@ -628,6 +668,8 @@ void ArrangementDemoWindow::on_actionCloseTab_triggered( )
 
 void ArrangementDemoWindow::on_actionZoomIn_triggered( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
     ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
@@ -637,6 +679,8 @@ void ArrangementDemoWindow::on_actionZoomIn_triggered( )
 
 void ArrangementDemoWindow::on_actionZoomOut_triggered( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
     ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
@@ -646,6 +690,8 @@ void ArrangementDemoWindow::on_actionZoomOut_triggered( )
 
 void ArrangementDemoWindow::on_actionPreferences_triggered( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
     ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
@@ -714,6 +760,8 @@ void ArrangementDemoWindow::on_actionPreferences_triggered( )
 
 void ArrangementDemoWindow::on_actionFillColor_triggered( )
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
     ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
@@ -730,6 +778,8 @@ void ArrangementDemoWindow::on_actionFillColor_triggered( )
 
 void ArrangementDemoWindow::on_actionOpenImage_triggered()
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     // TODO: Récupérer ces informations depuis config.hpp
     QSettings settings("IMAGINE", "QLabelling");
 
