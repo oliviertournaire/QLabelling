@@ -13,6 +13,10 @@ public:
     typedef Arrangement_                                  Arrangement;
     typedef CGAL::Arr_observer<Arrangement>               Arr_observer;
     typedef typename Arrangement::Face_handle             Face_handle;
+    typedef typename Arrangement::Point_2                 Point_2;
+    typedef typename Arrangement::Vertex_handle           Vertex_handle;
+    typedef typename Arrangement::X_monotone_curve_2      X_monotone_curve_2;
+    typedef typename Arrangement::Halfedge_handle         Halfedge_handle;
 
     Arrangement_Observer (Arrangement& arr) : Arr_observer (arr) {}
 
