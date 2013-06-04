@@ -30,10 +30,10 @@ ArrangementDemoTabBase::ArrangementDemoTabBase( QWidget* parent ) :
     curveInputCallback( NULL ),
     deleteCurveCallback( NULL ),
     pointLocationCallback( NULL ),
-    verticalRayShootCallback( NULL ),
+//     verticalRayShootCallback( NULL ),
     mergeEdgeCallback( NULL ),
     splitEdgeCallback( NULL ),
-    envelopeCallback( NULL ),
+//     envelopeCallback( NULL ),
     fillFaceCallback( NULL )
 {
     this->setupUi( );
@@ -77,12 +77,12 @@ CGAL::Qt::Callback* ArrangementDemoTabBase::getPointLocationCallback( ) const
 {
     return this->pointLocationCallback;
 }
-
+/*
 VerticalRayShootCallbackBase*
 ArrangementDemoTabBase::getVerticalRayShootCallback( ) const
 {
     return this->verticalRayShootCallback;
-}
+}*/
 
 CGAL::Qt::Callback* ArrangementDemoTabBase::getMergeEdgeCallback( ) const
 {
@@ -93,11 +93,11 @@ SplitEdgeCallbackBase* ArrangementDemoTabBase::getSplitEdgeCallback( ) const
 {
     return this->splitEdgeCallback;
 }
-
+/*
 EnvelopeCallbackBase* ArrangementDemoTabBase::getEnvelopeCallback( ) const
 {
     return this->envelopeCallback;
-}
+}*/
 
 FillFaceCallbackBase* ArrangementDemoTabBase::getFillFaceCallback( ) const
 {

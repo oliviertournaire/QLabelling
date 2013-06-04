@@ -23,10 +23,10 @@
 #include "ArrangementGraphicsItem.h"
 #include "DeleteCurveCallback.h"
 #include "PointLocationCallback.h"
-#include "VerticalRayShootCallback.h"
+// #include "VerticalRayShootCallback.h"
 #include "MergeEdgeCallback.h"
 #include "SplitEdgeCallback.h"
-#include "EnvelopeCallback.h"
+// #include "EnvelopeCallback.h"
 #include "ArrangementDemoTab.h"
 
 #include <CGAL/Arr_default_overlay_traits.h>
@@ -69,7 +69,6 @@ public:
     
 public slots:
     void updateMode( QAction* a );
-    void updateEnvelope( QAction* a );
     void updateSnapping( QAction* a );
     void on_actionNewTab_triggered( );
     void on_actionSaveAs_triggered( );
@@ -103,7 +102,6 @@ protected:
 
     Ui::ArrangementDemoWindow* ui;
     QActionGroup* modeGroup;
-    QActionGroup* envelopeGroup;
     QActionGroup* snapGroup;
 
     QLabellingLogWidget *_loggerWidget;

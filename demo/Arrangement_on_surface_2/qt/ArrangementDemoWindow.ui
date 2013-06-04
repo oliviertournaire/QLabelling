@@ -39,8 +39,6 @@
    <addaction name="actionInsert"/>
    <addaction name="actionDelete"/>
    <addaction name="actionPointLocation"/>
-   <addaction name="actionRayShootingUp"/>
-   <addaction name="actionRayShootingDown"/>
    <addaction name="actionMerge"/>
    <addaction name="actionSplit"/>
    <addaction name="separator"/>
@@ -53,8 +51,6 @@
    <addaction name="actionSnapMode"/>
    <addaction name="actionGridSnapMode"/>
    <addaction name="separator"/>
-   <addaction name="actionLowerEnvelope"/>
-   <addaction name="actionUpperEnvelope"/>
    <addaction name="separator"/>
    <addaction name="actionCurveRay"/>
    <addaction name="actionCurveLine"/>
@@ -89,8 +85,6 @@
     <addaction name="actionInsert"/>
     <addaction name="actionDelete"/>
     <addaction name="actionPointLocation"/>
-    <addaction name="actionRayShootingUp"/>
-    <addaction name="actionRayShootingDown"/>
     <addaction name="actionMerge"/>
     <addaction name="actionSplit"/>
     <addaction name="actionFill"/>
