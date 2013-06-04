@@ -36,7 +36,6 @@
 #include <CGAL/point_generators_2.h>
 #include <CGAL/Bbox_2.h>
 
-#include <CGAL/Arr_observer.h>
 #include <CGAL/Polygon_2.h>
 
 // Coordinate related typedef - using inexact number type
@@ -48,16 +47,16 @@ typedef Coord_kernel::Circle_2                          Coord_circle;
 
 
 typedef CGAL::Polygon_2<Coord_kernel> My_polygon;
-                                      // polygon is usefull for filling faces
+// polygon is usefull for filling faces
 
 /*
 #ifdef CGAL_USE_GMP
-  #include <CGAL/Gmpq.h>
-  typedef CGAL::Gmpq                                    NT;
+#include <CGAL/Gmpq.h>
+typedef CGAL::Gmpq                                    NT;
 #else
-  #include <CGAL/MP_Float.h>
-  #include <CGAL/Quotient.h>
-  typedef CGAL::Quotient<CGAL::MP_Float>                NT;
+#include <CGAL/MP_Float.h>
+#include <CGAL/Quotient.h>
+typedef CGAL::Quotient<CGAL::MP_Float>                NT;
 #endif
 // instead of
 //typedef CGAL::Cartesian<NT>                           Kernel;
@@ -70,44 +69,44 @@ struct Kernel : public CGAL::Epeck {};
 
 class Face_with_color : public CGAL::Arr_face_base
 {
-  QColor    m_color;
-  bool      m_visited;
-  QString   m_label; // Le label associé à la face
+    QColor    m_color;
+    bool      m_visited;
+    QString   m_label; // Le label associé à la face
 
 public:
-  Face_with_color() : CGAL::Arr_face_base(), m_color(), m_label("Undefined"), m_visited(false) { }
+    Face_with_color() : CGAL::Arr_face_base(), m_color(), m_label("Undefined"), m_visited(false) { }
 
-  // Getting the color for this face
-  QColor color() const { return m_color; }
-  // Getting the label for this face
-  QString label() const { return m_label; }
-  // Setting the color for this face
-  void set_color(const QColor& c) { m_color = c; }
-  // Setting the label for this face
-  void set_label(const QString& l) { m_label = l; }
-  bool visited() const{ return m_visited; }
-  void set_visited(bool b) { m_visited = b; }
+    // Getting the color for this face
+    QColor color() const { return m_color; }
+    // Getting the label for this face
+    QString label() const { return m_label; }
+    // Setting the color for this face
+    void set_color(const QColor& c) { m_color = c; }
+    // Setting the label for this face
+    void set_label(const QString& l) { m_label = l; }
+    bool visited() const{ return m_visited; }
+    void set_visited(bool b) { m_visited = b; }
 };
 
 template <class Traits>
 class Dcel :
-  public CGAL::Arr_dcel_base<CGAL::Arr_vertex_base<typename Traits::Point_2>,
-                             CGAL::Arr_halfedge_base<
-                               typename Traits::X_monotone_curve_2>,
-                             Face_with_color>
+    public CGAL::Arr_dcel_base<CGAL::Arr_vertex_base<typename Traits::Point_2>,
+    CGAL::Arr_halfedge_base<
+    typename Traits::X_monotone_curve_2>,
+    Face_with_color>
 {
 public:
-   /*! \struct
-   * An auxiliary structure for rebinding the DCEL with a new traits class.
-   */
-  template <typename T>
-  struct rebind
-  {
-    typedef Dcel<T> other;
-  };
+    /*! \struct
+    * An auxiliary structure for rebinding the DCEL with a new traits class.
+    */
+    template <typename T>
+    struct rebind
+    {
+        typedef Dcel<T> other;
+    };
 
-  // CREATION
-  Dcel() {}
+    // CREATION
+    Dcel() {}
 };
 
 // Segments:
@@ -147,27 +146,6 @@ typedef Arr_pol_list::const_iterator                     Arr_pol_const_iter;
 typedef Arr_pol_list::iterator                           Arr_pol_iter;
 // point location: just use (for simplification) a simple point location policy
 typedef CGAL::Arr_simple_point_location<Pol_arr> Pol_simple_point_location;
-
-template <class Arrangement_>
-class My_observer : public CGAL::Arr_observer<Arrangement_>
-{
-public:
-
-  typedef Arrangement_                                  Arrangement;
-  typedef CGAL::Arr_observer<Arrangement>               Arr_observer;
-  typedef typename Arrangement::Face_handle             Face_handle;
-
-  My_observer (Arrangement& arr) : Arr_observer (arr) {}
-
-   // Fonction inutilisée après le nettoyage...
-   virtual void after_split_face (Face_handle  f ,
-                                  Face_handle  new_f ,
-                                  bool         /* is_hole */)
-  {
-    new_f ->set_color(f->color());
-  }
-
-};
 
 Q_DECLARE_METATYPE( CGAL::Object )
 

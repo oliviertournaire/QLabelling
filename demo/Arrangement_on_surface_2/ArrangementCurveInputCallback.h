@@ -22,18 +22,22 @@
 
 #include <CGAL/Qt/GraphicsViewInput.h>
 #include <CGAL/Qt/Converter.h>
+
 #include <QEvent>
 #include <QGraphicsLineItem>
 #include <QGraphicsSceneMouseEvent>
+
 #include <iostream>
+
 #include "GraphicsViewCurveInput.h"
 #include "Utils.h"
+#include "ArrangementObserver.h"
 
 #include "QLabellingLogWidget.hpp"
 
 template <typename Arr_, typename ArrTraits = typename Arr_::Geometry_traits_2>
 class ArrangementCurveInputCallback:
-        public CGAL::Qt::GraphicsViewCurveInput< typename Arr_::Geometry_traits_2 >
+    public CGAL::Qt::GraphicsViewCurveInput< typename Arr_::Geometry_traits_2 >
 {
 public:
     typedef Arr_ Arrangement;
@@ -48,15 +52,15 @@ public:
     typedef typename ArrTraitsAdaptor< Traits >::Point_2  Point_2;
     typedef typename Kernel::Segment_2                    Segment_2;
     typedef typename Kernel::FT                           FT;
-    
+
     ArrangementCurveInputCallback( Arrangement* arrangement_, QObject* parent ):
-        Superclass( parent ),
+    Superclass( parent ),
         arrangement( arrangement_ )
     {
         this->snapToVertexStrategy.setArrangement( arrangement_ );
 
         QObject::connect( this, SIGNAL( generate( CGAL::Object ) ),
-                          this, SLOT( processInput( CGAL::Object ) ) );
+            this, SLOT( processInput( CGAL::Object ) ) );
     }
 
     void processInput( CGAL::Object o )
@@ -66,12 +70,12 @@ public:
         if ( CGAL::assign( curve, o ) )
         {
             QLabellingLogWidget::instance()->logTrace("Insertion d'un objet (" + QString::number(curve.points()) + " sommets) dans l'arrangement.");
-	    
-	    // Sauvegarde de l'ancien arrangement
-	    this->old_arr.assign(*this->arrangement);
-	    
-            My_observer<Arrangement> obs(*( this->arrangement ));
-	    
+
+            // Sauvegarde de l'ancien arrangement
+            this->old_arr.assign(*this->arrangement);
+
+            Arrangement_Observer<Arrangement> obs(*( this->arrangement ));
+
             CGAL::insert( *( this->arrangement ), curve );
 
             QString message("Liste complete des vertices de l'arrangement :\n");
@@ -86,17 +90,17 @@ public:
                 message = message + ") de degre " + QString::number(v->degree()) + ".\n";
             }
             QLabellingLogWidget::instance()->logTrace(message);
-	    
-        
-	    // On parcourt toutes les faces de l'arrangement (un peu lourd) pour trouver celles qui ne sont pas définies
-	    Face_iterator fit;
-	    std::cout << this->arrangement->number_of_faces() << " faces:" << std::endl;
-	    for (fit = this->arrangement->faces_begin(); fit != this->arrangement->faces_end(); ++fit) {
-		// Pour chaque face
-		std::cout << "  " << fit->label().toStdString() << " de couleur " << fit->color().name().toStdString()  << std::endl; /*<< " (" << fit << " vertices)"*/
-		
-	    }
-	}
+
+
+            // On parcourt toutes les faces de l'arrangement (un peu lourd) pour trouver celles qui ne sont pas définies
+            Face_iterator fit;
+            std::cout << this->arrangement->number_of_faces() << " faces:" << std::endl;
+            for (fit = this->arrangement->faces_begin(); fit != this->arrangement->faces_end(); ++fit) {
+                // Pour chaque face
+                std::cout << "  " << fit->label().toStdString() << " de couleur " << fit->color().name().toStdString()  << std::endl; /*<< " (" << fit << " vertices)"*/
+
+            }
+        }
 #if 0
         else if ( CGAL::assign( xcurve, o ) )
         {
@@ -143,8 +147,7 @@ protected:
     Arrangement* arrangement;
     Arrangement old_arr; // Sauvegarde de l'arrangement précédent
     SnapToArrangementVertexStrategy< Arrangement > snapToVertexStrategy;
-    SnapToGridStrategy< typename Arrangement::Geometry_traits_2 >
-    snapToGridStrategy;
+    SnapToGridStrategy< typename Arrangement::Geometry_traits_2 > snapToGridStrategy;
     Arr_construct_point_2< Traits > toArrPoint;
 }; // class ArrangementCurveInputCallback
 
