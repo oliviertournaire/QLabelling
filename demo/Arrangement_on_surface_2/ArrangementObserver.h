@@ -106,10 +106,15 @@ public:
         bool /* is_hole */)
     {
         QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
-        QLabellingLogWidget::instance()->logTrace( "Face color --> " + f->color().name() );
-        QLabellingLogWidget::instance()->logTrace( "Face label --> " + f->label() );
-        new_f->set_color(f->color());
-        new_f->set_label(f->label());
+	if(!f->is_unbounded())
+	{
+	    QLabellingLogWidget::instance()->logTrace( "Face color --> " + f->color().name() );
+	    QLabellingLogWidget::instance()->logTrace( "Face label --> " + f->label() );
+	    new_f->set_color(f->color());
+	    new_f->set_label(f->label());
+	}
+	else
+	    QLabellingLogWidget::instance()->logTrace( "Splitting an unbounded face" );
     }
 
     /// Issued just before a face f is split into two, as a result of the insertion of the edge e into the arrangement.

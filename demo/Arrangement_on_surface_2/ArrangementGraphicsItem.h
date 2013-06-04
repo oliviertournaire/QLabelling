@@ -52,6 +52,8 @@ public:
     bool visibleEdges( ) const;
     void setVisibleEdges( const bool b );
     void setBackgroundColor( QColor color );
+    
+    QGraphicsScene* getScene() const;
 
 protected:
     CGAL::Bbox_2 bb;

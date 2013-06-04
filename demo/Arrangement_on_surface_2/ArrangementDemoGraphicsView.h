@@ -38,6 +38,8 @@ public:
     QColor getBackgroundColor( ) const;
     void setImagetoLabel(const QString& filename);
 
+    QString _imageToLabelFilename; // Nom du fichier photo
+    QPixmap _imageToLabel; // Image à labelliser
 protected:
     void drawForeground( QPainter* painter, const QRectF& rect );
     QRectF getViewportRect( ) const;
@@ -47,8 +49,6 @@ protected:
     QColor gridColor;
     QColor backgroundColor;
     
-    QString _imageToLabelFilename; // Nom du fichier photo
-    QPixmap _imageToLabel; // Image à labelliser
     QImage _labelsImage; // Image des labels
 private:
     void removeAllItemsFromScene();

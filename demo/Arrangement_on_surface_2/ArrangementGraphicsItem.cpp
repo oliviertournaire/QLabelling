@@ -108,5 +108,10 @@ QRectF ArrangementGraphicsItemBase::getViewportRect( ) const
 
 #endif
 
+QGraphicsScene* ArrangementGraphicsItemBase::getScene() const
+{
+    return scene;
+}
+
 } // namespace Qt
 } // namespace CGAL

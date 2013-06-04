@@ -30,7 +30,7 @@ ArrangementDemoGraphicsView::ArrangementDemoGraphicsView( QWidget* parent ) :
     gridColor( ::Qt::black ),
     backgroundColor( ::Qt::white )
 {
-    QMatrix m( 1.0, 0.0, 0.0, -1.0, 0.0, 0.0 );
+    QMatrix m( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
     this->setMatrix( m );
     this->setBackgroundBrush( QBrush( backgroundColor ) );
 }
@@ -134,7 +134,7 @@ void ArrangementDemoGraphicsView::setImagetoLabel(const QString& filename)
     if(_imageToLabel.isNull())
         std::cout << "Problem opening image ..." << std::endl;
 //     removeAllItemsFromScene();
-    this->scene()->addPixmap(_imageToLabel);
+    scene()->addPixmap(_imageToLabel);
     _labelsImage = QImage(_imageToLabel.width(), _imageToLabel.height(), QImage::Format_RGB32);
 //    TODO  _labelsImage.fill( QLABELLING_UNKNOW_LABEL_BRUSH_COLOR );
     _labelsImage.fill( QColor(10,10,10) );

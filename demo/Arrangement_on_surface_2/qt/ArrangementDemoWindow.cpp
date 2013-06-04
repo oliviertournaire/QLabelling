@@ -790,8 +790,7 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    // TODO: Récupérer ces informations depuis config.hpp
-    QSettings settings("IMAGINE", "QLabelling");
+    QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
     settings.beginGroup("QLabellingMainWindow");
     QString defaultDirectory = settings.value("defaultDirectory", "").toString();
@@ -803,6 +802,14 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
         std::cout << "Ola" << std::endl;
         QFileInfo info(fileName);
         settings.setValue("defaultDirectory", info.absolutePath());
+	
+	QGraphicsScene* tabScene = getCurrentTab()->getScene();
+	ArrangementDemoGraphicsView* tabView = getCurrentTab()->getView();
+	tabView->_imageToLabel = QPixmap(fileName);
+	tabView->_imageToLabelFilename = fileName;
+	tabScene->addPixmap(tabView->_imageToLabel);
+	
+	//getCurrentTab()->getArrangementGraphicsItem()->getScene()->addPixmap(tabView->_imageToLabel);
     }
     settings.endGroup();
 }
