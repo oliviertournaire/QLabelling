@@ -41,14 +41,18 @@
 #endif // _WINDOWS
 
 #include "QLabellingLogWidget.hpp"
+#include "QLabellingWidget.hpp"
+#include "config.hpp"
 
 ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
 CGAL::Qt::DemosMainWindow( parent ),
     lastTabIndex(static_cast<unsigned int>(-1)),
     ui( new Ui::ArrangementDemoWindow ),
-    _loggerWidget(QLabellingLogWidget::instance())
+    _loggerWidget(QLabellingLogWidget::instance()),
+    _labellingWidget(QLabellingWidget::instance())
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+    _labellingWidget->setLabelsPath(QLABELLING_DEFAULT_LABEL_PATH);
 
     this->setupUi( );
 
@@ -57,6 +61,12 @@ CGAL::Qt::DemosMainWindow( parent ),
     dockLogWidget->setWindowTitle( _loggerWidget->windowTitle() );
     dockLogWidget->setWindowIcon( dockLogWidget->windowIcon() );
     this->addDockWidget(Qt::BottomDockWidgetArea, dockLogWidget);
+
+    QDockWidget* dockLabellingWidget = new QDockWidget;
+    dockLabellingWidget->setWidget(_labellingWidget);
+    dockLabellingWidget->setWindowTitle( _labellingWidget->windowTitle() );
+    dockLabellingWidget->setWindowIcon( dockLogWidget->windowIcon() );
+    this->addDockWidget(Qt::RightDockWidgetArea, dockLabellingWidget);
 
     _loggerWidget->logInfo( tr("QDemoArrangement application started") );
 

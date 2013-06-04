@@ -44,6 +44,7 @@ namespace Ui { class ArrangementDemoWindow; }
 class QActionGroup;
 
 class QLabellingLogWidget;
+class QLabellingWidget;
 
 class ArrangementDemoWindow : public CGAL::Qt::DemosMainWindow
 {
@@ -106,6 +107,7 @@ protected:
     QActionGroup* snapGroup;
 
     QLabellingLogWidget *_loggerWidget;
+    QLabellingWidget *_labellingWidget;
     
     // Image chargée depuis un fichier
     QPixmap *_labelsPixmap;
