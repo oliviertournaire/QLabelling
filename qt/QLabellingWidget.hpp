@@ -1,6 +1,8 @@
 #ifndef QLABELLINGWIDGET_HPP
 #define QLABELLINGWIDGET_HPP
 
+#include "utilities/Singleton.hpp"
+
 #include <QWidget>
 
 #include <vector>
@@ -14,14 +16,16 @@ namespace Ui {
 class QLabellingWidget;
 }
 
-class QLabellingWidget : public QWidget
+class QLabellingWidget : public QWidget, public Singleton<QLabellingWidget>
 {
+    friend class Singleton<QLabellingWidget>;
     Q_OBJECT
     
-public:
-    explicit QLabellingWidget(const QString &labelsPath, QWidget *parent = 0);
+private:
+    explicit QLabellingWidget();
     ~QLabellingWidget();
 
+public:
     QLabellingView* view();
     QImage labelsImage();
     const std::vector<QLabelItem*>& labelItems() const { return _labelItems; }

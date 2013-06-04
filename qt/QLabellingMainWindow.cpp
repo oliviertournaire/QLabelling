@@ -22,7 +22,7 @@ using namespace std;
 
 QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
     QMainWindow(parent),
-    _labellingWidget(new QLabellingWidget(QLABELLING_DEFAULT_LABEL_PATH)),
+    _labellingWidget(QLabellingWidget::instance()),
     _labelsScene(new QGraphicsScene),
     _labelsView(new QZoomableGraphicsView),
     _loggerWidget(QLabellingLogWidget::instance()),
@@ -31,6 +31,8 @@ QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
 {
     _mainWindow = new Ui::QLabellingMainWindow;
     _mainWindow->setupUi(this);
+
+    _labellingWidget->setLabelsPath(QLABELLING_DEFAULT_LABEL_PATH);
 
     _labelsView->setScene(_labelsScene);
     _labelsPixmapItem = _labelsScene->addPixmap( _labelsPixmap->fromImage( _labellingWidget->view()->labelsImage() ) );

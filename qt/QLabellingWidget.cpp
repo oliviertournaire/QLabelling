@@ -16,16 +16,14 @@
 
 using namespace std;
 
-QLabellingWidget::QLabellingWidget( const QString &labelsPath, QWidget *parent /*= 0*/ ) :
-QWidget(parent),
+QLabellingWidget::QLabellingWidget() :
+QWidget(),
     ui(new Ui::QLabellingWidget),
     _stylesheetString(""),
-    _buttonGroup( new QButtonGroup(parent) ),
-    _labelsPath(labelsPath)
+    _buttonGroup( new QButtonGroup() ),
+    _labelsPath("")
 {
     ui->setupUi(this);
-
-    parseLabels();
 
     _stylesheetString = QString(QLABELLING_TOOLBUTTON_STYLESHEET_STRING);
 
