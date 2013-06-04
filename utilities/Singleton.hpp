@@ -1,3 +1,6 @@
+#ifndef __SINGLETON_HPP__
+#define __SINGLETON_HPP__
+
 template <typename T>
 class Singleton
 {
@@ -31,3 +34,5 @@ private:
 };
 
 template <typename T> T *Singleton<T>::_singleton = 0;
+
+#endif // __SINGLETON_HPP__
