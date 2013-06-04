@@ -90,16 +90,6 @@ public:
                 message = message + ") de degre " + QString::number(v->degree()) + ".\n";
             }
             QLabellingLogWidget::instance()->logTrace(message);
-
-
-            // On parcourt toutes les faces de l'arrangement (un peu lourd) pour trouver celles qui ne sont pas définies
-            Face_iterator fit;
-            std::cout << this->arrangement->number_of_faces() << " faces:" << std::endl;
-            for (fit = this->arrangement->faces_begin(); fit != this->arrangement->faces_end(); ++fit) {
-                // Pour chaque face
-                std::cout << "  " << fit->label().toStdString() << " de couleur " << fit->color().name().toStdString()  << std::endl; /*<< " (" << fit << " vertices)"*/
-
-            }
         }
 #if 0
         else if ( CGAL::assign( xcurve, o ) )
