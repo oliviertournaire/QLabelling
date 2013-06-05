@@ -26,7 +26,7 @@
 PointsGraphicsItem::PointsGraphicsItem( ) :
     pointRadius( 3.0 ),
     color( ::Qt::blue )
-{ }
+{ /*this->color.setAlpha(150);*/ }
 
 void PointsGraphicsItem::paint( QPainter* painter,
                                 const QStyleOptionGraphicsItem* option,

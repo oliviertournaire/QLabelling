@@ -710,6 +710,8 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
+    // TODO : vérifier si on est sur un onglet valide !
+    
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
     settings.beginGroup("QLabellingMainWindow");
@@ -730,6 +732,26 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
 	tabScene->addPixmap(tabView->_imageToLabel);
 	
 	//getCurrentTab()->getArrangementGraphicsItem()->getScene()->addPixmap(tabView->_imageToLabel);
+	
+	// Il ne reste plus qu'à dessiner le contour
+	QGraphicsLineItem Ll( 0, 0, 0, tabView->_imageToLabel.height() );
+	QGraphicsLineItem Lb( 0, tabView->_imageToLabel.height(), tabView->_imageToLabel.width(), tabView->_imageToLabel.height() );
+	QGraphicsLineItem Lr( tabView->_imageToLabel.width(), 0, tabView->_imageToLabel.width(), tabView->_imageToLabel.height() );
+	QGraphicsLineItem Lt( 0, 0, tabView->_imageToLabel.width(), 0 );
+	
+	Arr_pol_2 contour; // TODO
+	
+	Pol_arr arr; // Mauvais type, le assign échoue !
+	
+	// Récupérer l'arrangement
+	if ( CGAL::assign( arr, getArrangements()[this->ui->tabWidget->currentIndex()] ) ){ // TODO
+	    //  Ajouter les lignes à l'arrangement
+	    CGAL::insert( arr , contour );
+	}
+	else{
+	    std::cout << "Argh !! :(" << std::endl;
+	}
+//         {
     }
     settings.endGroup();
 }

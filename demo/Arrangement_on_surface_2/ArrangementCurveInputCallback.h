@@ -71,9 +71,6 @@ public:
         {
             QLabellingLogWidget::instance()->logTrace("Insertion d'un objet (" + QString::number(curve.points()) + " sommets) dans l'arrangement.");
 
-            // Sauvegarde de l'ancien arrangement
-            this->old_arr.assign(*this->arrangement);
-
             Arrangement_Observer<Arrangement> obs(*( this->arrangement ));
 
             CGAL::insert( *( this->arrangement ), curve );
@@ -135,7 +132,6 @@ protected:
     }
 
     Arrangement* arrangement;
-    Arrangement old_arr; // Sauvegarde de l'arrangement précédent
     SnapToArrangementVertexStrategy< Arrangement > snapToVertexStrategy;
     SnapToGridStrategy< typename Arrangement::Geometry_traits_2 > snapToGridStrategy;
     Arr_construct_point_2< Traits > toArrPoint;

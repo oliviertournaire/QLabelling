@@ -51,6 +51,7 @@ GraphicsViewCurveInputBase::GraphicsViewCurveInputBase( QObject* parent ) :
     snapToGridEnabled( false ),
     color( ::Qt::blue )
 {
+//     this->color.setAlpha(150); Tentative pour rendre les dessins transparents
     this->pointsGraphicsItem.setZValue( 100 );
     this->pointsGraphicsItem.setColor( this->color );
 }
