@@ -45,7 +45,7 @@
 #include "config.hpp"
 
 ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
-CGAL::Qt::DemosMainWindow( parent ),
+    CGAL::Qt::DemosMainWindow( parent ),
     lastTabIndex(static_cast<unsigned int>(-1)),
     ui( new Ui::ArrangementDemoWindow ),
     _loggerWidget(QLabellingLogWidget::instance()),
@@ -80,9 +80,9 @@ CGAL::Qt::DemosMainWindow( parent ),
 
     // set up callbacks
     QObject::connect( this->modeGroup, SIGNAL( triggered( QAction* ) ),
-        this, SLOT( updateMode( QAction* ) ) );
+                      this, SLOT( updateMode( QAction* ) ) );
     QObject::connect( this->snapGroup, SIGNAL( triggered( QAction* ) ),
-        this, SLOT( updateSnapping( QAction* ) ) );
+                      this, SLOT( updateSnapping( QAction* ) ) );
 }
 
 ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
@@ -125,7 +125,7 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
 }
 
 ArrangementDemoTabBase* ArrangementDemoWindow::getTab( unsigned int tabIndex )
-    const
+const
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -261,7 +261,7 @@ void ArrangementDemoWindow::resetCallbackState( unsigned int tabIndex )
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     if (tabIndex == static_cast<unsigned int>(-1)
-        || tabIndex >= this->tabs.size( )) return;
+            || tabIndex >= this->tabs.size( )) return;
 
     ArrangementDemoTabBase* activeTab = this->tabs[ tabIndex ];
 
@@ -358,7 +358,7 @@ void ArrangementDemoWindow::openArrFile( QString filename )
     {
         typedef CGAL::Arr_text_formatter< Pol_arr >         Pol_text_formatter;
         typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter>
-            ArrFormatter;
+                ArrFormatter;
         typedef ArrangementDemoTab< Pol_arr >               TabType;
 
         ArrFormatter arrFormatter;
@@ -438,7 +438,7 @@ void ArrangementDemoWindow::updateSnapping( QAction* newMode )
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     ArrangementDemoTabBase* activeTab =
-        this->tabs[ this->ui->tabWidget->currentIndex( ) ];
+            this->tabs[ this->ui->tabWidget->currentIndex( ) ];
     QGraphicsScene* activeScene = activeTab->getScene( );
     ArrangementDemoGraphicsView* activeView = activeTab->getView( );
 
@@ -476,8 +476,8 @@ void ArrangementDemoWindow::on_actionSaveAs_triggered( )
     if ( index == -1 )
         return;
     QString filename =
-        QFileDialog::getSaveFileName( this, tr( "Save file" ),
-        "", "Arrangement (*.arr)" );
+            QFileDialog::getSaveFileName( this, tr( "Save file" ),
+                                          "", "Arrangement (*.arr)" );
     if ( filename.isNull( ) )
         return;
 
@@ -488,7 +488,7 @@ void ArrangementDemoWindow::on_actionSaveAs_triggered( )
     {
         typedef CGAL::Arr_text_formatter<Pol_arr>           Pol_text_formatter;
         typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter>
-            ArrFormatter;
+                ArrFormatter;
         ArrFormatter                                        arrFormatter;
         CGAL::write( *pol, ofs, arrFormatter );
     }
@@ -506,8 +506,8 @@ void ArrangementDemoWindow::on_actionOpen_triggered( )
         return;
     }
     QString filename =
-        QFileDialog::getOpenFileName( this, tr( "Open file" ),
-        "", "Arrangement files (*.arr *.dat);;All files (*.*)" );
+            QFileDialog::getOpenFileName( this, tr( "Open file" ),
+                                          "", "Arrangement files (*.arr *.dat);;All files (*.*)" );
     if ( filename.isNull( ) )
         return;
 
@@ -522,21 +522,21 @@ void ArrangementDemoWindow::on_actionOpen_triggered( )
 
     ArrangementDemoTabBase* currentTab = this->tabs[ index ];
     CGAL::Qt::ArrangementGraphicsItemBase* agi =
-        currentTab->getArrangementGraphicsItem( );
+            currentTab->getArrangementGraphicsItem( );
     QRectF bb = agi->boundingRect( );
     QGraphicsView* view = currentTab->getView( );
     // std::cout << bb.left( ) << " " << bb.bottom( ) << ", " << bb.right( )
     //           << " " << bb.top( ) << std::endl;
 #ifndef _WINDOWS
     if ( std::isinf(bb.left( )) ||
-        std::isinf(bb.right( )) ||
-        std::isinf(bb.top( )) ||
-        std::isinf(bb.bottom( )) )
+         std::isinf(bb.right( )) ||
+         std::isinf(bb.top( )) ||
+         std::isinf(bb.bottom( )) )
 #else
     if ( boost::math::isinf(bb.left( )) ||
-        boost::math::isinf(bb.right( )) ||
-        boost::math::isinf(bb.top( )) ||
-        boost::math::isinf(bb.bottom( )) )
+         boost::math::isinf(bb.right( )) ||
+         boost::math::isinf(bb.top( )) ||
+         boost::math::isinf(bb.bottom( )) )
 #endif // _WINDOWS
     {
         // std::cout << "unbounded; using default bb" << std::endl;
@@ -596,7 +596,7 @@ void ArrangementDemoWindow::on_actionOverlay_triggered( )
             Pol_arr* pol_arr;
             Pol_arr* pol_arr2;
             if ( CGAL::assign( pol_arr, arrs[ 0 ] ) &&
-                CGAL::assign( pol_arr2, arrs[ 1 ] ) )
+                 CGAL::assign( pol_arr2, arrs[ 1 ] ) )
             {
                 this->makeOverlayTab( pol_arr, pol_arr2 );
             }
@@ -611,7 +611,7 @@ void ArrangementDemoWindow::on_actionCloseTab_triggered( )
 
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (! this->ui->tabWidget->count() ||
-        (currentTabIndex == static_cast<unsigned int>(-1)))
+            (currentTabIndex == static_cast<unsigned int>(-1)))
         return;
 
     // delete the tab
@@ -652,30 +652,30 @@ void ArrangementDemoWindow::on_actionPreferences_triggered( )
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
     ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
     CGAL::Qt::ArrangementGraphicsItemBase* agi =
-        currentTab->getArrangementGraphicsItem( );
+            currentTab->getArrangementGraphicsItem( );
     ArrangementDemoGraphicsView* view = currentTab->getView( );
     SplitEdgeCallbackBase* splitEdgeCallback = currentTab->getSplitEdgeCallback( );
 
     ArrangementDemoPropertiesDialog* dialog =
-        new ArrangementDemoPropertiesDialog( this );
+            new ArrangementDemoPropertiesDialog( this );
     if ( dialog->exec( ) == QDialog::Accepted )
     {
         typedef ArrangementDemoPropertiesDialog Dialog;
         QColor edgeColor =
-            qVariantValue<QColor>(dialog->property(Dialog::EDGE_COLOR_KEY));
+                qVariantValue<QColor>(dialog->property(Dialog::EDGE_COLOR_KEY));
         unsigned int edgeWidth =
-            qVariantValue<unsigned int>(dialog->property(Dialog::EDGE_WIDTH_KEY));
+                qVariantValue<unsigned int>(dialog->property(Dialog::EDGE_WIDTH_KEY));
         QColor vertexColor =
-            qVariantValue<QColor>(dialog->property(Dialog::VERTEX_COLOR_KEY));
+                qVariantValue<QColor>(dialog->property(Dialog::VERTEX_COLOR_KEY));
         unsigned int vertexRadius =
-            qVariantValue<unsigned int>(dialog->property(Dialog::VERTEX_RADIUS_KEY));
+                qVariantValue<unsigned int>(dialog->property(Dialog::VERTEX_RADIUS_KEY));
         DeleteCurveMode mode =
-            qVariantValue<DeleteCurveMode>(dialog->property(Dialog::
-            DELETE_CURVE_MODE_KEY));
+                qVariantValue<DeleteCurveMode>(dialog->property(Dialog::
+                                                                DELETE_CURVE_MODE_KEY));
         unsigned int gridSize =
-            qVariantValue<unsigned int>(dialog->property(Dialog::GRID_SIZE_KEY));
+                qVariantValue<unsigned int>(dialog->property(Dialog::GRID_SIZE_KEY));
         QColor gridColor =
-            qVariantValue<QColor>(dialog->property(Dialog::GRID_COLOR_KEY));
+                qVariantValue<QColor>(dialog->property(Dialog::GRID_COLOR_KEY));
 
         QPen edgesPen(QBrush(edgeColor), edgeWidth);
         QPen verticesPen(QBrush(vertexColor), vertexRadius);
@@ -723,47 +723,52 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
         //         _labellingWidget->view()->setImageToLabel(fileName);
         QFileInfo info(fileName);
         settings.setValue("defaultDirectory", info.absolutePath());
-	QLabellingLogWidget::instance()->logTrace( QString("Open image " + fileName) );
-	
-	QGraphicsScene* tabScene = getCurrentTab()->getScene();
-	ArrangementDemoGraphicsView* tabView = getCurrentTab()->getView();
-	tabView->_imageToLabel = QPixmap(fileName);
-	tabView->_imageToLabelFilename = fileName;
-    tabScene->addPixmap(tabView->_imageToLabel);
+        QLabellingLogWidget::instance()->logTrace( QString("Open image " + fileName) );
 
-    Arr_pol_point_2 ptl( 0, 0),
-			pbl(0, tabView->_imageToLabel.height() ),
-			pbr(tabView->_imageToLabel.width(), tabView->_imageToLabel.height()),
-            ptr( tabView->_imageToLabel.width(), 0 );
+        QGraphicsScene* tabScene = getCurrentTab()->getScene();
+        ArrangementDemoGraphicsView* tabView = getCurrentTab()->getView();
+        tabView->_imageToLabel = QPixmap(fileName);
+        if(tabView->_imageToLabel.isNull())
+        {
+            _loggerWidget->logError( tr("Unable to open image ") + fileName );
+            return;
+        }
+        tabView->_imageToLabelFilename = fileName;
+        tabScene->addPixmap(tabView->_imageToLabel);
 
-    QString imageBoundaryMessage = tr("Image boundaries: ");
-    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptl.x())) + "," + QString::number(CGAL::to_double(ptl.y())) + ") / ";
-    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbl.x())) + "," + QString::number(CGAL::to_double(pbl.y())) + ") / ";
-    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbr.x())) + "," + QString::number(CGAL::to_double(pbr.y())) + ") / ";
-    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptr.x())) + "," + QString::number(CGAL::to_double(ptr.y())) + ")";
-    _loggerWidget->logTrace( imageBoundaryMessage );
+        Arr_pol_point_2 ptl( 0, 0),
+                pbl(0, tabView->_imageToLabel.height() ),
+                pbr(tabView->_imageToLabel.width(), tabView->_imageToLabel.height()),
+                ptr( tabView->_imageToLabel.width(), 0 );
 
-    std::vector<Arr_pol_point_2> allPoints;
-    allPoints.push_back(ptl);
-    allPoints.push_back(pbl);
-    allPoints.push_back(pbr);
-    allPoints.push_back(ptr);
-    allPoints.push_back(ptl);
+        QString imageBoundaryMessage = tr("Image boundaries: ");
+        imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptl.x())) + "," + QString::number(CGAL::to_double(ptl.y())) + ") / ";
+        imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbl.x())) + "," + QString::number(CGAL::to_double(pbl.y())) + ") / ";
+        imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbr.x())) + "," + QString::number(CGAL::to_double(pbr.y())) + ") / ";
+        imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptr.x())) + "," + QString::number(CGAL::to_double(ptr.y())) + ")";
+        _loggerWidget->logTrace( imageBoundaryMessage );
 
-    Arr_pol_2 contour(allPoints.begin(), allPoints.end());
-	
-    Pol_arr *arr; // Mauvais type, le assign échoue !
-	
-	// Récupérer l'arrangement
-	if ( CGAL::assign( arr, getArrangements()[this->ui->tabWidget->currentIndex()] ) ){ // TODO
-	    //  Ajouter les lignes à l'arrangement
-        CGAL::insert( *arr , contour);
-        emit modelChanged();
-	}
-	else{
-	    std::cout << "Argh !! :(" << std::endl;
-	}
-//         {
+        std::vector<Arr_pol_point_2> allPoints;
+        allPoints.push_back(ptl);
+        allPoints.push_back(pbl);
+        allPoints.push_back(pbr);
+        allPoints.push_back(ptr);
+        allPoints.push_back(ptl);
+
+        Arr_pol_2 contour(allPoints.begin(), allPoints.end());
+
+        Pol_arr *arr; // Mauvais type, le assign échoue !
+
+        // Récupérer l'arrangement
+        if ( CGAL::assign( arr, getArrangements()[this->ui->tabWidget->currentIndex()] ) ){ // TODO
+            //  Ajouter les lignes à l'arrangement
+            CGAL::insert( *arr , contour);
+            emit modelChanged();
+        }
+        else{
+            std::cout << "Argh !! :(" << std::endl;
+        }
+        //         {
     }
     settings.endGroup();
 }
