@@ -18,6 +18,7 @@
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
 #include "ArrangementGraphicsItem.h"
+#include "QLabellingLogWidget.hpp"
 
 namespace CGAL {
 namespace Qt {
@@ -32,6 +33,7 @@ ArrangementGraphicsItemBase::ArrangementGraphicsItemBase( ) :
     scene( NULL ),
     backgroundColor( ::Qt::white )
 {
+    QLabellingLogWidget::instance()->logTrace("Instanciation de ArrangementGraphicsItemBase.");
     this->verticesPen.setCosmetic( true );
     this->verticesPen.setCapStyle( ::Qt::SquareCap );
     this->edgesPen.setCosmetic( true );
@@ -110,11 +112,12 @@ QRectF ArrangementGraphicsItemBase::getViewportRect( ) const
 
 QGraphicsScene* ArrangementGraphicsItemBase::getScene() const
 {
-    return scene;
+    return this->scene;
 }
 void ArrangementGraphicsItemBase::setScene( QGraphicsScene* scene_ )
 {
-   scene = scene_;
+   QLabellingLogWidget::instance()->logTrace(QString::fromUtf8("Définition d'une scène pour ArrangementGraphicsItemBase."));
+   this->scene = scene_;
 }
 
 } // namespace Qt
