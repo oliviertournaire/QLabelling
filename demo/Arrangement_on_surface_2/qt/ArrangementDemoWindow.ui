@@ -61,7 +61,7 @@
      <x>0</x>
      <y>0</y>
      <width>946</width>
-     <height>21</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -112,6 +112,10 @@
    <addaction name="menuT_ools"/>
   </widget>
   <action name="actionQuit">
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/process-stop.png</normaloff>:/process-stop.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Quit</string>
    </property>
@@ -124,7 +128,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_insert.xpm</normaloff>:/icons/demo_insert.xpm</iconset>
    </property>
    <property name="text">
@@ -136,7 +140,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_delete.xpm</normaloff>:/icons/demo_delete.xpm</iconset>
    </property>
    <property name="text">
@@ -148,7 +152,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/hand.xpm</normaloff>:/icons/hand.xpm</iconset>
    </property>
    <property name="text">
@@ -160,7 +164,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_pointlocation.xpm</normaloff>:/icons/demo_pointlocation.xpm</iconset>
    </property>
    <property name="text">
@@ -172,7 +176,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_rayshoot_up.xpm</normaloff>:/icons/demo_rayshoot_up.xpm</iconset>
    </property>
    <property name="text">
@@ -184,7 +188,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_rayshoot_down.xpm</normaloff>:/icons/demo_rayshoot_down.xpm</iconset>
    </property>
    <property name="text">
@@ -196,7 +200,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_merge.xpm</normaloff>:/icons/demo_merge.xpm</iconset>
    </property>
    <property name="text">
@@ -208,7 +212,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_split.xpm</normaloff>:/icons/demo_split.xpm</iconset>
    </property>
    <property name="text">
@@ -220,7 +224,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_fill.xpm</normaloff>:/icons/demo_fill.xpm</iconset>
    </property>
    <property name="text">
@@ -232,7 +236,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_snapvertex.xpm</normaloff>:/icons/demo_snapvertex.xpm</iconset>
    </property>
    <property name="text">
@@ -244,7 +248,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_snapgrid.xpm</normaloff>:/icons/demo_snapgrid.xpm</iconset>
    </property>
    <property name="text">
@@ -292,7 +296,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/lower_env_xpm.xpm</normaloff>:/icons/lower_env_xpm.xpm</iconset>
    </property>
    <property name="text">
@@ -304,7 +308,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/upper_env_xpm.xpm</normaloff>:/icons/upper_env_xpm.xpm</iconset>
    </property>
    <property name="text">
@@ -328,6 +332,10 @@
    </property>
   </action>
   <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/QLabelling/Arrangement_2.png</normaloff>:/QLabelling/Arrangement_2.png</iconset>
+   </property>
    <property name="text">
     <string>Open an arrangement...</string>
    </property>
@@ -340,7 +348,7 @@
   </action>
   <action name="actionZoomIn">
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_zoomin.xpm</normaloff>:/icons/demo_zoomin.xpm</iconset>
    </property>
    <property name="text">
@@ -349,7 +357,7 @@
   </action>
   <action name="actionZoomOut">
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_zoomout.xpm</normaloff>:/icons/demo_zoomout.xpm</iconset>
    </property>
    <property name="text">
@@ -361,7 +369,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_conic_ray.xpm</normaloff>:/icons/demo_conic_ray.xpm</iconset>
    </property>
    <property name="text">
@@ -373,7 +381,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/demo_conic_line.xpm</normaloff>:/icons/demo_conic_line.xpm</iconset>
    </property>
    <property name="text">
@@ -389,13 +397,17 @@
    </property>
   </action>
   <action name="actionOpenImage">
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/image.png</normaloff>:/image.png</iconset>
+   </property>
    <property name="text">
     <string>Open an image</string>
    </property>
   </action>
  </widget>
  <resources>
-  <include location="ArrangementDemoWindow.qrc"/>
+  <include location="../rc/ArrangementDemoWindow.qrc"/>
  </resources>
  <connections/>
 </ui>
