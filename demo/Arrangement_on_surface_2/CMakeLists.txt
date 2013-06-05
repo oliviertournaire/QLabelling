@@ -75,10 +75,10 @@ add_executable( QDemoArrangement2 ${MOCS_QDEMOARRANGEMENT2_HPP}
                                   ${QGRAPHICSRECTWITHLABELITEM_CPP}
                                   ${MOCS_LOGWIDGET}
                                   ${MOCS_LABELLINGWIDGET}
-								  ${MOCS_LABELLINGVIEW}
-								  ${MOCS_LABELITEM}
-								  ${MOCS_ZOOMABLEGRAPHICSVIEW}
-								  ${MOCS_QGRAPHICSRECTWITHLABELITEM}
+                                  ${MOCS_LABELLINGVIEW}
+                                  ${MOCS_LABELITEM}
+                                  ${MOCS_ZOOMABLEGRAPHICSVIEW}
+                                  ${MOCS_QGRAPHICSRECTWITHLABELITEM}
                                   ${UI_LOGWIDGET}
 								  ${ALL_QDEMOARRANGEMENT2_HPP}
 								  ${ALL_QDEMOARRANGEMENT2_CPP} )

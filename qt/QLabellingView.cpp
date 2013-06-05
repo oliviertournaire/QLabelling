@@ -26,11 +26,6 @@ QLabellingView::QLabellingView() :
     this->setScene(_scene);
 }
 
-void QLabellingView::setLabellingWidget(QLabellingWidget* labellingWidget)
-{
-    _labellingWidget = labellingWidget;
-}
-
 void QLabellingView::writeSettings()
 {
     /*
@@ -72,7 +67,7 @@ void QLabellingView::mousePressEvent(QMouseEvent *event)
         QGraphicsItem* selectedItem = _scene->itemAt(x, y, QTransform());
         if ( QGraphicsRectWithLabelItem* rectItem = qgraphicsitem_cast<QGraphicsRectWithLabelItem*>(selectedItem) )
         {
-            const QLabelItem *activeLabelItem = _labellingWidget->findActiveLabelItem();
+            const QLabelItem *activeLabelItem = QLabellingWidget::instance()->findActiveLabelItem();
             if ( activeLabelItem )
             {
                 rectItem->setBrush( QBrush(activeLabelItem->labelColor(), Qt::SolidPattern) );
@@ -228,7 +223,7 @@ void QLabellingView::rebuildRectanglesFromLastLine(const QLineF& line)
 
                 QBrush brush(Qt::SolidPattern);
 
-                const QLabelItem *intersectedLabelItem = _labellingWidget->findLabelItemFromName(intersectedLabel);
+                const QLabelItem *intersectedLabelItem = QLabellingWidget::instance()->findLabelItemFromName(intersectedLabel);
                 if ( intersectedLabelItem )
                     brush.setColor( intersectedLabelItem->labelColor() );
                 else

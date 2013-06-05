@@ -32,7 +32,6 @@ QWidget(),
 
     // The view needs to be constructed after all initialization
     _view = new QLabellingView;
-    _view->setLabellingWidget(this);
     _view->readSettings();
 }
 

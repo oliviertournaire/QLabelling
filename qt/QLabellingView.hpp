@@ -9,7 +9,6 @@
 class QGraphicsScene;
 class QGraphicsRectItem;
 class QGraphicsRectWithLabelItem;
-class QLabellingWidget;
 
 class QLabellingView : public QZoomableGraphicsView
 {
@@ -27,7 +26,6 @@ public:
     QLabellingView();
     ~QLabellingView() { writeSettings(); }
 
-    void setLabellingWidget(QLabellingWidget* labellingWidget);
     inline void setMode(const EditMode mode) { _editMode = mode; }
     inline void setLabellingMode(const bool labelling) { _labellingMode = labelling; }
 
@@ -68,7 +66,6 @@ protected:
     EditMode _editMode;
 
     int _alpha;
-    QLabellingWidget *_labellingWidget;
 
 private:
     void removeAllItemsFromScene();
