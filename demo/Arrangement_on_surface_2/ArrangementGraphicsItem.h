@@ -54,6 +54,7 @@ public:
     void setBackgroundColor( QColor color );
     
     QGraphicsScene* getScene() const;
+    void setScene( QGraphicsScene* scene_);
 
 protected:
     CGAL::Bbox_2 bb;

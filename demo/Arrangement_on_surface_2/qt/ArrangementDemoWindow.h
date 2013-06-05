@@ -104,8 +104,8 @@ protected:
     QActionGroup* modeGroup;
     QActionGroup* snapGroup;
 
-    QLabellingLogWidget *_loggerWidget;
-    QLabellingWidget *_labellingWidget;
+    QLabellingLogWidget *_loggerWidget; // Le logger
+    QLabellingWidget *_labellingWidget; // Le widget de choix des labels + des modes
     
     // Image chargée depuis un fichier
     QPixmap *_labelsPixmap;

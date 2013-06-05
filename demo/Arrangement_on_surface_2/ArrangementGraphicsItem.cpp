@@ -112,6 +112,10 @@ QGraphicsScene* ArrangementGraphicsItemBase::getScene() const
 {
     return scene;
 }
+void ArrangementGraphicsItemBase::setScene( QGraphicsScene* scene_ )
+{
+   scene = scene_;
+}
 
 } // namespace Qt
 } // namespace CGAL
