@@ -75,12 +75,6 @@ void ArrangementDemoPropertiesDialog::setupUi( )
     QTableWidgetItem* vertexColorItem = new QTableWidgetItem;
     QTableWidgetItem* edgeWidthItem = new QTableWidgetItem;
     QTableWidgetItem* vertexRadiusItem = new QTableWidgetItem;
-    QTableWidgetItem* envelopeEdgeColorItem = new QTableWidgetItem;
-    QTableWidgetItem* envelopeVertexColorItem = new QTableWidgetItem;
-    QTableWidgetItem* envelopeEdgeWidthItem = new QTableWidgetItem;
-    QTableWidgetItem* envelopeVertexRadiusItem = new QTableWidgetItem;
-    QTableWidgetItem* verticalRayEdgeColorItem = new QTableWidgetItem;
-    QTableWidgetItem* verticalRayEdgeWidthItem = new QTableWidgetItem;
     QTableWidgetItem* deleteCurveModeItem = new QTableWidgetItem;
     QTableWidgetItem* gridSizeItem = new QTableWidgetItem;
     QTableWidgetItem* gridColorItem = new QTableWidgetItem;
@@ -89,20 +83,7 @@ void ArrangementDemoPropertiesDialog::setupUi( )
     this->ui->tableWidget->setItem( int(VERTEX_COLOR_KEY), 0, vertexColorItem );
     this->ui->tableWidget->setItem( int(EDGE_WIDTH_KEY), 0, edgeWidthItem );
     this->ui->tableWidget->setItem( int(VERTEX_RADIUS_KEY), 0, vertexRadiusItem );
-    this->ui->tableWidget->setItem( int(ENVELOPE_EDGE_COLOR_KEY), 0,
-                                    envelopeEdgeColorItem );
-    this->ui->tableWidget->setItem( int(ENVELOPE_VERTEX_COLOR_KEY), 0,
-                                    envelopeVertexColorItem );
-    this->ui->tableWidget->setItem( int(ENVELOPE_EDGE_WIDTH_KEY), 0,
-                                    envelopeEdgeWidthItem );
-    this->ui->tableWidget->setItem( int(ENVELOPE_VERTEX_RADIUS_KEY), 0,
-                                    envelopeVertexRadiusItem );
-    this->ui->tableWidget->setItem( int(VERTICAL_RAY_EDGE_COLOR_KEY), 0,
-                                    verticalRayEdgeColorItem );
-    this->ui->tableWidget->setItem( int(VERTICAL_RAY_EDGE_WIDTH_KEY), 0,
-                                    verticalRayEdgeWidthItem );
-    this->ui->tableWidget->setItem( int(DELETE_CURVE_MODE_KEY), 0,
-                                    deleteCurveModeItem );
+    this->ui->tableWidget->setItem( int(DELETE_CURVE_MODE_KEY), 0, deleteCurveModeItem );
     this->ui->tableWidget->setItem( int(GRID_SIZE_KEY), 0, gridSizeItem );
     this->ui->tableWidget->setItem( int(GRID_COLOR_KEY), 0, gridColorItem );
 
@@ -128,10 +109,6 @@ void ArrangementDemoPropertiesDialog::updateUi( )
     }
 
     ArrangementDemoGraphicsView* view = currentTab->getView( );
-//     EnvelopeCallbackBase* envelopeCallback = currentTab->getEnvelopeCallback( );
-//     VerticalRayShootCallbackBase* verticalRayShootCallback =
-// //             currentTab->getVerticalRayShootCallback( );
-
     QPen vertexPen = agi->getVerticesPen( );
     QPen edgePen = agi->getEdgesPen( );
     QBrush vertexPenBrush = vertexPen.brush( );
@@ -142,14 +119,7 @@ void ArrangementDemoPropertiesDialog::updateUi( )
     unsigned int vertexRadius = vertexPen.width( );
     unsigned int gridSize = view->getGridSize( );
     QColor gridColor = view->getGridColor( );
-//     unsigned int envelopeEdgeWidth = envelopeCallback->getEnvelopeEdgeWidth( );
-//     unsigned int envelopeVertexRadius =
-//             envelopeCallback->getEnvelopeVertexRadius( );
-//     QColor envelopeEdgeColor = envelopeCallback->getEnvelopeEdgeColor( );
-//     QColor envelopeVertexColor = envelopeCallback->getEnvelopeVertexColor( );
-//     unsigned int verticalRayEdgeWidth = verticalRayShootCallback->edgeWidth( );
-//     QColor verticalRayEdgeColor = verticalRayShootCallback->edgeColor( );
-
+    
     QTableWidgetItem* edgeColorItem =
             this->ui->tableWidget->item( int(EDGE_COLOR_KEY), 0 );
     QTableWidgetItem* edgeWidthItem =
@@ -164,18 +134,6 @@ void ArrangementDemoPropertiesDialog::updateUi( )
             this->ui->tableWidget->item( int( GRID_SIZE_KEY ), 0 );
     QTableWidgetItem* gridColorItem =
             this->ui->tableWidget->item( int( GRID_COLOR_KEY ), 0 );
-//     QTableWidgetItem* envelopeEdgeColorItem =
-//             this->ui->tableWidget->item( int(ENVELOPE_EDGE_COLOR_KEY), 0 );
-//     QTableWidgetItem* envelopeEdgeWidthItem =
-//             this->ui->tableWidget->item( int(ENVELOPE_EDGE_WIDTH_KEY), 0 );
-//     QTableWidgetItem* envelopeVertexColorItem =
-//             this->ui->tableWidget->item( int(ENVELOPE_VERTEX_COLOR_KEY), 0 );
-//     QTableWidgetItem* envelopeVertexRadiusItem =
-//             this->ui->tableWidget->item( int(ENVELOPE_VERTEX_RADIUS_KEY), 0 );
-//     QTableWidgetItem* verticalRayEdgeColorItem =
-//             this->ui->tableWidget->item( int(VERTICAL_RAY_EDGE_COLOR_KEY), 0 );
-//     QTableWidgetItem* verticalRayEdgeWidthItem =
-//             this->ui->tableWidget->item( int(VERTICAL_RAY_EDGE_WIDTH_KEY), 0 );
 
     // arrangement properties
     edgeColorItem->setData( Qt::DisplayRole, edgeColor );
@@ -189,29 +147,6 @@ void ArrangementDemoPropertiesDialog::updateUi( )
     vertexColorItem->setData( Qt::UserRole, QVariant::fromValue( vertexColor ) );
 
     vertexRadiusItem->setData( Qt::DisplayRole, vertexRadius );
-/*
-    // envelope properties
-    envelopeEdgeColorItem->setData( Qt::DisplayRole, envelopeEdgeColor );
-    envelopeEdgeColorItem->setData( Qt::DecorationRole, envelopeEdgeColor );
-    envelopeEdgeColorItem->setData( Qt::UserRole,
-                                    QVariant::fromValue( envelopeEdgeColor ) );
-
-    envelopeEdgeWidthItem->setData( Qt::DisplayRole, envelopeEdgeWidth );
-
-    envelopeVertexColorItem->setData( Qt::DisplayRole, envelopeVertexColor );
-    envelopeVertexColorItem->setData( Qt::DecorationRole, envelopeVertexColor );
-    envelopeVertexColorItem->setData( Qt::UserRole,
-                                      QVariant::fromValue(envelopeVertexColor));
-
-    envelopeVertexRadiusItem->setData( Qt::DisplayRole, envelopeVertexRadius );
-
-    // vertical ray properties
-    verticalRayEdgeColorItem->setData( Qt::DisplayRole, verticalRayEdgeColor );
-    verticalRayEdgeColorItem->setData( Qt::DecorationRole, verticalRayEdgeColor );
-    verticalRayEdgeColorItem->setData( Qt::UserRole,
-                                       QVariant::fromValue(verticalRayEdgeColor));
-
-    verticalRayEdgeWidthItem->setData( Qt::DisplayRole, verticalRayEdgeWidth );*/
 
     // delete curve properties
     DeleteCurveMode deleteCurveMode;

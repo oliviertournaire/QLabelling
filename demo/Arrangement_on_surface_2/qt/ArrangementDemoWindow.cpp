@@ -81,8 +81,6 @@ CGAL::Qt::DemosMainWindow( parent ),
     // set up callbacks
     QObject::connect( this->modeGroup, SIGNAL( triggered( QAction* ) ),
         this, SLOT( updateMode( QAction* ) ) );
-//     QObject::connect( this->envelopeGroup, SIGNAL( triggered( QAction* ) ),
-//         this, SLOT( updateEnvelope( QAction* ) ) );
     QObject::connect( this->snapGroup, SIGNAL( triggered( QAction* ) ),
         this, SLOT( updateSnapping( QAction* ) ) );
 }
@@ -182,17 +180,10 @@ void ArrangementDemoWindow::setupUi( )
     this->modeGroup->addAction( this->ui->actionInsert );
     this->modeGroup->addAction( this->ui->actionDelete );
     this->modeGroup->addAction( this->ui->actionPointLocation );
-//     this->modeGroup->addAction( this->ui->actionRayShootingUp );
-//     this->modeGroup->addAction( this->ui->actionRayShootingDown );
     this->modeGroup->addAction( this->ui->actionMerge );
     this->modeGroup->addAction( this->ui->actionSplit );
     this->modeGroup->addAction( this->ui->actionFill );
     this->activeModes.push_back( this->ui->actionInsert );
-
-//     this->envelopeGroup = new QActionGroup( this );
-//     this->envelopeGroup->addAction( this->ui->actionLowerEnvelope );
-//     this->envelopeGroup->addAction( this->ui->actionUpperEnvelope );
-//     this->envelopeGroup->setExclusive( false );
 
     this->snapGroup = new QActionGroup( this );
     this->snapGroup->addAction( this->ui->actionSnapMode );
@@ -245,20 +236,6 @@ void ArrangementDemoWindow::updateMode( QAction* newMode )
         activeScene->installEventFilter( activeTab->getPointLocationCallback( ) );
         messageToLog += "Point location mode";
     }
-//     else if ( newMode == this->ui->actionRayShootingUp )
-//     {
-//         // -y is up for Qt, so we shoot down
-//         activeTab->getVerticalRayShootCallback( )->setShootingUp( true );
-//         activeScene->installEventFilter( activeTab->getVerticalRayShootCallback());
-//         messageToLog += "Ray shooting up mode";
-//     }
-//     else if ( newMode == this->ui->actionRayShootingDown )
-//     {
-//         // the bottom of the viewport for Qt is +y, so we shoot up
-//         activeTab->getVerticalRayShootCallback( )->setShootingUp( false );
-//         activeScene->installEventFilter( activeTab->getVerticalRayShootCallback());
-//         messageToLog += "Ray shooting down mode";
-//     }
     else if ( newMode == this->ui->actionMerge )
     {
         activeScene->installEventFilter( activeTab->getMergeEdgeCallback( ) );
@@ -303,14 +280,6 @@ void ArrangementDemoWindow::resetCallbackState( unsigned int tabIndex )
     {
         activeTab->getPointLocationCallback( )->reset( );
     }
-//     else if ( activeMode == this->ui->actionRayShootingUp )
-//     {
-//         activeTab->getVerticalRayShootCallback( )->reset( );
-//     }
-//     else if ( activeMode == this->ui->actionRayShootingDown )
-//     {
-//         activeTab->getVerticalRayShootCallback( )->reset( );
-//     }
     else if ( activeMode == this->ui->actionMerge )
     {
         activeTab->getMergeEdgeCallback( )->reset( );
@@ -342,10 +311,8 @@ void ArrangementDemoWindow::removeCallback( unsigned int tabIndex )
     activeView->setDragMode( QGraphicsView::NoDrag );
     activeScene->removeEventFilter( activeTab->getDeleteCurveCallback( ) );
     activeScene->removeEventFilter( activeTab->getPointLocationCallback( ) );
-//     activeScene->removeEventFilter( activeTab->getVerticalRayShootCallback( ) );
     activeScene->removeEventFilter( activeTab->getMergeEdgeCallback( ) );
     activeScene->removeEventFilter( activeTab->getSplitEdgeCallback( ) );
-//     activeScene->removeEventFilter( activeTab->getVerticalRayShootCallback( ) );
     activeScene->removeEventFilter( activeTab->getFillFaceCallback( ) );
 }
 
@@ -465,27 +432,6 @@ void ArrangementDemoWindow::openDatFile( QString filename )
 
     inputFile.close();
 }
-
-// void ArrangementDemoWindow::updateEnvelope( QAction* newMode )
-// {
-//     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
-// 
-//     if ( this->ui->tabWidget->currentIndex( ) == -1 ) return;
-//     ArrangementDemoTabBase* activeTab =
-//         this->tabs[ this->ui->tabWidget->currentIndex( ) ];
-//     // QGraphicsScene* activeScene = activeTab->getScene( );
-//     // QGraphicsView* activeView = activeTab->getView( );
-// 
-//     bool show = newMode->isChecked( );
-//     if ( newMode == this->ui->actionLowerEnvelope )
-//     {
-//         activeTab->getEnvelopeCallback( )->showLowerEnvelope( show );
-//     }
-//     else if ( newMode == this->ui->actionUpperEnvelope )
-//     {
-//         activeTab->getEnvelopeCallback( )->showUpperEnvelope( show );
-//     }
-// }
 
 void ArrangementDemoWindow::updateSnapping( QAction* newMode )
 {
@@ -708,9 +654,6 @@ void ArrangementDemoWindow::on_actionPreferences_triggered( )
     CGAL::Qt::ArrangementGraphicsItemBase* agi =
         currentTab->getArrangementGraphicsItem( );
     ArrangementDemoGraphicsView* view = currentTab->getView( );
-//     EnvelopeCallbackBase* envelopeCallback = currentTab->getEnvelopeCallback( );
-//     VerticalRayShootCallbackBase* verticalRayShootCallback =
-//         currentTab->getVerticalRayShootCallback( );
     SplitEdgeCallbackBase* splitEdgeCallback = currentTab->getSplitEdgeCallback( );
 
     ArrangementDemoPropertiesDialog* dialog =
@@ -726,23 +669,6 @@ void ArrangementDemoWindow::on_actionPreferences_triggered( )
             qVariantValue<QColor>(dialog->property(Dialog::VERTEX_COLOR_KEY));
         unsigned int vertexRadius =
             qVariantValue<unsigned int>(dialog->property(Dialog::VERTEX_RADIUS_KEY));
-        QColor envelopeEdgeColor =
-            qVariantValue<QColor>(dialog->property(Dialog::ENVELOPE_EDGE_COLOR_KEY));
-        unsigned int envelopeEdgeWidth =
-            qVariantValue<unsigned int>(dialog->property(Dialog::
-            ENVELOPE_EDGE_WIDTH_KEY));
-        QColor envelopeVertexColor =
-            qVariantValue<QColor>(dialog->property(Dialog::
-            ENVELOPE_VERTEX_COLOR_KEY));
-        unsigned int envelopeVertexRadius =
-            qVariantValue<unsigned int>(dialog->property(Dialog::
-            ENVELOPE_VERTEX_RADIUS_KEY));
-        QColor verticalRayEdgeColor =
-            qVariantValue<QColor>(dialog->property(Dialog::
-            VERTICAL_RAY_EDGE_COLOR_KEY));
-        unsigned int verticalRayEdgeWidth =
-            qVariantValue<unsigned int>(dialog->property
-            (Dialog::VERTICAL_RAY_EDGE_WIDTH_KEY));
         DeleteCurveMode mode =
             qVariantValue<DeleteCurveMode>(dialog->property(Dialog::
             DELETE_CURVE_MODE_KEY));
@@ -758,12 +684,6 @@ void ArrangementDemoWindow::on_actionPreferences_triggered( )
         agi->modelChanged( );
         view->setGridSize( gridSize );
         view->setGridColor( gridColor );
-//         envelopeCallback->setEnvelopeEdgeColor( envelopeEdgeColor );
-//         envelopeCallback->setEnvelopeEdgeWidth( envelopeEdgeWidth );
-//         envelopeCallback->setEnvelopeVertexColor( envelopeVertexColor );
-//         envelopeCallback->setEnvelopeVertexRadius( envelopeVertexRadius );
-//         verticalRayShootCallback->setEdgeColor( verticalRayEdgeColor );
-//         verticalRayShootCallback->setEdgeWidth( verticalRayEdgeWidth );
         splitEdgeCallback->setColor( edgeColor );
     }
 }
@@ -799,9 +719,9 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
     if(!fileName.isNull())
     {
         //         _labellingWidget->view()->setImageToLabel(fileName);
-        std::cout << "Ola" << std::endl;
         QFileInfo info(fileName);
         settings.setValue("defaultDirectory", info.absolutePath());
+	QLabellingLogWidget::instance()->logTrace( QString("Open image " + fileName) );
 	
 	QGraphicsScene* tabScene = getCurrentTab()->getScene();
 	ArrangementDemoGraphicsView* tabView = getCurrentTab()->getView();

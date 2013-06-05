@@ -23,10 +23,8 @@
 #include "ArrangementGraphicsItem.h"
 #include "DeleteCurveCallback.h"
 #include "PointLocationCallback.h"
-// #include "VerticalRayShootCallback.h"
 #include "MergeEdgeCallback.h"
 #include "SplitEdgeCallback.h"
-// #include "EnvelopeCallback.h"
 #include "ArrangementDemoTab.h"
 
 #include <CGAL/Arr_default_overlay_traits.h>
