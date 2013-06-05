@@ -729,28 +729,36 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
 	ArrangementDemoGraphicsView* tabView = getCurrentTab()->getView();
 	tabView->_imageToLabel = QPixmap(fileName);
 	tabView->_imageToLabelFilename = fileName;
-	tabScene->addPixmap(tabView->_imageToLabel);
-	
-	//getCurrentTab()->getArrangementGraphicsItem()->getScene()->addPixmap(tabView->_imageToLabel);
-	
-	// Il ne reste plus qu'à dessiner le contour
-	QGraphicsLineItem Ll( 0, 0, 0, tabView->_imageToLabel.height() );
-	QGraphicsLineItem Lb( 0, tabView->_imageToLabel.height(), tabView->_imageToLabel.width(), tabView->_imageToLabel.height() );
-	QGraphicsLineItem Lr( tabView->_imageToLabel.width(), 0, tabView->_imageToLabel.width(), tabView->_imageToLabel.height() );
-	QGraphicsLineItem Lt( 0, 0, tabView->_imageToLabel.width(), 0 );
-	
-	Arr_seg_2 contour[3];
-	Arr_seg_point_2 ptl( 0, 0),
+    tabScene->addPixmap(tabView->_imageToLabel);
+
+    Arr_pol_point_2 ptl( 0, 0),
 			pbl(0, tabView->_imageToLabel.height() ),
 			pbr(tabView->_imageToLabel.width(), tabView->_imageToLabel.height()),
-			ptr( tabView->_imageToLabel.width(), 0 );
+            ptr( tabView->_imageToLabel.width(), 0 );
+
+    QString imageBoundaryMessage = tr("Image boundaries: ");
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptl.x())) + "," + QString::number(CGAL::to_double(ptl.y())) + ") / ";
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbl.x())) + "," + QString::number(CGAL::to_double(pbl.y())) + ") / ";
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbr.x())) + "," + QString::number(CGAL::to_double(pbr.y())) + ") / ";
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptr.x())) + "," + QString::number(CGAL::to_double(ptr.y())) + ")";
+    _loggerWidget->logTrace( imageBoundaryMessage );
+
+    std::vector<Arr_pol_point_2> allPoints;
+    allPoints.push_back(ptl);
+    allPoints.push_back(pbl);
+    allPoints.push_back(pbr);
+    allPoints.push_back(ptr);
+    allPoints.push_back(ptl);
+
+    Arr_pol_2 contour(allPoints.begin(), allPoints.end());
 	
-	Pol_arr arr; // Mauvais type, le assign échoue !
+    Pol_arr *arr; // Mauvais type, le assign échoue !
 	
 	// Récupérer l'arrangement
 	if ( CGAL::assign( arr, getArrangements()[this->ui->tabWidget->currentIndex()] ) ){ // TODO
 	    //  Ajouter les lignes à l'arrangement
-// 	    CGAL::insert( arr , &contour[0], &contour[4]);
+        CGAL::insert( *arr , contour);
+        emit modelChanged();
 	}
 	else{
 	    std::cout << "Argh !! :(" << std::endl;
