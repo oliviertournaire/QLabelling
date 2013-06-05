@@ -739,14 +739,18 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
 	QGraphicsLineItem Lr( tabView->_imageToLabel.width(), 0, tabView->_imageToLabel.width(), tabView->_imageToLabel.height() );
 	QGraphicsLineItem Lt( 0, 0, tabView->_imageToLabel.width(), 0 );
 	
-	Arr_pol_2 contour; // TODO
+	Arr_seg_2 contour[3];
+	Arr_seg_point_2 ptl( 0, 0),
+			pbl(0, tabView->_imageToLabel.height() ),
+			pbr(tabView->_imageToLabel.width(), tabView->_imageToLabel.height()),
+			ptr( tabView->_imageToLabel.width(), 0 );
 	
 	Pol_arr arr; // Mauvais type, le assign échoue !
 	
 	// Récupérer l'arrangement
 	if ( CGAL::assign( arr, getArrangements()[this->ui->tabWidget->currentIndex()] ) ){ // TODO
 	    //  Ajouter les lignes à l'arrangement
-	    CGAL::insert( arr , contour );
+// 	    CGAL::insert( arr , &contour[0], &contour[4]);
 	}
 	else{
 	    std::cout << "Argh !! :(" << std::endl;
