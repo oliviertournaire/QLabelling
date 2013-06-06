@@ -32,6 +32,8 @@
 #include "Utils.h"
 #include <iostream>
 
+#include "QLabellingLogWidget.hpp"
+
 class QGraphicsScene;
 
 namespace CGAL {
@@ -359,12 +361,16 @@ template < typename TTraits >
 void ArrangementGraphicsItem< Arr_, ArrTraits >::
 paint(QPainter* painter, TTraits /* traits */)
 {
+    // C'est ici qu'on peint la scène
     this->paintFaces( painter );
 
     painter->setPen( this->verticesPen );
     this->painterostream =
             ArrangementPainterOstream< Traits >( painter, this->boundingRect( ) );
     this->painterostream.setScene( this->scene );
+    
+    // Ici on va dessiner l'image sur la scène
+    
 
     for ( Vertex_iterator it = this->arr->vertices_begin( );
           it != this->arr->vertices_end( ); ++it )
@@ -423,6 +429,7 @@ updateBoundingBox(TTraits /* traits */)
 template < typename Arr_, typename ArrTraits >
 void ArrangementGraphicsItem< Arr_, ArrTraits >::modelChanged( )
 {
+    QLabellingLogWidget::instance()->logTrace( __FUNCTION__ );
     if ( this->arr->is_empty( ) )
     {
         this->hide( );

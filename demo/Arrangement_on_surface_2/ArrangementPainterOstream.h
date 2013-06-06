@@ -177,6 +177,7 @@ public:
     virtual ~ArrangementPainterOstream() {}
 
 public: // methods
+    // Dessin des courbes
     ArrangementPainterOstream& operator<<( const X_monotone_curve_2& curve )
     {
         for ( unsigned int i = 0; i < curve.size( ); ++i )
@@ -195,6 +196,7 @@ public: // methods
     }
 
     // cloned from segtraits painter
+    // Dessin des points
     ArrangementPainterOstream& operator<<( const Point_2& p )
     {
         QPointF qpt = this->convert( p );
