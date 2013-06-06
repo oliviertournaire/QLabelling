@@ -734,7 +734,7 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
             return;
         }
         tabView->_imageToLabelFilename = fileName;
-        //tabScene->addPixmap(tabView->_imageToLabel);
+        tabScene->addPixmap(tabView->_imageToLabel);
 
         Arr_pol_point_2 ptl( 0, 0),
                 pbl(0, tabView->_imageToLabel.height() ),

@@ -28,6 +28,8 @@
 #include <QGraphicsScene>
 #include <QPainter>
 
+
+#include "QLabellingLogWidget.hpp"
 #include "ArrangementPainterOstream.h"
 #include "Utils.h"
 #include <iostream>
@@ -359,12 +361,26 @@ template < typename TTraits >
 void ArrangementGraphicsItem< Arr_, ArrTraits >::
 paint(QPainter* painter, TTraits /* traits */)
 {
+    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
     this->paintFaces( painter );
 
     painter->setPen( this->verticesPen );
     this->painterostream =
             ArrangementPainterOstream< Traits >( painter, this->boundingRect( ) );
     this->painterostream.setScene( this->scene );
+
+    QGraphicsScene* currentScene = this->scene;
+    QList<QGraphicsItem*> allItems = currentScene->items();
+    QLabellingLogWidget::instance()->logTrace( tr("Found ") + QString::number(allItems.count()) + tr(" items in the scene") );
+    for(unsigned int i=0;i<allItems.count();++i)
+    {
+        if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+        {
+            QLabellingLogWidget::instance()->logTrace( tr("Found a Pixmap at position ") + QString::number(i) + "!" );
+            this->painterostream << p->pixmap();
+        }
+    }
 
     for ( Vertex_iterator it = this->arr->vertices_begin( );
           it != this->arr->vertices_end( ); ++it )
