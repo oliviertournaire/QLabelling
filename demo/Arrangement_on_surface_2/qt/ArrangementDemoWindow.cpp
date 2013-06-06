@@ -734,7 +734,7 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
             return;
         }
         tabView->_imageToLabelFilename = fileName;
-        tabScene->addPixmap(tabView->_imageToLabel);
+        //tabScene->addPixmap(tabView->_imageToLabel);
 
         Arr_pol_point_2 ptl( 0, 0),
                 pbl(0, tabView->_imageToLabel.height() ),
@@ -757,18 +757,25 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
 
         Arr_pol_2 contour(allPoints.begin(), allPoints.end());
 
-        Pol_arr *arr; // Mauvais type, le assign échoue !
+        Pol_arr *arr;
+        const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
+        if (TabIndex == static_cast<unsigned int>(-1))
+            return;
+        ArrangementDemoTabBase* activeTab = this->tabs[ TabIndex ];
 
-        // Récupérer l'arrangement
-        if ( CGAL::assign( arr, getArrangements()[this->ui->tabWidget->currentIndex()] ) ){ // TODO
-            //  Ajouter les lignes à l'arrangement
-            CGAL::insert( *arr , contour);
-            emit modelChanged();
+        if ( CGAL::assign( arr, getArrangements()[TabIndex] ) )
+        {
+            CGAL::Qt::GraphicsViewCurveInputBase *gvcib = activeTab->getCurveInputCallback();
+            ArrangementCurveInputCallback<Pol_arr> *acic = dynamic_cast< ArrangementCurveInputCallback<Pol_arr>* >(gvcib);
+            if(acic)
+            {
+                acic->processInput( CGAL::make_object(contour) );
+            }
         }
-        else{
-            std::cout << "Argh !! :(" << std::endl;
+        else
+        {
+            _loggerWidget->logWarning( tr("Unable to retrieve the arrangement!") );
         }
-        //         {
     }
     settings.endGroup();
 }

@@ -44,7 +44,7 @@ public:
      @override
   */
     virtual void setScene( QGraphicsScene* scene_ );
-    //virtual QGraphicsScene* getScene( ) const;
+    virtual QGraphicsScene* getScene( ) const;
 
     void setSnappingEnabled( bool b );
     void setSnapToGridEnabled( bool b );

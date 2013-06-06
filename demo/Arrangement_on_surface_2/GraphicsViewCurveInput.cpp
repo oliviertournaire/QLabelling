@@ -33,6 +33,11 @@ void GraphicsViewCurveInputBase::setScene( QGraphicsScene* scene_ )
     }
 }
 
+QGraphicsScene* GraphicsViewCurveInputBase::getScene() const
+{
+    return this->scene;
+}
+
 void GraphicsViewCurveInputBase::setSnappingEnabled( bool b )
 {
     this->snappingEnabled = b;
