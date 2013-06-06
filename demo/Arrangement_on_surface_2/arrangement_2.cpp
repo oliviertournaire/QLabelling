@@ -17,8 +17,13 @@
 //
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
-#include "ArrangementDemoWindow.h"
 #include <QApplication>
+#include <QImageReader>
+#include <QImageWriter>
+#include <QObject>
+
+#include "ArrangementDemoWindow.h"
+#include "QLabellingLogWidget.hpp"
 
 int main( int argc, char* argv[] )
 {
@@ -26,6 +31,26 @@ int main( int argc, char* argv[] )
 
     ArrangementDemoWindow demoWindow;
     demoWindow.show( );
+
+    QString readFileFormats = "(";
+    for (int i = 0; i < QImageReader::supportedImageFormats().count(); i++)
+    {
+        readFileFormats += QString(QImageReader::supportedImageFormats().at(i)).toLower();
+        readFileFormats += " ";
+    }
+    readFileFormats += ")";
+
+    QLabellingLogWidget::instance()->logInfo( QObject::tr("Available image file formats (read): ") + readFileFormats );
+
+    QString writeFileFormats = "(";
+    for (int i = 0; i < QImageWriter::supportedImageFormats().count(); i++)
+    {
+        writeFileFormats += QString(QImageWriter::supportedImageFormats().at(i)).toLower();
+        writeFileFormats += " ";
+    }
+    writeFileFormats += ")";
+
+    QLabellingLogWidget::instance()->logInfo( QObject::tr("Available image file formats (write): ") + writeFileFormats );
 
     return app.exec( );
 }
