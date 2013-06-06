@@ -625,6 +625,7 @@ void ArrangementDemoWindow::on_actionCloseTab_triggered( )
 void ArrangementDemoWindow::on_actionZoomIn_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+    QLabellingLogWidget::instance()->logDebug( tr("Zoomed in, current scale = ") + QString::number(view->transform().m11()) + " et " + QString::number(view->transform().m22()) );
 
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
@@ -636,6 +637,7 @@ void ArrangementDemoWindow::on_actionZoomIn_triggered( )
 void ArrangementDemoWindow::on_actionZoomOut_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+    QLabellingLogWidget::instance()->logDebug( tr("Zoomed out, current scale = ") + QString::number(view->transform().m11()) + " et " + QString::number(view->transform().m22()) );
 
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
@@ -734,8 +736,15 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
             return;
         }
         tabView->_imageToLabelFilename = fileName;
-        tabScene->addPixmap(tabView->_imageToLabel);
+        tabScene->addPixmap(tabView->_imageToLabel); /*->setPos(-tabView->_imageToLabel.width()/2 , -tabView->_imageToLabel.height()/2)*/
+            
+            // On centre la vue
+//             tabView->translate(tabView->_imageToLabel.width()/2 , tabView->_imageToLabel.height()/2);
 
+// 	        Arr_pol_point_2 ptl(-tabView->_imageToLabel.width()/2, -tabView->_imageToLabel.height()/2),
+//                 pbl(-tabView->_imageToLabel.width()/2, tabView->_imageToLabel.height()/2),
+//                 pbr(tabView->_imageToLabel.width()/2, tabView->_imageToLabel.height()/2),
+//                 ptr(tabView->_imageToLabel.width()/2, -tabView->_imageToLabel.height()/2);
         Arr_pol_point_2 ptl( 0, 0),
                 pbl(0, tabView->_imageToLabel.height() ),
                 pbr(tabView->_imageToLabel.width(), tabView->_imageToLabel.height()),
@@ -756,6 +765,9 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
         allPoints.push_back(ptl);
 
         Arr_pol_2 contour(allPoints.begin(), allPoints.end());
+	
+// 	tabScene->sceneRect()
+// 	setFixedSize(tabView->_imageToLabel.width()*1.1 , tabView->_imageToLabel.height()*1.1);
 
         Pol_arr *arr;
         const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
@@ -776,6 +788,15 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
         {
             _loggerWidget->logWarning( tr("Unable to retrieve the arrangement!") );
         }
+        
+        qreal x1, y1, w, h;
+        tabScene->sceneRect().getRect(&x1, &y1, &w, &h);
+        _loggerWidget->logDebug( "SceneRect = " + QString::number(x1) + ":" + QString::number(y1) + " - " + QString::number(w) + ":" + QString::number(h) );
+	tabView->ensureVisible(0,0,tabView->_imageToLabel.width(), tabView->_imageToLabel.height());
+// 	tabView->centerOn(tabView->_imageToLabel.width()/2, tabView->_imageToLabel.height()/2); Useless
+        tabView->sceneRect().setRect(-10 , -10, tabView->frameSize().width()+20,tabView->frameSize().height()+20);
+        tabScene->sceneRect().getRect(&x1, &y1, &w, &h);
+        _loggerWidget->logDebug( "SceneRect = " + QString::number(x1) + ":" + QString::number(y1) + " - " + QString::number(w) + ":" + QString::number(h) );
     }
     settings.endGroup();
 }

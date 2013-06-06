@@ -33,6 +33,7 @@ ArrangementDemoGraphicsView::ArrangementDemoGraphicsView( QWidget* parent ) :
     QMatrix m( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
     this->setMatrix( m );
     this->setBackgroundBrush( QBrush( backgroundColor ) );
+//     this->setAlignment(Qt::AlignCenter); Useless
 }
 
 void ArrangementDemoGraphicsView::setShowGrid( bool b )
