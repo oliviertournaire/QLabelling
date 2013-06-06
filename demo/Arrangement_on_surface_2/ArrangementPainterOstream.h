@@ -195,6 +195,12 @@ public: // methods
         return *this;
     }
 
+    ArrangementPainterOstream& operator<<( const QPixmap& pixmap)
+    {
+        this->qp->drawPixmap(pixmap.rect(), pixmap);
+        return *this;
+    }
+
     // cloned from segtraits painter
     // Dessin des points
     ArrangementPainterOstream& operator<<( const Point_2& p )
