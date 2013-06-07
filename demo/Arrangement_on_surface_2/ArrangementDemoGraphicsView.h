@@ -47,8 +47,6 @@ protected:
     int gridSize;
     QColor gridColor;
     QColor backgroundColor;
-    
-    QImage _labelsImage; // Image des labels
 };
 
 #endif // ARRANGEMENT_DEMO_GRAPHICS_VIEW_H

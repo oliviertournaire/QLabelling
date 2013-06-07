@@ -96,16 +96,16 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
     Pol_arr* pol_arr;
     CGAL::Object arr;
 
-    switch ( tt )
-    {
-    default:
-    case POLYLINE_TRAITS:
+//     switch ( tt )
+//     {
+//     default:
+//     case POLYLINE_TRAITS:
         pol_arr = new Pol_arr;
         demoTab = new ArrangementDemoTab< Pol_arr >( pol_arr, 0 );
         arr = CGAL::make_object( pol_arr );
-        tabLabel = QString( "%1 - Polyline" ).arg( tabLabelCounter++ );
-        break;
-    }
+        tabLabel = QString( "Labelling (#%1)" ).arg( tabLabelCounter++ );
+//         break;
+//     }
 
     this->arrangements.push_back( arr );
     this->tabs.push_back( demoTab );
@@ -115,6 +115,11 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
     this->ui->tabWidget->addTab( demoTab, tabLabel );
     this->lastTabIndex = this->ui->tabWidget->currentIndex( );
     this->ui->tabWidget->setCurrentWidget( demoTab );
+    
+    // On demande à l'utilisateur de charger une image
+    if(!on_actionOpenImage_triggered()){
+	QMessageBox(QMessageBox::Warning , tr("No image were open"), tr("No image have been opened, you should better choose an image to label...\nThis can be done in File > Open image...")).exec();
+    }
 
     this->resetCallbackState( this->ui->tabWidget->currentIndex( ) );
     this->removeCallback( this->ui->tabWidget->currentIndex( ) );
@@ -708,7 +713,7 @@ void ArrangementDemoWindow::on_actionFillColor_triggered( )
     }
 }
 
-void ArrangementDemoWindow::on_actionOpenImage_triggered()
+bool ArrangementDemoWindow::on_actionOpenImage_triggered()
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -733,7 +738,7 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
         if(tabView->_imageToLabel.isNull())
         {
             _loggerWidget->logError( tr("Unable to open image ") + fileName );
-            return;
+            return false;
         }
         tabView->_imageToLabelFilename = fileName;
         tabScene->addPixmap(tabView->_imageToLabel); /*->setPos(-tabView->_imageToLabel.width()/2 , -tabView->_imageToLabel.height()/2)*/
@@ -771,8 +776,10 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
 
         Pol_arr *arr;
         const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
-        if (TabIndex == static_cast<unsigned int>(-1))
-            return;
+        if (TabIndex == static_cast<unsigned int>(-1)){
+	    QLabellingLogWidget::instance()->logError( tr("Unable to add an image : there is no open tab !") );
+            return false;
+	}
         ArrangementDemoTabBase* activeTab = this->tabs[ TabIndex ];
 
         if ( CGAL::assign( arr, getArrangements()[TabIndex] ) )
@@ -798,6 +805,10 @@ void ArrangementDemoWindow::on_actionOpenImage_triggered()
         tabScene->sceneRect().getRect(&x1, &y1, &w, &h);
         _loggerWidget->logDebug( "SceneRect = " + QString::number(x1) + ":" + QString::number(y1) + " - " + QString::number(w) + ":" + QString::number(h) );
     }
+    else{
+	return false;
+    }
     settings.endGroup();
+    return true;
 }
 

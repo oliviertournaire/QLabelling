@@ -71,7 +71,7 @@ public slots:
     void on_actionNewTab_triggered( );
     void on_actionSaveAs_triggered( );
     void on_actionOpen_triggered( );
-    void on_actionOpenImage_triggered( );
+    bool on_actionOpenImage_triggered();
     void on_actionQuit_triggered( );
     void on_tabWidget_currentChanged( );
     void on_actionOverlay_triggered( );
