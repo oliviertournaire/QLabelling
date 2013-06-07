@@ -192,6 +192,8 @@ void ArrangementDemoWindow::setupUi( )
     this->modeGroup = new QActionGroup( this );
     this->modeGroup->addAction( this->ui->actionDrag );
     this->modeGroup->addAction( this->ui->actionInsert );
+    this->modeGroup->addAction( this->ui->actionInsert_horizontal_line );
+    this->modeGroup->addAction( this->ui->actionInsert_vertical_line );
     this->modeGroup->addAction( this->ui->actionDelete );
     this->modeGroup->addAction( this->ui->actionPointLocation );
     this->modeGroup->addAction( this->ui->actionMerge );
@@ -230,7 +232,10 @@ void ArrangementDemoWindow::updateMode( QAction* newMode )
     QString messageToLog("Updating mode --> ");
 
     // hook up the new active mode
-    if ( newMode == this->ui->actionInsert )
+    if ( newMode == this->ui->actionInsert
+	or newMode == this->ui->actionInsert_horizontal_line
+	or newMode == this->ui->actionInsert_vertical_line
+    )
     {
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += "Insertion mode";
@@ -283,6 +288,10 @@ void ArrangementDemoWindow::resetCallbackState( unsigned int tabIndex )
 
     // unhook the old active mode
     if ( activeMode == this->ui->actionInsert )
+    {  }
+    else if ( activeMode == this->ui->actionInsert_horizontal_line )
+    {  }
+    else if ( activeMode == this->ui->actionInsert_vertical_line )
     {  }
     else if ( activeMode == this->ui->actionDrag )
     {  }
@@ -807,6 +816,8 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
 void ArrangementDemoWindow::updateToolBarButtonsEnable(bool enable)
 {
     ui->actionInsert->setEnabled(enable);
+    ui->actionInsert_horizontal_line->setEnabled(enable);
+    ui->actionInsert_vertical_line->setEnabled(enable);
     ui->actionDelete->setEnabled(enable);
     ui->actionPointLocation->setEnabled(enable);
     ui->actionMerge->setEnabled(enable);

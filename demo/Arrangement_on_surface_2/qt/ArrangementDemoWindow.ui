@@ -42,6 +42,8 @@
    <addaction name="actionOpenImage"/>
    <addaction name="separator"/>
    <addaction name="actionInsert"/>
+   <addaction name="actionInsert_horizontal_line"/>
+   <addaction name="actionInsert_vertical_line"/>
    <addaction name="actionDelete"/>
    <addaction name="actionPointLocation"/>
    <addaction name="separator"/>
@@ -86,6 +88,8 @@
     </property>
     <addaction name="actionDrag"/>
     <addaction name="actionInsert"/>
+    <addaction name="actionInsert_horizontal_line"/>
+    <addaction name="actionInsert_vertical_line"/>
     <addaction name="actionDelete"/>
     <addaction name="actionPointLocation"/>
     <addaction name="actionMerge"/>
@@ -334,6 +338,30 @@
    </property>
    <property name="text">
     <string>Open an image</string>
+   </property>
+  </action>
+  <action name="actionInsert_horizontal_line">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/vertical-insert.png</normaloff>:/vertical-insert.png</iconset>
+   </property>
+   <property name="text">
+    <string>Insert horizontal line</string>
+   </property>
+  </action>
+  <action name="actionInsert_vertical_line">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/vertical-insert.png</normaloff>:/vertical-insert.png</iconset>
+   </property>
+   <property name="text">
+    <string>Insert vertical line</string>
    </property>
   </action>
  </widget>
