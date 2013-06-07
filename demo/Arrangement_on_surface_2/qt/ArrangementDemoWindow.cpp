@@ -125,7 +125,7 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
     this->updateMode( this->modeGroup->checkedAction( ) );
     this->updateFillColorSwatch( );
 
-    if(_imageHasBeenLoaded)
+    if(!_imageHasBeenLoaded)
         QLabellingLogWidget::instance()->logWarning( tr("Before being able to edit the label arrangement, you must open an image!!!") );
 
     return demoTab;
