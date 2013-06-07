@@ -35,7 +35,7 @@ QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
     _labellingWidget->setLabelsPath(QLABELLING_DEFAULT_LABEL_PATH);
 
     _labelsView->setScene(_labelsScene);
-    _labelsPixmapItem = _labelsScene->addPixmap( _labelsPixmap->fromImage( _labellingWidget->view()->labelsImage() ) );
+    _labelsPixmapItem = _labelsScene->addPixmap( _labelsPixmap->fromImage( QLabellingView::instance()->labelsImage() ) );
 
     QDockWidget* dockLabellingWidget = new QDockWidget;
     dockLabellingWidget->setWidget(_labellingWidget);
@@ -49,7 +49,7 @@ QLabellingMainWindow::QLabellingMainWindow(QWidget *parent) :
     dockLogWidget->setWindowIcon( dockLogWidget->windowIcon() );
     this->addDockWidget(Qt::BottomDockWidgetArea, dockLogWidget);
 
-    _mainWindow->_tabWidget->insertTab(0, _labellingWidget->view(), tr("Image to label"));
+    _mainWindow->_tabWidget->insertTab(0, QLabellingView::instance(), tr("Image to label"));
     _mainWindow->_tabWidget->insertTab(1, _labelsView, tr("Labels image"));
 
     connectAll();
@@ -79,12 +79,12 @@ void QLabellingMainWindow::connectAll()
             this,
             SLOT(showAbout()));
 
-    connect(_labellingWidget->view(),
+    connect(QLabellingView::instance(),
             SIGNAL(alphaValueChanged(const int)),
             _labellingWidget,
             SLOT(updateAlphaValue(const int)));
 
-    connect(_labellingWidget->view(),
+    connect(QLabellingView::instance(),
             SIGNAL(labelImageChanged()),
             this,
             SLOT(updateLabelImage()));
@@ -117,12 +117,12 @@ void QLabellingMainWindow::disconnectAll()
                this,
                SLOT(showAbout()));
 
-    disconnect(_labellingWidget->view(),
+    disconnect(QLabellingView::instance(),
                SIGNAL(labelImageChanged()),
                this,
                SLOT(updateLabelImage()));
 
-    disconnect(_labellingWidget->view(),
+    disconnect(QLabellingView::instance(),
                SIGNAL(alphaValueChanged(const int)),
                _labellingWidget,
                SLOT(updateAlphaValue(const int)));
@@ -151,7 +151,7 @@ void QLabellingMainWindow::openImageToLabel()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open image to label"), defaultDirectory, tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif *.tiff)"));
     if(!fileName.isNull())
     {
-        _labellingWidget->view()->setImageToLabel(fileName);
+        QLabellingView::instance()->setImageToLabel(fileName);
 
         QFileInfo info(fileName);
         settings.setValue("defaultDirectory", info.absolutePath());
@@ -184,7 +184,7 @@ void QLabellingMainWindow::saveLabels()
         ofstream of(labelsFilename.toStdString().c_str());
         if(of.good())
         {
-            QLabellingView* v = _labellingWidget->view();
+            QLabellingView* v = QLabellingView::instance();
             of << v->imageToLabelFilename().toStdString() << endl;
             of << fileName.toStdString() << endl;
             const vector<QLabelItem*>& labelItems = _labellingWidget->labelItems();
@@ -209,7 +209,7 @@ void QLabellingMainWindow::showAbout()
 void QLabellingMainWindow::updateLabelImage()
 {
     _labelsScene->removeItem(_labelsPixmapItem);
-    _labelsPixmapItem = _labelsScene->addPixmap( _labelsPixmap->fromImage( _labellingWidget->view()->labelsImage() ) );
+    _labelsPixmapItem = _labelsScene->addPixmap( _labelsPixmap->fromImage( QLabellingView::instance()->labelsImage() ) );
     _labelsPixmapSaved = false;
 }
 

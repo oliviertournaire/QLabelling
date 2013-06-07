@@ -30,9 +30,7 @@ QWidget(),
     setEnabledAllLabelButtons(false);
     setWindowIcon( QIcon(":/QLabelling/QLabellingIcon.png") );
 
-    // The view needs to be constructed after all initialization
-    _view = new QLabellingView;
-    _view->readSettings();
+    QLabellingView::instance()->readSettings();
 }
 
 QLabellingWidget::~QLabellingWidget()
@@ -40,14 +38,9 @@ QLabellingWidget::~QLabellingWidget()
     delete ui;
 }
 
-QLabellingView* QLabellingWidget::view()
-{
-    return _view;
-}
-
 QImage QLabellingWidget::labelsImage()
 {
-    return _view->labelsImage();
+    return QLabellingView::instance()->labelsImage();
 }
 
 void QLabellingWidget::setEnabledAllLabelButtons( bool enabled )
@@ -151,29 +144,29 @@ void QLabellingWidget::on__toolButtonChooseLabelsPath_clicked(bool checked)
 
 void QLabellingWidget::on__radioButtonNone_toggled(bool)
 {
-    _view->setMode( QLabellingView::EDIT_MODE_NONE );
-    _view->setLabellingMode(false);
+    QLabellingView::instance()->setMode( QLabellingView::EDIT_MODE_NONE );
+    QLabellingView::instance()->setLabellingMode(false);
     setEnabledAllLabelButtons(false);
 }
 
 void QLabellingWidget::on__radioButtonHorizontal_toggled(bool)
 {
-    _view->setMode( QLabellingView::EDIT_MODE_HORIZONTAL_LINE );
-    _view->setLabellingMode(false);
+    QLabellingView::instance()->setMode( QLabellingView::EDIT_MODE_HORIZONTAL_LINE );
+    QLabellingView::instance()->setLabellingMode(false);
     setEnabledAllLabelButtons(false);
 }
 
 void QLabellingWidget::on__radioButtonVertical_toggled(bool)
 {
-    _view->setMode( QLabellingView::EDIT_MODE_VERTICAL_LINE );
-    _view->setLabellingMode(false);
+    QLabellingView::instance()->setMode( QLabellingView::EDIT_MODE_VERTICAL_LINE );
+    QLabellingView::instance()->setLabellingMode(false);
     setEnabledAllLabelButtons(false);
 }
 
 void QLabellingWidget::on__radioButtonLabelling_toggled(bool checked)
 {
-    _view->setMode( QLabellingView::EDIT_MODE_LABELLING );
-    _view->setLabellingMode(true);
+    QLabellingView::instance()->setMode( QLabellingView::EDIT_MODE_LABELLING );
+    QLabellingView::instance()->setLabellingMode(true);
     setEnabledAllLabelButtons(true);
 }
 
