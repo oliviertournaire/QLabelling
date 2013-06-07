@@ -1,6 +1,8 @@
 #ifndef QLABELLINGVIEW_HPP
 #define QLABELLINGVIEW_HPP
 
+#include "utilities/Singleton.hpp"
+
 #include "QZoomableGraphicsView.hpp"
 #include <QGraphicsLineItem>
 
@@ -10,8 +12,9 @@ class QGraphicsScene;
 class QGraphicsRectItem;
 class QGraphicsRectWithLabelItem;
 
-class QLabellingView : public QZoomableGraphicsView
+class QLabellingView : public QZoomableGraphicsView, public Singleton<QLabellingView>
 {
+    friend class Singleton<QLabellingView>;
     Q_OBJECT;
 
 public:
