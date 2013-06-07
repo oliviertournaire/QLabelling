@@ -368,7 +368,6 @@ paint(QPainter* painter, TTraits /* traits */)
     // C'est ici qu'on peint la scène
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    painter->setPen( this->verticesPen );
     this->painterostream = ArrangementPainterOstream< Traits >( painter, this->boundingRect( ) );
     this->painterostream.setScene( this->scene );
 
@@ -387,9 +386,9 @@ paint(QPainter* painter, TTraits /* traits */)
     QBrush currentPainterBrush = painter->brush();
     currentPainterBrush.setColor( QColor(currentPainterBrush.color().red(), currentPainterBrush.color().green(), currentPainterBrush.color().blue(), 0.5) );
     painter->setBrush(currentPainterBrush);
-    painter->setPen( this->edgesPen );
     this->paintFaces( painter );
 
+    painter->setPen( this->verticesPen );
     for ( Vertex_iterator it = this->arr->vertices_begin( );
           it != this->arr->vertices_end( ); ++it )
     {
