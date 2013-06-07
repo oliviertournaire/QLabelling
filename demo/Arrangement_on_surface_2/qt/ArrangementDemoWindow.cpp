@@ -225,13 +225,23 @@ void ArrangementDemoWindow::updateMode( QAction* newMode )
     QString messageToLog("Updating mode --> ");
 
     // hook up the new active mode
-    if ( newMode == this->ui->actionInsert
-	or newMode == this->ui->actionInsert_horizontal_line
-	or newMode == this->ui->actionInsert_vertical_line
-    )
+    if ( newMode == this->ui->actionInsert )
     {
+	activeTab->getCurveInputCallback( )->mode = POLYLINE;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += "Insertion mode";
+    }
+    else if ( newMode == this->ui->actionInsert_horizontal_line  )
+    {
+	activeTab->getCurveInputCallback( )->mode = HORIZONTAL;
+        activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
+        messageToLog += "Insertion (horizontal) mode";
+    }
+    else if ( newMode == this->ui->actionInsert_vertical_line )
+    {
+	activeTab->getCurveInputCallback( )->mode = VERTICAL;
+        activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
+        messageToLog += "Insertion (vertical) mode";
     }
     else if ( newMode == this->ui->actionDrag )
     {

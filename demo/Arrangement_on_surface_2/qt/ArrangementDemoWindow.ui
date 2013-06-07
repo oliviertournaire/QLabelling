@@ -346,7 +346,7 @@
    </property>
    <property name="icon">
     <iconset resource="../rc/ArrangementDemoWindow.qrc">
-     <normaloff>:/vertical-insert.png</normaloff>:/vertical-insert.png</iconset>
+     <normaloff>:/horizontal-insert.png</normaloff>:/horizontal-insert.png</iconset>
    </property>
    <property name="text">
     <string>Insert horizontal line</string>
