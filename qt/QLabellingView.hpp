@@ -17,6 +17,10 @@ class QLabellingView : public QZoomableGraphicsView, public Singleton<QLabelling
     friend class Singleton<QLabellingView>;
     Q_OBJECT;
 
+private:
+    QLabellingView();
+    ~QLabellingView() { writeSettings(); }
+
 public:
     typedef enum
     {
@@ -25,9 +29,6 @@ public:
         EDIT_MODE_VERTICAL_LINE,
         EDIT_MODE_LABELLING
     } EditMode;
-
-    QLabellingView();
-    ~QLabellingView() { writeSettings(); }
 
     inline void setMode(const EditMode mode) { _editMode = mode; }
     inline void setLabellingMode(const bool labelling) { _labellingMode = labelling; }

@@ -33,6 +33,7 @@
 #include <iostream>
 
 #include "QLabellingLogWidget.hpp"
+#include "QArrangementInfoWidget.h"
 
 class QGraphicsScene;
 
@@ -367,6 +368,14 @@ paint(QPainter* painter, TTraits /* traits */)
 {
     // C'est ici qu'on peint la scène
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
+    // Filling Arrangement info widget
+    QArrangementInfoWidget* infoWidget = QArrangementInfoWidget::instance();
+    infoWidget->setNumFaces             ( (int)this->arr->number_of_faces(), (int)this->arr->number_of_unbounded_faces() );
+    infoWidget->setNumEdges             ( (int)this->arr->number_of_edges() );
+    infoWidget->setNumVertices          ( (int)this->arr->number_of_vertices() );
+    infoWidget->setNumIsolatedVertices  ( (int)this->arr->number_of_isolated_vertices() );
+    infoWidget->setNumVerticesAtInfinity( (int)this->arr->number_of_vertices_at_infinity() );
 
     this->painterostream = ArrangementPainterOstream< Traits >( painter, this->boundingRect( ) );
     this->painterostream.setScene( this->scene );
