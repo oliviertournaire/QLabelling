@@ -42,6 +42,7 @@
 
 #include "QLabellingLogWidget.hpp"
 #include "QLabellingWidget.hpp"
+#include "QArrangementInfoWidget.h"
 #include "config.hpp"
 
 ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
@@ -68,6 +69,12 @@ CGAL::Qt::DemosMainWindow( parent ),
     dockLabellingWidget->setWindowTitle( _labellingWidget->windowTitle() );
     dockLabellingWidget->setWindowIcon( dockLogWidget->windowIcon() );
     this->addDockWidget(Qt::RightDockWidgetArea, dockLabellingWidget);
+
+    QDockWidget* dockInfoWidget = new QDockWidget;
+    dockInfoWidget->setWidget(QArrangementInfoWidget::instance());
+    dockInfoWidget->setWindowTitle( QArrangementInfoWidget::instance()->windowTitle() );
+    dockInfoWidget->setWindowIcon( dockInfoWidget->windowIcon() );
+    this->addDockWidget(Qt::RightDockWidgetArea, dockInfoWidget);
 
     _loggerWidget->logInfo( tr("QDemoArrangement application started") );
 
