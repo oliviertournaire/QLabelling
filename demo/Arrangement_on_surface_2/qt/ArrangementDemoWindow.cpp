@@ -50,8 +50,7 @@ CGAL::Qt::DemosMainWindow( parent ),
     lastTabIndex(static_cast<unsigned int>(-1)),
     ui( new Ui::ArrangementDemoWindow ),
     _loggerWidget(QLabellingLogWidget::instance()),
-    _labellingWidget(QLabellingWidget::instance()),
-    _imageHasBeenLoaded(false)
+    _labellingWidget(QLabellingWidget::instance())
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
     _labellingWidget->setLabelsPath(QLABELLING_DEFAULT_LABEL_PATH);
@@ -132,7 +131,7 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
     this->updateMode( this->modeGroup->checkedAction( ) );
     this->updateFillColorSwatch( );
 
-    if(!_imageHasBeenLoaded)
+    if(!demoTab->_imageHasBeenLoaded)
         QLabellingLogWidget::instance()->logWarning( tr("Before being able to edit the label arrangement, you must open an image!!!") );
 
     return demoTab;
@@ -598,6 +597,8 @@ void ArrangementDemoWindow::on_tabWidget_currentChanged( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
+    updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+
     // std::cout << "Tab changed" << std::endl;
     // disable the callback for the previously active tab
     this->resetCallbackState( this->lastTabIndex );
@@ -750,8 +751,8 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         if(tabView->_imageToLabel.isNull())
         {
             _loggerWidget->logError( tr("Unable to open image ") + fileName );
-            _imageHasBeenLoaded = false;
-            updateToolBarButtonsEnable(_imageHasBeenLoaded);
+            getCurrentTab()->_imageHasBeenLoaded = false;
+            updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
             return false;
         }
         tabView->_imageToLabelFilename = fileName;
@@ -782,8 +783,8 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         if (TabIndex == static_cast<unsigned int>(-1))
         {
             QLabellingLogWidget::instance()->logError( tr("Unable to add an image : there is no open tab !") );
-            _imageHasBeenLoaded = false;
-            updateToolBarButtonsEnable(_imageHasBeenLoaded);
+            getCurrentTab()->_imageHasBeenLoaded = false;
+            updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
             return false;
         }
         ArrangementDemoTabBase* activeTab = this->tabs[ TabIndex ];
@@ -812,15 +813,15 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
     }
     else
     {
-        _imageHasBeenLoaded = false;
-        updateToolBarButtonsEnable(_imageHasBeenLoaded);
+        getCurrentTab()->_imageHasBeenLoaded = false;
+        updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
         return false;
     }
     settings.endGroup();
 
-    _imageHasBeenLoaded = true;
-    updateToolBarButtonsEnable(_imageHasBeenLoaded);
-    return _imageHasBeenLoaded;
+    getCurrentTab()->_imageHasBeenLoaded = true;
+    updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+    return getCurrentTab()->_imageHasBeenLoaded;
 }
 
 void ArrangementDemoWindow::updateToolBarButtonsEnable(bool enable)

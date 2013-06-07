@@ -93,11 +93,6 @@ void QLabellingMainWindow::connectAll()
             SIGNAL(triggered()),
             this,
             SLOT(quit()));
-
-    connect(qApp,
-            SIGNAL(aboutToQuit()),
-            this,
-            SLOT(quit()));
 }
 
 void QLabellingMainWindow::disconnectAll()

@@ -56,6 +56,8 @@ public:
     virtual SplitEdgeCallbackBase* getSplitEdgeCallback( ) const;
     virtual FillFaceCallbackBase* getFillFaceCallback( ) const;
 
+    bool _imageHasBeenLoaded;
+
 protected:
     virtual void setupUi( );
 
@@ -84,22 +86,16 @@ public:
         Superclass( parent ),
         arrangement( arrangement_ )
     {
+        _imageHasBeenLoaded = false;
         // std::cout << this->scene->views( ).size( ) << std::endl;
         // set up demo components
-        this->arrangementGraphicsItem =
-                new CGAL::Qt::ArrangementGraphicsItem<Arrangement>(this->arrangement);
-        this->curveInputCallback =
-                new ArrangementCurveInputCallback<Arrangement>(this->arrangement, this);
-        this->deleteCurveCallback =
-                new DeleteCurveCallback<Arrangement>( this->arrangement, this );
-        this->pointLocationCallback =
-                new PointLocationCallback<Arrangement>( this->arrangement, this );
-        this->mergeEdgeCallback =
-                new MergeEdgeCallback<Arrangement>( this->arrangement, this );
-        this->splitEdgeCallback =
-                new SplitEdgeCallback<Arrangement>( this->arrangement, this );
-        this->fillFaceCallback =
-                new FillFaceCallback<Arrangement>( this->arrangement, this );
+        this->arrangementGraphicsItem = new CGAL::Qt::ArrangementGraphicsItem<Arrangement>(this->arrangement);
+        this->curveInputCallback = new ArrangementCurveInputCallback<Arrangement>(this->arrangement, this);
+        this->deleteCurveCallback = new DeleteCurveCallback<Arrangement>( this->arrangement, this );
+        this->pointLocationCallback = new PointLocationCallback<Arrangement>( this->arrangement, this );
+        this->mergeEdgeCallback = new MergeEdgeCallback<Arrangement>( this->arrangement, this );
+        this->splitEdgeCallback = new SplitEdgeCallback<Arrangement>( this->arrangement, this );
+        this->fillFaceCallback = new FillFaceCallback<Arrangement>( this->arrangement, this );
 
         this->scene->addItem( this->arrangementGraphicsItem );
         this->arrangementGraphicsItem->setScene( this->scene );
