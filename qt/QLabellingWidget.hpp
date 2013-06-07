@@ -26,7 +26,6 @@ private:
     ~QLabellingWidget();
 
 public:
-    QLabellingView* view();
     QImage labelsImage();
     const std::vector<QLabelItem*>& labelItems() const { return _labelItems; }
 
@@ -49,7 +48,6 @@ public slots:
 
 protected:
     Ui::QLabellingWidget *ui;
-    QLabellingView* _view;
     QString _stylesheetString;
     std::vector<QLabelItem*> _labelItems;
     QButtonGroup *_buttonGroup;
