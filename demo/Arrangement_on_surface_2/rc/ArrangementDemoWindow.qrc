@@ -1,5 +1,8 @@
 <RCC>
   <qresource>
+    <file>close_tab.png</file>
+    <file>new_tab.png</file>
+    <file>icons/arrangement_overlay.png</file>
     <file>image.png</file>
     <file>process-stop.png</file>
     <file>QLabellingIcon.png</file>

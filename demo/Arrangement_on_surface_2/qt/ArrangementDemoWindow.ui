@@ -45,8 +45,8 @@
    <addaction name="actionInsert_horizontal_line"/>
    <addaction name="actionInsert_vertical_line"/>
    <addaction name="actionDelete"/>
-   <addaction name="actionPointLocation"/>
    <addaction name="separator"/>
+   <addaction name="actionPointLocation"/>
    <addaction name="actionMerge"/>
    <addaction name="actionSplit"/>
    <addaction name="separator"/>
@@ -66,7 +66,7 @@
      <x>0</x>
      <y>0</y>
      <width>946</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -249,6 +249,10 @@
    </property>
   </action>
   <action name="actionNewTab">
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/new_tab.png</normaloff>:/new_tab.png</iconset>
+   </property>
    <property name="text">
     <string>New tab</string>
    </property>
@@ -257,11 +261,19 @@
    </property>
   </action>
   <action name="actionOverlay">
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/icons/arrangement_overlay.png</normaloff>:/icons/arrangement_overlay.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Overlay...</string>
    </property>
   </action>
   <action name="actionPreferences">
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/options.png</normaloff>:/options.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Preferences...</string>
    </property>
@@ -275,6 +287,10 @@
    </property>
   </action>
   <action name="actionCloseTab">
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/close_tab.png</normaloff>:/close_tab.png</iconset>
+   </property>
    <property name="text">
     <string>Close Tab</string>
    </property>
@@ -283,6 +299,10 @@
    </property>
   </action>
   <action name="actionSaveAs">
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/document-save.png</normaloff>:/document-save.png</iconset>
+   </property>
    <property name="text">
     <string>Save arrangement as...</string>
    </property>

@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <normaloff>:/icons/arrangement_overlay.png</normaloff>:/icons/arrangement_overlay.png</iconset>
+  </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
@@ -76,7 +80,9 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../rc/ArrangementDemoWindow.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>
