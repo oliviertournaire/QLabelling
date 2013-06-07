@@ -32,6 +32,10 @@
 #include "ISnappable.h"
 #include "PointsGraphicsItem.h"
 
+enum InsertType {
+    POLYLINE, HORIZONTAL, VERTICAL
+};
+    
 namespace CGAL {
 namespace Qt {
 
@@ -50,6 +54,9 @@ public:
     void setSnapToGridEnabled( bool b );
     virtual void setColor( QColor c );
     QColor getColor( ) const;
+    
+    // Type d'insertion à l'intérieur de l'onglet courant
+    InsertType mode;
 
 protected:
     GraphicsViewCurveInputBase( QObject* parent );
@@ -102,68 +109,79 @@ protected:
     void mousePressEvent( QGraphicsSceneMouseEvent* event )
     {
         Point_2 clickedPoint = this->snapPoint( event );
-        if ( this->points.empty( ) )
-        { // first
-	    
-            // add clicked point to polyline
-            this->points.push_back( clickedPoint );
-// 	    std::cout << "Insertion d'un point (premier de la ligne) en " << clickedPoint << "." << std::endl;
-            
-            QPointF pt = this->convert( clickedPoint );
-            QGraphicsLineItem* lineItem =
-                    new QGraphicsLineItem( pt.x( ), pt.y( ), pt.x( ), pt.y( ) );
-            lineItem->setZValue( 100 );
-            QPen pen = lineItem->pen( );
-            pen.setColor( this->color );
-            lineItem->setPen( pen );
-            this->polylineGuide.push_back( lineItem );
-            if ( this->scene != NULL )
-            {
-                this->scene->addItem( this->polylineGuide.back( ) );
-            }
-        }
-        else
-        {
-            // add clicked point to polyline
-            this->points.push_back( clickedPoint );
-// 	    std::cout << "Insertion d'un point en " << clickedPoint << "." << std::endl;
+	
+	if( mode == POLYLINE ){
+		
+	    if ( this->points.empty( ) )
+	    { // first
+		
+		// add clicked point to polyline
+		this->points.push_back( clickedPoint );
+    // 	    std::cout << "Insertion d'un point (premier de la ligne) en " << clickedPoint << "." << std::endl;
+		
+		QPointF pt = this->convert( clickedPoint );
+		QGraphicsLineItem* lineItem =
+			new QGraphicsLineItem( pt.x( ), pt.y( ), pt.x( ), pt.y( ) );
+		lineItem->setZValue( 100 );
+		QPen pen = lineItem->pen( );
+		pen.setColor( this->color );
+		lineItem->setPen( pen );
+		this->polylineGuide.push_back( lineItem );
+		if ( this->scene != NULL )
+		{
+		    this->scene->addItem( this->polylineGuide.back( ) );
+		}
+	    }
+	    else
+	    {
+		// add clicked point to polyline
+		this->points.push_back( clickedPoint );
+    // 	    std::cout << "Insertion d'un point en " << clickedPoint << "." << std::endl;
 
-            if ( event->button( ) == ::Qt::RightButton )
-            { // finalize polyline input
-                
-                // Destruction de la Polyline courante
-                for ( unsigned int i = 0; i < this->polylineGuide.size( ); ++i )
-                {
-                    if ( this->scene != NULL )
-                    {
-                        this->scene->removeItem( this->polylineGuide[ i ] );
-                    }
-                    delete this->polylineGuide[ i ];
-                }
-                this->polylineGuide.clear( );
-                Curve_2 res( this->points.begin( ), this->points.end( ) );
-                this->points.clear( );
+		if ( event->button( ) == ::Qt::RightButton )
+		{ // finalize polyline input
+		    
+		    // Destruction de la Polyline courante
+		    for ( unsigned int i = 0; i < this->polylineGuide.size( ); ++i )
+		    {
+			if ( this->scene != NULL )
+			{
+			    this->scene->removeItem( this->polylineGuide[ i ] );
+			}
+			delete this->polylineGuide[ i ];
+		    }
+		    this->polylineGuide.clear( );
+		    Curve_2 res( this->points.begin( ), this->points.end( ) );
+		    this->points.clear( );
 
-                emit generate( CGAL::make_object( res ) );
-            }
-            else
-            { // start the next segment
-                QPointF pt = this->convert( clickedPoint );
-                QGraphicsLineItem* lineItem =
-                        new QGraphicsLineItem( pt.x( ), pt.y( ), pt.x( ), pt.y( ) );
-                lineItem->setZValue( 100 );
-                QPen pen = lineItem->pen( );
-                pen.setColor( this->color );
-                lineItem->setPen( pen );
-                this->polylineGuide.push_back( lineItem ); // Ajout à l'objet Polyline de ce nouveau segment
-                if ( this->scene != NULL )
-                {
-                    this->scene->addItem( this->polylineGuide.back( ) ); // Ajout à la scène du dernier segment (celui qui vient d'être ajouté)
-                }
-            }
-        }
+		    emit generate( CGAL::make_object( res ) );
+		}
+		else
+		{ // start the next segment
+		    QPointF pt = this->convert( clickedPoint );
+		    QGraphicsLineItem* lineItem =
+			    new QGraphicsLineItem( pt.x( ), pt.y( ), pt.x( ), pt.y( ) );
+		    lineItem->setZValue( 100 );
+		    QPen pen = lineItem->pen( );
+		    pen.setColor( this->color );
+		    lineItem->setPen( pen );
+		    this->polylineGuide.push_back( lineItem ); // Ajout à l'objet Polyline de ce nouveau segment
+		    if ( this->scene != NULL )
+		    {
+			this->scene->addItem( this->polylineGuide.back( ) ); // Ajout à la scène du dernier segment (celui qui vient d'être ajouté)
+		    }
+		}
+	    }
+	}
+	else if ( mode == HORIZONTAL )
+	{ // Ligne horizontale
+	    QPointF pt = this->convert( clickedPoint );
+	    Point_2 g(-100, (int) pt.y());
+	    Point_2 d(1000, (int) pt.y());
+	    Segment_2 res(g,d);
+	    emit generate( CGAL::make_object( res ) );
+	}
     }
-
     // override this to snap to the points you like
     virtual Point_2 snapPoint( QGraphicsSceneMouseEvent* event )
     {
