@@ -88,6 +88,9 @@ public:
             }
             QLabellingLogWidget::instance()->logTrace(message);
         }
+        else{
+            QLabellingLogWidget::instance()->logWarning("Impossible d'ajouter des éléments dans l'arrangement !");
+	}
 #if 0
         else if ( CGAL::assign( xcurve, o ) )
         {

@@ -175,10 +175,42 @@ protected:
 	}
 	else if ( mode == HORIZONTAL )
 	{ // Ligne horizontale
+	    QRect size_imagetolabel(0,0,1000,1000);
+	    
+	    QGraphicsScene* currentScene = this->scene;
+	    QList<QGraphicsItem*> allItems = currentScene->items();
+	    for(int i=0;i<allItems.count();++i){
+		if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+		    size_imagetolabel = p->pixmap().rect();
+	    }
+	    
 	    QPointF pt = this->convert( clickedPoint );
-	    Point_2 g(-100, (int) pt.y());
-	    Point_2 d(1000, (int) pt.y());
-	    Segment_2 res(g,d);
+	    Point_2 g(0, (int) pt.y());
+	    Point_2 d(size_imagetolabel.width(), (int) pt.y());
+	    this->points.push_back( g );
+	    this->points.push_back( d );
+	    Curve_2 res( this->points.begin( ), this->points.end( ) );
+	    this->points.clear( );
+	    emit generate( CGAL::make_object( res ) );
+	}
+	else if ( mode == VERTICAL )
+	{ // Ligne verticale
+	    QRect size_imagetolabel(0,0,1000,1000);
+	    
+	    QGraphicsScene* currentScene = this->scene;
+	    QList<QGraphicsItem*> allItems = currentScene->items();
+	    for(int i=0;i<allItems.count();++i){
+		if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+		    size_imagetolabel = p->pixmap().rect();
+	    }
+	    
+	    QPointF pt = this->convert( clickedPoint );
+	    Point_2 g((int) pt.x(), 0);
+	    Point_2 d((int) pt.x(), size_imagetolabel.height());
+	    this->points.push_back( g );
+	    this->points.push_back( d );
+	    Curve_2 res( this->points.begin( ), this->points.end( ) );
+	    this->points.clear( );
 	    emit generate( CGAL::make_object( res ) );
 	}
     }
