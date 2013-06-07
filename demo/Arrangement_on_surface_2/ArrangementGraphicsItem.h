@@ -257,13 +257,17 @@ protected:
             // incidents curves)
             QBrush oldBrush = painter->brush( );
             QColor def_bg_color = this->backgroundColor;
+            // Just add an alpha
+            def_bg_color.setAlpha(127);
             if (! f->color().isValid())
             {
                 painter->setBrush( def_bg_color );
             }
             else
             {
-                painter->setBrush( f->color( ) );
+                QColor faceColor = f->color();
+                faceColor.setAlpha(127);
+                painter->setBrush( faceColor );
             }
             painter->drawPolygon( pgn );
             painter->setBrush( oldBrush );
@@ -364,20 +368,14 @@ paint(QPainter* painter, TTraits /* traits */)
     // C'est ici qu'on peint la scène
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    this->paintFaces( painter );
-
     painter->setPen( this->verticesPen );
-    this->painterostream =
-            ArrangementPainterOstream< Traits >( painter, this->boundingRect( ) );
+    this->painterostream = ArrangementPainterOstream< Traits >( painter, this->boundingRect( ) );
     this->painterostream.setScene( this->scene );
-    
-    // Ici on va dessiner l'image sur la scène
-    
 
     QGraphicsScene* currentScene = this->scene;
     QList<QGraphicsItem*> allItems = currentScene->items();
     QLabellingLogWidget::instance()->logTrace( tr("Found ") + QString::number(allItems.count()) + tr(" items in the scene") );
-    for(unsigned int i=0;i<allItems.count();++i)
+    for(int i=0;i<allItems.count();++i)
     {
         if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
         {
@@ -385,6 +383,12 @@ paint(QPainter* painter, TTraits /* traits */)
             this->painterostream << p->pixmap();
         }
     }
+
+    QBrush currentPainterBrush = painter->brush();
+    currentPainterBrush.setColor( QColor(currentPainterBrush.color().red(), currentPainterBrush.color().green(), currentPainterBrush.color().blue(), 0.5) );
+    painter->setBrush(currentPainterBrush);
+    painter->setPen( this->edgesPen );
+    this->paintFaces( painter );
 
     for ( Vertex_iterator it = this->arr->vertices_begin( );
           it != this->arr->vertices_end( ); ++it )
