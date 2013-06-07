@@ -56,8 +56,6 @@
    <addaction name="actionGridSnapMode"/>
    <addaction name="separator"/>
    <addaction name="separator"/>
-   <addaction name="actionCurveRay"/>
-   <addaction name="actionCurveLine"/>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -175,30 +173,6 @@
     <string>Point Location</string>
    </property>
   </action>
-  <action name="actionRayShootingUp">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
-     <normaloff>:/icons/demo_rayshoot_up.xpm</normaloff>:/icons/demo_rayshoot_up.xpm</iconset>
-   </property>
-   <property name="text">
-    <string>Ray Shooting Up</string>
-   </property>
-  </action>
-  <action name="actionRayShootingDown">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
-     <normaloff>:/icons/demo_rayshoot_down.xpm</normaloff>:/icons/demo_rayshoot_down.xpm</iconset>
-   </property>
-   <property name="text">
-    <string>Ray Shooting Down</string>
-   </property>
-  </action>
   <action name="actionMerge">
    <property name="checkable">
     <bool>true</bool>
@@ -295,30 +269,6 @@
     <string>Show &amp;grid</string>
    </property>
   </action>
-  <action name="actionLowerEnvelope">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
-     <normaloff>:/icons/lower_env_xpm.xpm</normaloff>:/icons/lower_env_xpm.xpm</iconset>
-   </property>
-   <property name="text">
-    <string>Lower envelope</string>
-   </property>
-  </action>
-  <action name="actionUpperEnvelope">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
-     <normaloff>:/icons/upper_env_xpm.xpm</normaloff>:/icons/upper_env_xpm.xpm</iconset>
-   </property>
-   <property name="text">
-    <string>Upper envelope</string>
-   </property>
-  </action>
   <action name="actionCloseTab">
    <property name="text">
     <string>Close Tab</string>
@@ -366,30 +316,6 @@
    </property>
    <property name="text">
     <string>Zoom Out</string>
-   </property>
-  </action>
-  <action name="actionCurveRay">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
-     <normaloff>:/icons/demo_conic_ray.xpm</normaloff>:/icons/demo_conic_ray.xpm</iconset>
-   </property>
-   <property name="text">
-    <string>Ray</string>
-   </property>
-  </action>
-  <action name="actionCurveLine">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
-     <normaloff>:/icons/demo_conic_line.xpm</normaloff>:/icons/demo_conic_line.xpm</iconset>
-   </property>
-   <property name="text">
-    <string>Line</string>
    </property>
   </action>
   <action name="actionFillColor">
