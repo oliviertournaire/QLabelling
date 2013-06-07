@@ -233,8 +233,8 @@ void ArrangementDemoWindow::updateMode( QAction* newMode )
 
     // hook up the new active mode
     if ( newMode == this->ui->actionInsert
-	or newMode == this->ui->actionInsert_horizontal_line
-	or newMode == this->ui->actionInsert_vertical_line
+	|| newMode == this->ui->actionInsert_horizontal_line
+	|| newMode == this->ui->actionInsert_vertical_line
     )
     {
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
