@@ -107,6 +107,9 @@ protected:
     
     // Image chargée depuis un fichier
     QPixmap *_labelsPixmap;
+    bool _imageHasBeenLoaded;
+
+    void updateToolBarButtonsEnable(bool enable);
     
 };
 
