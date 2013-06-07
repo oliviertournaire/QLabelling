@@ -53,7 +53,12 @@ include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR} )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/qt )
 
-add_executable( QDemoArrangement2 ${MOCS_QDEMOARRANGEMENT2_HPP}
+if(WIN32)
+	set( APPLICATION_TYPE WIN32 )
+endif()
+
+add_executable( QDemoArrangement2 ${APPLICATION_TYPE}
+								  ${MOCS_QDEMOARRANGEMENT2_HPP}
 								  ${MOCS_QDEMOARRANGEMENT2_CPP}
 								  ${MOCS_QDEMOARRANGEMENT2_UI}
 								  ${ALL_MOCS_QDEMOARRANGEMENT2}
