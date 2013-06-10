@@ -597,7 +597,8 @@ void ArrangementDemoWindow::on_tabWidget_currentChanged( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+    if(getCurrentTab())
+	updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
 
     // std::cout << "Tab changed" << std::endl;
     // disable the callback for the previously active tab
