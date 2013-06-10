@@ -591,6 +591,8 @@ void ArrangementDemoWindow::on_actionNewTab_triggered( )
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     this->makeTab( POLYLINE_TRAITS );
+    
+    ui->actionOpenImage->setEnabled(true);
 }
 
 void ArrangementDemoWindow::on_tabWidget_currentChanged( )
@@ -648,6 +650,10 @@ void ArrangementDemoWindow::on_actionCloseTab_triggered( )
 
     // delete the arrangement
     this->arrangements.erase( this->arrangements.begin( ) + currentTabIndex );
+    
+    // If we have closed the last tab, we forbid the openImage action
+    if (! this->ui->tabWidget->count() || (currentTabIndex == static_cast<unsigned int>(-1)))
+        ui->actionOpenImage->setEnabled(false);
 }
 
 void ArrangementDemoWindow::on_actionZoomIn_triggered( )
@@ -732,7 +738,10 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    // TODO : vérifier si on est sur un onglet valide !
+    if(!getCurrentTab()){
+        _loggerWidget->logWarning( tr("There is no open tab !") );
+        return false;
+    }
 
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
