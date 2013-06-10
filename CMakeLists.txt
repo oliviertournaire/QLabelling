@@ -70,19 +70,19 @@ include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 include_directories( ${CMAKE_SOURCE_DIR} )
 include_directories( ${CMAKE_SOURCE_DIR}/qt )
 
-add_executable( QLabelling ${ALL_UTILITIES_HPP}
-                           ${MOCS_QLABELLING_HPP}
-                           ${MOCS_QLABELLING_CPP}
-                           ${MOCS_QLABELLING_UI}
-                           ${ALL_QLABELLING_HPP}
-                           ${ALL_QLABELLING_CPP}
-                           ${ALL_MOCS_QLABELLING}
-                           ${ALL_UI_QLABELLING}
-                           ${RCS_QLABELLING} )
-target_link_libraries( QLabelling ${QT_LIBRARIES} ${CGAL_LIBRARIES} ${Boost_LIBRARIES} )
-set_target_properties( QLabelling PROPERTIES DEBUG_POSTFIX "_debug" )
-add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp.cmake.in )
-add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp )
+# add_executable( QLabelling ${ALL_UTILITIES_HPP}
+#                            ${MOCS_QLABELLING_HPP}
+#                            ${MOCS_QLABELLING_CPP}
+#                            ${MOCS_QLABELLING_UI}
+#                            ${ALL_QLABELLING_HPP}
+#                            ${ALL_QLABELLING_CPP}
+#                            ${ALL_MOCS_QLABELLING}
+#                            ${ALL_UI_QLABELLING}
+#                            ${RCS_QLABELLING} )
+# target_link_libraries( QLabelling ${QT_LIBRARIES} ${CGAL_LIBRARIES} ${Boost_LIBRARIES} )
+# set_target_properties( QLabelling PROPERTIES DEBUG_POSTFIX "_debug" )
+# add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp.cmake.in )
+# add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp )
 
 # Test executable (code started fro CGAL demo)
 add_subdirectory( demo/Arrangement_on_surface_2 )
