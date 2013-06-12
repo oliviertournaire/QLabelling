@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>295</width>
-    <height>164</height>
+    <height>140</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,57 +18,6 @@
     <normaloff>:/QLabelling/QLabellingIcon.png</normaloff>:/QLabelling/QLabellingIcon.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QGroupBox" name="_groupBoxEditMode">
-       <property name="title">
-        <string>Edit Mode</string>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <layout class="QGridLayout" name="_gridLayoutEditMode">
-          <item row="1" column="0">
-           <widget class="QRadioButton" name="_radioButtonHorizontal">
-            <property name="text">
-             <string>Horizontal</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QRadioButton" name="_radioButtonVertical">
-            <property name="text">
-             <string>Vertical</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QRadioButton" name="_radioButtonNone">
-            <property name="text">
-             <string>None</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QRadioButton" name="_radioButtonLabelling">
-            <property name="text">
-             <string>Labelling</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-     </item>
-    </layout>
-   </item>
    <item>
     <widget class="QGroupBox" name="_groupBoxLabelling">
      <property name="title">

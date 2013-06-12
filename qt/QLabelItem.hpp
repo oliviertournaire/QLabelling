@@ -2,6 +2,7 @@
 #define QLABELITEM_HPP
 
 #include <QWidget>
+#include <QRadioButton>
 
 #include "config.hpp"
 

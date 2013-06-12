@@ -58,12 +58,12 @@ if(WIN32)
 endif()
 
 add_executable( QDemoArrangement2 ${APPLICATION_TYPE}
-								  ${MOCS_QDEMOARRANGEMENT2_HPP}
-								  ${MOCS_QDEMOARRANGEMENT2_CPP}
-								  ${MOCS_QDEMOARRANGEMENT2_UI}
-								  ${ALL_MOCS_QDEMOARRANGEMENT2}
-								  ${ALL_UI_QDEMOARRANGEMENT2}
-								  ${RCS_QDEMOARRANGEMENT2}
+                                ${MOCS_QDEMOARRANGEMENT2_HPP}
+                                ${MOCS_QDEMOARRANGEMENT2_CPP}
+                                ${MOCS_QDEMOARRANGEMENT2_UI}
+                                ${ALL_MOCS_QDEMOARRANGEMENT2}
+                                ${ALL_UI_QDEMOARRANGEMENT2}
+                                ${RCS_QDEMOARRANGEMENT2}
                                   ${LOGWIDGET_HPP}
                                   ${LOGWIDGET_CPP}
                                   ${LOGWIDGET_UI}

@@ -142,33 +142,12 @@ void QLabellingWidget::on__toolButtonChooseLabelsPath_clicked(bool checked)
         parseLabels();
 }
 
-void QLabellingWidget::on__radioButtonNone_toggled(bool)
-{
-    QLabellingView::instance()->setMode( QLabellingView::EDIT_MODE_NONE );
-    QLabellingView::instance()->setLabellingMode(false);
-    setEnabledAllLabelButtons(false);
-}
-
-void QLabellingWidget::on__radioButtonHorizontal_toggled(bool)
-{
-    QLabellingView::instance()->setMode( QLabellingView::EDIT_MODE_HORIZONTAL_LINE );
-    QLabellingView::instance()->setLabellingMode(false);
-    setEnabledAllLabelButtons(false);
-}
-
-void QLabellingWidget::on__radioButtonVertical_toggled(bool)
-{
-    QLabellingView::instance()->setMode( QLabellingView::EDIT_MODE_VERTICAL_LINE );
-    QLabellingView::instance()->setLabellingMode(false);
-    setEnabledAllLabelButtons(false);
-}
-
-void QLabellingWidget::on__radioButtonLabelling_toggled(bool checked)
-{
-    QLabellingView::instance()->setMode( QLabellingView::EDIT_MODE_LABELLING );
-    QLabellingView::instance()->setLabellingMode(true);
-    setEnabledAllLabelButtons(true);
-}
+// void QLabellingWidget::on__radioButtonLabelling_toggled(bool checked)
+// {
+//     QLabellingView::instance()->setMode( QLabellingView::EDIT_MODE_LABELLING );
+//     QLabellingView::instance()->setLabellingMode(true);
+//     setEnabledAllLabelButtons(true);
+// }
 
 void QLabellingWidget::updateAlphaValue(const int alpha)
 {

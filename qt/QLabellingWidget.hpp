@@ -39,10 +39,7 @@ public:
 
 public slots:
     void on__toolButtonChooseLabelsPath_clicked(bool checked = false);
-    void on__radioButtonNone_toggled(bool checked);
-    void on__radioButtonHorizontal_toggled(bool checked);
-    void on__radioButtonVertical_toggled(bool checked);
-    void on__radioButtonLabelling_toggled(bool checked);
+//     void on__radioButtonLabelling_toggled(bool checked);
 
     void updateAlphaValue(const int alpha);
 
