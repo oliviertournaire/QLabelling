@@ -80,6 +80,7 @@ public slots:
     void on_actionZoomOut_triggered( );
     void on_actionPreferences_triggered( );
 //     void on_actionFillColor_triggered( );
+    void labelChanged();
 
 signals:
     void modelChanged( );
@@ -109,7 +110,6 @@ protected:
     QPixmap *_labelsPixmap;
 
     void updateToolBarButtonsEnable(bool enable);
-    
 };
 
 template < class ArrType >

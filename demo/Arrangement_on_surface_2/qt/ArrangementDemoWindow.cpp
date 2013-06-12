@@ -87,6 +87,8 @@ CGAL::Qt::DemosMainWindow( parent ),
     this->addAboutCGAL( );
 
     // set up callbacks
+    QObject::connect( _labellingWidget, SIGNAL( labelChanged() ),
+        this, SLOT( labelChanged() ) );
     QObject::connect( this->modeGroup, SIGNAL( triggered( QAction* ) ),
         this, SLOT( updateMode( QAction* ) ) );
     QObject::connect( this->snapGroup, SIGNAL( triggered( QAction* ) ),
@@ -94,6 +96,12 @@ CGAL::Qt::DemosMainWindow( parent ),
 
     // disable arrangement edition
     updateToolBarButtonsEnable(false);
+}
+
+void ArrangementDemoWindow::labelChanged(){
+    _loggerWidget->logTrace( tr("Label just changed, switching current mode to \"fill\"...") );
+    this->ui->actionFill->setChecked(true);
+    updateMode(this->ui->actionFill);
 }
 
 ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )

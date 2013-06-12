@@ -35,8 +35,6 @@ public:
 
     QColor labelColor() const;
     void setLabelColor(const QColor &labelColor, const int alpha = QLABELLING_DEFAULT_ALPHA);
-
-signals:
     
 public slots:
     void toolButtonLabelColor_clicked(bool checked = false);

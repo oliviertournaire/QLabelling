@@ -13,6 +13,7 @@
 #include "config.hpp"
 
 #include "QLabelItem.hpp"
+#include "QLabellingLogWidget.hpp"
 
 using namespace std;
 
@@ -87,6 +88,8 @@ void QLabellingWidget::parseLabels()
             ifs >> labelname >> r >> g >> b >> a;
             QColor labelcolor(r,g,b,a);
             QLabelItem *item = new QLabelItem(QString::fromStdString(labelname), labelcolor);
+            connect(item->radioButtonlabel(), SIGNAL(clicked(bool)),
+                this, SIGNAL(labelChanged()));
             ui->_gridLayoutLabels->addWidget(item->radioButtonlabel(), row, col);
             ui->_gridLayoutLabels->addWidget(item->toolButtonLabelColor(), row, col+1);
             _labelItems.push_back(item);
@@ -103,6 +106,8 @@ void QLabellingWidget::parseLabels()
     if(!foundUnknowLabel)
     {
         QLabelItem *item = new QLabelItem(QLABELLING_UNKNOW_LABEL_STRING, QLABELLING_UNKNOW_LABEL_BRUSH_COLOR);
+        connect(item->radioButtonlabel(), SIGNAL(clicked(bool)),
+                this, SIGNAL(labelChanged()));
         ui->_gridLayoutLabels->addWidget(item->radioButtonlabel(), row, col);
         ui->_gridLayoutLabels->addWidget(item->toolButtonLabelColor(), row, col+1);
         _labelItems.push_back(item);

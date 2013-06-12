@@ -42,7 +42,9 @@ public slots:
 //     void on__radioButtonLabelling_toggled(bool checked);
 
     void updateAlphaValue(const int alpha);
-
+ signals:
+    void labelChanged();
+    
 protected:
     Ui::QLabellingWidget *ui;
     QString _stylesheetString;
