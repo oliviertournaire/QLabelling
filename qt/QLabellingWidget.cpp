@@ -47,6 +47,9 @@ void QLabellingWidget::setEnabledAllLabelButtons( bool enabled )
 {
     for(unsigned int i=0;i<_labelItems.size();++i)
         _labelItems[i]->radioButtonlabel()->setEnabled(enabled);
+    
+    if(enabled && _labelItems.size()>0)
+        _labelItems[0]->radioButtonlabel()->setChecked(true);
 }
 
 void QLabellingWidget::parseLabels()
@@ -137,7 +140,7 @@ const QLabelItem* QLabellingWidget::findLabelItemFromName(const QString &name) c
 
 void QLabellingWidget::on__toolButtonChooseLabelsPath_clicked(bool checked)
 {
-    _labelsPath = QFileDialog::getOpenFileName(this, tr("Open label file"), "", tr("Label Files (*.txt)"));
+    _labelsPath = QFileDialog::getOpenFileName(this, tr("Open label file"), "", tr("Label Files (*.txt);;All files (*.*)"));
     if(!_labelsPath.isNull())
         parseLabels();
 }

@@ -42,6 +42,7 @@
 
 #include "QLabellingLogWidget.hpp"
 #include "QLabellingWidget.hpp"
+#include "QLabelItem.hpp"
 #include "QArrangementInfoWidget.h"
 #include "config.hpp"
 
@@ -724,13 +725,14 @@ void ArrangementDemoWindow::on_actionFillColor_triggered( )
         return;
     ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
     FillFaceCallbackBase* fillFaceCallback = currentTab->getFillFaceCallback( );
-    QColor fillColor = fillFaceCallback->getColor( );
-
-    QColor selectedColor = QColorDialog::getColor( fillColor );
-    if ( selectedColor.isValid( ) )
-    {
-        fillFaceCallback->setColor( selectedColor );
+    
+    const QLabelItem* li;
+    if(li = QLabellingWidget::instance()->findActiveLabelItem()){
+        fillFaceCallback->setColor( li->labelColor() );
         this->updateFillColorSwatch( );
+    }
+    else{
+        QLabellingLogWidget::instance()->logDebug( tr("Unable to find an active label : please select one !") );
     }
 }
 
@@ -850,4 +852,7 @@ void ArrangementDemoWindow::updateToolBarButtonsEnable(bool enable)
     ui->actionZoomOut->setEnabled(enable);
     ui->actionSnapMode->setEnabled(enable);
     ui->actionGridSnapMode->setEnabled(enable);
+    
+    // Enabling/Disabling the label list too
+    QLabellingWidget::instance()->setEnabledAllLabelButtons(enable);
 }
