@@ -41,6 +41,8 @@
    </attribute>
    <addaction name="actionOpenImage"/>
    <addaction name="separator"/>
+   <addaction name="actionFill"/>
+   <addaction name="separator"/>
    <addaction name="actionInsert"/>
    <addaction name="actionInsert_horizontal_line"/>
    <addaction name="actionInsert_vertical_line"/>
@@ -49,9 +51,6 @@
    <addaction name="actionPointLocation"/>
    <addaction name="actionMerge"/>
    <addaction name="actionSplit"/>
-   <addaction name="separator"/>
-   <addaction name="actionFill"/>
-   <addaction name="actionFillColor"/>
    <addaction name="separator"/>
    <addaction name="actionDrag"/>
    <addaction name="actionZoomIn"/>
@@ -341,14 +340,6 @@
    </property>
    <property name="text">
     <string>Zoom Out</string>
-   </property>
-  </action>
-  <action name="actionFillColor">
-   <property name="text">
-    <string>Fill Color</string>
-   </property>
-   <property name="toolTip">
-    <string>Set the fill color</string>
    </property>
   </action>
   <action name="actionOpenImage">

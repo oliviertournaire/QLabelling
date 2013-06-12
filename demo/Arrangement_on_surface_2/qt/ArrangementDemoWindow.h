@@ -79,7 +79,7 @@ public slots:
     void on_actionZoomIn_triggered( );
     void on_actionZoomOut_triggered( );
     void on_actionPreferences_triggered( );
-    void on_actionFillColor_triggered( );
+//     void on_actionFillColor_triggered( );
 
 signals:
     void modelChanged( );
@@ -88,7 +88,7 @@ protected:
     void setupUi( );
     void resetCallbackState( unsigned int tabIndex );
     void removeCallback( unsigned int tabIndex );
-    void updateFillColorSwatch( );
+//     void updateFillColorSwatch( );
 
     void openArrFile( QString filename );
     void openDatFile( QString filename );

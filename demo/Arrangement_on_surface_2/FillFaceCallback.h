@@ -33,6 +33,8 @@
 #include <CGAL/Arr_tags.h>
 
 #include "Utils.h"
+#include "QLabellingWidget.hpp"
+#include "QLabelItem.hpp"
 
 class FillFaceCallbackBase : public CGAL::Qt::Callback
 {
@@ -136,6 +138,8 @@ fillFace( QGraphicsSceneMouseEvent* event )
     CGAL::Object pointLocationResult = this->locate( point );
     Face_const_handle face = this->getFace( pointLocationResult );
     Face_handle f = this->arr->non_const_handle( face );
+    
+    this->fillColor = QLabellingWidget::instance()->findActiveLabelItem()->labelColor();
     if ( this->fillColor.isValid( ) )
     {
         f->set_color( this->fillColor );

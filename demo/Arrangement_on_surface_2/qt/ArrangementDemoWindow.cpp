@@ -130,7 +130,7 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
     this->resetCallbackState( this->ui->tabWidget->currentIndex( ) );
     this->removeCallback( this->ui->tabWidget->currentIndex( ) );
     this->updateMode( this->modeGroup->checkedAction( ) );
-    this->updateFillColorSwatch( );
+//     this->updateFillColorSwatch( );
 
     if(!demoTab->_imageHasBeenLoaded)
         QLabellingLogWidget::instance()->logWarning( tr("Before being able to edit the label arrangement, you must open an image!!!") );
@@ -207,7 +207,7 @@ void ArrangementDemoWindow::setupUi( )
     this->snapGroup->setExclusive( false );
     this->ui->actionGridSnapMode->setEnabled( false );
 
-    this->updateFillColorSwatch( );
+//     this->updateFillColorSwatch( );
 }
 
 void ArrangementDemoWindow::updateMode( QAction* newMode )
@@ -280,7 +280,7 @@ void ArrangementDemoWindow::updateMode( QAction* newMode )
         activeScene->installEventFilter( activeTab->getFillFaceCallback( ) );
         messageToLog += "Fill mode";
     }
-    this->updateFillColorSwatch( );
+//     this->updateFillColorSwatch( );
 
     _loggerWidget->logTrace(messageToLog);
 }
@@ -349,25 +349,25 @@ void ArrangementDemoWindow::removeCallback( unsigned int tabIndex )
     activeScene->removeEventFilter( activeTab->getFillFaceCallback( ) );
 }
 
-void ArrangementDemoWindow::updateFillColorSwatch( )
-{
-    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
-
-    unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
-    if (currentTabIndex == static_cast<unsigned int>(-1)) return;
-    ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
-    FillFaceCallbackBase* fillFaceCallback = currentTab->getFillFaceCallback( );
-    QColor fillColor = fillFaceCallback->getColor( );
-    if ( !fillColor.isValid( ) )
-    {
-        fillColor = ::Qt::black;
-    }
-
-    QPixmap fillColorPixmap( 16, 16 );
-    fillColorPixmap.fill( fillColor );
-    QIcon fillColorIcon( fillColorPixmap );
-    this->ui->actionFillColor->setIcon( fillColorIcon );
-}
+// void ArrangementDemoWindow::updateFillColorSwatch( )
+// {
+//     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+// 
+//     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
+//     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
+//     ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
+//     FillFaceCallbackBase* fillFaceCallback = currentTab->getFillFaceCallback( );
+//     QColor fillColor = fillFaceCallback->getColor( );
+//     if ( !fillColor.isValid( ) )
+//     {
+//         fillColor = ::Qt::black;
+//     }
+// 
+//     QPixmap fillColorPixmap( 16, 16 );
+//     fillColorPixmap.fill( fillColor );
+//     QIcon fillColorIcon( fillColorPixmap );
+//     this->ui->actionFillColor->setIcon( fillColorIcon );
+// }
 
 void ArrangementDemoWindow::openArrFile( QString filename )
 {
@@ -716,25 +716,25 @@ void ArrangementDemoWindow::on_actionPreferences_triggered( )
     }
 }
 
-void ArrangementDemoWindow::on_actionFillColor_triggered( )
-{
-    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
-
-    unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
-    if (currentTabIndex == static_cast<unsigned int>(-1))
-        return;
-    ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
-    FillFaceCallbackBase* fillFaceCallback = currentTab->getFillFaceCallback( );
-    
-    const QLabelItem* li;
-    if(li = QLabellingWidget::instance()->findActiveLabelItem()){
-        fillFaceCallback->setColor( li->labelColor() );
-        this->updateFillColorSwatch( );
-    }
-    else{
-        QLabellingLogWidget::instance()->logDebug( tr("Unable to find an active label : please select one !") );
-    }
-}
+// void ArrangementDemoWindow::on_actionFillColor_triggered( )
+// {
+//     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+// 
+//     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
+//     if (currentTabIndex == static_cast<unsigned int>(-1))
+//         return;
+//     ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
+//     FillFaceCallbackBase* fillFaceCallback = currentTab->getFillFaceCallback( );
+//     
+//     const QLabelItem* li;
+//     if(li = QLabellingWidget::instance()->findActiveLabelItem()){
+//         fillFaceCallback->setColor( li->labelColor() );
+//         this->updateFillColorSwatch( );
+//     }
+//     else{
+//         QLabellingLogWidget::instance()->logDebug( tr("Unable to find an active label : please select one !") );
+//     }
+// }
 
 bool ArrangementDemoWindow::on_actionOpenImage_triggered()
 {
@@ -846,7 +846,7 @@ void ArrangementDemoWindow::updateToolBarButtonsEnable(bool enable)
     ui->actionMerge->setEnabled(enable);
     ui->actionSplit->setEnabled(enable);
     ui->actionFill->setEnabled(enable);
-    ui->actionFillColor->setEnabled(enable);
+//     ui->actionFillColor->setEnabled(enable);
     ui->actionDrag->setEnabled(enable);
     ui->actionZoomIn->setEnabled(enable);
     ui->actionZoomOut->setEnabled(enable);
