@@ -85,6 +85,7 @@ add_executable( QDemoArrangement2 ${APPLICATION_TYPE}
                                   ${MOCS_ZOOMABLEGRAPHICSVIEW}
                                   ${MOCS_QGRAPHICSRECTWITHLABELITEM}
                                   ${UI_LOGWIDGET}
+                                  ${UI_LABELLINGWIDGET}
 								  ${ALL_QDEMOARRANGEMENT2_HPP}
 								  ${ALL_QDEMOARRANGEMENT2_CPP} )
 target_link_libraries( QDemoArrangement2 ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${QT_LIBRARIES} )
