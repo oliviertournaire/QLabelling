@@ -143,6 +143,7 @@ fillFace( QGraphicsSceneMouseEvent* event )
     if ( this->fillColor.isValid( ) )
     {
         f->set_color( this->fillColor );
+        f->set_label( QLabellingWidget::instance()->Color2Label(this->fillColor));
     }
 }
 

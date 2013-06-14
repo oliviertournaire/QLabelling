@@ -36,6 +36,7 @@ public:
 
     const QLabelItem* findActiveLabelItem() const;
     const QLabelItem* findLabelItemFromName(const QString &name) const;
+    const QString Color2Label(const QColor color) const;
 
 public slots:
     void on__toolButtonChooseLabelsPath_clicked(bool checked = false);

@@ -143,6 +143,14 @@ const QLabelItem* QLabellingWidget::findLabelItemFromName(const QString &name) c
     return NULL;
 }
 
+const QString QLabellingWidget::Color2Label(const QColor color) const
+{
+    for(unsigned int i=0;i<_labelItems.size();++i)
+        if ( _labelItems[i]->labelColor() == color )
+            return _labelItems[i]->labelName();
+    return "Unknown";
+}
+
 void QLabellingWidget::on__toolButtonChooseLabelsPath_clicked(bool checked)
 {
     _labelsPath = QFileDialog::getOpenFileName(this, tr("Open label file"), "", tr("Label Files (*.txt);;All files (*.*)"));
