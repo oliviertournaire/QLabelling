@@ -277,7 +277,7 @@
      <normaloff>:/QLabelling/edit-clear.png</normaloff>:/QLabelling/edit-clear.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Overlay...</string>
+    <string>&amp;Clean the arrangement</string>
    </property>
   </action>
   <action name="actionPreferences">
