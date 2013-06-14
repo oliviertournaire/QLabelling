@@ -897,8 +897,9 @@ void ArrangementDemoWindow::on_actionClean_triggered()
         // Suppression des antennes, et des HE en dehors de l'image
          // On a besoin de connaître la taille de l'image !
          QRect rectIm = this->getCurrentTab()->getView()->_imageToLabel.rect();
-        Pol_arr::Edge_iterator eit, enext = pol->edges_begin();
-        for (eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index){
+         
+        Pol_arr::Edge_iterator eit, enext;
+        for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index){
             // Antenna test
             if(eit->twin()->face() == eit->face()){
                 QLabellingLogWidget::instance()->logTrace(QString("Removing antenna halfedge " + QString::number(index) + "."));
@@ -926,12 +927,23 @@ void ArrangementDemoWindow::on_actionClean_triggered()
                 continue;
             }
         }
+        
+        // Labelling unbounded face
+        pol->unbounded_face()->set_label("Unbounded");
+        QLabellingLogWidget::instance()->logInfo("Unbounded : " + pol->unbounded_face()->label());
+            
+        for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index){
+            // Twin face has the same label ?
+            if(!eit->face()->is_unbounded() && eit->twin()->face()->label() == eit->face()->label()){
+                QLabellingLogWidget::instance()->logInfo(QString("Twin face has the same label ("+ eit->face()->color().name() + "="+ eit->face()->color().name() + ") : merging faces by removing halfedge " + QString::number(index) + "."));
+                pol->remove_edge(eit);
+                continue;
+            }
+        }
     }
     else{
         QLabellingLogWidget::instance()->logError("[Clean] Parsing arrangement failed...");
     }
-    
-    
 
     this->tabs[ tabIndex ]->getScene()->update( );
 }
