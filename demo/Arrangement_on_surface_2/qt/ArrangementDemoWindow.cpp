@@ -935,10 +935,12 @@ void ArrangementDemoWindow::on_actionClean_triggered()
         for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index){
             // Twin face has the same label ?
             if(!eit->face()->is_unbounded() && eit->twin()->face()->label() == eit->face()->label()){
-                QLabellingLogWidget::instance()->logInfo(QString("Twin face has the same label ("+ eit->face()->color().name() + "="+ eit->face()->color().name() + ") : merging faces by removing halfedge " + QString::number(index) + "."));
+                QLabellingLogWidget::instance()->logTrace(QString("Twin face has the same label (" + eit->face()->label() + ") : merging faces by removing halfedge " + QString::number(index) + "."));
                 pol->remove_edge(eit);
                 continue;
             }
+            
+            
         }
     }
     else{
