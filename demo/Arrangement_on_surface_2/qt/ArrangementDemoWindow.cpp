@@ -866,53 +866,73 @@ void ArrangementDemoWindow::updateToolBarButtonsEnable(bool enable)
     QLabellingWidget::instance()->setEnabledAllLabelButtons(enable);
 }
 
+
 // Clean the arrangement
 void ArrangementDemoWindow::on_actionClean_triggered()
 {
-    int index = this->ui->tabWidget->currentIndex( );
-    if ( index == -1 )
+    int tabIndex = this->ui->tabWidget->currentIndex( );
+    if ( tabIndex == -1 )
     {
         QMessageBox::information( this, "Oops", "Create a new tab first" );
         return;
     }
     
-    CGAL::Object arr = this->arrangements[ index ];
+    CGAL::Object arr = this->arrangements[ tabIndex ];
     Pol_arr* pol;
     
+    if ( CGAL::assign( pol, arr ) )
+    {
+        int index;
+        
+        // Suppression des vertices isolés
+        Pol_arr::Vertex_iterator vit, vnext = pol->vertices_begin();
+        for (vit = vnext++, index=0 ; vit != pol->vertices_end(); vit = vnext++, ++index){
+            if(vit->is_isolated()){ // This should theorically never happen
+                QLabellingLogWidget::instance()->logTrace(QString("Removing isolated vertex " + QString::number(index) + "."));
+                pol->remove_isolated_vertex(vit);
+                continue;
+            }
+        }
+        
+        // Suppression des antennes, et des HE en dehors de l'image
+         // On a besoin de connaître la taille de l'image !
+         QRect rectIm = this->getCurrentTab()->getView()->_imageToLabel.rect();
+        Pol_arr::Edge_iterator eit, enext = pol->edges_begin();
+        for (eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index){
+            // Antenna test
+            if(eit->twin()->face() == eit->face()){
+                QLabellingLogWidget::instance()->logTrace(QString("Removing antenna halfedge " + QString::number(index) + "."));
+                pol->remove_edge(eit);
+                continue;
+            }
+            
+            // Source or target out-of-pixmap ?
+            if(CGAL::to_double(eit->source()->point().x()) < rectIm.left()
+            || CGAL::to_double(eit->source()->point().x()) > rectIm.right()+1
+            || CGAL::to_double(eit->source()->point().y()) > rectIm.bottom()+1
+            || CGAL::to_double(eit->source()->point().y()) < rectIm.top() )
+            {
+                QLabellingLogWidget::instance()->logTrace(QString("Source out-of-pixmap : removing halfedge " + QString::number(index) + "."));
+                pol->remove_edge(eit);
+                continue;
+            }
+            if(CGAL::to_double(eit->target()->point().x()) < rectIm.left()
+            || CGAL::to_double(eit->target()->point().x()) > rectIm.right()+1
+            || CGAL::to_double(eit->target()->point().y()) > rectIm.bottom()+1
+            || CGAL::to_double(eit->target()->point().y()) < rectIm.top() )
+            {
+                QLabellingLogWidget::instance()->logTrace(QString("Target out-of-pixmap : removing halfedge " + QString::number(index) + "."));
+                pol->remove_edge(eit);
+                continue;
+            }
+        }
+    }
+    else{
+        QLabellingLogWidget::instance()->logError("[Clean] Parsing arrangement failed...");
+    }
     
     
-//     if ( CGAL::assign( pol, arr ) )
-//     {
-//         pol->clear( );
-// 
-//         std::vector<Arr_pol_point_2> points;
-// 
-//         unsigned int num_polylines;
-//         inputFile >> num_polylines;
-//         std::list<Arr_pol_2> pol_list;
-// 
-//         unsigned int i;
-//         for (i = 0; i < num_polylines; i++)
-//         {
-//             unsigned int num_segments;
-//             inputFile >> num_segments;
-//             points.clear();
-//             unsigned int j;
-//             for (j = 0; j < num_segments; j++)
-//             {
-//                 int ix, iy;
-//                 inputFile >> ix >> iy;
-//                 points.push_back (Arr_pol_point_2(CGAL::to_double(ix),CGAL::to_double(iy)));
-//             }
-// 
-//             Arr_pol_2 curve (points.begin(), points.end());
-//             pol_list.push_back(curve);
-//         }
-//         CGAL::insert(*pol, pol_list.begin(), pol_list.end());
-// 
-//         typedef ArrangementDemoTab< Pol_arr > TabType;
-//         TabType* tab = static_cast< TabType* >( this->tabs[ index ] );
-//         tab->setArrangement( pol );
-//     }
 
+    this->tabs[ tabIndex ]->getScene()->update( );
 }
+
