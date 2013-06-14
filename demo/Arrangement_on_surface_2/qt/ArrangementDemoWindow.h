@@ -75,6 +75,7 @@ public slots:
     void on_actionQuit_triggered( );
     void on_tabWidget_currentChanged( );
     void on_actionOverlay_triggered( );
+    void on_actionClean_triggered( );
     void on_actionCloseTab_triggered( );
     void on_actionZoomIn_triggered( );
     void on_actionZoomOut_triggered( );

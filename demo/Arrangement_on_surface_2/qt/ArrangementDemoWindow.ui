@@ -48,6 +48,8 @@
    <addaction name="actionInsert_vertical_line"/>
    <addaction name="actionDelete"/>
    <addaction name="separator"/>
+   <addaction name="actionClean"/>
+   <addaction name="separator"/>
    <addaction name="actionPointLocation"/>
    <addaction name="actionMerge"/>
    <addaction name="actionSplit"/>
@@ -111,6 +113,7 @@
      <string>T&amp;ools</string>
     </property>
     <addaction name="actionOverlay"/>
+    <addaction name="actionClean"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
@@ -263,6 +266,15 @@
    <property name="icon">
     <iconset resource="../rc/ArrangementDemoWindow.qrc">
      <normaloff>:/icons/arrangement_overlay.png</normaloff>:/icons/arrangement_overlay.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Overlay...</string>
+   </property>
+  </action>
+  <action name="actionClean">
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/QLabelling/edit-clear.png</normaloff>:/QLabelling/edit-clear.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Overlay...</string>

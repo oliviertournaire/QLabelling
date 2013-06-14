@@ -860,7 +860,59 @@ void ArrangementDemoWindow::updateToolBarButtonsEnable(bool enable)
     ui->actionZoomOut->setEnabled(enable);
     ui->actionSnapMode->setEnabled(enable);
     ui->actionGridSnapMode->setEnabled(enable);
+    ui->actionClean->setEnabled(enable);
     
     // Enabling/Disabling the label list too
     QLabellingWidget::instance()->setEnabledAllLabelButtons(enable);
+}
+
+// Clean the arrangement
+void ArrangementDemoWindow::on_actionClean_triggered()
+{
+    int index = this->ui->tabWidget->currentIndex( );
+    if ( index == -1 )
+    {
+        QMessageBox::information( this, "Oops", "Create a new tab first" );
+        return;
+    }
+    
+    CGAL::Object arr = this->arrangements[ index ];
+    Pol_arr* pol;
+    
+    
+    
+//     if ( CGAL::assign( pol, arr ) )
+//     {
+//         pol->clear( );
+// 
+//         std::vector<Arr_pol_point_2> points;
+// 
+//         unsigned int num_polylines;
+//         inputFile >> num_polylines;
+//         std::list<Arr_pol_2> pol_list;
+// 
+//         unsigned int i;
+//         for (i = 0; i < num_polylines; i++)
+//         {
+//             unsigned int num_segments;
+//             inputFile >> num_segments;
+//             points.clear();
+//             unsigned int j;
+//             for (j = 0; j < num_segments; j++)
+//             {
+//                 int ix, iy;
+//                 inputFile >> ix >> iy;
+//                 points.push_back (Arr_pol_point_2(CGAL::to_double(ix),CGAL::to_double(iy)));
+//             }
+// 
+//             Arr_pol_2 curve (points.begin(), points.end());
+//             pol_list.push_back(curve);
+//         }
+//         CGAL::insert(*pol, pol_list.begin(), pol_list.end());
+// 
+//         typedef ArrangementDemoTab< Pol_arr > TabType;
+//         TabType* tab = static_cast< TabType* >( this->tabs[ index ] );
+//         tab->setArrangement( pol );
+//     }
+
 }
