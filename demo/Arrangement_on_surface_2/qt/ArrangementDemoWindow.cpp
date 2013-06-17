@@ -754,6 +754,9 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
     }
 
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
+    
+    if(getCurrentTab()->_imageHasBeenLoaded)
+        QMessageBox::warning( this, "Warning", "There is already a loaded image, be sure of what you do." );
 
     settings.beginGroup("QLabellingMainWindow");
     QString defaultDirectory = settings.value("defaultDirectory", "").toString();
@@ -771,8 +774,11 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         if(tabView->_imageToLabel.isNull())
         {
             _loggerWidget->logError( tr("Unable to open image ") + fileName );
-            getCurrentTab()->_imageHasBeenLoaded = false;
-            updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+//          If an image has already been loaded, it hasn't been "unloaded" so _imageHasBeenLoaded should remain "true", otherwise _imageHasBeenLoaded is already false...
+//          getCurrentTab()->_imageHasBeenLoaded = false;
+            
+            if(!getCurrentTab()->_imageHasBeenLoaded)
+                updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
             return false;
         }
         tabView->_imageToLabelFilename = fileName;
@@ -803,8 +809,10 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         if (TabIndex == static_cast<unsigned int>(-1))
         {
             QLabellingLogWidget::instance()->logError( tr("Unable to add an image : there is no open tab !") );
-            getCurrentTab()->_imageHasBeenLoaded = false;
-            updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+//             IDEM
+//             getCurrentTab()->_imageHasBeenLoaded = false;
+            if(!getCurrentTab()->_imageHasBeenLoaded)
+                updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
             return false;
         }
         ArrangementDemoTabBase* activeTab = this->tabs[ TabIndex ];
@@ -833,8 +841,9 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
     }
     else
     {
-        getCurrentTab()->_imageHasBeenLoaded = false;
-        updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+//         getCurrentTab()->_imageHasBeenLoaded = false;
+        if(!getCurrentTab()->_imageHasBeenLoaded)
+            updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
         return false;
     }
     settings.endGroup();
