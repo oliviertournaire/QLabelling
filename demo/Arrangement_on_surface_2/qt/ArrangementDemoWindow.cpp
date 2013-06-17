@@ -140,9 +140,12 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
     this->updateMode( this->modeGroup->checkedAction( ) );
 //     this->updateFillColorSwatch( );
 
-    if(!demoTab->_imageHasBeenLoaded)
+    if(!demoTab->_imageHasBeenLoaded){
         QLabellingLogWidget::instance()->logWarning( tr("Before being able to edit the label arrangement, you must open an image!!!") );
+        updateMode( this->ui->actionDrag );
+    }
 
+    
     return demoTab;
 }
 
@@ -207,7 +210,7 @@ void ArrangementDemoWindow::setupUi( )
     this->modeGroup->addAction( this->ui->actionMerge );
     this->modeGroup->addAction( this->ui->actionSplit );
     this->modeGroup->addAction( this->ui->actionFill );
-    this->activeModes.push_back( this->ui->actionInsert );
+    this->activeModes.push_back( this->ui->actionDrag );
 
     this->snapGroup = new QActionGroup( this );
     this->snapGroup->addAction( this->ui->actionSnapMode );
@@ -864,6 +867,9 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
 
     getCurrentTab()->_imageHasBeenLoaded = true;
     updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+    updateMode( this->ui->actionInsert );
+    
+    
     return getCurrentTab()->_imageHasBeenLoaded;
 }
 
