@@ -656,7 +656,7 @@ void ArrangementDemoWindow::on_actionCloseTab_triggered( )
     if (! this->ui->tabWidget->count() || (currentTabIndex == static_cast<unsigned int>(-1)))
         return;
     
-    if(! getCurrentTab()->_arrHasBeenSaved and ! getCurrentTab()->_labelsHaveBeenSaved){ // If labels have already been saved, do not complain
+    if(! getCurrentTab()->_arrHasBeenSaved && ! getCurrentTab()->_labelsHaveBeenSaved){ // If labels have already been saved, do not complain
         if(QMessageBox::question(this, "Arrangement not saved", "The current arrangement has not been saved, do you really want to close this tab ?",QMessageBox::Yes, QMessageBox::Cancel) != QMessageBox::Yes){
             QLabellingLogWidget::instance()->logInfo( "Closing tab aborted" );
             return;
