@@ -930,7 +930,6 @@ void ArrangementDemoWindow::on_actionClean_triggered()
         
         // Labelling unbounded face
         pol->unbounded_face()->set_label("Unbounded");
-        QLabellingLogWidget::instance()->logInfo("Unbounded : " + pol->unbounded_face()->label());
             
         for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index){
             // Twin face has the same label ?
@@ -939,7 +938,21 @@ void ArrangementDemoWindow::on_actionClean_triggered()
                 pol->remove_edge(eit);
                 continue;
             }
-            
+        }
+        
+        // Removing all vertices whose degree is 2 (with mergeable edges) - meaning removing all vertices which could be removed...
+        vnext = pol->vertices_begin();
+        for (vit = vnext++, index=0 ; vit != pol->vertices_end(); vit = vnext++, ++index){
+            if(vit->degree() == 2){
+                
+                Pol_arr::Halfedge_around_vertex_circulator first, curr;
+                first = curr = vit->incident_halfedges();
+                curr++;
+                if(pol->are_mergeable(first,curr)){
+                    QLabellingLogWidget::instance()->logTrace(QString("Merging edges."));   
+                    pol->merge_edge(first,curr);
+                }
+            }
             
         }
     }
