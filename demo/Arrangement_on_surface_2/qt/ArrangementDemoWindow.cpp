@@ -842,6 +842,11 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
             {
                 acic->processInput( CGAL::make_object(contour) );
             }
+            // Setting the right label to the newly created frame
+            for(Pol_arr::Face_iterator fit = arr->faces_begin() ; fit != arr->faces_end() ; fit++){
+                if(!fit->is_unbounded())
+                    fit->set_label("Undefined");
+            }
         }
         else
         {
@@ -926,6 +931,9 @@ void ArrangementDemoWindow::on_actionClean_triggered()
             }
         }
         
+        // Labelling unbounded face
+        pol->unbounded_face()->set_label("Unbounded");
+        
         // Suppression des antennes, et des HE en dehors de l'image
          // On a besoin de connaître la taille de l'image !
          QRect rectIm = this->getCurrentTab()->getView()->_imageToLabel.rect();
@@ -959,13 +967,10 @@ void ArrangementDemoWindow::on_actionClean_triggered()
                 continue;
             }
         }
-        
-        // Labelling unbounded face
-        pol->unbounded_face()->set_label("Unbounded");
             
         for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index){
             // Twin face has the same label ?
-            if(!eit->face()->is_unbounded() && eit->twin()->face()->label() == eit->face()->label()){
+            if(eit->twin()->face()->label() == eit->face()->label()){
                 QLabellingLogWidget::instance()->logTrace(QString("Twin face has the same label (" + eit->face()->label() + ") : merging faces by removing halfedge " + QString::number(index) + "."));
                 pol->remove_edge(eit);
                 continue;
