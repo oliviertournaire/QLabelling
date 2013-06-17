@@ -855,6 +855,9 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         tabView->sceneRect().setRect(-10 , -10, tabView->frameSize().width()+20,tabView->frameSize().height()+20);
         tabScene->sceneRect().getRect(&x1, &y1, &w, &h);
         _loggerWidget->logDebug( "SceneRect = " + QString::number(x1) + ":" + QString::number(y1) + " - " + QString::number(w) + ":" + QString::number(h) );
+        
+        
+//         this->ui->tabWidget->setTabText(TabIndex, fileName); 
     }
     else
     {
