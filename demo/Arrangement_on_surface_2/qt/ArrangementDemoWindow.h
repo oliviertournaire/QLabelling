@@ -70,6 +70,7 @@ public slots:
     void updateSnapping( QAction* a );
     void on_actionNewTab_triggered( );
     void on_actionSaveAs_triggered( );
+    void on_actionSaveProject_triggered( );
     void on_actionOpen_triggered( );
     bool on_actionOpenImage_triggered();
     void on_actionQuit_triggered( );

@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>project.png</file>
     <file>close_tab.png</file>
     <file>new_tab.png</file>
     <file>icons/arrangement_overlay.png</file>

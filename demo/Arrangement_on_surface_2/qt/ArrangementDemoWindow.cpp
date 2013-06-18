@@ -761,11 +761,31 @@ void ArrangementDemoWindow::on_actionPreferences_triggered( )
 //     }
 // }
 
+#include "SaveProjectDialog.h"
+void ArrangementDemoWindow::on_actionSaveProject_triggered()
+{
+    if(!getCurrentTab())
+    {
+        _loggerWidget->logWarning( tr("There is no open tab !") );
+        return;
+    }
+
+    ArrangementDemoGraphicsView* tabView = getCurrentTab()->getView();
+
+    SaveProjectDialog spd(tabView->imageToLabelFilename(), this);
+    if( spd.exec() )
+    {
+        // TODO: save the project
+    }
+}
+
+// TODO: This method really needs refactoring ...
 bool ArrangementDemoWindow::on_actionOpenImage_triggered()
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    if(!getCurrentTab()){
+    if(!getCurrentTab())
+    {
         _loggerWidget->logWarning( tr("There is no open tab !") );
         return false;
     }
@@ -862,9 +882,6 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         tabView->sceneRect().setRect(-10 , -10, tabView->frameSize().width()+20,tabView->frameSize().height()+20);
         tabScene->sceneRect().getRect(&x1, &y1, &w, &h);
         _loggerWidget->logDebug( "SceneRect = " + QString::number(x1) + ":" + QString::number(y1) + " - " + QString::number(w) + ":" + QString::number(h) );
-        
-        
-//         this->ui->tabWidget->setTabText(TabIndex, fileName); 
     }
     else
     {
@@ -878,7 +895,6 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
     getCurrentTab()->_imageHasBeenLoaded = true;
     updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
     updateMode( this->ui->actionInsert );
-    
     
     return getCurrentTab()->_imageHasBeenLoaded;
 }
