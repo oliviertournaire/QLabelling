@@ -127,9 +127,9 @@ protected:
 		pen.setColor( this->color );
 		lineItem->setPen( pen );
 		this->polylineGuide.push_back( lineItem );
-		if ( this->scene != NULL )
+		if ( this->_scene != NULL )
 		{
-		    this->scene->addItem( this->polylineGuide.back( ) );
+		    this->_scene->addItem( this->polylineGuide.back( ) );
 		}
 	    }
 	    else
@@ -144,9 +144,9 @@ protected:
 		    // Destruction de la Polyline courante
 		    for ( unsigned int i = 0; i < this->polylineGuide.size( ); ++i )
 		    {
-			if ( this->scene != NULL )
+			if ( this->_scene != NULL )
 			{
-			    this->scene->removeItem( this->polylineGuide[ i ] );
+			    this->_scene->removeItem( this->polylineGuide[ i ] );
 			}
 			delete this->polylineGuide[ i ];
 		    }
@@ -166,9 +166,9 @@ protected:
 		    pen.setColor( this->color );
 		    lineItem->setPen( pen );
 		    this->polylineGuide.push_back( lineItem ); // Ajout à l'objet Polyline de ce nouveau segment
-		    if ( this->scene != NULL )
+		    if ( this->_scene != NULL )
 		    {
-			this->scene->addItem( this->polylineGuide.back( ) ); // Ajout à la scène du dernier segment (celui qui vient d'être ajouté)
+			this->_scene->addItem( this->polylineGuide.back( ) ); // Ajout à la scène du dernier segment (celui qui vient d'être ajouté)
 		    }
 		}
 	    }
@@ -177,7 +177,7 @@ protected:
 	{ // Ligne horizontale
 	    QRect size_imagetolabel(0,0,1000,1000);
 	    
-	    QGraphicsScene* currentScene = this->scene;
+	    QGraphicsScene* currentScene = this->_scene;
 	    QList<QGraphicsItem*> allItems = currentScene->items();
 	    for(int i=0;i<allItems.count();++i){
 		if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
@@ -197,7 +197,7 @@ protected:
 	{ // Ligne verticale
 	    QRect size_imagetolabel(0,0,1000,1000);
 	    
-	    QGraphicsScene* currentScene = this->scene;
+	    QGraphicsScene* currentScene = this->_scene;
 	    QList<QGraphicsItem*> allItems = currentScene->items();
 	    for(int i=0;i<allItems.count();++i){
 		if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )

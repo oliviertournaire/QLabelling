@@ -656,7 +656,7 @@ void ArrangementDemoWindow::on_actionCloseTab_triggered( )
     if (! this->ui->tabWidget->count() || (currentTabIndex == static_cast<unsigned int>(-1)))
         return;
     
-    if(! getCurrentTab()->_arrHasBeenSaved and ! getCurrentTab()->_labelsHaveBeenSaved){ // If labels have already been saved, do not complain
+    if(! getCurrentTab()->_arrHasBeenSaved && ! getCurrentTab()->_labelsHaveBeenSaved){ // If labels have already been saved, do not complain
         if(QMessageBox::question(this, "Arrangement not saved", "The current arrangement has not been saved, do you really want to close this tab ?",QMessageBox::Yes, QMessageBox::Cancel) != QMessageBox::Yes){
             QLabellingLogWidget::instance()->logInfo( "Closing tab aborted" );
             return;
@@ -787,8 +787,9 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
 
         QGraphicsScene* tabScene = getCurrentTab()->getScene();
         ArrangementDemoGraphicsView* tabView = getCurrentTab()->getView();
-        tabView->_imageToLabel = QPixmap(fileName);
-        if(tabView->_imageToLabel.isNull())
+        QPixmap imagetolabel = QPixmap(fileName);
+        tabView->setImageToLabel( imagetolabel );
+        if(tabView->imageToLabel().isNull())
         {
             _loggerWidget->logError( tr("Unable to open image ") + fileName );
 //          If an image has already been loaded, it hasn't been "unloaded" so _imageHasBeenLoaded should remain "true", otherwise _imageHasBeenLoaded is already false...
@@ -798,12 +799,13 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
                 updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
             return false;
         }
-        tabView->_imageToLabelFilename = fileName;
-        tabScene->addPixmap(tabView->_imageToLabel);
-        Arr_pol_point_2 ptl( 0, 0),
-            pbl(0, tabView->_imageToLabel.height() ),
-            pbr(tabView->_imageToLabel.width(), tabView->_imageToLabel.height()),
-            ptr( tabView->_imageToLabel.width(), 0 );
+        tabView->setImageToLabelFilename( fileName );
+        tabView->setImageToLabelSize(imagetolabel.size());
+        tabScene->addPixmap(tabView->imageToLabel());
+        Arr_pol_point_2 ptl( 0, 0);
+        Arr_pol_point_2 pbl(0, tabView->imageToLabelHeight() );
+        Arr_pol_point_2 pbr(tabView->imageToLabelWidth(), tabView->imageToLabelHeight());
+        Arr_pol_point_2 ptr( tabView->imageToLabelWidth(), 0 );
 
         QString imageBoundaryMessage = tr("Image boundaries: ");
         imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptl.x())) + "," + QString::number(CGAL::to_double(ptl.y())) + ") / ";
@@ -856,7 +858,7 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         qreal x1, y1, w, h;
         tabScene->sceneRect().getRect(&x1, &y1, &w, &h);
         _loggerWidget->logDebug( "SceneRect = " + QString::number(x1) + ":" + QString::number(y1) + " - " + QString::number(w) + ":" + QString::number(h) );
-        tabView->ensureVisible(0,0,tabView->_imageToLabel.width(), tabView->_imageToLabel.height());
+        tabView->ensureVisible(0,0,tabView->imageToLabelWidth(), tabView->imageToLabelHeight());
         tabView->sceneRect().setRect(-10 , -10, tabView->frameSize().width()+20,tabView->frameSize().height()+20);
         tabScene->sceneRect().getRect(&x1, &y1, &w, &h);
         _loggerWidget->logDebug( "SceneRect = " + QString::number(x1) + ":" + QString::number(y1) + " - " + QString::number(w) + ":" + QString::number(h) );
@@ -923,8 +925,11 @@ void ArrangementDemoWindow::on_actionClean_triggered()
         
         // Suppression des vertices isolés
         Pol_arr::Vertex_iterator vit, vnext = pol->vertices_begin();
-        for (vit = vnext++, index=0 ; vit != pol->vertices_end(); vit = vnext++, ++index){
-            if(vit->is_isolated()){ // This should theorically never happen
+        for (vit = vnext++, index=0 ; vit != pol->vertices_end(); vit = vnext++, ++index)
+        {
+            // This should theorically never happen
+            if(vit->is_isolated())
+            {
                 QLabellingLogWidget::instance()->logTrace(QString("Removing isolated vertex " + QString::number(index) + "."));
                 pol->remove_isolated_vertex(vit);
                 continue;
@@ -936,12 +941,14 @@ void ArrangementDemoWindow::on_actionClean_triggered()
         
         // Suppression des antennes, et des HE en dehors de l'image
          // On a besoin de connaître la taille de l'image !
-         QRect rectIm = this->getCurrentTab()->getView()->_imageToLabel.rect();
+         QRect rectIm = this->getCurrentTab()->getView()->imageToLabel().rect();
          
         Pol_arr::Edge_iterator eit, enext;
-        for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index){
+        for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index)
+        {
             // Antenna test
-            if(eit->twin()->face() == eit->face()){
+            if(eit->twin()->face() == eit->face())
+            {
                 QLabellingLogWidget::instance()->logTrace(QString("Removing antenna halfedge " + QString::number(index) + "."));
                 pol->remove_edge(eit);
                 continue;
@@ -968,7 +975,8 @@ void ArrangementDemoWindow::on_actionClean_triggered()
             }
         }
             
-        for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index){
+        for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index)
+        {
             // Twin face has the same label ?
             if(eit->twin()->face()->label() == eit->face()->label()){
                 QLabellingLogWidget::instance()->logTrace(QString("Twin face has the same label (" + eit->face()->label() + ") : merging faces by removing halfedge " + QString::number(index) + "."));
@@ -979,13 +987,15 @@ void ArrangementDemoWindow::on_actionClean_triggered()
         
         // Removing all vertices whose degree is 2 (with mergeable edges) - meaning removing all vertices which could be removed...
         vnext = pol->vertices_begin();
-        for (vit = vnext++, index=0 ; vit != pol->vertices_end(); vit = vnext++, ++index){
-            if(vit->degree() == 2){
-                
+        for (vit = vnext++, index=0 ; vit != pol->vertices_end(); vit = vnext++, ++index)
+        {
+            if(vit->degree() == 2)
+            {
                 Pol_arr::Halfedge_around_vertex_circulator first, curr;
                 first = curr = vit->incident_halfedges();
                 curr++;
-                if(pol->are_mergeable(first,curr)){
+                if(pol->are_mergeable(first,curr))
+                {
                     QLabellingLogWidget::instance()->logTrace(QString("Merging edges."));   
                     pol->merge_edge(first,curr);
                 }
@@ -993,7 +1003,8 @@ void ArrangementDemoWindow::on_actionClean_triggered()
             
         }
     }
-    else{
+    else
+    {
         QLabellingLogWidget::instance()->logError("[Clean] Parsing arrangement failed...");
     }
 
