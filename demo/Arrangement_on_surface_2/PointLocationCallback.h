@@ -91,7 +91,7 @@ protected:
     CGAL::Object locate( const Kernel_point_2& point,
                          CGAL::Tag_true /*doesNotSupportLandmarks*/ );
 
-    using Callback::scene;
+    using Callback::_scene;
     CGAL::Qt::Converter< Kernel > convert;
     CGAL::Object pointLocationStrategy;
     Arrangement* arr;
@@ -113,43 +113,35 @@ PointLocationCallback( Arrangement* arr_, QObject* parent_ ) :
 }
 
 template < typename Arr_ >
-void
-PointLocationCallback< Arr_ >::
-setScene( QGraphicsScene* scene_ )
+void PointLocationCallback< Arr_ >::setScene( QGraphicsScene* scene_ )
 {
-    this->scene = scene_;
+    this->_scene = scene_;
     this->highlightedCurves->setScene( scene_ );
-    if ( this->scene )
+    if ( this->_scene )
     {
-        this->scene->addItem( this->highlightedCurves );
+        this->_scene->addItem( this->highlightedCurves );
     }
 }
 
 template < typename Arr_ >
-void
-PointLocationCallback< Arr_ >::
-reset( )
+void PointLocationCallback< Arr_ >::reset( )
 {
     this->highlightedCurves->clear( );
     emit modelChanged( );
 }
 
 template < typename Arr_ >
-void 
-PointLocationCallback< Arr_ >::
-mousePressEvent( QGraphicsSceneMouseEvent* event )
+void PointLocationCallback< Arr_ >::mousePressEvent( QGraphicsSceneMouseEvent* event )
 {
     this->highlightPointLocation( event );
 }
 
 template < typename Arr_ >
-void PointLocationCallback< Arr_ >::
-mouseMoveEvent(QGraphicsSceneMouseEvent* /* event */)
+void PointLocationCallback< Arr_ >::mouseMoveEvent(QGraphicsSceneMouseEvent* /* event */)
 { }
 
 template < typename Arr_ >
-void PointLocationCallback< Arr_ >::
-highlightPointLocation( QGraphicsSceneMouseEvent* event )
+void PointLocationCallback< Arr_ >::highlightPointLocation( QGraphicsSceneMouseEvent* event )
 {
     typename Traits::Left_side_category category;
     this->highlightPointLocation( event, category );
@@ -158,9 +150,7 @@ highlightPointLocation( QGraphicsSceneMouseEvent* event )
 }
 
 template < typename Arr_ >
-void PointLocationCallback< Arr_ >::
-highlightPointLocation( QGraphicsSceneMouseEvent *event,
-                        CGAL::Arr_oblivious_side_tag )
+void PointLocationCallback< Arr_ >::highlightPointLocation( QGraphicsSceneMouseEvent *event, CGAL::Arr_oblivious_side_tag )
 {
     Kernel_point_2 point = this->convert( event->scenePos( ) );
 
@@ -192,9 +182,7 @@ highlightPointLocation( QGraphicsSceneMouseEvent *event,
 }
 
 template < typename Arr_ >
-void PointLocationCallback< Arr_ >::
-highlightPointLocation( QGraphicsSceneMouseEvent *event,
-                        CGAL::Arr_open_side_tag )
+void PointLocationCallback< Arr_ >::highlightPointLocation( QGraphicsSceneMouseEvent *event, CGAL::Arr_open_side_tag )
 {
     Kernel_point_2 point = this->convert( event->scenePos( ) );
     CGAL::Object pointLocationResult = this->locate( point );
@@ -225,8 +213,7 @@ highlightPointLocation( QGraphicsSceneMouseEvent *event,
 }
 
 template < typename Arr_ >
-typename PointLocationCallback< Arr_ >::Face_const_handle
-PointLocationCallback< Arr_ >::getFace( const CGAL::Object& obj )
+typename PointLocationCallback< Arr_ >::Face_const_handle PointLocationCallback< Arr_ >::getFace( const CGAL::Object& obj )
 {
     Face_const_handle f;
     if ( CGAL::assign( f, obj ) )
@@ -253,8 +240,7 @@ CGAL::Object PointLocationCallback<Arr_>::locate(const Kernel_point_2& point)
 }
 
 template < typename Arr_ >
-CGAL::Object PointLocationCallback< Arr_ >::locate( const Kernel_point_2& pt,
-                                                    CGAL::Tag_true )
+CGAL::Object PointLocationCallback< Arr_ >::locate( const Kernel_point_2& pt, CGAL::Tag_true )
 {
     CGAL::Object pointLocationResult;
     Walk_pl_strategy* walkStrategy;
@@ -274,8 +260,7 @@ CGAL::Object PointLocationCallback< Arr_ >::locate( const Kernel_point_2& pt,
 }
 
 template < typename Arr_ >
-CGAL::Object PointLocationCallback< Arr_ >::locate( const Kernel_point_2& pt,
-                                                    CGAL::Tag_false )
+CGAL::Object PointLocationCallback< Arr_ >::locate( const Kernel_point_2& pt, CGAL::Tag_false )
 {
     CGAL::Object pointLocationResult;
     Walk_pl_strategy* walkStrategy;

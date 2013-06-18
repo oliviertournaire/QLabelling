@@ -104,36 +104,27 @@ void ArrangementDemoPropertiesDialog::updateUi( )
     }
     CGAL::Qt::ArrangementGraphicsItemBase* agi = currentTab->getArrangementGraphicsItem( );
     if ( agi == NULL )
-    {
         return;
-    }
 
     ArrangementDemoGraphicsView* view = currentTab->getView( );
-    QPen vertexPen = agi->getVerticesPen( );
-    QPen edgePen = agi->getEdgesPen( );
-    QBrush vertexPenBrush = vertexPen.brush( );
-    QBrush edgePenBrush = edgePen.brush( );
-    QColor vertexColor = vertexPenBrush.color( );
-    QColor edgeColor = edgePenBrush.color( );
-    unsigned int edgeWidth = edgePen.width( );
+    QPen vertexPen            = agi->verticesPen( );
+    QPen edgePen              = agi->edgesPen( );
+    QBrush vertexPenBrush     = vertexPen.brush( );
+    QBrush edgePenBrush       = edgePen.brush( );
+    QColor vertexColor        = vertexPenBrush.color( );
+    QColor edgeColor          = edgePenBrush.color( );
+    unsigned int edgeWidth    = edgePen.width( );
     unsigned int vertexRadius = vertexPen.width( );
-    unsigned int gridSize = view->getGridSize( );
-    QColor gridColor = view->getGridColor( );
+    unsigned int gridSize     = view->gridSize();
+    QColor gridColor          = view->gridColor();
     
-    QTableWidgetItem* edgeColorItem =
-            this->ui->tableWidget->item( int(EDGE_COLOR_KEY), 0 );
-    QTableWidgetItem* edgeWidthItem =
-            this->ui->tableWidget->item( int(EDGE_WIDTH_KEY), 0 );
-    QTableWidgetItem* vertexColorItem =
-            this->ui->tableWidget->item( int(VERTEX_COLOR_KEY), 0 );
-    QTableWidgetItem* vertexRadiusItem =
-            this->ui->tableWidget->item( int(VERTEX_RADIUS_KEY), 0 );
-    QTableWidgetItem* deleteCurveModeItem =
-            this->ui->tableWidget->item( int(DELETE_CURVE_MODE_KEY), 0 );
-    QTableWidgetItem* gridSizeItem =
-            this->ui->tableWidget->item( int( GRID_SIZE_KEY ), 0 );
-    QTableWidgetItem* gridColorItem =
-            this->ui->tableWidget->item( int( GRID_COLOR_KEY ), 0 );
+    QTableWidgetItem* edgeColorItem       = this->ui->tableWidget->item( int(EDGE_COLOR_KEY), 0 );
+    QTableWidgetItem* edgeWidthItem       = this->ui->tableWidget->item( int(EDGE_WIDTH_KEY), 0 );
+    QTableWidgetItem* vertexColorItem     = this->ui->tableWidget->item( int(VERTEX_COLOR_KEY), 0 );
+    QTableWidgetItem* vertexRadiusItem    = this->ui->tableWidget->item( int(VERTEX_RADIUS_KEY), 0 );
+    QTableWidgetItem* deleteCurveModeItem = this->ui->tableWidget->item( int(DELETE_CURVE_MODE_KEY), 0 );
+    QTableWidgetItem* gridSizeItem        = this->ui->tableWidget->item( int( GRID_SIZE_KEY ), 0 );
+    QTableWidgetItem* gridColorItem       = this->ui->tableWidget->item( int( GRID_COLOR_KEY ), 0 );
 
     // arrangement properties
     edgeColorItem->setData( Qt::DisplayRole, edgeColor );
@@ -150,16 +141,12 @@ void ArrangementDemoPropertiesDialog::updateUi( )
 
     // delete curve properties
     DeleteCurveMode deleteCurveMode;
-    deleteCurveModeItem->setData( Qt::DisplayRole,
-                                  DeleteCurveMode::ToString( deleteCurveMode ) );
-    deleteCurveModeItem->setData( Qt::UserRole,
-                                  QVariant::fromValue( deleteCurveMode ) );
+    deleteCurveModeItem->setData( Qt::DisplayRole, DeleteCurveMode::ToString( deleteCurveMode ) );
+    deleteCurveModeItem->setData( Qt::UserRole, QVariant::fromValue( deleteCurveMode ) );
 
     // grid properties
     gridSizeItem->setData( Qt::DisplayRole, gridSize );
-
     gridColorItem->setData( Qt::DisplayRole, gridColor );
     gridColorItem->setData( Qt::DecorationRole, gridColor );
     gridColorItem->setData( Qt::UserRole, QVariant::fromValue( gridColor ) );
-
 }

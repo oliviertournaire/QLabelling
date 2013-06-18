@@ -25,75 +25,32 @@
 
 ArrangementDemoGraphicsView::ArrangementDemoGraphicsView( QWidget* parent ) :
     QGraphicsView( parent ),
-    showGrid( false ),
-    gridSize( 50 ),
-    gridColor( ::Qt::black ),
-    backgroundColor( ::Qt::white )
+    _showGrid( false ),
+    _gridSize( 50 ),
+    _gridColor( ::Qt::black ),
+    _backgroundColor( ::Qt::white )
 {
     QMatrix m( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
     this->setMatrix( m );
-    this->setBackgroundBrush( QBrush( backgroundColor ) );
+    this->setBackgroundBrush( QBrush( _backgroundColor ) );
 //     this->setAlignment(Qt::AlignCenter); Useless
 }
 
-void ArrangementDemoGraphicsView::setShowGrid( bool b )
+void ArrangementDemoGraphicsView::drawForeground( QPainter* painter, const QRectF& rect )
 {
-    this->showGrid = b;
-}
-
-bool ArrangementDemoGraphicsView::getShowGrid( ) const
-{
-    return this->showGrid;
-}
-
-void ArrangementDemoGraphicsView::setGridSize( int size )
-{
-    this->gridSize = size;
-}
-
-int ArrangementDemoGraphicsView::getGridSize( ) const
-{
-    return this->gridSize;
-}
-
-void ArrangementDemoGraphicsView::setGridColor( QColor color )
-{
-    this->gridColor = color;
-}
-
-QColor ArrangementDemoGraphicsView::getGridColor( ) const
-{
-    return this->gridColor;
-}
-
-void ArrangementDemoGraphicsView::setBackgroundColor( QColor color )
-{
-    this->backgroundColor = color;
-}
-
-QColor ArrangementDemoGraphicsView::getBackgroundColor( ) const
-{
-    return this->backgroundColor;
-}
-
-void ArrangementDemoGraphicsView::drawForeground( QPainter* painter,
-                                                  const QRectF& rect )
-{
-    QRectF viewportRect = this->getViewportRect( );
-    if ( this->showGrid )
+    QRectF viewportRect = this->getViewportRect();
+    if ( this->_showGrid )
     {
         // compute integer-spaced grid lines
         QVarLengthArray< QLineF, 100 > linesX;
         QVarLengthArray< QLineF, 100 > linesY;
-        qreal left =
-                int(viewportRect.left()) - (int(viewportRect.left()) % this->gridSize);
-        qreal top =
-                int(viewportRect.top()) - (int(viewportRect.top()) % this->gridSize);
-        for ( qreal x = left; x < viewportRect.right( ); x += this->gridSize )
+        qreal left = int(viewportRect.left()) - (int(viewportRect.left()) % this->_gridSize);
+        qreal top = int(viewportRect.top()) - (int(viewportRect.top()) % this->_gridSize);
+        for ( qreal x = left; x < viewportRect.right( ); x += this->_gridSize )
         {
             linesX.append( QLineF(x, viewportRect.top(), x, viewportRect.bottom()));
         }
-        for ( qreal y = top; y < viewportRect.bottom( ); y += this->gridSize )
+        for ( qreal y = top; y < viewportRect.bottom( ); y += this->_gridSize )
         {
             linesY.append(QLineF(viewportRect.left( ), y, viewportRect.right(), y));
         }
@@ -101,7 +58,7 @@ void ArrangementDemoGraphicsView::drawForeground( QPainter* painter,
         // set up the painter
         QPen savePen = painter->pen( );
         QPen gridPen( savePen );
-        gridPen.setColor( this->gridColor );
+        gridPen.setColor( this->_gridColor );
         painter->setPen( gridPen );
 
         // draw the grid

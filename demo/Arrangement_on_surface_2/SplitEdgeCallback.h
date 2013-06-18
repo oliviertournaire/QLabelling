@@ -136,12 +136,12 @@ SplitEdgeCallback< Arr_ >::SplitEdgeCallback( Arrangement* arr_,
 template < typename Arr_ >
 void SplitEdgeCallback< Arr_ >::setScene( QGraphicsScene* scene_ )
 {
-    this->scene = scene_;
+    this->_scene = scene_;
     this->snapToVertexStrategy.setScene( scene_ );
     this->snapToGridStrategy.setScene( scene_ );
-    if ( this->scene )
+    if ( this->_scene )
     {
-        this->scene->addItem( &( this->segmentGuide ) );
+        this->_scene->addItem( &( this->segmentGuide ) );
     }
 }
 
