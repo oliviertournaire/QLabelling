@@ -113,8 +113,10 @@ public:
 	    new_f->set_color(f->color());
 	    new_f->set_label(f->label());
 	}
-	else
-	    QLabellingLogWidget::instance()->logTrace( "Splitting an unbounded face" );
+	else{
+            QLabellingLogWidget::instance()->logTrace( "Splitting an unbounded face : setting unbounded label." );
+            new_f->set_label("Unbounded"); // The frame will later be labelled "Undefinded" (when opening an image)
+        }
     }
 
     /// Issued just before a face f is split into two, as a result of the insertion of the edge e into the arrangement.
