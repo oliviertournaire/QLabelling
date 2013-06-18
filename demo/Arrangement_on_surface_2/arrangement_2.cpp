@@ -29,6 +29,10 @@ int main( int argc, char* argv[] )
 {
     QApplication app( argc, argv );
 
+#ifdef WIN32
+    app.addLibraryPath(qgetenv ("QTDIR")+"\\plugins");
+#endif
+
     ArrangementDemoWindow demoWindow;
     demoWindow.show( );
 

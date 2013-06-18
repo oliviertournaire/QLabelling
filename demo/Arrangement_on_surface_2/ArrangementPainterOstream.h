@@ -85,7 +85,7 @@ public:
 
     void setScene( QGraphicsScene* scene_ )
     {
-        this->scene = scene_;
+        this->_scene = scene_;
 
         // set the clipping rectangle
         if ( scene_ == NULL )

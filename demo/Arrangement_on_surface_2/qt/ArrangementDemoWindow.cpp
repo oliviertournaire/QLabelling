@@ -47,7 +47,7 @@
 #include "config.hpp"
 
 ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
-    CGAL::Qt::DemosMainWindow( parent ),
+CGAL::Qt::DemosMainWindow( parent ),
     lastTabIndex(static_cast<unsigned int>(-1)),
     ui( new Ui::ArrangementDemoWindow ),
     _loggerWidget(QLabellingLogWidget::instance()),
@@ -88,11 +88,11 @@ ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
 
     // set up callbacks
     QObject::connect( _labellingWidget, SIGNAL( labelChanged() ),
-                      this, SLOT( labelChanged() ) );
+        this, SLOT( labelChanged() ) );
     QObject::connect( this->modeGroup, SIGNAL( triggered( QAction* ) ),
-                      this, SLOT( updateMode( QAction* ) ) );
+        this, SLOT( updateMode( QAction* ) ) );
     QObject::connect( this->snapGroup, SIGNAL( triggered( QAction* ) ),
-                      this, SLOT( updateSnapping( QAction* ) ) );
+        this, SLOT( updateSnapping( QAction* ) ) );
 
     // disable arrangement edition
     updateToolBarButtonsEnable(false);
@@ -138,16 +138,19 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
     this->resetCallbackState( this->ui->tabWidget->currentIndex( ) );
     this->removeCallback( this->ui->tabWidget->currentIndex( ) );
     this->updateMode( this->modeGroup->checkedAction( ) );
-    //     this->updateFillColorSwatch( );
+//     this->updateFillColorSwatch( );
 
-    if(!demoTab->_imageHasBeenLoaded)
+    if(!demoTab->_imageHasBeenLoaded){
         QLabellingLogWidget::instance()->logWarning( tr("Before being able to edit the label arrangement, you must open an image!!!") );
+        updateMode( this->ui->actionDrag );
+    }
 
+    
     return demoTab;
 }
 
 ArrangementDemoTabBase* ArrangementDemoWindow::getTab( unsigned int tabIndex )
-const
+    const
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -207,7 +210,7 @@ void ArrangementDemoWindow::setupUi( )
     this->modeGroup->addAction( this->ui->actionMerge );
     this->modeGroup->addAction( this->ui->actionSplit );
     this->modeGroup->addAction( this->ui->actionFill );
-    this->activeModes.push_back( this->ui->actionInsert );
+    this->activeModes.push_back( this->ui->actionDrag );
 
     this->snapGroup = new QActionGroup( this );
     this->snapGroup->addAction( this->ui->actionSnapMode );
@@ -215,7 +218,7 @@ void ArrangementDemoWindow::setupUi( )
     this->snapGroup->setExclusive( false );
     this->ui->actionGridSnapMode->setEnabled( false );
 
-    //     this->updateFillColorSwatch( );
+//     this->updateFillColorSwatch( );
 }
 
 void ArrangementDemoWindow::updateMode( QAction* newMode )
@@ -242,19 +245,19 @@ void ArrangementDemoWindow::updateMode( QAction* newMode )
     // hook up the new active mode
     if ( newMode == this->ui->actionInsert )
     {
-        activeTab->getCurveInputCallback( )->mode = POLYLINE;
+	activeTab->getCurveInputCallback( )->mode = POLYLINE;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += "Insertion mode";
     }
     else if ( newMode == this->ui->actionInsert_horizontal_line  )
     {
-        activeTab->getCurveInputCallback( )->mode = HORIZONTAL;
+	activeTab->getCurveInputCallback( )->mode = HORIZONTAL;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += "Insertion (horizontal) mode";
     }
     else if ( newMode == this->ui->actionInsert_vertical_line )
     {
-        activeTab->getCurveInputCallback( )->mode = VERTICAL;
+	activeTab->getCurveInputCallback( )->mode = VERTICAL;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += "Insertion (vertical) mode";
     }
@@ -288,7 +291,7 @@ void ArrangementDemoWindow::updateMode( QAction* newMode )
         activeScene->installEventFilter( activeTab->getFillFaceCallback( ) );
         messageToLog += "Fill mode";
     }
-    //     this->updateFillColorSwatch( );
+//     this->updateFillColorSwatch( );
 
     _loggerWidget->logTrace(messageToLog);
 }
@@ -298,7 +301,7 @@ void ArrangementDemoWindow::resetCallbackState( unsigned int tabIndex )
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     if (tabIndex == static_cast<unsigned int>(-1)
-            || tabIndex >= this->tabs.size( )) return;
+        || tabIndex >= this->tabs.size( )) return;
 
     ArrangementDemoTabBase* activeTab = this->tabs[ tabIndex ];
 
@@ -399,7 +402,7 @@ void ArrangementDemoWindow::openArrFile( QString filename )
     {
         typedef CGAL::Arr_text_formatter< Pol_arr >         Pol_text_formatter;
         typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter>
-                ArrFormatter;
+            ArrFormatter;
         typedef ArrangementDemoTab< Pol_arr >               TabType;
 
         ArrFormatter arrFormatter;
@@ -479,7 +482,7 @@ void ArrangementDemoWindow::updateSnapping( QAction* newMode )
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     ArrangementDemoTabBase* activeTab =
-            this->tabs[ this->ui->tabWidget->currentIndex( ) ];
+        this->tabs[ this->ui->tabWidget->currentIndex( ) ];
     QGraphicsScene* activeScene = activeTab->getScene( );
     ArrangementDemoGraphicsView* activeView = activeTab->getView( );
 
@@ -527,7 +530,7 @@ void ArrangementDemoWindow::on_actionSaveAs_triggered( )
     {
         typedef CGAL::Arr_text_formatter<Pol_arr>           Pol_text_formatter;
         typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter>
-                ArrFormatter;
+            ArrFormatter;
         ArrFormatter                                        arrFormatter;
         CGAL::write( *pol, ofs, arrFormatter );
     }
@@ -565,14 +568,14 @@ void ArrangementDemoWindow::on_actionOpen_triggered( )
     //           << " " << bb.top( ) << std::endl;
 #ifndef _WINDOWS
     if ( std::isinf(bb.left( )) ||
-         std::isinf(bb.right( )) ||
-         std::isinf(bb.top( )) ||
-         std::isinf(bb.bottom( )) )
+        std::isinf(bb.right( )) ||
+        std::isinf(bb.top( )) ||
+        std::isinf(bb.bottom( )) )
 #else
     if ( boost::math::isinf(bb.left( )) ||
-         boost::math::isinf(bb.right( )) ||
-         boost::math::isinf(bb.top( )) ||
-         boost::math::isinf(bb.bottom( )) )
+        boost::math::isinf(bb.right( )) ||
+        boost::math::isinf(bb.top( )) ||
+        boost::math::isinf(bb.bottom( )) )
 #endif // _WINDOWS
     {
         // std::cout << "unbounded; using default bb" << std::endl;
@@ -609,7 +612,7 @@ void ArrangementDemoWindow::on_tabWidget_currentChanged( )
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     if(getCurrentTab())
-        updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+	updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
 
     // std::cout << "Tab changed" << std::endl;
     // disable the callback for the previously active tab
@@ -652,7 +655,21 @@ void ArrangementDemoWindow::on_actionCloseTab_triggered( )
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (! this->ui->tabWidget->count() || (currentTabIndex == static_cast<unsigned int>(-1)))
         return;
-
+    
+    if(! getCurrentTab()->_arrHasBeenSaved && ! getCurrentTab()->_labelsHaveBeenSaved){ // If labels have already been saved, do not complain
+        if(QMessageBox::question(this, "Arrangement not saved", "The current arrangement has not been saved, do you really want to close this tab ?",QMessageBox::Yes, QMessageBox::Cancel) != QMessageBox::Yes){
+            QLabellingLogWidget::instance()->logInfo( "Closing tab aborted" );
+            return;
+        }
+    }
+    
+    if(! getCurrentTab()->_labelsHaveBeenSaved){
+        if(QMessageBox::question(this, "Labels not saved", "The current labels set has not been saved, do you really want to close this tab ?",QMessageBox::Yes, QMessageBox::Cancel) != QMessageBox::Yes){
+            QLabellingLogWidget::instance()->logInfo( "Closing tab aborted" );
+            return;
+        }
+    }
+    
     // delete the tab
     this->ui->tabWidget->removeTab( currentTabIndex );
     this->tabs.erase( this->tabs.begin( ) + currentTabIndex );
@@ -701,7 +718,7 @@ void ArrangementDemoWindow::on_actionPreferences_triggered( )
     SplitEdgeCallbackBase* splitEdgeCallback = currentTab->getSplitEdgeCallback( );
 
     ArrangementDemoPropertiesDialog* dialog =
-            new ArrangementDemoPropertiesDialog( this );
+        new ArrangementDemoPropertiesDialog( this );
     if ( dialog->exec( ) == QDialog::Accepted )
     {
         typedef ArrangementDemoPropertiesDialog Dialog;
@@ -754,6 +771,9 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
     }
 
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
+    
+    if(getCurrentTab()->_imageHasBeenLoaded)
+        QMessageBox::warning( this, "Warning", "There is already a loaded image, be sure of what you do." );
 
     settings.beginGroup("QLabellingMainWindow");
     QString defaultDirectory = settings.value("defaultDirectory", "").toString();
@@ -767,20 +787,25 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
 
         QGraphicsScene* tabScene = getCurrentTab()->getScene();
         ArrangementDemoGraphicsView* tabView = getCurrentTab()->getView();
-        tabView->_imageToLabel = QPixmap(fileName);
-        if(tabView->_imageToLabel.isNull())
+        QPixmap imagetolabel = QPixmap(fileName);
+        tabView->setImageToLabel( imagetolabel );
+        if(tabView->imageToLabel().isNull())
         {
             _loggerWidget->logError( tr("Unable to open image ") + fileName );
-            getCurrentTab()->_imageHasBeenLoaded = false;
-            updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+//          If an image has already been loaded, it hasn't been "unloaded" so _imageHasBeenLoaded should remain "true", otherwise _imageHasBeenLoaded is already false...
+//          getCurrentTab()->_imageHasBeenLoaded = false;
+            
+            if(!getCurrentTab()->_imageHasBeenLoaded)
+                updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
             return false;
         }
-        tabView->_imageToLabelFilename = fileName;
-        tabScene->addPixmap(tabView->_imageToLabel);
-        Arr_pol_point_2 ptl( 0, 0),
-                pbl(0, tabView->_imageToLabel.height() ),
-                pbr(tabView->_imageToLabel.width(), tabView->_imageToLabel.height()),
-                ptr( tabView->_imageToLabel.width(), 0 );
+        tabView->setImageToLabelFilename( fileName );
+        tabView->setImageToLabelSize(imagetolabel.size());
+        tabScene->addPixmap(tabView->imageToLabel());
+        Arr_pol_point_2 ptl( 0, 0);
+        Arr_pol_point_2 pbl(0, tabView->imageToLabelHeight() );
+        Arr_pol_point_2 pbr(tabView->imageToLabelWidth(), tabView->imageToLabelHeight());
+        Arr_pol_point_2 ptr( tabView->imageToLabelWidth(), 0 );
 
         QString imageBoundaryMessage = tr("Image boundaries: ");
         imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptl.x())) + "," + QString::number(CGAL::to_double(ptl.y())) + ") / ";
@@ -803,8 +828,10 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         if (TabIndex == static_cast<unsigned int>(-1))
         {
             QLabellingLogWidget::instance()->logError( tr("Unable to add an image : there is no open tab !") );
-            getCurrentTab()->_imageHasBeenLoaded = false;
-            updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+//             IDEM
+//             getCurrentTab()->_imageHasBeenLoaded = false;
+            if(!getCurrentTab()->_imageHasBeenLoaded)
+                updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
             return false;
         }
         ArrangementDemoTabBase* activeTab = this->tabs[ TabIndex ];
@@ -817,6 +844,11 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
             {
                 acic->processInput( CGAL::make_object(contour) );
             }
+            // Setting the right label to the newly created frame
+            for(Pol_arr::Face_iterator fit = arr->faces_begin() ; fit != arr->faces_end() ; fit++){
+                if(!fit->is_unbounded())
+                    fit->set_label("Undefined");
+            }
         }
         else
         {
@@ -826,21 +858,28 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         qreal x1, y1, w, h;
         tabScene->sceneRect().getRect(&x1, &y1, &w, &h);
         _loggerWidget->logDebug( "SceneRect = " + QString::number(x1) + ":" + QString::number(y1) + " - " + QString::number(w) + ":" + QString::number(h) );
-        tabView->ensureVisible(0,0,tabView->_imageToLabel.width(), tabView->_imageToLabel.height());
+        tabView->ensureVisible(0,0,tabView->imageToLabelWidth(), tabView->imageToLabelHeight());
         tabView->sceneRect().setRect(-10 , -10, tabView->frameSize().width()+20,tabView->frameSize().height()+20);
         tabScene->sceneRect().getRect(&x1, &y1, &w, &h);
         _loggerWidget->logDebug( "SceneRect = " + QString::number(x1) + ":" + QString::number(y1) + " - " + QString::number(w) + ":" + QString::number(h) );
+        
+        
+//         this->ui->tabWidget->setTabText(TabIndex, fileName); 
     }
     else
     {
-        getCurrentTab()->_imageHasBeenLoaded = false;
-        updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+//         getCurrentTab()->_imageHasBeenLoaded = false;
+        if(!getCurrentTab()->_imageHasBeenLoaded)
+            updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
         return false;
     }
     settings.endGroup();
 
     getCurrentTab()->_imageHasBeenLoaded = true;
     updateToolBarButtonsEnable(getCurrentTab()->_imageHasBeenLoaded);
+    updateMode( this->ui->actionInsert );
+    
+    
     return getCurrentTab()->_imageHasBeenLoaded;
 }
 
@@ -854,7 +893,7 @@ void ArrangementDemoWindow::updateToolBarButtonsEnable(bool enable)
     ui->actionMerge->setEnabled(enable);
     ui->actionSplit->setEnabled(enable);
     ui->actionFill->setEnabled(enable);
-    //     ui->actionFillColor->setEnabled(enable);
+//     ui->actionFillColor->setEnabled(enable);
     ui->actionDrag->setEnabled(enable);
     ui->actionZoomIn->setEnabled(enable);
     ui->actionZoomOut->setEnabled(enable);
@@ -888,18 +927,22 @@ void ArrangementDemoWindow::on_actionClean_triggered()
         Pol_arr::Vertex_iterator vit, vnext = pol->vertices_begin();
         for (vit = vnext++, index=0 ; vit != pol->vertices_end(); vit = vnext++, ++index)
         {
+            // This should theorically never happen
             if(vit->is_isolated())
-            { // This should theorically never happen
+            {
                 QLabellingLogWidget::instance()->logTrace(QString("Removing isolated vertex " + QString::number(index) + "."));
                 pol->remove_isolated_vertex(vit);
                 continue;
             }
         }
         
+        // Labelling unbounded face
+        pol->unbounded_face()->set_label("Unbounded");
+        
         // Suppression des antennes, et des HE en dehors de l'image
-        // On a besoin de connaître la taille de l'image !
-        QRect rectIm = this->getCurrentTab()->getView()->_imageToLabel.rect();
-
+         // On a besoin de connaître la taille de l'image !
+         QRect rectIm = this->getCurrentTab()->getView()->imageToLabel().rect();
+         
         Pol_arr::Edge_iterator eit, enext;
         for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index)
         {
@@ -913,42 +956,57 @@ void ArrangementDemoWindow::on_actionClean_triggered()
             
             // Source or target out-of-pixmap ?
             if(CGAL::to_double(eit->source()->point().x()) < rectIm.left()
-                    || CGAL::to_double(eit->source()->point().x()) > rectIm.right()+1
-                    || CGAL::to_double(eit->source()->point().y()) > rectIm.bottom()+1
-                    || CGAL::to_double(eit->source()->point().y()) < rectIm.top() )
+            || CGAL::to_double(eit->source()->point().x()) > rectIm.right()+1
+            || CGAL::to_double(eit->source()->point().y()) > rectIm.bottom()+1
+            || CGAL::to_double(eit->source()->point().y()) < rectIm.top() )
             {
                 QLabellingLogWidget::instance()->logTrace(QString("Source out-of-pixmap : removing halfedge " + QString::number(index) + "."));
                 pol->remove_edge(eit);
                 continue;
             }
             if(CGAL::to_double(eit->target()->point().x()) < rectIm.left()
-                    || CGAL::to_double(eit->target()->point().x()) > rectIm.right()+1
-                    || CGAL::to_double(eit->target()->point().y()) > rectIm.bottom()+1
-                    || CGAL::to_double(eit->target()->point().y()) < rectIm.top() )
+            || CGAL::to_double(eit->target()->point().x()) > rectIm.right()+1
+            || CGAL::to_double(eit->target()->point().y()) > rectIm.bottom()+1
+            || CGAL::to_double(eit->target()->point().y()) < rectIm.top() )
             {
                 QLabellingLogWidget::instance()->logTrace(QString("Target out-of-pixmap : removing halfedge " + QString::number(index) + "."));
                 pol->remove_edge(eit);
                 continue;
             }
         }
-        
-        // Labelling unbounded face
-        pol->unbounded_face()->set_label("Unbounded");
-        QLabellingLogWidget::instance()->logInfo("Unbounded : " + pol->unbounded_face()->label());
-
+            
         for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index)
         {
             // Twin face has the same label ?
-            if(!eit->face()->is_unbounded() && eit->twin()->face()->label() == eit->face()->label())
-            {
+            if(eit->twin()->face()->label() == eit->face()->label()){
                 QLabellingLogWidget::instance()->logTrace(QString("Twin face has the same label (" + eit->face()->label() + ") : merging faces by removing halfedge " + QString::number(index) + "."));
                 pol->remove_edge(eit);
                 continue;
             }
         }
+        
+        // Removing all vertices whose degree is 2 (with mergeable edges) - meaning removing all vertices which could be removed...
+        vnext = pol->vertices_begin();
+        for (vit = vnext++, index=0 ; vit != pol->vertices_end(); vit = vnext++, ++index)
+        {
+            if(vit->degree() == 2)
+            {
+                Pol_arr::Halfedge_around_vertex_circulator first, curr;
+                first = curr = vit->incident_halfedges();
+                curr++;
+                if(pol->are_mergeable(first,curr))
+                {
+                    QLabellingLogWidget::instance()->logTrace(QString("Merging edges."));   
+                    pol->merge_edge(first,curr);
+                }
+            }
+            
+        }
     }
     else
+    {
         QLabellingLogWidget::instance()->logError("[Clean] Parsing arrangement failed...");
+    }
 
     this->tabs[ tabIndex ]->getScene()->update( );
 }

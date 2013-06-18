@@ -34,43 +34,72 @@
 
 #include "QLabellingLogWidget.hpp"
 #include "QArrangementInfoWidget.h"
+#include "QLabellingLogWidget.hpp"
 
 class QGraphicsScene;
 
 namespace CGAL {
 namespace Qt {
 
-class ArrangementGraphicsItemBase :
-        public GraphicsItem, public QGraphicsSceneMixin
+class ArrangementGraphicsItemBase : public GraphicsItem, public QGraphicsSceneMixin
 {
 public:
-    ArrangementGraphicsItemBase( );
+    ArrangementGraphicsItemBase( ): _bb( 0, 0, 0, 0 ),
+        _bbInitialized( false ),
+        _verticesPen( QPen( ::Qt::blue, 3. ) ),
+        _edgesPen( QPen( ::Qt::blue, 1. ) ),
+        _visibleEdges( true ),
+        _visibleVertices( true ),
+        _scene( NULL ),
+        _backgroundColor( ::Qt::white )
+    {
+        QLabellingLogWidget::instance()->logTrace("Instanciation de ArrangementGraphicsItemBase.");
+        _verticesPen.setCosmetic( true );
+        _verticesPen.setCapStyle( ::Qt::SquareCap );
+        _edgesPen.setCosmetic( true );
+    };
 
-    const QPen& getVerticesPen( ) const;
-    const QPen& getEdgesPen( ) const;
-    void setVerticesPen( const QPen& pen );
-    void setEdgesPen( const QPen& pen );
-    bool visibleVertices( ) const;
-    void setVisibleVertices( const bool b );
-    bool visibleEdges( ) const;
-    void setVisibleEdges( const bool b );
-    void setBackgroundColor( QColor color );
-    
-    QGraphicsScene* getScene() const;
-    void setScene( QGraphicsScene* scene_);
+    inline void setVerticesPen(const QPen& pen) { _verticesPen = pen; }
+    inline const QPen& verticesPen() const      { return _verticesPen; }
+
+    inline const QPen& edgesPen() const      { return _edgesPen; }
+    inline void setEdgesPen(const QPen& pen) { _edgesPen = pen; }
+
+    inline void setVisibleVertices(const bool b)
+    {
+        _visibleVertices = b;
+        update();
+    }
+    inline bool visibleVertices() const { return _visibleVertices; }
+
+    inline void setVisibleEdges(const bool b)
+    {
+        _visibleEdges = b;
+        update();
+    }
+    inline bool visibleEdges() const { return _visibleEdges; }
+
+    inline void setBackgroundColor(const QColor &color) { _backgroundColor = color; }
+
+    inline QGraphicsScene* scene() const { return _scene; }
+    void setScene(QGraphicsScene* scene_)
+    {
+        QLabellingLogWidget::instance()->logTrace(QString::fromUtf8("Définition d'une scène pour ArrangementGraphicsItemBase."));
+        _scene = scene_;
+    }
 
 protected:
-    CGAL::Bbox_2 bb;
-    bool bb_initialized;
+    CGAL::Bbox_2 _bb;
+    bool _bbInitialized;
 
-    QPen verticesPen;
-    QPen edgesPen;
-    bool visible_edges;
-    bool visible_vertices;
+    QPen _verticesPen;
+    QPen _edgesPen;
+    bool _visibleEdges;
+    bool _visibleVertices;
 
-    QGraphicsScene* scene;
+    QGraphicsScene* _scene;
 
-    QColor backgroundColor;
+    QColor _backgroundColor;
 
 }; // class ArrangementGraphicsItemBase
 
@@ -257,7 +286,7 @@ protected:
             // fill the face according to its color (stored at any of her
             // incidents curves)
             QBrush oldBrush = painter->brush( );
-            QColor def_bg_color = this->backgroundColor;
+            QColor def_bg_color = this->_backgroundColor;
             // Just add an alpha
             def_bg_color.setAlpha(127);
             if (! f->color().isValid())
@@ -276,7 +305,7 @@ protected:
         else
         {
             QRectF rect = this->viewportRect( );
-            QColor color = this->backgroundColor;
+            QColor color = this->_backgroundColor;
             painter->fillRect( rect, color );
         }
     }
@@ -330,8 +359,7 @@ protected:
 }; // class ArrangementGraphicsItem
 
 template < typename Arr_, class ArrTraits >
-ArrangementGraphicsItem< Arr_, ArrTraits >::
-ArrangementGraphicsItem( Arrangement* arr_ ):
+ArrangementGraphicsItem< Arr_, ArrTraits >::ArrangementGraphicsItem( Arrangement* arr_ ):
     arr( arr_ ),
     painterostream( 0 )
 {
@@ -343,28 +371,21 @@ ArrangementGraphicsItem( Arrangement* arr_ ):
 }
 
 template < typename Arr_, typename ArrTraits >
-QRectF
-ArrangementGraphicsItem< Arr_, ArrTraits >::
-boundingRect( ) const
+QRectF ArrangementGraphicsItem< Arr_, ArrTraits >::boundingRect( ) const
 {
-    QRectF rect = this->convert( this->bb );
+    QRectF rect = this->convert( this->_bb );
     return rect;
 }
 
 template < typename Arr_, typename ArrTraits >
-void
-ArrangementGraphicsItem< Arr_, ArrTraits >::
-paint(QPainter* painter,
-      const QStyleOptionGraphicsItem* /* option */,
-      QWidget*  /*widget*/)
+void ArrangementGraphicsItem< Arr_, ArrTraits >::paint(QPainter* painter, const QStyleOptionGraphicsItem* /* option */, QWidget*  /*widget*/)
 {
     this->paint( painter, ArrTraits( ) );
 }
 
 template < typename Arr_, typename ArrTraits >
 template < typename TTraits >
-void ArrangementGraphicsItem< Arr_, ArrTraits >::
-paint(QPainter* painter, TTraits /* traits */)
+void ArrangementGraphicsItem< Arr_, ArrTraits >:: paint(QPainter* painter, TTraits /* traits */)
 {
     // C'est ici qu'on peint la scène
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
@@ -378,9 +399,9 @@ paint(QPainter* painter, TTraits /* traits */)
     infoWidget->setNumVerticesAtInfinity( (int)this->arr->number_of_vertices_at_infinity() );
 
     this->painterostream = ArrangementPainterOstream< Traits >( painter, this->boundingRect( ) );
-    this->painterostream.setScene( this->scene );
+    this->painterostream.setScene( this->_scene );
 
-    QGraphicsScene* currentScene = this->scene;
+    QGraphicsScene* currentScene = this->_scene;
     QList<QGraphicsItem*> allItems = currentScene->items();
     QLabellingLogWidget::instance()->logTrace( tr("Found ") + QString::number(allItems.count()) + tr(" items in the scene") );
     for(int i=0;i<allItems.count();++i)
@@ -397,7 +418,7 @@ paint(QPainter* painter, TTraits /* traits */)
     painter->setBrush(currentPainterBrush);
     this->paintFaces( painter );
 
-    painter->setPen( this->verticesPen );
+    painter->setPen( this->_verticesPen );
     for ( Vertex_iterator it = this->arr->vertices_begin( );
           it != this->arr->vertices_end( ); ++it )
     {
@@ -405,7 +426,7 @@ paint(QPainter* painter, TTraits /* traits */)
         Kernel_point_2 pt( p.x( ), p.y( ) );
         this->painterostream << pt;
     }
-    painter->setPen( this->edgesPen );
+    painter->setPen( this->_edgesPen );
     for ( Edge_iterator it = this->arr->edges_begin( );
           it != this->arr->edges_end( ); ++it )
     {
@@ -424,20 +445,19 @@ void ArrangementGraphicsItem< Arr_, ArrTraits >::updateBoundingBox( )
 
 template < typename Arr_, typename ArrTraits >
 template < typename TTraits >
-void ArrangementGraphicsItem< Arr_, ArrTraits >::
-updateBoundingBox(TTraits /* traits */)
+void ArrangementGraphicsItem< Arr_, ArrTraits >::updateBoundingBox(TTraits /* traits */)
 {
     this->prepareGeometryChange( );
     if ( this->arr->number_of_vertices( ) == 0 )
     {
-        this->bb = Bbox_2( 0, 0, 0, 0 );
-        this->bb_initialized = false;
+        this->_bb = Bbox_2( 0, 0, 0, 0 );
+        this->_bbInitialized = false;
         return;
     }
     else
     {
-        this->bb = this->arr->vertices_begin( )->point( ).bbox( );
-        this->bb_initialized = true;
+        this->_bb = this->arr->vertices_begin( )->point( ).bbox( );
+        this->_bbInitialized = true;
     }
 
     for ( Curve_iterator it = this->arr->curves_begin( );
@@ -448,7 +468,7 @@ updateBoundingBox(TTraits /* traits */)
         {
             this->curveBboxMap[ it ] = it->bbox( );
         }
-        this->bb = this->bb + this->curveBboxMap[ it ];
+        this->_bb = this->_bb + this->curveBboxMap[ it ];
     }
 }
 

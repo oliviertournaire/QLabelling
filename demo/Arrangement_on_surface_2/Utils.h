@@ -37,24 +37,24 @@ class QGraphicsSceneMixin
 {
 public:
     /*! Costructor */
-    QGraphicsSceneMixin( ) : scene( 0 ) { }
+    QGraphicsSceneMixin( ) : _scene( 0 ) { }
 
     /*! Destructor (virtual) */
     virtual ~QGraphicsSceneMixin() {}
 
-    virtual void setScene( QGraphicsScene* scene_ ) { this->scene = scene_; }
+    virtual void setScene( QGraphicsScene* scene_ ) { this->_scene = scene_; }
 
-    virtual QGraphicsScene* getScene( ) const { return this->scene; }
+    virtual QGraphicsScene* scene( ) const { return this->_scene; }
 
     virtual QRectF viewportRect( ) const
     {
         QRectF res;
-        if ( this->scene == NULL )
+        if ( this->_scene == NULL )
         {
             return res;
         }
 
-        QList< QGraphicsView* > views = this->scene->views( );
+        QList< QGraphicsView* > views = this->_scene->views( );
         if ( views.size( ) == 0 )
         {
             return res;
@@ -78,12 +78,12 @@ public:
     QPoint fromScene( QPointF p, bool* ok = 0 )
     {
         QPoint res;
-        if ( this->scene == NULL )
+        if ( this->_scene == NULL )
         {
             if ( ok ) { *ok = false; }
             return res;
         }
-        QList< QGraphicsView* > views = this->scene->views( );
+        QList< QGraphicsView* > views = this->_scene->views( );
         if ( views.size( ) == 0 )
         {
             if ( ok ) { *ok = false; }
@@ -101,12 +101,12 @@ public:
     QPointF toScene( QPoint p, bool* ok = 0 )
     {
         QPointF res;
-        if ( this->scene == NULL )
+        if ( this->_scene == NULL )
         {
             if ( ok ) { *ok = false; }
             return res;
         }
-        QList< QGraphicsView* > views = this->scene->views( );
+        QList< QGraphicsView* > views = this->_scene->views( );
         if ( views.size( ) == 0 )
         {
             if ( ok ) { *ok = false; }
@@ -136,7 +136,7 @@ public:
     }
 
 protected: // fields
-    QGraphicsScene* scene;
+    QGraphicsScene* _scene;
 };
 
 BOOST_MPL_HAS_XXX_TRAIT_DEF( Approximate_2 )
@@ -461,7 +461,7 @@ protected:
 template < class ArrTraits >
 SnapStrategy< ArrTraits >::SnapStrategy( QGraphicsScene* scene_ )
 { 
-    this->scene = scene_;
+    this->_scene = scene_;
 }
 
 template < class ArrTraits >

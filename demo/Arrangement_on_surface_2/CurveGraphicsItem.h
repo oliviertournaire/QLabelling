@@ -69,7 +69,7 @@ public: // methods
         QRectF clippingRectangle = this->viewportRect( );
         this->painterOstream =
                 ArrangementPainterOstream< Traits >( painter, clippingRectangle );
-        this->painterOstream.setScene( this->getScene( ) );
+        this->painterOstream.setScene( this->_scene );
         for ( unsigned int i = 0; i < this->curves.size( ); ++i )
         {
             X_monotone_curve_2 curve = this->curves[ i ];

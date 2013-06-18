@@ -57,6 +57,8 @@ public:
     virtual FillFaceCallbackBase* getFillFaceCallback( ) const;
 
     bool _imageHasBeenLoaded;
+    bool _arrHasBeenSaved;
+    bool _labelsHaveBeenSaved;
 
 protected:
     virtual void setupUi( );
@@ -87,6 +89,9 @@ public:
         arrangement( arrangement_ )
     {
         _imageHasBeenLoaded = false;
+        _arrHasBeenSaved = true;
+        _labelsHaveBeenSaved = true;
+        
         // std::cout << this->scene->views( ).size( ) << std::endl;
         // set up demo components
         this->arrangementGraphicsItem = new CGAL::Qt::ArrangementGraphicsItem<Arrangement>(this->arrangement);

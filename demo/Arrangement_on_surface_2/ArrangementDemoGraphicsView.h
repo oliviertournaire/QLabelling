@@ -28,25 +28,51 @@ class ArrangementDemoGraphicsView : public QGraphicsView
 public:
     ArrangementDemoGraphicsView( QWidget* parent = 0 );
 
-    void setShowGrid( bool b );
-    bool getShowGrid( ) const;
-    void setGridSize( int size );
-    int getGridSize( ) const;
-    void setGridColor( QColor color );
-    QColor getGridColor( ) const;
-    void setBackgroundColor( QColor color );
-    QColor getBackgroundColor( ) const;
+    inline void setShowGrid(bool b)                     { _showGrid = b; }
+    inline bool showGrid() const                        { return _showGrid; }
+    inline void setGridSize(int size)                   { _gridSize = size; }
+    inline int gridSize() const                         { return _gridSize; }
+    inline void setGridColor(const QColor &color)       { _gridColor = color; }
+    inline QColor gridColor() const                     { return _gridColor; }
+    inline void setBackgroundColor(const QColor &color) { _backgroundColor = color; }
+    inline QColor backgroundColor() const               { return _backgroundColor; }
 
-    QString _imageToLabelFilename; // Nom du fichier photo
-    QPixmap _imageToLabel; // Image à labelliser
+    inline const QString imageToLabelFilename() const                     { return _imageToLabelFilename; }
+    inline void          setImageToLabelFilename(const QString &filename) { _imageToLabelFilename = filename; }
+    inline const QPixmap imageToLabel() const                             { return _imageToLabel; }
+    inline void          setImageToLabel(const QPixmap& image)            { _imageToLabel = image; }
+    inline const QSize   imageToLabelSize() const                         { return _imageToLabelSize; }
+    inline const void    setImageToLabelSize(const QSize& size)           { _imageToLabelSize = size; }
+    inline const int     imageToLabelWidth() const
+    {
+        if (_imageToLabelSize.isValid())
+            return _imageToLabelSize.width();
+        else
+            return 0;
+    }
+    inline const int imageToLabelHeight() const
+    {
+        if (_imageToLabelSize.isValid())
+            return _imageToLabelSize.height();
+        else
+            return 0;
+    }
+
 protected:
     void drawForeground( QPainter* painter, const QRectF& rect );
     QRectF getViewportRect( ) const;
 
-    bool showGrid;
-    int gridSize;
-    QColor gridColor;
-    QColor backgroundColor;
+    bool _showGrid;
+    int _gridSize;
+    QColor _gridColor;
+    QColor _backgroundColor;
+
+    /// Filename of the current image to label
+    QString _imageToLabelFilename;
+    /// Image to label
+    QPixmap _imageToLabel;
+    /// Image to label dimensions
+    QSize _imageToLabelSize;
 };
 
 #endif // ARRANGEMENT_DEMO_GRAPHICS_VIEW_H

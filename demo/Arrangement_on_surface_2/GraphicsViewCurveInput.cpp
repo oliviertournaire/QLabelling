@@ -27,15 +27,15 @@ namespace Qt {
 void GraphicsViewCurveInputBase::setScene( QGraphicsScene* scene_ )
 {
     this->QGraphicsSceneMixin::setScene( scene_ );
-    if ( this->scene != NULL )
+    if ( this->_scene != NULL )
     {
-        this->scene->addItem( &this->pointsGraphicsItem );
+        this->_scene->addItem( &this->pointsGraphicsItem );
     }
 }
 
 QGraphicsScene* GraphicsViewCurveInputBase::getScene() const
 {
-    return this->scene;
+    return this->_scene;
 }
 
 void GraphicsViewCurveInputBase::setSnappingEnabled( bool b )
