@@ -59,30 +59,30 @@ public:
         _edgesPen.setCosmetic( true );
     };
 
-    inline void ArrangementGraphicsItemBase::setVerticesPen(const QPen& pen) { _verticesPen = pen; }
-    inline const QPen& ArrangementGraphicsItemBase::verticesPen() const      { return _verticesPen; }
+    inline void setVerticesPen(const QPen& pen) { _verticesPen = pen; }
+    inline const QPen& verticesPen() const      { return _verticesPen; }
 
-    inline const QPen& ArrangementGraphicsItemBase::edgesPen() const      { return _edgesPen; }
-    inline void ArrangementGraphicsItemBase::setEdgesPen(const QPen& pen) { _edgesPen = pen; }
+    inline const QPen& edgesPen() const      { return _edgesPen; }
+    inline void setEdgesPen(const QPen& pen) { _edgesPen = pen; }
 
-    inline void ArrangementGraphicsItemBase::setVisibleVertices(const bool b)
+    inline void setVisibleVertices(const bool b)
     {
         _visibleVertices = b;
         update();
     }
-    inline bool ArrangementGraphicsItemBase::visibleVertices() const { return _visibleVertices; }
+    inline bool visibleVertices() const { return _visibleVertices; }
 
-    inline void ArrangementGraphicsItemBase::setVisibleEdges(const bool b)
+    inline void setVisibleEdges(const bool b)
     {
         _visibleEdges = b;
         update();
     }
-    inline bool ArrangementGraphicsItemBase::visibleEdges() const { return _visibleEdges; }
+    inline bool visibleEdges() const { return _visibleEdges; }
 
-    inline void ArrangementGraphicsItemBase::setBackgroundColor(const QColor &color) { _backgroundColor = color; }
+    inline void setBackgroundColor(const QColor &color) { _backgroundColor = color; }
 
-    inline QGraphicsScene* ArrangementGraphicsItemBase::scene() const { return _scene; }
-    void ArrangementGraphicsItemBase::setScene(QGraphicsScene* scene_)
+    inline QGraphicsScene* scene() const { return _scene; }
+    void setScene(QGraphicsScene* scene_)
     {
         QLabellingLogWidget::instance()->logTrace(QString::fromUtf8("Définition d'une scène pour ArrangementGraphicsItemBase."));
         _scene = scene_;
