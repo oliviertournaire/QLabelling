@@ -784,7 +784,6 @@ void ArrangementDemoWindow::on_actionSaveProject_triggered()
     }
 }
 
-// TODO: This method really needs refactoring ...
 bool ArrangementDemoWindow::on_actionOpenImage_triggered()
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
@@ -809,7 +808,7 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
     
     // Here, it should not be just a warning.
     // 1) If the user changes the image, he should be prompted to save his current project
-    // 2) If the user chooses a new image, it should not be simply added in the scene. First, the single QPixmap of the scene should be removed, and then,
+    // 2) [DONE] If the user chooses a new image, it should not be simply added in the scene. First, the single QPixmap of the scene should be removed, and then,
     // the newly chosen file could be add as a QPixmap to the scene. We must also ensures that all attributes are well set after image change (refactoring may help).
     if(currentTab->_imageHasBeenLoaded)
         QMessageBox::warning( this, "Warning", "There is already a loaded image, be sure of what you do." );
@@ -827,47 +826,26 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         QGraphicsScene              *currentTabScene = currentTab->getScene();
         ArrangementDemoGraphicsView *currentTabView  = currentTab->getView();
 
-        currentTabView->setImageToLabel(fileName, currentTab, getArrangements()[TabIndex]);
-        // See comment 1) below. Remove already existing QPixmap before adding the new one.
-        currentTabScene->addPixmap(currentTabView->imageToLabel());
-
-        if(currentTabView->imageToLabel().isNull())
+        bool result = currentTabView->setImageToLabel(fileName, currentTab, getArrangements()[TabIndex]);
+        updateToolBarButtonsEnable(result);
+        if(result)
         {
-            _loggerWidget->logError( tr("Unable to open image ") + fileName );
-            // If an image has already been loaded, it hasn't been "unloaded" so _imageHasBeenLoaded should remain "true",
-            // otherwise _imageHasBeenLoaded is already false...            
-            if(!currentTab->_imageHasBeenLoaded)
-                updateToolBarButtonsEnable(false);
-            return false;
+            currentTab->_imageHasBeenLoaded = true;
+            updateMode( this->ui->actionInsert );
         }
+        else
+            currentTab->_imageHasBeenLoaded = false;
 
-        // All this should be refactored in ArrangementDemoGraphicsView::setImageToLabel(...)
-        // BEGIN
-        // END
-
-
-        // TODO: Is this code still needed???
-        qreal x1, y1, w, h;
-        currentTabScene->sceneRect().getRect(&x1, &y1, &w, &h);
-        _loggerWidget->logDebug( "SceneRect = " + QString::number(x1) + ":" + QString::number(y1) + " - " + QString::number(w) + ":" + QString::number(h) );
-        currentTabView->ensureVisible(0,0,currentTabView->imageToLabelWidth(), currentTabView->imageToLabelHeight());
-        currentTabView->sceneRect().setRect(-10 , -10, currentTabView->frameSize().width()+20,currentTabView->frameSize().height()+20);
-        currentTabScene->sceneRect().getRect(&x1, &y1, &w, &h);
-        _loggerWidget->logDebug( "SceneRect = " + QString::number(x1) + ":" + QString::number(y1) + " - " + QString::number(w) + ":" + QString::number(h) );
+        settings.endGroup();
+        return result;
     }
     else
     {
+        settings.endGroup();
         if(!currentTab->_imageHasBeenLoaded)
             updateToolBarButtonsEnable(false);
         return false;
     }
-    settings.endGroup();
-
-    currentTab->_imageHasBeenLoaded = true;
-    updateToolBarButtonsEnable(true);
-    updateMode( this->ui->actionInsert );
-    
-    return true;
 }
 
 void ArrangementDemoWindow::updateToolBarButtonsEnable(bool enable)

@@ -89,12 +89,25 @@ QRectF ArrangementDemoGraphicsView::getViewportRect( ) const
     return res;
 }
 
-void ArrangementDemoGraphicsView::setImageToLabel(const QString& path, ArrangementDemoTabBase *currentTab, CGAL::Object currentArrangement)
+bool ArrangementDemoGraphicsView::setImageToLabel(const QString& path, ArrangementDemoTabBase *currentTab, CGAL::Object currentArrangement)
 {
     QPixmap imagetolabel = QPixmap(path);
     setImageToLabel(imagetolabel);
     setImageToLabelFilename(path);
     setImageToLabelSize(imagetolabel.size());
+
+    if(imageToLabel().isNull())
+    {
+        QLabellingLogWidget::instance()->logError( tr("Unable to open image ") + path );
+        return false;
+    }
+
+    // Try to find if an image already has been loaded
+    QList<QGraphicsItem*> allItems = currentTab->getScene()->items();
+    for(int i=0;i<allItems.count();++i)
+        if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+            currentTab->getScene()->removeItem(p);
+    currentTab->getScene()->addPixmap(imageToLabel());
 
     Arr_pol_point_2 ptl( 0, 0);
     Arr_pol_point_2 pbl(0, imageToLabelHeight() );
@@ -136,5 +149,8 @@ void ArrangementDemoGraphicsView::setImageToLabel(const QString& path, Arrangeme
     else
     {
         QLabellingLogWidget::instance()->logWarning( tr("Unable to retrieve the arrangement!") );
+        return false;
     }
+
+    return true;
 }
