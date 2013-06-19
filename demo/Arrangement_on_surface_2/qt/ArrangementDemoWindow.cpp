@@ -30,6 +30,7 @@
 #include <QMessageBox>
 #include <QColorDialog>
 #include <QDockWidget>
+#include <QXmlStreamWriter>
 
 #include <CGAL/IO/Arr_with_history_iostream.h>
 #include <CGAL/IO/Arr_text_formatter.h>
@@ -523,15 +524,20 @@ void ArrangementDemoWindow::on_actionSaveAs_triggered( )
     if ( filename.isNull( ) )
         return;
 
+    doSave(filename);
+}
+
+// TODO: save arrangement labeld faces ...
+void ArrangementDemoWindow::doSave(const QString& filename)
+{
     std::ofstream ofs( filename.toStdString( ).c_str( ) );
-    CGAL::Object arr = this->arrangements[ index ];
+    CGAL::Object arr = this->arrangements[ this->ui->tabWidget->currentIndex( ) ];
     Pol_arr* pol;
     if ( CGAL::assign( pol, arr ) )
     {
-        typedef CGAL::Arr_text_formatter<Pol_arr>           Pol_text_formatter;
-        typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter>
-            ArrFormatter;
-        ArrFormatter                                        arrFormatter;
+        typedef CGAL::Arr_text_formatter<Pol_arr>                         Pol_text_formatter;
+        typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter> ArrFormatter;
+        ArrFormatter arrFormatter;
         CGAL::write( *pol, ofs, arrFormatter );
     }
     ofs.close( );
@@ -780,7 +786,47 @@ void ArrangementDemoWindow::on_actionSaveProject_triggered()
     SaveProjectDialog spd(tabView->imageToLabelFilename(), this);
     if( spd.exec() )
     {
-        // TODO: save the project
+        QFile file(spd.projectPath());
+        if ( !file.open(QIODevice::WriteOnly) )
+        {
+            QMessageBox::critical(0, tr("Error opening file"), tr("Error opening file") + spd.projectPath());
+            return;
+        }	
+        else
+        {
+            QXmlStreamWriter* xmlWriter = new QXmlStreamWriter();
+		    xmlWriter->setDevice(&file);
+            xmlWriter->setAutoFormatting(true);
+
+		    xmlWriter->writeStartDocument();
+
+            xmlWriter->writeStartElement("QLabellingProject");
+            xmlWriter->writeAttribute("name", spd.projectName());
+
+		    xmlWriter->writeStartElement("inputImage");
+            xmlWriter->writeAttribute("path", spd.inputImagePath());
+            xmlWriter->writeEndElement();
+
+            xmlWriter->writeStartElement("labelsImage");
+            xmlWriter->writeAttribute("path", spd.labelsImagePath());
+            xmlWriter->writeEndElement();
+
+            xmlWriter->writeStartElement("arrangement");
+            xmlWriter->writeAttribute("path", spd.arrangementPath());
+            xmlWriter->writeEndElement();
+
+            xmlWriter->writeStartElement("labelsDefinition");
+            xmlWriter->writeAttribute("path", spd.labelsDefinitionPath());
+            xmlWriter->writeEndElement();
+
+            xmlWriter->writeEndElement(); // QLabellingProject
+
+            xmlWriter->writeEndDocument();
+
+            // Now, write labels image and the arrangement
+            // TODO: write labels image
+            doSave(spd.arrangementPath());
+        }
     }
 }
 

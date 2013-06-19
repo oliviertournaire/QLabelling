@@ -17,15 +17,15 @@
 //
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
+#include <QVarLengthArray>
+#include <QPen>
+
 #include "ArrangementDemoGraphicsView.h"
 #include "ArrangementDemoTab.h"
 #include "ArrangementTypes.h"
 
-#include <iostream>
-#include <QVarLengthArray>
-#include <QPen>
-
 #include "QLabellingLogWidget.hpp"
+#include "config.hpp"
 
 ArrangementDemoGraphicsView::ArrangementDemoGraphicsView( QWidget* parent ) :
     QGraphicsView( parent ),
@@ -37,7 +37,6 @@ ArrangementDemoGraphicsView::ArrangementDemoGraphicsView( QWidget* parent ) :
     QMatrix m( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
     this->setMatrix( m );
     this->setBackgroundBrush( QBrush( _backgroundColor ) );
-//     this->setAlignment(Qt::AlignCenter); Useless
 }
 
 void ArrangementDemoGraphicsView::drawForeground( QPainter* painter, const QRectF& rect )
@@ -143,7 +142,7 @@ bool ArrangementDemoGraphicsView::setImageToLabel(const QString& path, Arrangeme
         for(Pol_arr::Face_iterator fit = arr->faces_begin() ; fit != arr->faces_end() ; fit++)
         {
             if(!fit->is_unbounded())
-                fit->set_label("Undefined"); // TODO: is the label always "undefined" (could be "unknow"? must be chosen from the config file)???
+                fit->set_label(QLABELLING_UNKNOW_LABEL_STRING);
         }
     }
     else

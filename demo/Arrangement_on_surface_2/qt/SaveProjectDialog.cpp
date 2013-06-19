@@ -4,6 +4,8 @@
 #include <QFileInfo>
 #include <QDir>
 
+#include "QLabellingWidget.hpp"
+
 SaveProjectDialog::SaveProjectDialog(const QString& inputImagePath, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SaveProjectDialog),
@@ -13,16 +15,25 @@ SaveProjectDialog::SaveProjectDialog(const QString& inputImagePath, QWidget *par
 
     QFileInfo qfi(_inputImagePath);
     QDir dir = qfi.absoluteDir();
-    QString baseName = qfi.baseName();
+    _projectName = qfi.baseName();
     QString extension = qfi.completeSuffix();
 
     ui->_lineEditInputImagePath->setText(_inputImagePath);
-    ui->_lineEditLabelsImagePath->setText(dir.path() + "/" + baseName + "_labels." + extension);
-    ui->_lineEditArrangementPath->setText(dir.path() + "/" + baseName + "_arrangement.arr");
-    ui->_lineEditProjectPath->setText(dir.path() + "/" + baseName + ".qlb");
+    ui->_lineEditLabelsImagePath->setText(dir.path() + "/" + _projectName + "_labels." + extension);
+    ui->_lineEditArrangementPath->setText(dir.path() + "/" + _projectName + "_arrangement.arr");
+    ui->_lineEditLabelsDefinitionPath->setText( QLabellingWidget::instance()->labelsPath());
+    ui->_lineEditProjectPath->setText(dir.path() + "/" + _projectName + ".qlb");
 }
 
 SaveProjectDialog::~SaveProjectDialog()
 {
     delete ui;
 }
+
+QString SaveProjectDialog::labelsImagePath() const { return ui->_lineEditLabelsImagePath->text(); }
+
+QString SaveProjectDialog::arrangementPath() const { return ui->_lineEditArrangementPath->text(); }
+
+QString SaveProjectDialog::labelsDefinitionPath() const { return ui->_lineEditLabelsDefinitionPath->text(); }
+
+QString SaveProjectDialog::projectPath() const { return ui->_lineEditProjectPath->text(); }
