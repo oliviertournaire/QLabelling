@@ -135,42 +135,46 @@ protected:
 	    else
 	    {
 		// add clicked point to polyline
+                if ( event->button( ) == ::Qt::MiddleButton )
+                { // finalize polyline input
+                   clickedPoint = this->points.front();
+                }
+                
 		this->points.push_back( clickedPoint );
-    // 	    std::cout << "Insertion d'un point en " << clickedPoint << "." << std::endl;
-
-		if ( event->button( ) == ::Qt::RightButton )
-		{ // finalize polyline input
-		    
-		    // Destruction de la Polyline courante
-		    for ( unsigned int i = 0; i < this->polylineGuide.size( ); ++i )
-		    {
-			if ( this->_scene != NULL )
-			{
-			    this->_scene->removeItem( this->polylineGuide[ i ] );
-			}
-			delete this->polylineGuide[ i ];
-		    }
-		    this->polylineGuide.clear( );
-		    Curve_2 res( this->points.begin( ), this->points.end( ) );
-		    this->points.clear( );
-
-		    emit generate( CGAL::make_object( res ) );
-		}
-		else
-		{ // start the next segment
-		    QPointF pt = this->convert( clickedPoint );
-		    QGraphicsLineItem* lineItem =
-			    new QGraphicsLineItem( pt.x( ), pt.y( ), pt.x( ), pt.y( ) );
-		    lineItem->setZValue( 100 );
-		    QPen pen = lineItem->pen( );
-		    pen.setColor( this->color );
-		    lineItem->setPen( pen );
-		    this->polylineGuide.push_back( lineItem ); // Ajout à l'objet Polyline de ce nouveau segment
-		    if ( this->_scene != NULL )
-		    {
-			this->_scene->addItem( this->polylineGuide.back( ) ); // Ajout à la scène du dernier segment (celui qui vient d'être ajouté)
-		    }
-		}
+                
+                Curve_2 res( this->points.begin( ), this->points.end( ) );
+                emit generate( CGAL::make_object( res ) );
+                
+                switch(event->button( )){
+                    case ::Qt::MiddleButton :
+                    case ::Qt::RightButton : // finalize polyline input
+                    
+                        // Destruction de la Polyline courante
+                        for ( unsigned int i = 0; i < this->polylineGuide.size( ); ++i )
+                        {
+                            if ( this->_scene != NULL )
+                            {
+                                this->_scene->removeItem( this->polylineGuide[ i ] );
+                            }
+                            delete this->polylineGuide[ i ];
+                        }
+                        this->polylineGuide.clear( );
+                        this->points.clear( );
+                        break;
+                    default:
+                        QPointF pt = this->convert( clickedPoint );
+                        QGraphicsLineItem* lineItem =
+                                new QGraphicsLineItem( pt.x( ), pt.y( ), pt.x( ), pt.y( ) );
+                        lineItem->setZValue( 100 );
+                        QPen pen = lineItem->pen( );
+                        pen.setColor( this->color );
+                        lineItem->setPen( pen );
+                        this->polylineGuide.push_back( lineItem ); // Ajout à l'objet Polyline de ce nouveau segment
+                        if ( this->_scene != NULL )
+                        {
+                            this->_scene->addItem( this->polylineGuide.back( ) ); // Ajout à la scène du dernier segment (celui qui vient d'être ajouté)
+                        }
+                }
 	    }
 	}
 	else if ( mode == HORIZONTAL )
