@@ -13,7 +13,7 @@ class QLabelItem;
 class QButtonGroup;
 
 namespace Ui {
-class QLabellingWidget;
+class QLabellingWidget; 
 }
 
 class QLabellingWidget : public QWidget, public Singleton<QLabellingWidget>
