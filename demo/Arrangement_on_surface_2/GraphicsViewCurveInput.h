@@ -29,6 +29,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 #include "Callback.h"
+#include "QArrangementInfoWidget.h"
 #include "ISnappable.h"
 #include "PointsGraphicsItem.h"
 
@@ -160,6 +161,9 @@ protected:
                         }
                         this->polylineGuide.clear( );
                         this->points.clear( );
+                        
+                        QArrangementInfoWidget::instance()->setChanged( true );
+                        
                         break;
                     default:
                         QPointF pt = this->convert( clickedPoint );

@@ -51,7 +51,8 @@ public:
         _visibleEdges( true ),
         _visibleVertices( true ),
         _scene( NULL ),
-        _backgroundColor( ::Qt::white )
+        _backgroundColor( ::Qt::white ),
+        changed( false )
     {
         QLabellingLogWidget::instance()->logTrace("Instanciation de ArrangementGraphicsItemBase.");
         _verticesPen.setCosmetic( true );
@@ -87,6 +88,8 @@ public:
         QLabellingLogWidget::instance()->logTrace(QString::fromUtf8("Définition d'une scène pour ArrangementGraphicsItemBase."));
         _scene = scene_;
     }
+    
+    bool changed;
 
 protected:
     CGAL::Bbox_2 _bb;
@@ -397,6 +400,7 @@ void ArrangementGraphicsItem< Arr_, ArrTraits >:: paint(QPainter* painter, TTrai
     infoWidget->setNumVertices          ( (int)this->arr->number_of_vertices() );
     infoWidget->setNumIsolatedVertices  ( (int)this->arr->number_of_isolated_vertices() );
     infoWidget->setNumVerticesAtInfinity( (int)this->arr->number_of_vertices_at_infinity() );
+    infoWidget->setChanged              ( this->changed );
 
     this->painterostream = ArrangementPainterOstream< Traits >( painter, this->boundingRect( ) );
     this->painterostream.setScene( this->_scene );
@@ -486,6 +490,8 @@ void ArrangementGraphicsItem< Arr_, ArrTraits >::modelChanged( )
     }
     this->updateBoundingBox( );
     this->update( );
+    
+    this->changed = true;
 }
 
 } // namespace Qt

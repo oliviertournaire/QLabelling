@@ -1,5 +1,6 @@
 #include "QArrangementInfoWidget.h"
 #include "ui_QArrangementInfoWidget.h"
+#include <QLabellingLogWidget.hpp>
 
 QArrangementInfoWidget::QArrangementInfoWidget(QWidget *parent) :
     QWidget(parent),
@@ -36,4 +37,9 @@ void QArrangementInfoWidget::setNumIsolatedVertices(const int &numIsolatedVertic
 void QArrangementInfoWidget::setNumVerticesAtInfinity(const int &numVerticesAtInfinity)
 {
     ui->_labelVerticesAtInfinity->setText( QString::number(numVerticesAtInfinity) + " vertices at infinity" );
+}
+
+void QArrangementInfoWidget::setChanged(const bool &changed)
+{
+    ui->_labelChanged->setText( changed ? "Changes not saved" : "No new changes" );
 }

@@ -57,7 +57,8 @@ public:
     virtual FillFaceCallbackBase* getFillFaceCallback( ) const;
 
     bool _imageHasBeenLoaded;
-    bool _arrHasBeenSaved;
+    bool arrHasBeenSaved() { return !arrangementGraphicsItem->changed; };
+    bool set_arrHasBeenSaved( bool _saved) { arrangementGraphicsItem->changed = !_saved; QArrangementInfoWidget::instance()->setChanged(!_saved);  };
     bool _labelsHaveBeenSaved;
 
 protected:
@@ -89,7 +90,6 @@ public:
         arrangement( arrangement_ )
     {
         _imageHasBeenLoaded = false;
-        _arrHasBeenSaved = true;
         _labelsHaveBeenSaved = true;
         
         // std::cout << this->scene->views( ).size( ) << std::endl;

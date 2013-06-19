@@ -24,6 +24,7 @@ public:
     void setNumVertices(const int &numVertices);
     void setNumIsolatedVertices(const int &numIsolatedVertices);
     void setNumVerticesAtInfinity(const int &numVerticesAtInfinity);
+    void setChanged(const bool &changed);
     
 private:
     Ui::QArrangementInfoWidget *ui;

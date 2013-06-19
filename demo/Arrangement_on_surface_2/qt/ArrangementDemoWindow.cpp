@@ -513,6 +513,7 @@ void ArrangementDemoWindow::updateSnapping( QAction* newMode )
     activeScene->update( );
 }
 
+// Saving arrangement
 void ArrangementDemoWindow::on_actionSaveAs_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
@@ -540,6 +541,7 @@ void ArrangementDemoWindow::doSave(const QString& filename)
         ArrFormatter arrFormatter;
         CGAL::write( *pol, ofs, arrFormatter );
     }
+    this->getCurrentTab()->set_arrHasBeenSaved( true );
     ofs.close( );
 }
 
@@ -662,7 +664,7 @@ void ArrangementDemoWindow::on_actionCloseTab_triggered( )
     if (! this->ui->tabWidget->count() || (currentTabIndex == static_cast<unsigned int>(-1)))
         return;
     
-    if(! getCurrentTab()->_arrHasBeenSaved && ! getCurrentTab()->_labelsHaveBeenSaved){ // If labels have already been saved, do not complain
+    if(! getCurrentTab()->arrHasBeenSaved() && ! getCurrentTab()->_labelsHaveBeenSaved){ // If labels have already been saved, do not complain
         if(QMessageBox::question(this, "Arrangement not saved", "The current arrangement has not been saved, do you really want to close this tab ?",QMessageBox::Yes, QMessageBox::Cancel) != QMessageBox::Yes){
             QLabellingLogWidget::instance()->logInfo( "Closing tab aborted" );
             return;
@@ -826,6 +828,8 @@ void ArrangementDemoWindow::on_actionSaveProject_triggered()
             // Now, write labels image and the arrangement
             // TODO: write labels image
             doSave(spd.arrangementPath());
+            
+            getCurrentTab()->set_arrHasBeenSaved(true);
         }
     }
 }
