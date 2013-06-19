@@ -33,6 +33,7 @@ public:
 
     void parseLabels();
     void setLabelsPath(const QString &labelsPath);
+    inline QString const labelsPath() { return _labelsPath; }
 
     const QLabelItem* findActiveLabelItem() const;
     const QLabelItem* findLabelItemFromName(const QString &name) const;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>488</width>
-    <height>149</height>
+    <width>596</width>
+    <height>175</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,22 +20,29 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Input image path</string>
+        <string>Arrangement path</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="QLineEdit" name="_lineEditInputImagePath">
+     <item row="3" column="2">
+      <widget class="QLineEdit" name="_lineEditLabelsDefinitionPath">
        <property name="readOnly">
         <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
-      <widget class="QLineEdit" name="_lineEditLabelsImagePath"/>
+     <item row="4" column="2">
+      <widget class="QLineEdit" name="_lineEditProjectPath"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Labels definition path</string>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
@@ -47,24 +54,31 @@
      <item row="2" column="2">
       <widget class="QLineEdit" name="_lineEditArrangementPath"/>
      </item>
-     <item row="3" column="2">
-      <widget class="QLineEdit" name="_lineEditProjectPath"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Arrangement path</string>
+     <item row="0" column="2">
+      <widget class="QLineEdit" name="_lineEditInputImagePath">
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Input image path</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLineEdit" name="_lineEditLabelsImagePath"/>
+     </item>
+     <item row="4" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Labeling project path</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="4" column="1">
       <widget class="QToolButton" name="_toolButtonProjectPath">
        <property name="text">
         <string/>
