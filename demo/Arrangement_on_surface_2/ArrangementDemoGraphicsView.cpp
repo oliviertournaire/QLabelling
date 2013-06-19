@@ -84,3 +84,11 @@ QRectF ArrangementDemoGraphicsView::getViewportRect( ) const
 
     return res;
 }
+
+void ArrangementDemoGraphicsView::setImageToLabel(const QString& path)
+{
+    QPixmap imagetolabel = QPixmap(path);
+    setImageToLabel(imagetolabel);
+    setImageToLabelFilename(path);
+    setImageToLabelSize(imagetolabel.size());
+}

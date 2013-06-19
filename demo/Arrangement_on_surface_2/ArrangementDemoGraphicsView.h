@@ -41,6 +41,7 @@ public:
     inline void          setImageToLabelFilename(const QString &filename) { _imageToLabelFilename = filename; }
     inline const QPixmap imageToLabel() const                             { return _imageToLabel; }
     inline void          setImageToLabel(const QPixmap& image)            { _imageToLabel = image; }
+    void                 setImageToLabel(const QString& path);
     inline const QSize   imageToLabelSize() const                         { return _imageToLabelSize; }
     inline const void    setImageToLabelSize(const QSize& size)           { _imageToLabelSize = size; }
     inline const int     imageToLabelWidth() const
