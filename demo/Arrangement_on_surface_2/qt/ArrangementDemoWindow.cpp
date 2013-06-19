@@ -796,6 +796,15 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         return false;
     }
 
+    const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
+    if (TabIndex == static_cast<unsigned int>(-1))
+    {
+        QLabellingLogWidget::instance()->logError( tr("Unable to add an image : there is no open tab !") );
+        if(!currentTab->_imageHasBeenLoaded)
+            updateToolBarButtonsEnable(false);
+        return false;
+    }
+
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
     
     // Here, it should not be just a warning.
@@ -818,14 +827,15 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
         QGraphicsScene              *currentTabScene = currentTab->getScene();
         ArrangementDemoGraphicsView *currentTabView  = currentTab->getView();
 
-        currentTabView->setImageToLabel(fileName);
+        currentTabView->setImageToLabel(fileName, currentTab, getArrangements()[TabIndex]);
         // See comment 1) below. Remove already existing QPixmap before adding the new one.
         currentTabScene->addPixmap(currentTabView->imageToLabel());
 
         if(currentTabView->imageToLabel().isNull())
         {
             _loggerWidget->logError( tr("Unable to open image ") + fileName );
-//          If an image has already been loaded, it hasn't been "unloaded" so _imageHasBeenLoaded should remain "true", otherwise _imageHasBeenLoaded is already false...            
+            // If an image has already been loaded, it hasn't been "unloaded" so _imageHasBeenLoaded should remain "true",
+            // otherwise _imageHasBeenLoaded is already false...            
             if(!currentTab->_imageHasBeenLoaded)
                 updateToolBarButtonsEnable(false);
             return false;
@@ -833,57 +843,6 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
 
         // All this should be refactored in ArrangementDemoGraphicsView::setImageToLabel(...)
         // BEGIN
-        Arr_pol_point_2 ptl( 0, 0);
-        Arr_pol_point_2 pbl(0, currentTabView->imageToLabelHeight() );
-        Arr_pol_point_2 pbr(currentTabView->imageToLabelWidth(), currentTabView->imageToLabelHeight());
-        Arr_pol_point_2 ptr(currentTabView->imageToLabelWidth(), 0 );
-
-        QString imageBoundaryMessage = tr("Image boundaries: ");
-        imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptl.x())) + "," + QString::number(CGAL::to_double(ptl.y())) + ") / ";
-        imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbl.x())) + "," + QString::number(CGAL::to_double(pbl.y())) + ") / ";
-        imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbr.x())) + "," + QString::number(CGAL::to_double(pbr.y())) + ") / ";
-        imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptr.x())) + "," + QString::number(CGAL::to_double(ptr.y())) + ")";
-        _loggerWidget->logTrace( imageBoundaryMessage );
-
-        std::vector<Arr_pol_point_2> allPoints;
-        allPoints.push_back(ptl);
-        allPoints.push_back(pbl);
-        allPoints.push_back(pbr);
-        allPoints.push_back(ptr);
-        allPoints.push_back(ptl);
-
-        Arr_pol_2 contour(allPoints.begin(), allPoints.end());
-
-        Pol_arr *arr;
-        const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
-        if (TabIndex == static_cast<unsigned int>(-1))
-        {
-            QLabellingLogWidget::instance()->logError( tr("Unable to add an image : there is no open tab !") );
-            if(!currentTab->_imageHasBeenLoaded)
-                updateToolBarButtonsEnable(false);
-            return false;
-        }
-        ArrangementDemoTabBase* activeTab = this->tabs[ TabIndex ];
-
-        if ( CGAL::assign( arr, getArrangements()[TabIndex] ) )
-        {
-            CGAL::Qt::GraphicsViewCurveInputBase *gvcib = activeTab->getCurveInputCallback();
-            ArrangementCurveInputCallback<Pol_arr> *acic = dynamic_cast< ArrangementCurveInputCallback<Pol_arr>* >(gvcib);
-            if(acic)
-            {
-                acic->processInput( CGAL::make_object(contour) );
-            }
-            // Setting the right label to the newly created frame
-            for(Pol_arr::Face_iterator fit = arr->faces_begin() ; fit != arr->faces_end() ; fit++)
-            {
-                if(!fit->is_unbounded())
-                    fit->set_label("Undefined"); // TODO: is the label always "undefined" (could be "unknow"? must be chosen from the config file)???
-            }
-        }
-        else
-        {
-            _loggerWidget->logWarning( tr("Unable to retrieve the arrangement!") );
-        }
         // END
 
 

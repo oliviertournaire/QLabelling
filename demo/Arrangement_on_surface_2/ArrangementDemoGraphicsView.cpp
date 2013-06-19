@@ -18,10 +18,14 @@
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
 #include "ArrangementDemoGraphicsView.h"
+#include "ArrangementDemoTab.h"
+#include "ArrangementTypes.h"
 
 #include <iostream>
 #include <QVarLengthArray>
 #include <QPen>
+
+#include "QLabellingLogWidget.hpp"
 
 ArrangementDemoGraphicsView::ArrangementDemoGraphicsView( QWidget* parent ) :
     QGraphicsView( parent ),
@@ -85,10 +89,52 @@ QRectF ArrangementDemoGraphicsView::getViewportRect( ) const
     return res;
 }
 
-void ArrangementDemoGraphicsView::setImageToLabel(const QString& path)
+void ArrangementDemoGraphicsView::setImageToLabel(const QString& path, ArrangementDemoTabBase *currentTab, CGAL::Object currentArrangement)
 {
     QPixmap imagetolabel = QPixmap(path);
     setImageToLabel(imagetolabel);
     setImageToLabelFilename(path);
     setImageToLabelSize(imagetolabel.size());
+
+    Arr_pol_point_2 ptl( 0, 0);
+    Arr_pol_point_2 pbl(0, imageToLabelHeight() );
+    Arr_pol_point_2 pbr(imageToLabelWidth(), imageToLabelHeight());
+    Arr_pol_point_2 ptr(imageToLabelWidth(), 0 );
+
+    QString imageBoundaryMessage = tr("Image boundaries: ");
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptl.x())) + "," + QString::number(CGAL::to_double(ptl.y())) + ") / ";
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbl.x())) + "," + QString::number(CGAL::to_double(pbl.y())) + ") / ";
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbr.x())) + "," + QString::number(CGAL::to_double(pbr.y())) + ") / ";
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptr.x())) + "," + QString::number(CGAL::to_double(ptr.y())) + ")";
+    QLabellingLogWidget::instance()->logTrace( imageBoundaryMessage );
+
+    std::vector<Arr_pol_point_2> allPoints;
+    allPoints.push_back(ptl);
+    allPoints.push_back(pbl);
+    allPoints.push_back(pbr);
+    allPoints.push_back(ptr);
+    allPoints.push_back(ptl);
+
+    Arr_pol_2 contour(allPoints.begin(), allPoints.end());
+
+    Pol_arr *arr;
+    if ( CGAL::assign( arr, currentArrangement ) )
+    {
+        CGAL::Qt::GraphicsViewCurveInputBase *gvcib = currentTab->getCurveInputCallback();
+        ArrangementCurveInputCallback<Pol_arr> *acic = dynamic_cast< ArrangementCurveInputCallback<Pol_arr>* >(gvcib);
+        if(acic)
+        {
+            acic->processInput( CGAL::make_object(contour) );
+        }
+        // Setting the right label to the newly created frame
+        for(Pol_arr::Face_iterator fit = arr->faces_begin() ; fit != arr->faces_end() ; fit++)
+        {
+            if(!fit->is_unbounded())
+                fit->set_label("Undefined"); // TODO: is the label always "undefined" (could be "unknow"? must be chosen from the config file)???
+        }
+    }
+    else
+    {
+        QLabellingLogWidget::instance()->logWarning( tr("Unable to retrieve the arrangement!") );
+    }
 }
