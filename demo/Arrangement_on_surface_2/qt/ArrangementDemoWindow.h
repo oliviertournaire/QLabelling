@@ -89,6 +89,7 @@ signals:
 
 protected:
     void setupUi( );
+    void doSave(const QString& filename);
     void resetCallbackState( unsigned int tabIndex );
     void removeCallback( unsigned int tabIndex );
 //     void updateFillColorSwatch( );
