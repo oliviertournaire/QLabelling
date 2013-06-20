@@ -630,9 +630,14 @@ void ArrangementDemoWindow::on_tabWidget_currentChanged( )
 
     this->updateMode( this->modeGroup->checkedAction( ) );
 
-    CGAL::Object arr;
-    if ( this->ui->tabWidget->currentIndex( ) != -1 )
-        arr = this->arrangements[ this->ui->tabWidget->currentIndex( ) ];
+    // Filling Arrangement info widget
+    QArrangementInfoWidget* infoWidget = QArrangementInfoWidget::instance();
+    infoWidget->setNumFaces             ( 0 , 0 );
+    infoWidget->setNumEdges             ( 0 );
+    infoWidget->setNumVertices          ( 0 );
+    infoWidget->setNumIsolatedVertices  ( 0 );
+    infoWidget->setNumVerticesAtInfinity( 0 );
+    infoWidget->setChanged              ( false );
 }
 
 void ArrangementDemoWindow::on_actionOverlay_triggered( )
