@@ -58,7 +58,7 @@ public:
 
     bool _imageHasBeenLoaded;
     bool arrHasBeenSaved() { return !arrangementGraphicsItem->changed; };
-    bool set_arrHasBeenSaved( bool _saved) { arrangementGraphicsItem->changed = !_saved; QArrangementInfoWidget::instance()->setChanged(!_saved);  };
+    void setArrHasBeenSaved(bool saved) { arrangementGraphicsItem->changed = !saved; QArrangementInfoWidget::instance()->setChanged(!saved);  };
     bool _labelsHaveBeenSaved;
 
 protected:
