@@ -541,7 +541,7 @@ void ArrangementDemoWindow::doSave(const QString& filename)
         ArrFormatter arrFormatter;
         CGAL::write( *pol, ofs, arrFormatter );
     }
-    this->getCurrentTab()->set_arrHasBeenSaved( true );
+    this->getCurrentTab()->setArrHasBeenSaved( true );
     ofs.close( );
 }
 
@@ -834,7 +834,7 @@ void ArrangementDemoWindow::on_actionSaveProject_triggered()
             // TODO: write labels image
             doSave(spd.arrangementPath());
             
-            getCurrentTab()->set_arrHasBeenSaved(true);
+            getCurrentTab()->setArrHasBeenSaved(true);
         }
     }
 }
