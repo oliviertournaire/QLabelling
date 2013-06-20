@@ -74,15 +74,15 @@ add_executable( QDemoArrangement2 ${APPLICATION_TYPE}
 #                                   ${LABELLINGVIEW_CPP}
                                   ${LABELITEM_HPP}
                                   ${LABELITEM_CPP}
-                                  ${ZOOMABLEGRAPHICSVIEW_HPP}
-                                  ${ZOOMABLEGRAPHICSVIEW_CPP}
+#                                   ${ZOOMABLEGRAPHICSVIEW_HPP}
+#                                   ${ZOOMABLEGRAPHICSVIEW_CPP}
 #                                   ${QGRAPHICSRECTWITHLABELITEM_HPP}
 #                                   ${QGRAPHICSRECTWITHLABELITEM_CPP}
                                   ${MOCS_LOGWIDGET}
                                   ${MOCS_LABELLINGWIDGET}
 #                                   ${MOCS_LABELLINGVIEW}
                                   ${MOCS_LABELITEM}
-                                  ${MOCS_ZOOMABLEGRAPHICSVIEW}
+#                                   ${MOCS_ZOOMABLEGRAPHICSVIEW}
 #                                   ${MOCS_QGRAPHICSRECTWITHLABELITEM}
                                   ${UI_LOGWIDGET}
                                   ${UI_LABELLINGWIDGET}
