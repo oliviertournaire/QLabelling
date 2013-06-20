@@ -53,36 +53,22 @@ link_directories(${Boost_LIBRARY_DIRS})
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
-file( GLOB ALL_UTILITIES_HPP ${CMAKE_SOURCE_DIR}/utilities/*.hpp )
-
-file( GLOB MOCS_QLABELLING_HPP ${CMAKE_SOURCE_DIR}/qt/*.hpp )
-file( GLOB MOCS_QLABELLING_CPP ${CMAKE_SOURCE_DIR}/qt/*.cpp )
-file( GLOB MOCS_QLABELLING_UI  ${CMAKE_SOURCE_DIR}/qt/*.ui  )
-
-file( GLOB ALL_QLABELLING_HPP ${CMAKE_SOURCE_DIR}/*.hpp )
-file( GLOB ALL_QLABELLING_CPP ${CMAKE_SOURCE_DIR}/*.cpp )
-
-qt4_wrap_cpp( ALL_MOCS_QLABELLING ${MOCS_QLABELLING_HPP} )
-qt4_wrap_ui(  ALL_UI_QLABELLING   ${MOCS_QLABELLING_UI}  )
-qt4_add_resources( RCS_QLABELLING ${CMAKE_SOURCE_DIR}/rc/RessourcesQLabelling.qrc )
-
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
-include_directories( ${CMAKE_SOURCE_DIR} )
-include_directories( ${CMAKE_SOURCE_DIR}/qt )
-
-# add_executable( QLabelling ${ALL_UTILITIES_HPP}
-#                            ${MOCS_QLABELLING_HPP}
-#                            ${MOCS_QLABELLING_CPP}
-#                            ${MOCS_QLABELLING_UI}
-#                            ${ALL_QLABELLING_HPP}
-#                            ${ALL_QLABELLING_CPP}
-#                            ${ALL_MOCS_QLABELLING}
-#                            ${ALL_UI_QLABELLING}
-#                            ${RCS_QLABELLING} )
-# target_link_libraries( QLabelling ${QT_LIBRARIES} ${CGAL_LIBRARIES} ${Boost_LIBRARIES} )
-# set_target_properties( QLabelling PROPERTIES DEBUG_POSTFIX "_debug" )
-# add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp.cmake.in )
-# add_dependencies( QLabelling ${CMAKE_SOURCE_DIR}/config.hpp )
+# file( GLOB ALL_UTILITIES_HPP ${CMAKE_SOURCE_DIR}/utilities/*.hpp )
+# 
+# file( GLOB MOCS_QLABELLING_HPP ${CMAKE_SOURCE_DIR}/qt/*.hpp )
+# file( GLOB MOCS_QLABELLING_CPP ${CMAKE_SOURCE_DIR}/qt/*.cpp )
+# file( GLOB MOCS_QLABELLING_UI  ${CMAKE_SOURCE_DIR}/qt/*.ui  )
+# 
+# file( GLOB ALL_QLABELLING_HPP ${CMAKE_SOURCE_DIR}/*.hpp )
+# file( GLOB ALL_QLABELLING_CPP ${CMAKE_SOURCE_DIR}/*.cpp )
+# 
+# qt4_wrap_cpp( ALL_MOCS_QLABELLING ${MOCS_QLABELLING_HPP} )
+# qt4_wrap_ui(  ALL_UI_QLABELLING   ${MOCS_QLABELLING_UI}  )
+# qt4_add_resources( RCS_QLABELLING ${CMAKE_SOURCE_DIR}/rc/RessourcesQLabelling.qrc )
+# 
+# include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+# include_directories( ${CMAKE_SOURCE_DIR} )
+# include_directories( ${CMAKE_SOURCE_DIR}/qt )
 
 
 # Qt
@@ -176,3 +162,4 @@ add_executable( QDemoArrangement2 ${APPLICATION_TYPE}
 								  ${ALL_QDEMOARRANGEMENT2_HPP}
 								  ${ALL_QDEMOARRANGEMENT2_CPP} )
 target_link_libraries( QDemoArrangement2 ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${QT_LIBRARIES} )
+
