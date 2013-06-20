@@ -9,7 +9,7 @@
 
 #include <fstream>
 
-#include "QLabellingView.hpp"
+// #include "QLabellingView.hpp"
 #include "config.hpp"
 
 #include "QLabelItem.hpp"
@@ -31,7 +31,7 @@ QWidget(),
     setEnabledAllLabelButtons(false);
     setWindowIcon( QIcon(":/QLabelling/QLabellingIcon.png") );
 
-    QLabellingView::instance()->readSettings();
+//     QLabellingView::instance()->readSettings();
 }
 
 QLabellingWidget::~QLabellingWidget()
@@ -39,10 +39,10 @@ QLabellingWidget::~QLabellingWidget()
     delete ui;
 }
 
-QImage QLabellingWidget::labelsImage()
-{
-    return QLabellingView::instance()->labelsImage();
-}
+// QImage QLabellingWidget::labelsImage()
+// {
+//     return QLabellingView::instance()->labelsImage();
+// }
 
 void QLabellingWidget::setEnabledAllLabelButtons( bool enabled )
 {

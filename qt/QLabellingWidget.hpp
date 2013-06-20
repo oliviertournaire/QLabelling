@@ -26,7 +26,7 @@ private:
     ~QLabellingWidget();
 
 public:
-    QImage labelsImage();
+//     QImage labelsImage();
     const std::vector<QLabelItem*>& labelItems() const { return _labelItems; }
 
     void setEnabledAllLabelButtons(bool enabled);

@@ -43,7 +43,7 @@
 
 #include "QLabellingLogWidget.hpp"
 #include "QLabellingWidget.hpp"
-#include "QLabelItem.hpp"
+// #include "QLabelItem.hpp"
 #include "QArrangementInfoWidget.h"
 #include "config.hpp"
 
