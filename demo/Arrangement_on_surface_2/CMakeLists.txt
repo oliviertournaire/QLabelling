@@ -31,8 +31,8 @@ endif()
 # qt4_wrap_cpp( MOCS_LABELLINGVIEW ${LABELLINGVIEW_HPP} )
 
 # Label item: remove this when #21 fixed
-set( LABELITEM_HPP ${CMAKE_CURRENT_SOURCE_DIR}/../../qt/QLabelItem.hpp )
-set( LABELITEM_CPP ${CMAKE_CURRENT_SOURCE_DIR}/../../qt/QLabelItem.cpp )
+set( LABELITEM_HPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QLabelItem.hpp )
+set( LABELITEM_CPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QLabelItem.cpp )
 qt4_wrap_cpp( MOCS_LABELITEM ${LABELITEM_HPP} )
 
 # # ZoomableGraphicsView: remove this when #21 fixed
