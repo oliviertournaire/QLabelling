@@ -130,6 +130,40 @@ if(WIN32)
 	set( APPLICATION_TYPE WIN32 )
 endif()
 
+
+SET( FILES_TO_TRANSLATE 
+                        ${ALL_UI_QDEMOARRANGEMENT2}
+                        ${RCS_QDEMOARRANGEMENT2}
+                        ${LOGWIDGET_HPP}
+                        ${LOGWIDGET_CPP}
+                        ${LOGWIDGET_UI}
+                        ${LABELLINGWIDGET_HPP}
+                        ${LABELLINGWIDGET_CPP}
+                        ${LABELLINGWIDGET_UI}
+                        ${LABELITEM_HPP}
+                        ${LABELITEM_CPP}
+                        ${MOCS_LOGWIDGET}
+                        ${MOCS_LABELLINGWIDGET}
+                        ${MOCS_LABELITEM}
+                        ${UI_LOGWIDGET}
+                        ${UI_LABELLINGWIDGET}
+)
+
+SET(LANGUAGES fr_FR)
+
+SET(LANGUAGE_TS_FILES)
+FOREACH(LANGUAGE ${LANGUAGES})
+    SET(TS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake_${LANGUAGE}.ts")
+    SET(LANGUAGE_TS_FILES ${LANGUAGE_TS_FILES} ${TS_FILE})
+    SET_SOURCE_FILES_PROPERTIES(${TS_FILE} PROPERTIES OUTPUT_LOCATION
+        "${CMAKE_CURRENT_SOURCE_DIR}/i18n")
+ENDFOREACH(LANGUAGE ${LANGUAGES})
+
+IF(LANGUAGE_TS_FILES)
+    QT4_CREATE_TRANSLATION(qm_files ${FILES_TO_TRANSLATE} ${LANGUAGE_TS_FILES})
+ENDIF(LANGUAGE_TS_FILES)
+
+
 add_executable( QDemoArrangement2 ${APPLICATION_TYPE}
                                 ${MOCS_QDEMOARRANGEMENT2_HPP}
                                 ${MOCS_QDEMOARRANGEMENT2_CPP}
@@ -160,6 +194,8 @@ add_executable( QDemoArrangement2 ${APPLICATION_TYPE}
                                   ${UI_LOGWIDGET}
                                   ${UI_LABELLINGWIDGET}
 								  ${ALL_QDEMOARRANGEMENT2_HPP}
-								  ${ALL_QDEMOARRANGEMENT2_CPP} )
+                                                                  ${ALL_QDEMOARRANGEMENT2_CPP}
+                                                                  ${qm_files})
+
 target_link_libraries( QDemoArrangement2 ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${QT_LIBRARIES} )
 

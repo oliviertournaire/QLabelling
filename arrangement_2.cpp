@@ -22,19 +22,30 @@
 #include <QImageWriter>
 #include <QObject>
 
+#include <QTranslator>
+
 #include "ArrangementDemoWindow.h"
 #include "QLabellingLogWidget.hpp"
 
 int main( int argc, char* argv[] )
 {
     QApplication app( argc, argv );
-
+    
+    QString locale = QLocale::system().name();
+    
+    QTranslator translator;
+    translator.load("cmake_fr_FR");
+    app.installTranslator(&translator);
+ 
+    
 #ifdef WIN32
     app.addLibraryPath(qgetenv ("QTDIR")+"\\plugins");
 #endif
 
     ArrangementDemoWindow demoWindow;
     demoWindow.show( );
+    
+    QLabellingLogWidget::instance()->logInfo( QObject::tr("Current locale : ") + locale);
 
     QString readFileFormats = "(";
     for (int i = 0; i < QImageReader::supportedImageFormats().count(); i++)
