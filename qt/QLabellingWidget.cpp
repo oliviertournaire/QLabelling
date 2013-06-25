@@ -9,7 +9,6 @@
 
 #include <fstream>
 
-// #include "QLabellingView.hpp"
 #include "config.hpp"
 
 #include "QLabelItem.hpp"
@@ -38,11 +37,6 @@ QLabellingWidget::~QLabellingWidget()
 {
     delete ui;
 }
-
-// QImage QLabellingWidget::labelsImage()
-// {
-//     return QLabellingView::instance()->labelsImage();
-// }
 
 void QLabellingWidget::setEnabledAllLabelButtons( bool enabled )
 {
@@ -157,13 +151,6 @@ void QLabellingWidget::on__toolButtonChooseLabelsPath_clicked(bool checked)
     if(!_labelsPath.isNull())
         parseLabels();
 }
-
-// void QLabellingWidget::on__radioButtonLabelling_toggled(bool checked)
-// {
-//     QLabellingView::instance()->setMode( QLabellingView::EDIT_MODE_LABELLING );
-//     QLabellingView::instance()->setLabellingMode(true);
-//     setEnabledAllLabelButtons(true);
-// }
 
 void QLabellingWidget::updateAlphaValue(const int alpha)
 {

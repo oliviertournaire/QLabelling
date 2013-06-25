@@ -7,7 +7,6 @@
 
 #include <vector>
 
-class QLabellingView;
 class QGraphicsView;
 class QLabelItem;
 class QButtonGroup;
