@@ -147,6 +147,12 @@ SET( FILES_TO_TRANSLATE
                         ${MOCS_LABELITEM}
                         ${UI_LOGWIDGET}
                         ${UI_LABELLINGWIDGET}
+                        ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementInfoWidget.cpp
+                        ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementInfoWidget.h
+                        ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementInfoWidget.ui
+#                         ${CMAKE_CURRENT_SOURCE_DIR}/qt/ArrangementDemoWindow.cpp
+#                         ${CMAKE_CURRENT_SOURCE_DIR}/qt/ArrangementDemoWindow.h
+#                         ${CMAKE_CURRENT_SOURCE_DIR}/qt/ArrangementDemoWindow.ui
 )
 
 SET(LANGUAGES fr_FR)

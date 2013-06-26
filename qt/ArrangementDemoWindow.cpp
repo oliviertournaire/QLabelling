@@ -241,56 +241,56 @@ void ArrangementDemoWindow::updateMode( QAction* newMode )
     // update the active mode
     this->activeModes.at( 0 ) = newMode;
 
-    QString messageToLog("Updating mode --> ");
+    QString messageToLog(tr("Updating mode --> "));
 
     // hook up the new active mode
     if ( newMode == this->ui->actionInsert )
     {
 	activeTab->getCurveInputCallback( )->mode = POLYLINE;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
-        messageToLog += "Insertion mode";
+        messageToLog += tr("Insertion mode");
     }
     else if ( newMode == this->ui->actionInsert_horizontal_line  )
     {
 	activeTab->getCurveInputCallback( )->mode = HORIZONTAL;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
-        messageToLog += "Insertion (horizontal) mode";
+        messageToLog += tr("Insertion (horizontal) mode");
     }
     else if ( newMode == this->ui->actionInsert_vertical_line )
     {
 	activeTab->getCurveInputCallback( )->mode = VERTICAL;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
-        messageToLog += "Insertion (vertical) mode";
+        messageToLog += tr("Insertion (vertical) mode");
     }
     else if ( newMode == this->ui->actionDrag )
     {
         activeView->setDragMode( QGraphicsView::ScrollHandDrag );
-        messageToLog += "Drag mode";
+        messageToLog += tr("Drag mode");
     }
     else if ( newMode == this->ui->actionDelete )
     {
         activeScene->installEventFilter( activeTab->getDeleteCurveCallback( ) );
-        messageToLog += "Delete mode";
+        messageToLog += tr("Delete mode");
     }
     else if ( newMode == this->ui->actionPointLocation )
     {
         activeScene->installEventFilter( activeTab->getPointLocationCallback( ) );
-        messageToLog += "Point location mode";
+        messageToLog += tr("Point location mode");
     }
     else if ( newMode == this->ui->actionMerge )
     {
         activeScene->installEventFilter( activeTab->getMergeEdgeCallback( ) );
-        messageToLog += "Merge mode";
+        messageToLog += tr("Merge mode");
     }
     else if ( newMode == this->ui->actionSplit )
     {
         activeScene->installEventFilter( activeTab->getSplitEdgeCallback( ) );
-        messageToLog += "Split mode";
+        messageToLog += tr("Split mode");
     }
     else if ( newMode == this->ui->actionFill )
     {
         activeScene->installEventFilter( activeTab->getFillFaceCallback( ) );
-        messageToLog += "Fill mode";
+        messageToLog += tr("Fill mode");
     }
 //     this->updateFillColorSwatch( );
 
@@ -388,7 +388,7 @@ void ArrangementDemoWindow::openArrFile( QString filename )
     int index = this->ui->tabWidget->currentIndex( );
     if ( index == -1 )
     {
-        QMessageBox::information( this, "Oops", "Create a new tab first" );
+        QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
         return;
     }
     if ( filename.isNull( ) )
@@ -422,7 +422,7 @@ void ArrangementDemoWindow::openDatFile( QString filename )
     int index = this->ui->tabWidget->currentIndex( );
     if ( index == -1 )
     {
-        QMessageBox::information( this, "Oops", "Create a new tab first" );
+        QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
         return;
     }
     if ( filename.isNull( ) )
@@ -437,7 +437,7 @@ void ArrangementDemoWindow::openDatFile( QString filename )
     // Creates an ofstream object named inputFile
     if (! inputFile.is_open() ) // Always test file open
     {
-        std::cerr << "Error opening input file" << std::endl;
+        QLabellingLogWidget::instance()->logError(tr("Error opening input file"));
         return;
     }
 
@@ -521,7 +521,7 @@ void ArrangementDemoWindow::on_actionSaveAs_triggered( )
     int index = this->ui->tabWidget->currentIndex( );
     if ( index == -1 )
         return;
-    QString filename = QFileDialog::getSaveFileName( this, tr( "Save file" ), "", "Arrangement (*.arr)" );
+    QString filename = QFileDialog::getSaveFileName( this, tr( "Save file" ), "", tr("Arrangement (*.arr)") );
     if ( filename.isNull( ) )
         return;
 
@@ -552,10 +552,10 @@ void ArrangementDemoWindow::on_actionOpen_triggered( )
     int index = this->ui->tabWidget->currentIndex( );
     if ( index == -1 )
     {
-        QMessageBox::information( this, "Oops", "Create a new tab first" );
+        QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
         return;
     }
-    QString filename = QFileDialog::getOpenFileName( this, tr( "Open file" ), "", "Arrangement files (*.arr *.dat);;All files (*.*)" );
+    QString filename = QFileDialog::getOpenFileName( this, tr( "Open file" ), "", tr("Arrangement files (*.arr *.dat);;All files (*.*)") );
     if ( filename.isNull( ) )
         return;
 
@@ -670,15 +670,15 @@ void ArrangementDemoWindow::on_actionCloseTab_triggered( )
         return;
     
     if(! getCurrentTab()->arrHasBeenSaved() && ! getCurrentTab()->_labelsHaveBeenSaved){ // If labels have already been saved, do not complain
-        if(QMessageBox::question(this, "Arrangement not saved", "The current arrangement has not been saved, do you really want to close this tab ?",QMessageBox::Yes, QMessageBox::Cancel) != QMessageBox::Yes){
-            QLabellingLogWidget::instance()->logInfo( "Closing tab aborted" );
+        if(QMessageBox::question(this, tr("Arrangement not saved"), tr("The current arrangement has not been saved, do you really want to close this tab ?"),QMessageBox::Yes, QMessageBox::Cancel) != QMessageBox::Yes){
+            QLabellingLogWidget::instance()->logInfo( tr("Closing tab aborted") );
             return;
         }
     }
     
     if(! getCurrentTab()->_labelsHaveBeenSaved){
-        if(QMessageBox::question(this, "Labels not saved", "The current labels set has not been saved, do you really want to close this tab ?",QMessageBox::Yes, QMessageBox::Cancel) != QMessageBox::Yes){
-            QLabellingLogWidget::instance()->logInfo( "Closing tab aborted" );
+        if(QMessageBox::question(this, tr("Labels not saved"), tr("The current labels set has not been saved, do you really want to close this tab ?"),QMessageBox::Yes, QMessageBox::Cancel) != QMessageBox::Yes){
+            QLabellingLogWidget::instance()->logInfo( tr("Closing tab aborted") );
             return;
         }
     }
@@ -698,7 +698,7 @@ void ArrangementDemoWindow::on_actionCloseTab_triggered( )
 void ArrangementDemoWindow::on_actionZoomIn_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
-    QLabellingLogWidget::instance()->logDebug( tr("Zoomed in, current scale = ") + QString::number(view->transform().m11()) + " et " + QString::number(view->transform().m22()) );
+    QLabellingLogWidget::instance()->logDebug( tr("Zoomed in, current scale = ") + QString::number(view->transform().m11()) + tr(" et ") + QString::number(view->transform().m22()) );
 
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
@@ -710,7 +710,7 @@ void ArrangementDemoWindow::on_actionZoomIn_triggered( )
 void ArrangementDemoWindow::on_actionZoomOut_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
-    QLabellingLogWidget::instance()->logDebug( tr("Zoomed out, current scale = ") + QString::number(view->transform().m11()) + " et " + QString::number(view->transform().m22()) );
+    QLabellingLogWidget::instance()->logDebug( tr("Zoomed out, current scale = ") + QString::number(view->transform().m11()) + tr(" et ") + QString::number(view->transform().m22()) );
 
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
@@ -866,7 +866,7 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
     // 2) [DONE] If the user chooses a new image, it should not be simply added in the scene. First, the single QPixmap of the scene should be removed, and then,
     // the newly chosen file could be add as a QPixmap to the scene. We must also ensures that all attributes are well set after image change (refactoring may help).
     if(currentTab->_imageHasBeenLoaded)
-        QMessageBox::warning( this, "Warning", "There is already a loaded image, be sure of what you do." );
+        QMessageBox::warning( this, tr("Warning"), tr("There is already a loaded image, be sure of what you do.") );
 
     settings.beginGroup("QLabellingMainWindow");
     QString defaultDirectory = settings.value("defaultDirectory", "").toString();
@@ -876,7 +876,7 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
     {
         QFileInfo info(fileName);
         settings.setValue("defaultDirectory", info.absolutePath());
-        QLabellingLogWidget::instance()->logTrace( QString("Open image " + fileName) );
+        QLabellingLogWidget::instance()->logTrace( tr("Open image ") + fileName );
 
         QGraphicsScene              *currentTabScene = currentTab->getScene();
         ArrangementDemoGraphicsView *currentTabView  = currentTab->getView();
@@ -932,7 +932,7 @@ void ArrangementDemoWindow::on_actionClean_triggered()
     int tabIndex = this->ui->tabWidget->currentIndex( );
     if ( tabIndex == -1 )
     {
-        QMessageBox::information( this, "Oops", "Create a new tab first" );
+        QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
         return;
     }
     
@@ -950,7 +950,7 @@ void ArrangementDemoWindow::on_actionClean_triggered()
             // This should theorically never happen
             if(vit->is_isolated())
             {
-                QLabellingLogWidget::instance()->logTrace(QString("Removing isolated vertex " + QString::number(index) + "."));
+                QLabellingLogWidget::instance()->logTrace(tr("Removing isolated vertex %n.","",index));
                 pol->remove_isolated_vertex(vit);
                 continue;
             }
@@ -969,7 +969,7 @@ void ArrangementDemoWindow::on_actionClean_triggered()
             // Antenna test
             if(eit->twin()->face() == eit->face())
             {
-                QLabellingLogWidget::instance()->logTrace(QString("Removing antenna halfedge " + QString::number(index) + "."));
+                QLabellingLogWidget::instance()->logTrace(tr("Removing antenna halfedge %n.","",index));
                 pol->remove_edge(eit);
                 continue;
             }
@@ -980,7 +980,7 @@ void ArrangementDemoWindow::on_actionClean_triggered()
             || CGAL::to_double(eit->source()->point().y()) > rectIm.bottom()+1
             || CGAL::to_double(eit->source()->point().y()) < rectIm.top() )
             {
-                QLabellingLogWidget::instance()->logTrace(QString("Source out-of-pixmap : removing halfedge " + QString::number(index) + "."));
+                QLabellingLogWidget::instance()->logTrace(tr("Source out-of-pixmap : removing halfedge %n.","",index));
                 pol->remove_edge(eit);
                 continue;
             }
@@ -989,7 +989,7 @@ void ArrangementDemoWindow::on_actionClean_triggered()
             || CGAL::to_double(eit->target()->point().y()) > rectIm.bottom()+1
             || CGAL::to_double(eit->target()->point().y()) < rectIm.top() )
             {
-                QLabellingLogWidget::instance()->logTrace(QString("Target out-of-pixmap : removing halfedge " + QString::number(index) + "."));
+                QLabellingLogWidget::instance()->logTrace(tr("Target out-of-pixmap : removing halfedge %n.","",index));
                 pol->remove_edge(eit);
                 continue;
             }
@@ -999,7 +999,7 @@ void ArrangementDemoWindow::on_actionClean_triggered()
         {
             // Twin face has the same label ?
             if(eit->twin()->face()->label() == eit->face()->label()){
-                QLabellingLogWidget::instance()->logTrace(QString("Twin face has the same label (" + eit->face()->label() + ") : merging faces by removing halfedge " + QString::number(index) + "."));
+                QLabellingLogWidget::instance()->logTrace(tr("Twin face has the same label (") + eit->face()->label() + tr(") : merging faces by removing halfedge %n.","",index));
                 pol->remove_edge(eit);
                 continue;
             }
@@ -1016,7 +1016,7 @@ void ArrangementDemoWindow::on_actionClean_triggered()
                 curr++;
                 if(pol->are_mergeable(first,curr))
                 {
-                    QLabellingLogWidget::instance()->logTrace(QString("Merging edges."));   
+                    QLabellingLogWidget::instance()->logTrace(tr("Merging edges."));   
                     pol->merge_edge(first,curr);
                 }
             }
@@ -1025,7 +1025,7 @@ void ArrangementDemoWindow::on_actionClean_triggered()
     }
     else
     {
-        QLabellingLogWidget::instance()->logError("[Clean] Parsing arrangement failed...");
+        QLabellingLogWidget::instance()->logError(tr("[Cleaning] Parsing arrangement failed..."));
     }
 
     this->tabs[ tabIndex ]->getScene()->update( );

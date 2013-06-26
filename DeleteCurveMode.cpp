@@ -44,5 +44,5 @@ void DeleteCurveMode::setMode( Mode mode )
 QString DeleteCurveMode::ToString( const DeleteCurveMode& mode )
 {
     return ( mode.mode( ) == DELETE_CURVE ) ?
-                QString("Delete Curve") : QString("Delete Edge");
+                QObject::tr("Delete Curve") : QObject::tr("Delete Edge");
 }

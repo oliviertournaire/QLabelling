@@ -5,8 +5,8 @@
     <name>ArrangementDemoPropertiesDialog</name>
     <message>
         <location filename="build/ui_ArrangementDemoPropertiesDialog.h" line="91"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <source>Options</source>
+        <translation>Options</translation>
     </message>
     <message>
         <location filename="build/ui_ArrangementDemoPropertiesDialog.h" line="93"/>
@@ -241,56 +241,117 @@
     <name>OverlayDialog</name>
     <message>
         <location filename="build/ui_OverlayDialog.h" line="69"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <source>Overlay</source>
+        <translation>Superposition</translation>
     </message>
     <message>
         <location filename="build/ui_OverlayDialog.h" line="70"/>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <location filename="build/ui_OverlayDialog.h" line="71"/>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;</translation>
     </message>
 </context>
 <context>
     <name>QArrangementInfoWidget</name>
     <message>
+        <location filename="qt/QArrangementInfoWidget.ui" line="32"/>
         <location filename="build/ui_QArrangementInfoWidget.h" line="90"/>
         <source>Arrangement info</source>
         <translation>Informations sur l&apos;arrangement</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementInfoWidget.ui" line="42"/>
         <location filename="build/ui_QArrangementInfoWidget.h" line="91"/>
         <source>0 faces</source>
         <translation>0 face</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementInfoWidget.ui" line="49"/>
         <location filename="build/ui_QArrangementInfoWidget.h" line="92"/>
         <source>0 edges</source>
         <translation>0 arête</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementInfoWidget.ui" line="56"/>
         <location filename="build/ui_QArrangementInfoWidget.h" line="93"/>
         <source>0 vertices</source>
         <translation>0 point</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementInfoWidget.ui" line="63"/>
         <location filename="build/ui_QArrangementInfoWidget.h" line="94"/>
         <source>0 isolated vertices</source>
         <translation>0 point isolé</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementInfoWidget.ui" line="70"/>
         <location filename="build/ui_QArrangementInfoWidget.h" line="95"/>
         <source>0 vertices at infinity</source>
         <translation>0 point à l&apos;infini</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementInfoWidget.ui" line="77"/>
         <location filename="build/ui_QArrangementInfoWidget.h" line="96"/>
+        <location filename="qt/QArrangementInfoWidget.cpp" line="44"/>
         <source>No new changes</source>
         <translation>Pas de nouveau changement</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementInfoWidget.cpp" line="19"/>
+        <source>%n face(s)</source>
+        <translation>
+            <numerusform>%n face</numerusform>
+            <numerusform>%n faces</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementInfoWidget.cpp" line="19"/>
+        <source> (%n unbounded)</source>
+        <translation>
+            <numerusform> (%n infinie)</numerusform>
+            <numerusform> (%n infinies)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementInfoWidget.cpp" line="24"/>
+        <source>%n edge(s)</source>
+        <translation>
+            <numerusform>%n arrête</numerusform>
+            <numerusform>%n arrêtes</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementInfoWidget.cpp" line="29"/>
+        <source>%n vertice(s)</source>
+        <translation>
+            <numerusform>%n point</numerusform>
+            <numerusform>%n points</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementInfoWidget.cpp" line="34"/>
+        <source>%n isolated vertice(s)</source>
+        <translation>
+            <numerusform>%n point isolé</numerusform>
+            <numerusform>%n point isolés</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementInfoWidget.cpp" line="39"/>
+        <source>%n vertice(s) at infinity</source>
+        <translation>
+            <numerusform>%n point à l&apos;infini</numerusform>
+            <numerusform>%n points à l&apos;infini</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementInfoWidget.cpp" line="44"/>
+        <source>Changes not saved</source>
+        <translation>Changements non enregistrés</translation>
     </message>
 </context>
 <context>
@@ -359,14 +420,45 @@
         <source>Text files (*.txt *.log)</source>
         <translation>Fichiers textes (*.txt *.log)</translation>
     </message>
+    <message>
+        <location filename="qt/QLabellingLogWidget.cpp" line="59"/>
+        <source>[FATAL ERROR]</source>
+        <translation>[ERREUR FATALE]</translation>
+    </message>
+    <message>
+        <location filename="qt/QLabellingLogWidget.cpp" line="65"/>
+        <source>[ERROR]</source>
+        <translation>[ERREUR]</translation>
+    </message>
+    <message>
+        <location filename="qt/QLabellingLogWidget.cpp" line="71"/>
+        <source>[WARNING]</source>
+        <translation>[AVERTISSEMENT]</translation>
+    </message>
+    <message>
+        <location filename="qt/QLabellingLogWidget.cpp" line="77"/>
+        <source>[INFO]</source>
+        <translation>[INFO]</translation>
+    </message>
+    <message>
+        <location filename="qt/QLabellingLogWidget.cpp" line="83"/>
+        <source>[TRACE]</source>
+        <translation>[TRACE]</translation>
+    </message>
+    <message>
+        <location filename="qt/QLabellingLogWidget.cpp" line="89"/>
+        <source>[DEBUG]</source>
+        <translation>[DEBUG]</translation>
+    </message>
 </context>
 <context>
     <name>QLabellingWidget</name>
     <message>
         <location filename="qt/QLabellingWidget.ui" line="14"/>
         <location filename="build/ui_QLabellingWidget.h" line="85"/>
-        <source>QLabellingWidget</source>
-        <translation>QLabellingWidget</translation>
+        <source>Labelling</source>
+        <oldsource>QLabellingWidget</oldsource>
+        <translation>Labellisation</translation>
     </message>
     <message>
         <location filename="qt/QLabellingWidget.ui" line="24"/>

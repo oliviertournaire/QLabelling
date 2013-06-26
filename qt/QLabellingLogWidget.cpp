@@ -56,37 +56,37 @@ void QLabellingLogWidget::on__toolButtonSave_clicked(bool checked)
 void QLabellingLogWidget::logFatalError(const QString& text)
 {
     if(_loglevel<=FATAL_ERROR)
-        log(QString("[FATAL ERROR]"), text, Qt::red);
+        log(tr("[FATAL ERROR]"), text, Qt::red);
 }
 
 void QLabellingLogWidget::logError(const QString& text)
 {
     if(_loglevel<=ERROR)
-        log(QString("[ERROR]"), text, Qt::red);
+        log(tr("[ERROR]"), text, Qt::red);
 }
 
 void QLabellingLogWidget::logWarning(const QString& text)
 {
     if(_loglevel<=WARNING)
-        log(QString("[WARNING]"), text, QColor(255,115,0));
+        log(tr("[WARNING]"), text, QColor(255,115,0));
 }
 
 void QLabellingLogWidget::logInfo(const QString& text)
 {
     if(_loglevel<=INFO)
-        log(QString("[INFO]"), text, Qt::blue);
+        log(tr("[INFO]"), text, Qt::blue);
 }
 
 void QLabellingLogWidget::logTrace(const QString& text)
 {
     if(_loglevel<=TRACE)
-        log(QString("[TRACE]"), text, Qt::green);
+        log(tr("[TRACE]"), text, Qt::green);
 }
 
 void QLabellingLogWidget::logDebug(const QString& text)
 {
     if(_loglevel<=DEBUG)
-        log(QString("[DEBUG]"), text, Qt::magenta);
+        log(tr("[DEBUG]"), text, Qt::magenta);
 }
 
 void QLabellingLogWidget::log(const QString& prefix, const QString& text, const QColor& color)

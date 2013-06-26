@@ -16,30 +16,30 @@ QArrangementInfoWidget::~QArrangementInfoWidget()
 
 void QArrangementInfoWidget::setNumFaces(const int &numFaces, const int numUnboudedFaces)
 {
-    ui->_labelFaces->setText( QString::number(numFaces) + " faces (" + QString::number(numUnboudedFaces) + " unbounded)" );
+    ui->_labelFaces->setText( tr("%n face(s)", "", numFaces) + tr(" (%n unbounded)","",numUnboudedFaces));
 }
 
 void QArrangementInfoWidget::setNumEdges(const int &numEdges)
 {
-    ui->_labelEdges->setText( QString::number(numEdges) + " edges" );
+    ui->_labelEdges->setText( tr("%n edge(s)","",numEdges ));
 }
 
 void QArrangementInfoWidget::setNumVertices(const int &numVertices)
 {
-    ui->_labelVertices->setText( QString::number(numVertices) + " vertices" );
+    ui->_labelVertices->setText( tr("%n vertice(s)","",numVertices ));
 }
 
 void QArrangementInfoWidget::setNumIsolatedVertices(const int &numIsolatedVertices)
 {
-    ui->_labelIsolatedVertices->setText( QString::number(numIsolatedVertices) + " isolated vertices" );
+    ui->_labelIsolatedVertices->setText( tr("%n isolated vertice(s)","",numIsolatedVertices ));
 }
 
 void QArrangementInfoWidget::setNumVerticesAtInfinity(const int &numVerticesAtInfinity)
 {
-    ui->_labelVerticesAtInfinity->setText( QString::number(numVerticesAtInfinity) + " vertices at infinity" );
+    ui->_labelVerticesAtInfinity->setText( tr("%n vertice(s) at infinity","",numVerticesAtInfinity));
 }
 
 void QArrangementInfoWidget::setChanged(const bool &changed)
 {
-    ui->_labelChanged->setText( changed ? "Changes not saved" : "No new changes" );
+    ui->_labelChanged->setText( changed ?tr( "Changes not saved") : tr("No new changes") );
 }
