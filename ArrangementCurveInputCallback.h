@@ -69,27 +69,27 @@ public:
         X_monotone_curve_2 xcurve;
         if ( CGAL::assign( curve, o ) )
         {
-            QLabellingLogWidget::instance()->logTrace("Insertion d'un objet (" + QString::number(curve.points()) + " sommets) dans l'arrangement.");
+            QLabellingLogWidget::instance()->logTrace(QObject::tr("Insertion d'un objet (%n sommets) dans l'arrangement.","",curve.points()));
 
             Arrangement_Observer<Arrangement> obs(*( this->arrangement ));
 
             CGAL::insert( *( this->arrangement ), curve );
 
-            QString message("Liste complete des vertices de l'arrangement :\n");
+            QString message(QObject::tr("Liste complete des vertices de l'arrangement :\n"));
             Vertex_iterator v;
             int index;
             for (v = this->arrangement->vertices_begin(), index=0 ; v != this->arrangement->vertices_end(); ++v, ++index)
             {
-                message = message + "\t* Trouve le vertex #" + QString::number(index) + " : (";
+                message = message + QObject::tr("\t* Trouve le vertex #%n : (","",index);
                 message += QString::number(CGAL::to_double(v->point().x()));
                 message += ";";
                 message += QString::number(CGAL::to_double(v->point().y()));
-                message = message + ") de degre " + QString::number(v->degree()) + ".\n";
+                message = message + QObject::tr(") de degre %n.\n","",v->degree());
             }
             QLabellingLogWidget::instance()->logTrace(message);
         }
         else{
-            QLabellingLogWidget::instance()->logWarning("Impossible d'ajouter des éléments dans l'arrangement !");
+            QLabellingLogWidget::instance()->logWarning(QObject::tr("Impossible d'ajouter des éléments dans l'arrangement !"));
 	}
 #if 0
         else if ( CGAL::assign( xcurve, o ) )

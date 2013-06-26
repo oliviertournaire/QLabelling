@@ -129,7 +129,7 @@
     <message>
         <location filename="build/ui_ArrangementDemoWindow.h" line="316"/>
         <source>&amp;Overlay...</source>
-        <translation>&amp;Superposer</translation>
+        <translation>&amp;Superposer...</translation>
     </message>
     <message>
         <location filename="build/ui_ArrangementDemoWindow.h" line="317"/>
