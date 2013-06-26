@@ -31,3 +31,4 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 config.hpp
 *.kdev4
+i18n/cmake_fr_FR.qm

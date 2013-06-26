@@ -34,8 +34,13 @@ int main( int argc, char* argv[] )
     QString locale = QLocale::system().name();
     
     QTranslator translator;
+#ifdef WIN32
+    translator.load("../cmake_fr_FR");
+#else
     translator.load("cmake_fr_FR");
+#endif // WIN32
     app.installTranslator(&translator);
+    QLabellingLogWidget::instance()->logInfo( QObject::tr("Current locale : ") + locale);
  
     
 #ifdef WIN32
@@ -44,8 +49,6 @@ int main( int argc, char* argv[] )
 
     ArrangementDemoWindow demoWindow;
     demoWindow.show( );
-    
-    QLabellingLogWidget::instance()->logInfo( QObject::tr("Current locale : ") + locale);
 
     QString readFileFormats = "(";
     for (int i = 0; i < QImageReader::supportedImageFormats().count(); i++)
