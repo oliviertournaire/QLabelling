@@ -101,7 +101,7 @@ bool ArrangementDemoGraphicsView::setImageToLabel(const QString& path, Arrangeme
         return false;
     }
 
-    // Try to find if an image already has been loaded
+    // Try to find if an image has already been loaded
     QList<QGraphicsItem*> allItems = currentTab->getScene()->items();
     for(int i=0;i<allItems.count();++i)
         if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )

@@ -407,15 +407,17 @@ void ArrangementGraphicsItem< Arr_, ArrTraits >:: paint(QPainter* painter, TTrai
 
     QGraphicsScene* currentScene = this->_scene;
     QList<QGraphicsItem*> allItems = currentScene->items();
-    QLabellingLogWidget::instance()->logTrace( tr("Found ") + QString::number(allItems.count()) + tr(" items in the scene") );
-    for(int i=0;i<allItems.count();++i)
-    {
-        if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
-        {
-            QLabellingLogWidget::instance()->logTrace( tr("Found a Pixmap at position ") + QString::number(i) + "!" );
-            this->painterostream << p->pixmap();
-        }
-    }
+    
+    QLabellingLogWidget::instance()->logTrace( tr("Found %n item(s) in the scene","",allItems.count()) );
+//     for(int i=0;i<allItems.count();++i)
+//     {
+//         if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+//         {
+//             QLabellingLogWidget::instance()->logTrace( tr("Found a Pixmap at position ") + QString::number(i) + "!" );
+//             this->painterostream << p->pixmap();
+//         }
+//     }
+    
 
     QBrush currentPainterBrush = painter->brush();
     currentPainterBrush.setColor( QColor(currentPainterBrush.color().red(), currentPainterBrush.color().green(), currentPainterBrush.color().blue(), 0.5) );
