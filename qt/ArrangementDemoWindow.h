@@ -120,7 +120,7 @@ void
 ArrangementDemoWindow::
 makeOverlayTab( ArrType* arr1, ArrType* arr2 )
 {
-    QString tabLabel = QString( "Overlay Tab" );
+    QString tabLabel = tr( "Overlay Tab" );
 
     ArrangementDemoTabBase* demoTab;
     ArrType* overlayArr = new ArrType;

@@ -123,7 +123,7 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
     pol_arr = new Pol_arr;
     demoTab = new ArrangementDemoTab< Pol_arr >( pol_arr, 0 );
     arr = CGAL::make_object( pol_arr );
-    tabLabel = QString( "Labelling (#%1)" ).arg( tabLabelCounter++ );
+    tabLabel = tr( "Labelling (#%n)","", tabLabelCounter++ );
     //         break;
     //     }
 
