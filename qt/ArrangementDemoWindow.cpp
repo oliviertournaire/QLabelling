@@ -834,6 +834,8 @@ void ArrangementDemoWindow::on_actionSaveProject_triggered()
             // TODO: write labels image
             doSave(spd.arrangementPath());
             
+            saveLabelsImage(tabView->scene());
+            
             getCurrentTab()->setArrHasBeenSaved(true);
         }
     }
@@ -1029,5 +1031,39 @@ void ArrangementDemoWindow::on_actionClean_triggered()
     }
 
     this->tabs[ tabIndex ]->getScene()->update( );
+}
+
+
+// Save the label-colored image
+void ArrangementDemoWindow::saveLabelsImage(QGraphicsScene *scene)
+{
+    if(!scene)
+        return;
+    
+//     // On efface l'image
+//     QList<QGraphicsItem*> allItems = scene->items();
+//     for(int i=0;i<allItems.count();++i)
+//         if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+//             scene->removeItem(p);
+
+    // On a besoin de connaître la taille de l'image
+    QRect rectIm = this->getCurrentTab()->getView()->imageToLabel().rect();
+    
+    
+QImage image(rectIm.width(), rectIm.height(), QImage::Format_RGB32);
+QPainter painter(&image);
+painter.setRenderHint(QPainter::Antialiasing);
+scene->render(&painter, QRect(0,0,rectIm.width(), rectIm.height()));
+if(!image.save("labels.png","png"))
+    QLabellingLogWidget::instance()->logError( tr("Error saving the label image...") );
+
+/*    QImage pixmap(rectIm.width(), rectIm.height(), QImage::Format_RGB32);  
+    QPainter p;  
+    p.begin(&pixmap);
+//     p.setRenderHint(QPainter::Antialiasing, true);  
+    scene->render(&p);  
+    p.end();
+    pixmap.save("labels.jpg", "JPG"); */ 
+    
 }
 

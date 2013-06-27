@@ -82,6 +82,7 @@ public slots:
     void on_actionZoomOut_triggered( );
     void on_actionPreferences_triggered( );
 //     void on_actionFillColor_triggered( );
+    void saveLabelsImage(QGraphicsScene* scene);
     void labelChanged();
 
 signals:
@@ -108,9 +109,6 @@ protected:
 
     QLabellingLogWidget *_loggerWidget; // Le logger
     QLabellingWidget *_labellingWidget; // Le widget de choix des labels + des modes
-    
-    // Image chargée depuis un fichier
-    QPixmap *_labelsPixmap;
 
     void updateToolBarButtonsEnable(bool enable);
 };
