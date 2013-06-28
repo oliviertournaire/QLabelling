@@ -473,12 +473,22 @@
         <translation>Choisir des labels</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingWidget.cpp" line="150"/>
+        <location filename="qt/QLabellingWidget.cpp" line="102"/>
+        <source>Labels path </source>
+        <translation>Fichier de labels </translation>
+    </message>
+    <message>
+        <location filename="qt/QLabellingWidget.cpp" line="102"/>
+        <source> not found!</source>
+        <translation> non trouvé !</translation>
+    </message>
+    <message>
+        <location filename="qt/QLabellingWidget.cpp" line="157"/>
         <source>Open label file</source>
         <translation>Ouvrir un pack de labels</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingWidget.cpp" line="150"/>
+        <location filename="qt/QLabellingWidget.cpp" line="157"/>
         <source>Label Files (*.txt);;All files (*.*)</source>
         <translation>Fichiers de labels (*.txt);;Tous les fichiers (*.*)</translation>
     </message>
