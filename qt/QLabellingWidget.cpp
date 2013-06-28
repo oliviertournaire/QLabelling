@@ -49,20 +49,6 @@ void QLabellingWidget::setEnabledAllLabelButtons( bool enabled )
 
 void QLabellingWidget::parseLabels()
 {
-    ui->_lineEditLabelsPath->setText(_labelsPath);
-    // First, empty existing labels
-    for(unsigned int i=0;i<_labelItems.size();++i)
-    {
-        ui->_gridLayoutLabels->removeWidget(_labelItems[i]->radioButtonlabel());
-        ui->_gridLayoutLabels->removeWidget(_labelItems[i]->toolButtonLabelColor());
-    }
-    QList<QAbstractButton *> allButtons = _buttonGroup->buttons();
-    for (int i=0;i<allButtons.size();++i)
-        _buttonGroup->removeButton(allButtons[i]);
-    for(unsigned int i=0;i<_labelItems.size();++i)
-        delete _labelItems[i];
-    _labelItems.erase(_labelItems.begin(), _labelItems.end());
-
     // Then, parse file
     ifstream ifs(_labelsPath.toStdString().c_str());
     bool foundUnknowLabel = false;
@@ -71,6 +57,21 @@ void QLabellingWidget::parseLabels()
     int row = 0, col = 0;
     if(ifs.good())
     {
+        ui->_lineEditLabelsPath->setText(_labelsPath);
+
+        // First, empty existing labels
+        for(unsigned int i=0;i<_labelItems.size();++i)
+        {
+            ui->_gridLayoutLabels->removeWidget(_labelItems[i]->radioButtonlabel());
+            ui->_gridLayoutLabels->removeWidget(_labelItems[i]->toolButtonLabelColor());
+        }
+        QList<QAbstractButton *> allButtons = _buttonGroup->buttons();
+        for (int i=0;i<allButtons.size();++i)
+            _buttonGroup->removeButton(allButtons[i]);
+        for(unsigned int i=0;i<_labelItems.size();++i)
+            delete _labelItems[i];
+        _labelItems.erase(_labelItems.begin(), _labelItems.end());
+
         int cpt = 0;
         while(!ifs.eof())
         {
@@ -95,6 +96,12 @@ void QLabellingWidget::parseLabels()
                 if(QString::fromStdString(labelname).toLower() == "unknow")
                     foundUnknowLabel = true;
         }
+    }
+    else
+    {
+        ui->_lineEditLabelsPath->setText( tr("Labels path ") + _labelsPath + tr(" not found!") );
+        ifs.close();
+        return;
     }
 
     if(!foundUnknowLabel)
