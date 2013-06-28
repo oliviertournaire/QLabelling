@@ -348,9 +348,6 @@ void ArrangementDemoWindow::removeCallback( unsigned int tabIndex )
     ArrangementDemoTabBase* activeTab = this->tabs[ tabIndex ];
     QGraphicsScene* activeScene = activeTab->getScene( );
     QGraphicsView* activeView = activeTab->getView( );
-#if 0
-    QAction* activeMode = this->activeModes[ tabIndex ];
-#endif
 
     activeScene->removeEventFilter( activeTab->getCurveInputCallback( ) );
     activeView->setDragMode( QGraphicsView::NoDrag );
@@ -586,7 +583,6 @@ void ArrangementDemoWindow::on_actionOpen_triggered( )
         boost::math::isinf(bb.bottom( )) )
 #endif // _WINDOWS
     {
-        // std::cout << "unbounded; using default bb" << std::endl;
         bb = QRectF( -100, -100, 200, 200 );
         view->setSceneRect( bb );
     }
@@ -595,9 +591,6 @@ void ArrangementDemoWindow::on_actionOpen_triggered( )
         view->fitInView( bb, ::Qt::KeepAspectRatio );
         view->setSceneRect( bb );
     }
-#if 0
-    view->centerOn( bb.center( ) );
-#endif
 }
 
 void ArrangementDemoWindow::on_actionQuit_triggered( )

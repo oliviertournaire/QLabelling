@@ -162,22 +162,6 @@ highlightNearestCurve( QGraphicsSceneMouseEvent* event )
     //double minDist = 0.0;
     //Halfedge_iterator nearestHei;
 
-#if 0
-    for ( Halfedge_iterator hei = this->arr->halfedges_begin( );
-          hei != this->arr->halfedges_end( );
-          ++hei )
-    {
-        X_monotone_curve_2 curve = hei->curve( );
-        double dist = CGAL::to_double( this->squaredDistance( p, curve ) );
-        // std::cout << dist << std::endl;
-        if ( isFirst || dist < minDist )
-        {
-            isFirst = false;
-            minDist = dist;
-            nearestHei = hei;
-        }
-    }
-#endif
     Find_nearest_edge< Arr_ > findNearestEdge( this->arr );
     findNearestEdge.setScene( this->scene );
     Halfedge_const_handle nearestEdge = findNearestEdge( p );

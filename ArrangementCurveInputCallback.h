@@ -84,21 +84,13 @@ public:
                 message += QString::number(CGAL::to_double(v->point().x()));
                 message += ";";
                 message += QString::number(CGAL::to_double(v->point().y()));
-                message = message + QObject::tr("), degree %n.\n","",v->degree());
+                message = message + QObject::tr("), degree %n.\n","",(int)v->degree());
             }
             QLabellingLogWidget::instance()->logTrace(message);
         }
         else{
             QLabellingLogWidget::instance()->logError(QObject::tr("Unable to add the element in the arrangement !"));
 	}
-#if 0
-        else if ( CGAL::assign( xcurve, o ) )
-        {
-            std::vector< X_monotone_curve_2 > box;
-            box.push_back( xcurve );
-            CGAL::insert( *( this->arrangement ), box.begin( ), box.end( ) );
-        }
-#endif
 
         emit CGAL::Qt::GraphicsViewInput::modelChanged( );
     }
