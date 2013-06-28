@@ -52,187 +52,192 @@
 <context>
     <name>ArrangementDemoWindow</name>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="301"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="307"/>
         <source>QLabellingArrangement</source>
         <translation>QLabellingArrangement</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="302"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="308"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="303"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="309"/>
         <source>&amp;Insert</source>
         <translation>&amp;Insérer</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="304"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="310"/>
         <source>&amp;Delete</source>
         <translation>&amp;Supprimer</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="305"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="311"/>
         <source>Drag</source>
         <translation>Déplacer</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="306"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="312"/>
         <source>Point Location</source>
         <translation>Localiser un point</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="307"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="313"/>
         <source>Merge</source>
         <translation>Fusionner</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="308"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="314"/>
         <source>Split</source>
         <translation>Séparer</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="309"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="315"/>
         <source>Fill</source>
         <translation>Remplir</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="310"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="316"/>
         <source>Enable snapping</source>
         <translation>Active l&apos;aimantation</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="311"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="317"/>
         <source>Snap to grid</source>
         <translation>Aimanter à la grille</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="312"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="318"/>
         <source>Segment</source>
         <translation>Segment</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="313"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="319"/>
         <source>Polyline</source>
         <translation>Polygone</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="314"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="320"/>
         <source>New tab</source>
         <translation>Nouvel onglet</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="315"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="321"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="316"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="322"/>
         <source>&amp;Overlay...</source>
         <translation>&amp;Superposer...</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="317"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="323"/>
         <source>&amp;Clean the arrangement</source>
         <translation>&amp;Nettoyer l&apos;arrangement</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="318"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="324"/>
         <source>&amp;Preferences...</source>
         <translation>&amp;Préférences...</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="319"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="325"/>
         <source>Show &amp;grid</source>
         <translation>Afficher la &amp;grille</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="320"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="326"/>
         <source>Close Tab</source>
         <translation>Fermer l&apos;onglet</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="321"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="327"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="322"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="328"/>
         <source>Save arrangement as...</source>
         <translation>Enregistrer l&apos;arrangement sous...</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="323"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="329"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="324"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="330"/>
         <source>Open an arrangement...</source>
         <translation>Ouvrir un arrangement...</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="325"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="331"/>
         <source>Open</source>
         <translation>Ouvrir</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="326"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="332"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="327"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="333"/>
         <source>Zoom In</source>
         <translation>Zommer</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="328"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="334"/>
         <source>Zoom Out</source>
         <translation>Dézoomer</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="329"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="335"/>
         <source>Open an image</source>
         <translation>Ouvrir une image</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="330"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="336"/>
         <source>Insert horizontal line</source>
         <translation>Insérer une ligne horizontale</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="331"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="337"/>
         <source>Insert vertical line</source>
         <translation>Insérer une ligne verticale</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="332"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="338"/>
         <source>Save a project</source>
         <translation>Sauver le projet</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="333"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="339"/>
+        <source>Open a project</source>
+        <translation>Ouvrir un projet</translation>
+    </message>
+    <message>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="340"/>
         <source>toolBar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="334"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="341"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="335"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="342"/>
         <source>&amp;Mode</source>
         <translation>&amp;Mode</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="336"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="343"/>
         <source>&amp;Edit</source>
         <translation>&amp;Édition</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoWindow.h" line="337"/>
+        <location filename="build/ui_ArrangementDemoWindow.h" line="344"/>
         <source>T&amp;ools</source>
         <translation>&amp;Outils</translation>
     </message>
