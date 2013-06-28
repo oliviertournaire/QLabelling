@@ -53,32 +53,15 @@ link_directories(${Boost_LIBRARY_DIRS})
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
-# file( GLOB ALL_UTILITIES_HPP ${CMAKE_SOURCE_DIR}/utilities/*.hpp )
-# 
-# file( GLOB MOCS_QLABELLING_HPP ${CMAKE_SOURCE_DIR}/qt/*.hpp )
-# file( GLOB MOCS_QLABELLING_CPP ${CMAKE_SOURCE_DIR}/qt/*.cpp )
-# file( GLOB MOCS_QLABELLING_UI  ${CMAKE_SOURCE_DIR}/qt/*.ui  )
-# 
-# file( GLOB ALL_QLABELLING_HPP ${CMAKE_SOURCE_DIR}/*.hpp )
-# file( GLOB ALL_QLABELLING_CPP ${CMAKE_SOURCE_DIR}/*.cpp )
-# 
-# qt4_wrap_cpp( ALL_MOCS_QLABELLING ${MOCS_QLABELLING_HPP} )
-# qt4_wrap_ui(  ALL_UI_QLABELLING   ${MOCS_QLABELLING_UI}  )
-# qt4_add_resources( RCS_QLABELLING ${CMAKE_SOURCE_DIR}/rc/RessourcesQLabelling.qrc )
-# 
-# include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
-# include_directories( ${CMAKE_SOURCE_DIR} )
-# include_directories( ${CMAKE_SOURCE_DIR}/qt )
-
 
 # Qt
-file( GLOB MOCS_QDEMOARRANGEMENT2_HPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/*.h )
-file( GLOB MOCS_QDEMOARRANGEMENT2_CPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/*.cpp )
-file( GLOB MOCS_QDEMOARRANGEMENT2_UI  ${CMAKE_CURRENT_SOURCE_DIR}/qt/*.ui  )
+file( GLOB MOCS_QARRANGEMENTLABELLING_HPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/*.h )
+file( GLOB MOCS_QARRANGEMENTLABELLING_CPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/*.cpp )
+file( GLOB MOCS_QARRANGEMENTLABELLING_UI  ${CMAKE_CURRENT_SOURCE_DIR}/qt/*.ui  )
 
-qt4_wrap_cpp( ALL_MOCS_QDEMOARRANGEMENT2 ${MOCS_QDEMOARRANGEMENT2_HPP} )
-qt4_wrap_ui(  ALL_UI_QDEMOARRANGEMENT2   ${MOCS_QDEMOARRANGEMENT2_UI}  )
-qt4_add_resources( RCS_QDEMOARRANGEMENT2 ${CMAKE_CURRENT_SOURCE_DIR}/rc/ArrangementDemoWindow.qrc )
+qt4_wrap_cpp( ALL_MOCS_QARRANGEMENTLABELLING ${MOCS_QARRANGEMENTLABELLING_HPP} )
+qt4_wrap_ui(  ALL_UI_QARRANGEMENTLABELLING   ${MOCS_QARRANGEMENTLABELLING_UI}  )
+qt4_add_resources( RCS_QARRANGEMENTLABELLING ${CMAKE_CURRENT_SOURCE_DIR}/rc/ArrangementDemoWindow.qrc )
 
 # Log widget
 set( LOGWIDGET_HPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QLabellingLogWidget.hpp )
@@ -97,30 +80,15 @@ qt4_wrap_cpp( MOCS_LABELLINGWIDGET ${LABELLINGWIDGET_HPP} )
 if( NOT WIN32)
 	qt4_wrap_ui( UI_LABELLINGWIDGET ${LABELLINGWIDGET_UI}  )
 endif()
-# 
-# # Labelling view: remove this when #21 fixed
-# set( LABELLINGVIEW_HPP ${CMAKE_CURRENT_SOURCE_DIR}/../../qt/QLabellingView.hpp )
-# set( LABELLINGVIEW_CPP ${CMAKE_CURRENT_SOURCE_DIR}/../../qt/QLabellingView.cpp )
-# qt4_wrap_cpp( MOCS_LABELLINGVIEW ${LABELLINGVIEW_HPP} )
 
 # Label item: remove this when #21 fixed
 set( LABELITEM_HPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QLabelItem.hpp )
 set( LABELITEM_CPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QLabelItem.cpp )
 qt4_wrap_cpp( MOCS_LABELITEM ${LABELITEM_HPP} )
 
-# # ZoomableGraphicsView: remove this when #21 fixed
-# set( ZOOMABLEGRAPHICSVIEW_HPP ${CMAKE_CURRENT_SOURCE_DIR}/../../qt/QZoomableGraphicsView.hpp )
-# set( ZOOMABLEGRAPHICSVIEW_CPP ${CMAKE_CURRENT_SOURCE_DIR}/../../qt/QZoomableGraphicsView.cpp )
-# qt4_wrap_cpp( MOCS_ZOOMABLEGRAPHICSVIEW ${ZOOMABLEGRAPHICSVIEW_HPP} )
-
-# # QGraphicsRectWithLabelItem: remove this when #21 fixed
-# set( QGRAPHICSRECTWITHLABELITEM_HPP ${CMAKE_CURRENT_SOURCE_DIR}/../../QGraphicsRectWithLabelItem.hpp )
-# set( QGRAPHICSRECTWITHLABELITEM_CPP ${CMAKE_CURRENT_SOURCE_DIR}/../../QGraphicsRectWithLabelItem.cpp )
-# qt4_wrap_cpp( MOCS_QGRAPHICSRECTWITHLABELITEM ${QGRAPHICSRECTWITHLABELITEM_HPP} )
-
 # "Classic" C++
-file( GLOB ALL_QDEMOARRANGEMENT2_HPP ${CMAKE_CURRENT_SOURCE_DIR}/*.h )
-file( GLOB ALL_QDEMOARRANGEMENT2_CPP ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
+file( GLOB ALL_QARRANGEMENTLABELLING_HPP ${CMAKE_CURRENT_SOURCE_DIR}/*.h )
+file( GLOB ALL_QARRANGEMENTLABELLING_CPP ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR} )
@@ -131,9 +99,8 @@ if(WIN32)
 endif()
 
 
-SET( FILES_TO_TRANSLATE 
-                        ${ALL_UI_QDEMOARRANGEMENT2}
-                        ${RCS_QDEMOARRANGEMENT2}
+SET( FILES_TO_TRANSLATE ${ALL_UI_QARRANGEMENTLABELLING}
+                        ${RCS_QARRANGEMENTLABELLING}
                         ${LOGWIDGET_HPP}
                         ${LOGWIDGET_CPP}
                         ${LOGWIDGET_UI}
@@ -150,9 +117,6 @@ SET( FILES_TO_TRANSLATE
                         ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementInfoWidget.cpp
                         ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementInfoWidget.h
                         ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementInfoWidget.ui
-#                         ${CMAKE_CURRENT_SOURCE_DIR}/qt/ArrangementDemoWindow.cpp
-#                         ${CMAKE_CURRENT_SOURCE_DIR}/qt/ArrangementDemoWindow.h
-#                         ${CMAKE_CURRENT_SOURCE_DIR}/qt/ArrangementDemoWindow.ui
 )
 
 SET(LANGUAGES fr_FR)
@@ -161,7 +125,6 @@ SET(LANGUAGE_TS_FILES)
 FOREACH(LANGUAGE ${LANGUAGES})
     SET(TS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake_${LANGUAGE}.ts")
     SET(LANGUAGE_TS_FILES ${LANGUAGE_TS_FILES} ${TS_FILE})
-    #SET_SOURCE_FILES_PROPERTIES(${TS_FILE} PROPERTIES OUTPUT_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/i18n")
 	SET_SOURCE_FILES_PROPERTIES(${TS_FILE} PROPERTIES OUTPUT_LOCATION ${EXECUTABLE_OUTPUT_PATH})
 ENDFOREACH(LANGUAGE ${LANGUAGES})
 
@@ -170,38 +133,29 @@ IF(LANGUAGE_TS_FILES)
 ENDIF(LANGUAGE_TS_FILES)
 
 
-add_executable( QDemoArrangement2 ${APPLICATION_TYPE}
-                                ${MOCS_QDEMOARRANGEMENT2_HPP}
-                                ${MOCS_QDEMOARRANGEMENT2_CPP}
-                                ${MOCS_QDEMOARRANGEMENT2_UI}
-                                ${ALL_MOCS_QDEMOARRANGEMENT2}
-                                ${ALL_UI_QDEMOARRANGEMENT2}
-                                ${RCS_QDEMOARRANGEMENT2}
-                                  ${LOGWIDGET_HPP}
-                                  ${LOGWIDGET_CPP}
-                                  ${LOGWIDGET_UI}
-                                  ${LABELLINGWIDGET_HPP}
-                                  ${LABELLINGWIDGET_CPP}
-                                  ${LABELLINGWIDGET_UI}
-#                                   ${LABELLINGVIEW_HPP}
-#                                   ${LABELLINGVIEW_CPP}
-                                  ${LABELITEM_HPP}
-                                  ${LABELITEM_CPP}
-#                                   ${ZOOMABLEGRAPHICSVIEW_HPP}
-#                                   ${ZOOMABLEGRAPHICSVIEW_CPP}
-#                                   ${QGRAPHICSRECTWITHLABELITEM_HPP}
-#                                   ${QGRAPHICSRECTWITHLABELITEM_CPP}
-                                  ${MOCS_LOGWIDGET}
-                                  ${MOCS_LABELLINGWIDGET}
-#                                   ${MOCS_LABELLINGVIEW}
-                                  ${MOCS_LABELITEM}
-#                                   ${MOCS_ZOOMABLEGRAPHICSVIEW}
-#                                   ${MOCS_QGRAPHICSRECTWITHLABELITEM}
-                                  ${UI_LOGWIDGET}
-                                  ${UI_LABELLINGWIDGET}
-								  ${ALL_QDEMOARRANGEMENT2_HPP}
-                                                                  ${ALL_QDEMOARRANGEMENT2_CPP}
-                                                                  ${qm_files})
+add_executable( QArrangementLabelling ${APPLICATION_TYPE}
+                                      ${MOCS_QARRANGEMENTLABELLING_HPP}
+                                      ${MOCS_QARRANGEMENTLABELLING_CPP}
+                                      ${MOCS_QARRANGEMENTLABELLING_UI}
+                                      ${ALL_MOCS_QARRANGEMENTLABELLING}
+                                      ${ALL_UI_QARRANGEMENTLABELLING}
+                                      ${RCS_QARRANGEMENTLABELLING}
+                                      ${LOGWIDGET_HPP}
+                                      ${LOGWIDGET_CPP}
+                                      ${LOGWIDGET_UI}
+                                      ${LABELLINGWIDGET_HPP}
+                                      ${LABELLINGWIDGET_CPP}
+                                      ${LABELLINGWIDGET_UI}
+                                      ${LABELITEM_HPP}
+                                      ${LABELITEM_CPP}
+                                      ${MOCS_LOGWIDGET}
+                                      ${MOCS_LABELLINGWIDGET}
+                                      ${MOCS_LABELITEM}
+                                      ${UI_LOGWIDGET}
+                                      ${UI_LABELLINGWIDGET}
+      								                ${ALL_QARRANGEMENTLABELLING_HPP}
+                                      ${ALL_QARRANGEMENTLABELLING_CPP}
+                                      ${qm_files})
 
-target_link_libraries( QDemoArrangement2 ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${QT_LIBRARIES} )
+target_link_libraries( QArrangementLabelling ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${QT_LIBRARIES} )
 
