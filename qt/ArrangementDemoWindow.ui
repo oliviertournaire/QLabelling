@@ -39,6 +39,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionOpenProject"/>
    <addaction name="actionSaveProject"/>
    <addaction name="actionOpenImage"/>
    <addaction name="separator"/>
@@ -68,7 +69,7 @@
      <x>0</x>
      <y>0</y>
      <width>946</width>
-     <height>29</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -78,6 +79,7 @@
     <addaction name="actionNewTab"/>
     <addaction name="actionCloseTab"/>
     <addaction name="separator"/>
+    <addaction name="actionOpenProject"/>
     <addaction name="actionSaveProject"/>
     <addaction name="actionOpenImage"/>
     <addaction name="actionOpen"/>
@@ -392,10 +394,19 @@
   <action name="actionSaveProject">
    <property name="icon">
     <iconset resource="../rc/ArrangementDemoWindow.qrc">
-     <normaloff>:/project.png</normaloff>:/project.png</iconset>
+     <normaloff>:/document-save.png</normaloff>:/document-save.png</iconset>
    </property>
    <property name="text">
     <string>Save a project</string>
+   </property>
+  </action>
+  <action name="actionOpenProject">
+   <property name="icon">
+    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+     <normaloff>:/document-open.png</normaloff>:/document-open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open a project</string>
    </property>
   </action>
  </widget>

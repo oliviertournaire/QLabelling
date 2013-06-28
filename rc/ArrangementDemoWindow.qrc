@@ -1,5 +1,8 @@
 <RCC>
   <qresource>
+    <file>document-open.png</file>
+    <file>folder.png</file>
+    <file>folder-open.png</file>
     <file>project.png</file>
     <file>close_tab.png</file>
     <file>new_tab.png</file>

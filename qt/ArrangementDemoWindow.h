@@ -70,6 +70,7 @@ public slots:
     void updateSnapping( QAction* a );
     void on_actionNewTab_triggered( );
     void on_actionSaveAs_triggered( );
+    void on_actionOpenProject_triggered( );
     void on_actionSaveProject_triggered( );
     void on_actionOpen_triggered( );
     bool on_actionOpenImage_triggered();
@@ -110,6 +111,7 @@ protected:
     QLabellingLogWidget *_loggerWidget; // Le logger
     QLabellingWidget *_labellingWidget; // Le widget de choix des labels + des modes
 
+    bool doLoadImage(const QString &fileName);
     void updateToolBarButtonsEnable(bool enable);
 };
 

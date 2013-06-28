@@ -46,6 +46,7 @@
 // #include "QLabelItem.hpp"
 #include "QArrangementInfoWidget.h"
 #include "config.hpp"
+#include "SaveProjectDialog.h"
 
 ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
 CGAL::Qt::DemosMainWindow( parent ),
@@ -525,7 +526,7 @@ void ArrangementDemoWindow::on_actionSaveAs_triggered( )
     doSave(filename);
 }
 
-// TODO: save arrangement labeld faces ...
+// TODO: save arrangement labels' faces ...
 void ArrangementDemoWindow::doSave(const QString& filename)
 {
     std::ofstream ofs( filename.toStdString( ).c_str( ) );
@@ -750,29 +751,123 @@ void ArrangementDemoWindow::on_actionPreferences_triggered( )
     }
 }
 
-// void ArrangementDemoWindow::on_actionFillColor_triggered( )
-// {
-//     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
-// 
-//     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
-//     if (currentTabIndex == static_cast<unsigned int>(-1))
-//         return;
-//     ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
-//     FillFaceCallbackBase* fillFaceCallback = currentTab->getFillFaceCallback( );
-//     
-//     const QLabelItem* li;
-//     if(li = QLabellingWidget::instance()->findActiveLabelItem()){
-//         fillFaceCallback->setColor( li->labelColor() );
-//         this->updateFillColorSwatch( );
-//     }
-//     else{
-//         QLabellingLogWidget::instance()->logDebug( tr("Unable to find an active label : please select one !") );
-//     }
-// }
+void ArrangementDemoWindow::on_actionOpenProject_triggered()
+{
+    QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
+    settings.beginGroup("QLabellingMainWindow");
+    QString defaultDirectory = settings.value("defaultProjectDirectory", "").toString();
 
-#include "SaveProjectDialog.h"
+    QString projectFilename = QFileDialog::getOpenFileName( this, tr( "Open labelling project" ), defaultDirectory, tr("Labelling project files (*.qlb)") );
+    if(!projectFilename.isNull() || !projectFilename.isEmpty())
+    {
+        QFile* file = new QFile(projectFilename);
+        if (!file->open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            _loggerWidget->logError( tr("Cannot open ") + projectFilename + tr(" labelling project file!") );
+            return;
+        }
+        QXmlStreamReader xml(file);
+        settings.setValue("defaultProjectDirectory", QFileInfo(projectFilename).absolutePath());
+
+        QString projectName( tr("undefined") ), projectInputImage, projectLabelsImage, projectArrangement, projectLabelsDefinition;
+
+        while(!xml.atEnd() && !xml.hasError())
+        {
+            QXmlStreamReader::TokenType token = xml.readNext();
+            if(token == QXmlStreamReader::StartDocument)
+                continue;
+            if(token == QXmlStreamReader::StartElement)
+            {
+                if(xml.name() == "QLabellingProject")
+                {
+                    QXmlStreamAttributes attributes = xml.attributes();
+                    if(attributes.hasAttribute("name"))
+                        projectName = attributes.value("name").toString();
+                }
+                if(xml.name() == "inputImage")
+                {
+                    QXmlStreamAttributes attributes = xml.attributes();
+                    if(attributes.hasAttribute("path"))
+                        projectInputImage = attributes.value("path").toString();
+                    else
+                    {
+                        _loggerWidget->logError( tr("Labelling project ") + projectFilename + tr(" does not contain a valid input image path!") );
+                        return;
+                    }
+                }
+                if(xml.name() == "labelsImage")
+                {
+                    QXmlStreamAttributes attributes = xml.attributes();
+                    if(attributes.hasAttribute("path"))
+                        projectLabelsImage = attributes.value("path").toString();
+                    else
+                    {
+                        _loggerWidget->logError( tr("Labelling project ") + projectFilename + tr(" does not contain a valid labels image path!") );
+                        return;
+                    }
+                }
+                if(xml.name() == "arrangement")
+                {
+                    QXmlStreamAttributes attributes = xml.attributes();
+                    if(attributes.hasAttribute("path"))
+                        projectArrangement = attributes.value("path").toString();
+                    else
+                    {
+                        _loggerWidget->logError( tr("Labelling project ") + projectFilename + tr(" does not contain a valid arrangement path!") );
+                        return;
+                    }
+                }
+                if(xml.name() == "labelsDefinition")
+                {
+                    QXmlStreamAttributes attributes = xml.attributes();
+                    if(attributes.hasAttribute("path"))
+                        projectLabelsDefinition = attributes.value("path").toString();
+                    else
+                    {
+                        _loggerWidget->logError( tr("Labelling project ") + projectFilename + tr(" does not contain a valid labels definition path!") );
+                        return;
+                    }
+                }
+            }
+        }
+        if(xml.hasError())
+            _loggerWidget->logError( tr("Error parsing ") + projectFilename + tr(" labelling project file: ") + xml.errorString() );
+        xml.clear();
+
+        // If we are here, we just have to check that all files exist.
+        if(!QFileInfo(projectInputImage).exists())
+            _loggerWidget->logError( tr("Input image ") + projectInputImage + tr(" does not exist!") );
+        // TODO: uncomment when labels image will be displayed in GUI
+        /*
+        if(!QFileInfo(projectLabelsImage).exists())
+            _loggerWidget->logError( tr("Labels image ") + projectLabelsImage + tr(" does not exist!") );
+            */
+        if(!QFileInfo(projectArrangement).exists())
+            _loggerWidget->logError( tr("Arrangement ") + projectArrangement + tr(" does not exist!") );
+        if(!QFileInfo(projectLabelsDefinition).exists())
+            _loggerWidget->logError( tr("Labels definition ") + projectLabelsDefinition + tr(" does not exist!") );
+
+        // If so, we can really open the project
+        // The project will be opened in a new tab
+        ArrangementDemoTabBase *projectTab =  makeTab( POLYLINE_TRAITS );
+        // TODO: set tab name based on project name ...
+        // Load input image
+        doLoadImage(projectInputImage);
+        // Load arrangement
+        openArrFile(projectArrangement);
+        // Set labels definition
+        QLabellingWidget::instance()->setLabelsPath( projectLabelsDefinition );
+
+        _loggerWidget->logInfo( tr("Labelling project ") + projectFilename + tr(" loaded") );
+    }
+    else
+        _loggerWidget->logWarning( tr("No 'Labelling project choosed'...") );
+}
+
 void ArrangementDemoWindow::on_actionSaveProject_triggered()
 {
+    QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
+
     if(!getCurrentTab())
     {
         _loggerWidget->logWarning( tr("There is no open tab !") );
@@ -782,7 +877,7 @@ void ArrangementDemoWindow::on_actionSaveProject_triggered()
     ArrangementDemoGraphicsView* tabView = getCurrentTab()->getView();
     if(tabView->imageToLabel().isNull())
     {
-        _loggerWidget->logWarning( tr("No image has been opened. Cannot save such a project!") );
+        _loggerWidget->logError( tr("No image has been opened. Cannot save such a project!") );
         return;
     }
 
@@ -797,6 +892,10 @@ void ArrangementDemoWindow::on_actionSaveProject_triggered()
         }	
         else
         {
+            settings.beginGroup("QLabellingMainWindow");
+            settings.setValue("defaultProjectDirectory", QFileInfo(spd.projectPath()).absolutePath());
+            settings.endGroup();
+
             QXmlStreamWriter* xmlWriter = new QXmlStreamWriter();
 		    xmlWriter->setDevice(&file);
             xmlWriter->setAutoFormatting(true);
@@ -833,6 +932,8 @@ void ArrangementDemoWindow::on_actionSaveProject_triggered()
             saveLabelsImage(tabView->scene());
             
             getCurrentTab()->setArrHasBeenSaved(true);
+
+            _loggerWidget->logInfo( tr("Labelling project saved to ") + spd.projectPath() );
         }
     }
 }
@@ -869,40 +970,46 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
     settings.beginGroup("QLabellingMainWindow");
     QString defaultDirectory = settings.value("defaultDirectory", "").toString();
 
+    bool result = false;
+
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open image to label"), defaultDirectory, tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif *.tiff)"));
     if(!fileName.isNull())
     {
         QFileInfo info(fileName);
         settings.setValue("defaultDirectory", info.absolutePath());
-        QLabellingLogWidget::instance()->logTrace( tr("Open image ") + fileName );
 
-        QGraphicsScene              *currentTabScene = currentTab->getScene();
-        ArrangementDemoGraphicsView *currentTabView  = currentTab->getView();
-
-        bool result = currentTabView->setImageToLabel(fileName, currentTab, getArrangements()[TabIndex]);
-        updateToolBarButtonsEnable(result);
-        if(result)
-        {
-            currentTab->_imageHasBeenLoaded = true;
-            updateMode( this->ui->actionInsert );
-        }
-        else
-            currentTab->_imageHasBeenLoaded = false;
-
-        settings.endGroup();
-
-        // Now, center the view on the image
-        currentTabView->centerOn( currentTabView->imageToLabelWidth()/2. , currentTabView->imageToLabelHeight()/2. );
-
-        return result;
+        result = doLoadImage(fileName);
     }
     else
     {
-        settings.endGroup();
         if(!currentTab->_imageHasBeenLoaded)
             updateToolBarButtonsEnable(false);
-        return false;
     }
+    settings.endGroup();
+
+    return result;
+}
+
+bool ArrangementDemoWindow::doLoadImage(const QString &fileName)
+{
+    QLabellingLogWidget::instance()->logTrace( tr("Opening image ") + fileName );
+    ArrangementDemoTabBase *currentTab = getCurrentTab();
+    const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
+
+    QGraphicsScene              *currentTabScene = currentTab->getScene();
+    ArrangementDemoGraphicsView *currentTabView  = currentTab->getView();
+
+    bool result = currentTabView->setImageToLabel(fileName, currentTab, getArrangements()[TabIndex]);
+    updateToolBarButtonsEnable(result);
+    if(result)
+    {
+        currentTab->_imageHasBeenLoaded = true;
+        updateMode( this->ui->actionInsert );
+    }
+    else
+        currentTab->_imageHasBeenLoaded = false;
+
+    return result;
 }
 
 void ArrangementDemoWindow::updateToolBarButtonsEnable(bool enable)
