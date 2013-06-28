@@ -106,7 +106,8 @@ bool ArrangementDemoGraphicsView::setImageToLabel(const QString& path, Arrangeme
     for(int i=0;i<allItems.count();++i)
         if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
             currentTab->getScene()->removeItem(p);
-    currentTab->getScene()->addPixmap(imageToLabel());
+    QGraphicsItem* pixItem = currentTab->getScene()->addPixmap(imageToLabel());
+    fitInView(pixItem, Qt::KeepAspectRatio);
 
     Arr_pol_point_2 ptl( 0, 0);
     Arr_pol_point_2 pbl(0, imageToLabelHeight() );

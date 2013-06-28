@@ -91,9 +91,9 @@ void QLabellingWidget::parseLabels()
             _buttonGroup->addButton(item->radioButtonlabel());
             ++cpt;
             col += 2;
-            // Check if "unknow" label has been found
+            // Check if mandatory QLABELLING_UNKNOW_LABEL_STRING label has been found
             if(!foundUnknowLabel)
-                if(QString::fromStdString(labelname).toLower() == "unknow")
+                if(QString::fromStdString(labelname).toLower() == QLABELLING_UNKNOW_LABEL_STRING)
                     foundUnknowLabel = true;
         }
     }
@@ -149,7 +149,7 @@ const QString QLabellingWidget::Color2Label(const QColor color) const
     for(unsigned int i=0;i<_labelItems.size();++i)
         if ( _labelItems[i]->labelColor() == color )
             return _labelItems[i]->labelName();
-    return "Unknown";
+    return QLABELLING_UNKNOW_LABEL_STRING;
 }
 
 void QLabellingWidget::on__toolButtonChooseLabelsPath_clicked(bool checked)

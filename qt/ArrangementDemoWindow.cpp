@@ -565,12 +565,14 @@ void ArrangementDemoWindow::on_actionOpen_triggered( )
         this->openDatFile( filename );
     }
 
+    /*
     ArrangementDemoTabBase* currentTab = this->tabs[ index ];
     CGAL::Qt::ArrangementGraphicsItemBase* agi = currentTab->getArrangementGraphicsItem( );
     QRectF bb = agi->boundingRect( );
     QGraphicsView* view = currentTab->getView( );
-    // std::cout << bb.left( ) << " " << bb.bottom( ) << ", " << bb.right( )
-    //           << " " << bb.top( ) << std::endl;
+
+
+
 #ifndef _WINDOWS
     if ( std::isinf(bb.left( )) ||
         std::isinf(bb.right( )) ||
@@ -591,6 +593,7 @@ void ArrangementDemoWindow::on_actionOpen_triggered( )
         view->fitInView( bb, ::Qt::KeepAspectRatio );
         view->setSceneRect( bb );
     }
+    */
 }
 
 void ArrangementDemoWindow::on_actionQuit_triggered( )
@@ -887,6 +890,10 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
             currentTab->_imageHasBeenLoaded = false;
 
         settings.endGroup();
+
+        // Now, center the view on the image
+        currentTabView->centerOn( currentTabView->imageToLabelWidth()/2. , currentTabView->imageToLabelHeight()/2. );
+
         return result;
     }
     else
