@@ -546,6 +546,39 @@
     </message>
 </context>
 <context>
+    <name>QArrangementLabellingSaveProjectDialog</name>
+    <message>
+        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="138"/>
+        <source>Save labelling project</source>
+        <translation type="unfinished">Enregistrer le projet</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="139"/>
+        <source>Arrangement path</source>
+        <translation type="unfinished">Chemin vers l&apos;arrangement</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="140"/>
+        <source>Labels definition path</source>
+        <translation type="unfinished">Chemin vers le pack des labels</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="141"/>
+        <source>Labels image path</source>
+        <translation type="unfinished">Chemin vers l&apos;image</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="142"/>
+        <source>Input image path</source>
+        <translation type="unfinished">Chemin vers l&apos;image labellisée</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="143"/>
+        <source>Labeling project path</source>
+        <translation type="unfinished">Chemin vers le fichier de projet</translation>
+    </message>
+</context>
+<context>
     <name>QArrangementLabellingWidget</name>
     <message>
         <location filename="qt/QArrangementLabellingWidget.ui" line="14"/>
@@ -1036,34 +1069,28 @@
 <context>
     <name>SaveProjectDialog</name>
     <message>
-        <location filename="build/ui_SaveProjectDialog.h" line="138"/>
         <source>Save labelling project</source>
-        <translation>Enregistrer le projet</translation>
+        <translation type="obsolete">Enregistrer le projet</translation>
     </message>
     <message>
-        <location filename="build/ui_SaveProjectDialog.h" line="139"/>
         <source>Arrangement path</source>
-        <translation>Chemin vers l&apos;arrangement</translation>
+        <translation type="obsolete">Chemin vers l&apos;arrangement</translation>
     </message>
     <message>
-        <location filename="build/ui_SaveProjectDialog.h" line="140"/>
         <source>Labels definition path</source>
-        <translation>Chemin vers le pack des labels</translation>
+        <translation type="obsolete">Chemin vers le pack des labels</translation>
     </message>
     <message>
-        <location filename="build/ui_SaveProjectDialog.h" line="141"/>
         <source>Labels image path</source>
-        <translation>Chemin vers l&apos;image</translation>
+        <translation type="obsolete">Chemin vers l&apos;image</translation>
     </message>
     <message>
-        <location filename="build/ui_SaveProjectDialog.h" line="142"/>
         <source>Input image path</source>
-        <translation>Chemin vers l&apos;image labellisée</translation>
+        <translation type="obsolete">Chemin vers l&apos;image labellisée</translation>
     </message>
     <message>
-        <location filename="build/ui_SaveProjectDialog.h" line="143"/>
         <source>Labeling project path</source>
-        <translation>Chemin vers le fichier de projet</translation>
+        <translation type="obsolete">Chemin vers le fichier de projet</translation>
     </message>
 </context>
 </TS>

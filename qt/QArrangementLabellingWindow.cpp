@@ -45,7 +45,7 @@
 #include "QArrangementLabellingWidget.h"
 #include "QArrangementLabellingInfoWidget.h"
 #include "config.hpp"
-#include "SaveProjectDialog.h"
+#include "QArrangementLabellingSaveProjectDialog.h"
 
 #include "ui_QArrangementLabellingWindow.h"
 
@@ -819,7 +819,7 @@ void QArrangementLabellingWindow::on_actionSaveProject_triggered()
         return;
     }
 
-    SaveProjectDialog spd(tabView->imageToLabelFilename(), this);
+    QArrangementLabellingSaveProjectDialog spd(tabView->imageToLabelFilename(), this);
     if( spd.exec() )
     {
         QFile file(spd.projectPath());
