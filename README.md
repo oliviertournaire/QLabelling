@@ -1,22 +1,17 @@
-# _QLabelling_
+# _QLabellingArrangement_
 
-_QLabelling_ is a simple GUI to label rectified images. It was initially developed to label façade images for training algorithms.
-
-## What does _QLabelling_ do
-* Draw horizontal and vertical lines with a single click (intersections define rectangles to label)
-* Labels rectangles
-* Choose a color for each label
-* Save a labels image with associated information (labels' colors, input and label images) in a raw ASCII file <image_label_filename>.labels
-* Dynamic labels: you must defines labels names and colors in a separate text file. See files rc/labels_facade_simple.txt or rc/labels_facade_enhanced.txt for examples. **Note that you always must to define a label named _unknow_ (case sensitive)!**
-
-## What _QLabelling_ does not do
-* Delete lines or rectangles
-* Merge rectangles
+_QLabellingArrangement_ is a simple GUI to label images. It was initially developed to label façade images for training algorithms. Since version 1.2.0 (see Versions notes below), _QLabellingArrangement_ is based on CGAL::Arrangement_2 for faces definitions and is thus not anymore restricted to label axis-aligned objects.
 
 ## How you can help
 If you find a bug or wish to have a new feature, please fill an issue in the dedicated section ([issues][issues_page]). If you want to code yourself a new feature, ask for a pull-request and detail your changes / modifications / improvements.
 
 ## Versions notes
+### Version 1.2.0 (04/07/2013)
+* Complete code reorganisation
+* Labelling is now based on CGAL::Arrangement_2 and is thus not limited to axis-aligned rectangles
+* Several bug fixes
+* Add FR_fr translation
+
 ### Version 1.1.0 (15/05/2013)
 * Dynamic labels (can be choosed at runtime from a simple ASCII file; see files rc/labels_facade_simple.txt or rc/labels_facade_enhanced.txt for examples)
 * Fixes issues #2, #3, #4
