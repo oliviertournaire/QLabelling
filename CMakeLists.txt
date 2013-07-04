@@ -93,10 +93,14 @@ file( GLOB ALL_QARRANGEMENTLABELLING_CPP ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
 file( GLOB ALL_QARRANGEMENTLABELLING_CALLBACKS_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/callbacks/*.h )
 file( GLOB ALL_QARRANGEMENTLABELLING_CALLBACKS_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/callbacks/*.cpp )
 
+file( GLOB ALL_QARRANGEMENTLABELLING_GRAPHICS_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/graphics/*.h )
+file( GLOB ALL_QARRANGEMENTLABELLING_GRAPHICS_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/graphics/*.cpp )
+
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR} )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/qt )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/callbacks )
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/graphics )
 
 if(WIN32)
 	set( APPLICATION_TYPE WIN32 )
@@ -161,6 +165,8 @@ add_executable( QArrangementLabelling ${APPLICATION_TYPE}
                                       ${ALL_QARRANGEMENTLABELLING_CPP}
       								  ${ALL_QARRANGEMENTLABELLING_CALLBACKS_HEADERS}
                                       ${ALL_QARRANGEMENTLABELLING_CALLBACKS_SOURCES}
+      								  ${ALL_QARRANGEMENTLABELLING_GRAPHICS_HEADERS}
+                                      ${ALL_QARRANGEMENTLABELLING_GRAPHICS_SOURCES}
                                       ${qm_files})
 
 target_link_libraries( QArrangementLabelling ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${QT_LIBRARIES} )
