@@ -98,12 +98,15 @@ file( GLOB ALL_QARRANGEMENTLABELLING_GRAPHICS_SOURCES ${CMAKE_CURRENT_SOURCE_DIR
 
 file( GLOB ALL_QARRANGEMENTLABELLING_CONFIG_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/config/*.h )
 
+file( GLOB ALL_QARRANGEMENTLABELLING_CONFIG_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/utilities/*.h* )
+
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR} )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/qt )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/callbacks )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/graphics )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/config )
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/utilities )
 
 if(WIN32)
 	set( APPLICATION_TYPE WIN32 )
@@ -171,6 +174,7 @@ add_executable( QArrangementLabelling ${APPLICATION_TYPE}
       								  ${ALL_QARRANGEMENTLABELLING_GRAPHICS_HEADERS}
                                       ${ALL_QARRANGEMENTLABELLING_GRAPHICS_SOURCES}
 									  ${ALL_QARRANGEMENTLABELLING_CONFIG_HEADERS}
+									  ${ALL_QARRANGEMENTLABELLING_UTILITIES_HEADERS}
                                       ${qm_files})
 
 target_link_libraries( QArrangementLabelling ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${QT_LIBRARIES} )
