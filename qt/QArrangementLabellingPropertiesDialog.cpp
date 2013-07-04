@@ -17,24 +17,24 @@
 //
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
-#include "ArrangementDemoPropertiesDialog.h"
-#include "ui_ArrangementDemoPropertiesDialog.h"
+#include "QArrangementLabellingPropertiesDialog.h"
+#include "ui_QArrangementLabellingPropertiesDialog.h"
 #include "QLabellingArrangementWindow.h"
 #include "PropertyValueDelegate.h"
 #include "DeleteCurveMode.h"
 #include "ArrangementDemoGraphicsView.h"
 
-ArrangementDemoPropertiesDialog::
-ArrangementDemoPropertiesDialog( QLabellingArrangementWindow* parent_,
+QArrangementLabellingPropertiesDialog::
+QArrangementLabellingPropertiesDialog( QLabellingArrangementWindow* parent_,
                                  Qt::WindowFlags f ) :
     QDialog( parent_, f ),
     parent( parent_ ),
-    ui( new Ui::ArrangementDemoPropertiesDialog )
+    ui( new Ui::QArrangementLabellingPropertiesDialog )
 {
     this->setupUi( );
 }
 
-QVariant ArrangementDemoPropertiesDialog::property( int index )
+QVariant QArrangementLabellingPropertiesDialog::property( int index )
 {
     // return invalid variant if something goes wrong
     QVariant res;
@@ -64,7 +64,7 @@ QVariant ArrangementDemoPropertiesDialog::property( int index )
     return res;
 }
 
-void ArrangementDemoPropertiesDialog::setupUi( )
+void QArrangementLabellingPropertiesDialog::setupUi( )
 {
     this->ui->setupUi( this );
     PropertyValueDelegate* myDelegate = new PropertyValueDelegate;
@@ -91,7 +91,7 @@ void ArrangementDemoPropertiesDialog::setupUi( )
     this->updateUi( );
 }
 
-void ArrangementDemoPropertiesDialog::updateUi( )
+void QArrangementLabellingPropertiesDialog::updateUi( )
 {
     if ( this->parent == NULL )
     {

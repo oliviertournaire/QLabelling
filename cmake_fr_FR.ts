@@ -4,49 +4,40 @@
 <context>
     <name>ArrangementDemoPropertiesDialog</name>
     <message>
-        <location filename="build/ui_ArrangementDemoPropertiesDialog.h" line="91"/>
         <source>Options</source>
-        <translation>Options</translation>
+        <translation type="obsolete">Options</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoPropertiesDialog.h" line="93"/>
         <source>Value</source>
-        <translation>Valeur</translation>
+        <translation type="obsolete">Valeur</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoPropertiesDialog.h" line="95"/>
         <source>Edge Color</source>
-        <translation>Couleur des arêtes</translation>
+        <translation type="obsolete">Couleur des arêtes</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoPropertiesDialog.h" line="97"/>
         <source>Edge Width</source>
-        <translation>Épaisseur de l&apos;arête</translation>
+        <translation type="obsolete">Épaisseur de l&apos;arête</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoPropertiesDialog.h" line="99"/>
         <source>Vertex Color</source>
-        <translation>Couleur des points</translation>
+        <translation type="obsolete">Couleur des points</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoPropertiesDialog.h" line="101"/>
         <source>Vertex Radius</source>
-        <translation>Rayon des points</translation>
+        <translation type="obsolete">Rayon des points</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoPropertiesDialog.h" line="103"/>
         <source>Delete Curve Mode</source>
-        <translation>Mode de suppression des traits</translation>
+        <translation type="obsolete">Mode de suppression des traits</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoPropertiesDialog.h" line="105"/>
         <source>Grid Size</source>
-        <translation>Taille de la grille</translation>
+        <translation type="obsolete">Taille de la grille</translation>
     </message>
     <message>
-        <location filename="build/ui_ArrangementDemoPropertiesDialog.h" line="107"/>
         <source>Grid Color</source>
-        <translation>Couleur de la grille</translation>
+        <translation type="obsolete">Couleur de la grille</translation>
     </message>
 </context>
 <context>
@@ -315,6 +306,54 @@
         <location filename="qt/QArrangementInfoWidget.cpp" line="44"/>
         <source>Changes not saved</source>
         <translation>Changements non enregistrés</translation>
+    </message>
+</context>
+<context>
+    <name>QArrangementLabellingPropertiesDialog</name>
+    <message>
+        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="91"/>
+        <source>Options</source>
+        <translation type="unfinished">Options</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="93"/>
+        <source>Value</source>
+        <translation type="unfinished">Valeur</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="95"/>
+        <source>Edge Color</source>
+        <translation type="unfinished">Couleur des arêtes</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="97"/>
+        <source>Edge Width</source>
+        <translation type="unfinished">Épaisseur de l&apos;arête</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="99"/>
+        <source>Vertex Color</source>
+        <translation type="unfinished">Couleur des points</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="101"/>
+        <source>Vertex Radius</source>
+        <translation type="unfinished">Rayon des points</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="103"/>
+        <source>Delete Curve Mode</source>
+        <translation type="unfinished">Mode de suppression des traits</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="105"/>
+        <source>Grid Size</source>
+        <translation type="unfinished">Taille de la grille</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="107"/>
+        <source>Grid Color</source>
+        <translation type="unfinished">Couleur de la grille</translation>
     </message>
 </context>
 <context>

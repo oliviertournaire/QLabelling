@@ -17,8 +17,8 @@
 //
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
-#ifndef ARRANGEMENT_DEMO_PROPERTIES_DIALOG_H
-#define ARRANGEMENT_DEMO_PROPERTIES_DIALOG_H
+#ifndef __QARRANGEMENT_LABELLING_PROPERTIES_DIALOG_H__
+#define __QARRANGEMENT_LABELLING_PROPERTIES_DIALOG_H__
 
 #include <QDialog>
 
@@ -26,10 +26,10 @@ class QLabellingArrangementWindow;
 
 namespace Ui
 {
-class ArrangementDemoPropertiesDialog;
+    class QArrangementLabellingPropertiesDialog;
 }
 
-class ArrangementDemoPropertiesDialog : public QDialog
+class QArrangementLabellingPropertiesDialog : public QDialog
 {
     Q_OBJECT
 public:
@@ -44,7 +44,7 @@ public:
         GRID_COLOR_KEY
     };
 
-    ArrangementDemoPropertiesDialog( QLabellingArrangementWindow* parent_ = 0,
+    QArrangementLabellingPropertiesDialog( QLabellingArrangementWindow* parent_ = 0,
                                      Qt::WindowFlags f = 0 );
     QVariant property( int index );
 
@@ -53,7 +53,7 @@ protected:
     void updateUi( );
     
     QLabellingArrangementWindow* parent;
-    Ui::ArrangementDemoPropertiesDialog* ui;
-}; // class ArrangementDemoPropertiesDialog
+    Ui::QArrangementLabellingPropertiesDialog* ui;
+}; // class QArrangementLabellingPropertiesDialog
 
-#endif // ARRANGEMENT_DEMO_PROPERTIES_DIALOG_H
+#endif // __QARRANGEMENT_LABELLING_PROPERTIES_DIALOG_H__

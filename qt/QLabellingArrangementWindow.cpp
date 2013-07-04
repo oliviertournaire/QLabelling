@@ -20,7 +20,7 @@
 #include "QLabellingArrangementWindow.h"
 #include "ArrangementTypes.h"
 #include "OverlayDialog.h"
-#include "ArrangementDemoPropertiesDialog.h"
+#include "QArrangementLabellingPropertiesDialog.h"
 #include "ArrangementDemoTab.h"
 #include "DeleteCurveMode.h"
 #include "ArrangementGraphicsItem.h"
@@ -706,11 +706,10 @@ void QLabellingArrangementWindow::on_actionPreferences_triggered( )
     ArrangementDemoGraphicsView* view = currentTab->getView( );
     SplitEdgeCallbackBase* splitEdgeCallback = currentTab->getSplitEdgeCallback( );
 
-    ArrangementDemoPropertiesDialog* dialog =
-        new ArrangementDemoPropertiesDialog( this );
+    QArrangementLabellingPropertiesDialog* dialog = new QArrangementLabellingPropertiesDialog( this );
     if ( dialog->exec( ) == QDialog::Accepted )
     {
-        typedef ArrangementDemoPropertiesDialog Dialog;
+        typedef QArrangementLabellingPropertiesDialog Dialog;
         QColor edgeColor          = qVariantValue<QColor>(dialog->property(Dialog::EDGE_COLOR_KEY));
         unsigned int edgeWidth    = qVariantValue<unsigned int>(dialog->property(Dialog::EDGE_WIDTH_KEY));
         QColor vertexColor        = qVariantValue<QColor>(dialog->property(Dialog::VERTEX_COLOR_KEY));
