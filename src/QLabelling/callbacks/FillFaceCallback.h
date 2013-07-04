@@ -142,8 +142,8 @@ fillFace( QGraphicsSceneMouseEvent* event )
     this->fillColor = QArrangementLabellingWidget::instance()->findActiveLabelItem()->labelColor();
     if ( this->fillColor.isValid( ) )
     {
-        f->set_color( this->fillColor );
-        f->set_label( QArrangementLabellingWidget::instance()->Color2Label(this->fillColor));
+        f->data().set_color( this->fillColor );
+        f->data().set_label( QArrangementLabellingWidget::instance()->Color2Label(this->fillColor));
     }
 }
 

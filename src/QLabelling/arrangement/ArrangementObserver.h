@@ -108,14 +108,15 @@ public:
         QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 	if(!f->is_unbounded())
 	{
-	    QArrangementLabellingLogWidget::instance()->logTrace( "Face color --> " + f->color().name() );
-	    QArrangementLabellingLogWidget::instance()->logTrace( "Face label --> " + f->label() );
-	    new_f->set_color(f->color());
-	    new_f->set_label(f->label());
+	    QArrangementLabellingLogWidget::instance()->logTrace( "Face color --> " + f->data().color().name() );
+	    QArrangementLabellingLogWidget::instance()->logTrace( "Face label --> " + f->data().label() );
+
+	    new_f->data().set_label(f->data().label());
+        new_f->data().set_color(f->data().color());
 	}
 	else{
             QArrangementLabellingLogWidget::instance()->logTrace( "Splitting an unbounded face : setting unbounded label." );
-            new_f->set_label("Unbounded"); // The frame will later be labelled "Undefinded" (when opening an image)
+            new_f->data().set_color("Unbounded"); // The frame will later be labelled "Undefinded" (when opening an image)
         }
     }
 

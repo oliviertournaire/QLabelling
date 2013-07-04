@@ -1002,7 +1002,7 @@ void QArrangementLabellingWindow::on_actionClean_triggered()
         }
         
         // Labelling unbounded face
-        pol->unbounded_face()->set_label("Unbounded");
+        pol->unbounded_face()->data().set_label("Unbounded");
         
         // Suppression des antennes, et des HE en dehors de l'image
          // On a besoin de connaître la taille de l'image !
@@ -1043,8 +1043,8 @@ void QArrangementLabellingWindow::on_actionClean_triggered()
         for (enext = pol->edges_begin(), eit = enext, enext++, index=0 ; eit != pol->edges_end(); eit = enext, enext++, ++index)
         {
             // Twin face has the same label ?
-            if(eit->twin()->face()->label() == eit->face()->label()){
-                QArrangementLabellingLogWidget::instance()->logTrace(tr("Twin face has the same label (") + eit->face()->label() + tr(") : merging faces by removing halfedge %n.","",index));
+            if(eit->twin()->face()->data().label() == eit->face()->data().label()){
+                QArrangementLabellingLogWidget::instance()->logTrace(tr("Twin face has the same label (") + eit->face()->data().label() + tr(") : merging faces by removing halfedge %n.","",index));
                 pol->remove_edge(eit);
                 continue;
             }

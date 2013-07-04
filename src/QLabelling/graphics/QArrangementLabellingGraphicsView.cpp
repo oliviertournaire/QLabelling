@@ -143,7 +143,9 @@ bool QArrangementLabellingGraphicsView::setImageToLabel(const QString& path, QAr
         for(Pol_arr::Face_iterator fit = arr->faces_begin() ; fit != arr->faces_end() ; fit++)
         {
             if(!fit->is_unbounded())
-                fit->set_label(QLABELLING_UNKNOW_LABEL_STRING);
+            {
+                fit->data().set_label(QLABELLING_UNKNOW_LABEL_STRING);
+            }
         }
     }
     else

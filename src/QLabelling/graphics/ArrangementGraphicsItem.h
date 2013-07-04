@@ -160,7 +160,7 @@ protected:
         for( Face_iterator fi = this->arr->faces_begin( );
              fi != this->arr->faces_end( ); ++fi )
         {
-            fi->set_visited( false );
+            fi->data().set_visited( false );
         }
 
         Face_handle unboundedFace = this->arr->unbounded_face( );
@@ -185,13 +185,13 @@ protected:
 
     void paintFace( Face_handle f, QPainter* painter )
     {
-        if (! f->visited( ) )
+        if (! f->data().visited( ) )
         {
             int holes = 0;
             int inner_faces = 0;
             Holes_iterator hit; // holes iterator
             this->paintFace( f, painter, Traits( ) );
-            f->set_visited( true );
+            f->data().set_visited( true );
             for ( hit = f->holes_begin(); hit != f->holes_end(); ++hit )
             {
                 Ccb_halfedge_circulator cc = *hit;
@@ -203,7 +203,7 @@ protected:
                         continue;
 
                     // move on to next hole
-                    if ( ! inner_face->visited( ) )
+                    if ( ! inner_face->data().visited( ) )
                         inner_faces++;
                     this->visit_ccb_faces( inner_face, painter );
                 } while ( ++cc != *hit );
@@ -219,7 +219,7 @@ protected:
         Ccb_halfedge_circulator cc=fh->outer_ccb();
         do {
             Halfedge he = *cc;
-            if (! he.twin()->face()->visited())
+            if (! he.twin()->face()->data().visited())
             {
                 Face_handle nei = (Face_handle) he.twin()->face();
                 this->visit_ccb_faces( nei , painter );
@@ -294,13 +294,13 @@ protected:
             QColor def_bg_color = this->_backgroundColor;
             // Just add an alpha
             def_bg_color.setAlpha(127);
-            if (! f->color().isValid())
+            if (! f->data().color().isValid())
             {
                 painter->setBrush( def_bg_color );
             }
             else
             {
-                QColor faceColor = f->color();
+                QColor faceColor = f->data().color();
                 faceColor.setAlpha(127);
                 painter->setBrush( faceColor );
             }

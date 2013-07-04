@@ -26,12 +26,12 @@
 #include <CGAL/basic.h>
 
 #include <CGAL/Cartesian.h>
-#include <CGAL/Arr_default_dcel.h>
 #include <CGAL/Arr_segment_traits_2.h>
 #include <CGAL/Arr_consolidated_curve_data_traits_2.h>
 #include <CGAL/Arr_polyline_traits_2.h>
 #include <CGAL/Arrangement_with_history_2.h>
 #include <CGAL/Arr_simple_point_location.h>
+#include <CGAL/Arr_extended_dcel.h>
 #include <CGAL/squared_distance_2.h>
 #include <CGAL/point_generators_2.h>
 #include <CGAL/Bbox_2.h>
@@ -67,14 +67,14 @@ struct Kernel : public CGAL::Cartesian<NT> {};
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
 struct Kernel : public CGAL::Epeck {};
 
-class Face_with_color : public CGAL::Arr_face_base
+class Face_with_color
 {
     QColor    m_color;
     bool      m_visited;
     QString   m_label; // Le label associé à la face
 
 public:
-    Face_with_color() : CGAL::Arr_face_base(), m_color(), m_label("Undefined"), m_visited(false) { }
+    Face_with_color() : m_color(), m_label("Undefined"), m_visited(false) { }
 
     // Getting the color for this face
     QColor color() const { return m_color; }
@@ -88,33 +88,13 @@ public:
     void set_visited(bool b) { m_visited = b; }
 };
 
-template <class Traits>
-class Dcel :
-    public CGAL::Arr_dcel_base<CGAL::Arr_vertex_base<typename Traits::Point_2>,
-    CGAL::Arr_halfedge_base<
-    typename Traits::X_monotone_curve_2>,
-    Face_with_color>
-{
-public:
-    /*! \struct
-    * An auxiliary structure for rebinding the DCEL with a new traits class.
-    */
-    template <typename T>
-    struct rebind
-    {
-        typedef Dcel<T> other;
-    };
-
-    // CREATION
-    Dcel() {}
-};
-
 // Segments:
 typedef CGAL::Arr_segment_traits_2<Kernel>              Seg_traits;
 typedef Seg_traits::Curve_2                             Arr_seg_2;
 typedef Seg_traits::X_monotone_curve_2                  Arr_xseg_2;
 typedef Seg_traits::Point_2                             Arr_seg_point_2;
-typedef Dcel<Seg_traits>                                Seg_dcel;
+typedef CGAL::Arr_face_extended_dcel<Seg_traits, Face_with_color> Seg_dcel;
+//typedef Dcel<Seg_traits>                                Seg_dcel;
 typedef CGAL::Arrangement_with_history_2<Seg_traits, Seg_dcel> Seg_arr;
 typedef Seg_arr::Halfedge                               Seg_halfedge;
 typedef Seg_arr::Halfedge_handle                        Seg_halfedge_handle;
@@ -133,7 +113,8 @@ typedef CGAL::Arr_polyline_traits_2<Seg_traits>         Pol_traits;
 typedef Pol_traits::Curve_2                             Arr_pol_2;
 typedef Pol_traits::X_monotone_curve_2                  Arr_xpol_2;
 typedef Pol_traits::Point_2                             Arr_pol_point_2;
-typedef Dcel<Pol_traits>                                Pol_dcel;
+typedef CGAL::Arr_face_extended_dcel<Pol_traits, Face_with_color> Pol_dcel;
+//typedef Dcel<Pol_traits>                                Pol_dcel;
 typedef CGAL::Arrangement_with_history_2<Pol_traits, Pol_dcel> Pol_arr;
 typedef Pol_arr::Halfedge_handle                        Pol_halfedge_handle;
 typedef Pol_arr::Face_handle                            Pol_face_handle;
