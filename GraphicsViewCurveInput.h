@@ -29,7 +29,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 #include "Callback.h"
-#include "QArrangementInfoWidget.h"
+#include "QArrangementLabellingInfoWidget.h"
 #include "ISnappable.h"
 #include "PointsGraphicsItem.h"
 
@@ -162,7 +162,7 @@ protected:
                         this->polylineGuide.clear( );
                         this->points.clear( );
                         
-                        QArrangementInfoWidget::instance()->setChanged( true );
+                        QArrangementLabellingInfoWidget::instance()->setChanged( true );
                         
                         break;
                     default:

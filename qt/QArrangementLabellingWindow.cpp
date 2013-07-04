@@ -43,7 +43,7 @@
 #include "ArrangementGraphicsItem.h"
 #include "QLabellingLogWidget.hpp"
 #include "QLabellingWidget.hpp"
-#include "QArrangementInfoWidget.h"
+#include "QArrangementLabellingInfoWidget.h"
 #include "config.hpp"
 #include "SaveProjectDialog.h"
 
@@ -74,8 +74,8 @@ CGAL::Qt::DemosMainWindow( parent ),
     this->addDockWidget(Qt::RightDockWidgetArea, dockLabellingWidget);
 
     QDockWidget* dockInfoWidget = new QDockWidget;
-    dockInfoWidget->setWidget(QArrangementInfoWidget::instance());
-    dockInfoWidget->setWindowTitle( QArrangementInfoWidget::instance()->windowTitle() );
+    dockInfoWidget->setWidget(QArrangementLabellingInfoWidget::instance());
+    dockInfoWidget->setWindowTitle( QArrangementLabellingInfoWidget::instance()->windowTitle() );
     dockInfoWidget->setWindowIcon( dockInfoWidget->windowIcon() );
     this->addDockWidget(Qt::RightDockWidgetArea, dockInfoWidget);
 
@@ -567,7 +567,7 @@ void QArrangementLabellingWindow::on_tabWidget_currentChanged( )
     this->updateMode( this->modeGroup->checkedAction( ) );
 
     // Filling Arrangement info widget
-    QArrangementInfoWidget* infoWidget = QArrangementInfoWidget::instance();
+    QArrangementLabellingInfoWidget* infoWidget = QArrangementLabellingInfoWidget::instance();
     infoWidget->setNumFaces             ( 0 , 0 );
     infoWidget->setNumEdges             ( 0 );
     infoWidget->setNumVertices          ( 0 );

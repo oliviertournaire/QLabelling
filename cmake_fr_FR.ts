@@ -212,100 +212,116 @@
 <context>
     <name>QArrangementInfoWidget</name>
     <message>
-        <location filename="qt/QArrangementInfoWidget.ui" line="32"/>
-        <location filename="build/ui_QArrangementInfoWidget.h" line="90"/>
         <source>Arrangement info</source>
-        <translation>Informations sur l&apos;arrangement</translation>
+        <translation type="obsolete">Informations sur l&apos;arrangement</translation>
     </message>
     <message>
-        <location filename="qt/QArrangementInfoWidget.ui" line="42"/>
-        <location filename="build/ui_QArrangementInfoWidget.h" line="91"/>
         <source>0 faces</source>
-        <translation>0 face</translation>
+        <translation type="obsolete">0 face</translation>
     </message>
     <message>
-        <location filename="qt/QArrangementInfoWidget.ui" line="49"/>
-        <location filename="build/ui_QArrangementInfoWidget.h" line="92"/>
         <source>0 edges</source>
-        <translation>0 arête</translation>
+        <translation type="obsolete">0 arête</translation>
     </message>
     <message>
-        <location filename="qt/QArrangementInfoWidget.ui" line="56"/>
-        <location filename="build/ui_QArrangementInfoWidget.h" line="93"/>
         <source>0 vertices</source>
-        <translation>0 point</translation>
+        <translation type="obsolete">0 point</translation>
     </message>
     <message>
-        <location filename="qt/QArrangementInfoWidget.ui" line="63"/>
-        <location filename="build/ui_QArrangementInfoWidget.h" line="94"/>
         <source>0 isolated vertices</source>
-        <translation>0 point isolé</translation>
+        <translation type="obsolete">0 point isolé</translation>
     </message>
     <message>
-        <location filename="qt/QArrangementInfoWidget.ui" line="70"/>
-        <location filename="build/ui_QArrangementInfoWidget.h" line="95"/>
         <source>0 vertices at infinity</source>
-        <translation>0 point à l&apos;infini</translation>
+        <translation type="obsolete">0 point à l&apos;infini</translation>
     </message>
     <message>
-        <location filename="qt/QArrangementInfoWidget.ui" line="77"/>
-        <location filename="build/ui_QArrangementInfoWidget.h" line="96"/>
-        <location filename="qt/QArrangementInfoWidget.cpp" line="44"/>
         <source>No new changes</source>
-        <translation>Pas de nouveau changement</translation>
+        <translation type="obsolete">Pas de nouveau changement</translation>
     </message>
     <message numerus="yes">
-        <location filename="qt/QArrangementInfoWidget.cpp" line="19"/>
         <source>%n face(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n face</numerusform>
             <numerusform>%n faces</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="qt/QArrangementInfoWidget.cpp" line="19"/>
         <source> (%n unbounded)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform> (%n infinie)</numerusform>
             <numerusform> (%n infinies)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="qt/QArrangementInfoWidget.cpp" line="24"/>
         <source>%n edge(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n arrête</numerusform>
             <numerusform>%n arrêtes</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="qt/QArrangementInfoWidget.cpp" line="29"/>
         <source>%n vertice(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n point</numerusform>
             <numerusform>%n points</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="qt/QArrangementInfoWidget.cpp" line="34"/>
         <source>%n isolated vertice(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n point isolé</numerusform>
             <numerusform>%n point isolés</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="qt/QArrangementInfoWidget.cpp" line="39"/>
         <source>%n vertice(s) at infinity</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n point à l&apos;infini</numerusform>
             <numerusform>%n points à l&apos;infini</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="qt/QArrangementInfoWidget.cpp" line="44"/>
         <source>Changes not saved</source>
-        <translation>Changements non enregistrés</translation>
+        <translation type="obsolete">Changements non enregistrés</translation>
+    </message>
+</context>
+<context>
+    <name>QArrangementLabellingInfoWidget</name>
+    <message>
+        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="90"/>
+        <source>Arrangement info</source>
+        <translation type="unfinished">Informations sur l&apos;arrangement</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="91"/>
+        <source>0 faces</source>
+        <translation type="unfinished">0 face</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="92"/>
+        <source>0 edges</source>
+        <translation type="unfinished">0 arête</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="93"/>
+        <source>0 vertices</source>
+        <translation type="unfinished">0 point</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="94"/>
+        <source>0 isolated vertices</source>
+        <translation type="unfinished">0 point isolé</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="95"/>
+        <source>0 vertices at infinity</source>
+        <translation type="unfinished">0 point à l&apos;infini</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="96"/>
+        <source>No new changes</source>
+        <translation type="unfinished">Pas de nouveau changement</translation>
     </message>
 </context>
 <context>

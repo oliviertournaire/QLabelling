@@ -33,7 +33,7 @@
 #include <iostream>
 
 #include "QLabellingLogWidget.hpp"
-#include "QArrangementInfoWidget.h"
+#include "QArrangementLabellingInfoWidget.h"
 #include "QLabellingLogWidget.hpp"
 
 class QGraphicsScene;
@@ -396,7 +396,7 @@ void ArrangementGraphicsItem< Arr_, ArrTraits >:: paint(QPainter* painter, TTrai
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     // Filling Arrangement info widget
-    QArrangementInfoWidget* infoWidget = QArrangementInfoWidget::instance();
+    QArrangementLabellingInfoWidget* infoWidget = QArrangementLabellingInfoWidget::instance();
     infoWidget->setNumFaces             ( (int)this->arr->number_of_faces(), (int)this->arr->number_of_unbounded_faces() );
     infoWidget->setNumEdges             ( (int)this->arr->number_of_edges() );
     infoWidget->setNumVertices          ( (int)this->arr->number_of_vertices() );
