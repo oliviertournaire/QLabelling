@@ -357,196 +357,347 @@
     </message>
 </context>
 <context>
-    <name>QLabellingArrangementWindow</name>
+    <name>QArrangementLabellingWindow</name>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="307"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="307"/>
         <source>QLabellingArrangement</source>
         <translation type="unfinished">QLabellingArrangement</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="308"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="308"/>
         <source>&amp;Quit</source>
         <translation type="unfinished">&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="309"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="309"/>
         <source>&amp;Insert</source>
         <translation type="unfinished">&amp;Insérer</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="310"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="310"/>
         <source>&amp;Delete</source>
         <translation type="unfinished">&amp;Supprimer</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="311"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="311"/>
         <source>Drag</source>
         <translation type="unfinished">Déplacer</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="312"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="312"/>
         <source>Point Location</source>
         <translation type="unfinished">Localiser un point</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="313"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="313"/>
         <source>Merge</source>
         <translation type="unfinished">Fusionner</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="314"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="314"/>
         <source>Split</source>
         <translation type="unfinished">Séparer</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="315"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="315"/>
         <source>Fill</source>
         <translation type="unfinished">Remplir</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="316"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="316"/>
         <source>Enable snapping</source>
         <translation type="unfinished">Active l&apos;aimantation</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="317"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="317"/>
         <source>Snap to grid</source>
         <translation type="unfinished">Aimanter à la grille</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="318"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="318"/>
         <source>Segment</source>
         <translation type="unfinished">Segment</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="319"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="319"/>
         <source>Polyline</source>
         <translation type="unfinished">Polygone</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="320"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="320"/>
         <source>New tab</source>
         <translation type="unfinished">Nouvel onglet</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="321"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="321"/>
         <source>Ctrl+N</source>
         <translation type="unfinished">Ctrl+N</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="322"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="322"/>
         <source>&amp;Overlay...</source>
         <translation type="unfinished">&amp;Superposer...</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="323"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="323"/>
         <source>&amp;Clean the arrangement</source>
         <translation type="unfinished">&amp;Nettoyer l&apos;arrangement</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="324"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="324"/>
         <source>&amp;Preferences...</source>
         <translation type="unfinished">&amp;Préférences...</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="325"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="325"/>
         <source>Show &amp;grid</source>
         <translation type="unfinished">Afficher la &amp;grille</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="326"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="326"/>
         <source>Close Tab</source>
         <translation type="unfinished">Fermer l&apos;onglet</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="327"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="327"/>
         <source>Ctrl+W</source>
         <translation type="unfinished">Ctrl+W</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="328"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="328"/>
         <source>Save arrangement as...</source>
         <translation type="unfinished">Enregistrer l&apos;arrangement sous...</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="329"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="329"/>
         <source>Ctrl+S</source>
         <translation type="unfinished">Ctrl+S</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="330"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="330"/>
         <source>Open an arrangement...</source>
         <translation type="unfinished">Ouvrir un arrangement...</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="331"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="331"/>
         <source>Open</source>
         <translation type="unfinished">Ouvrir</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="332"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="332"/>
         <source>Ctrl+O</source>
         <translation type="unfinished">Ctrl+O</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="333"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="333"/>
         <source>Zoom In</source>
         <translation type="unfinished">Zommer</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="334"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="334"/>
         <source>Zoom Out</source>
         <translation type="unfinished">Dézoomer</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="335"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="335"/>
         <source>Open an image</source>
         <translation type="unfinished">Ouvrir une image</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="336"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="336"/>
         <source>Insert horizontal line</source>
         <translation type="unfinished">Insérer une ligne horizontale</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="337"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="337"/>
         <source>Insert vertical line</source>
         <translation type="unfinished">Insérer une ligne verticale</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="338"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="338"/>
         <source>Save a project</source>
         <translation type="unfinished">Sauver le projet</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="339"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="339"/>
         <source>Open a project</source>
         <translation type="unfinished">Ouvrir un projet</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="340"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="340"/>
         <source>toolBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="341"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="341"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="342"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="342"/>
         <source>&amp;Mode</source>
         <translation type="unfinished">&amp;Mode</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="343"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="343"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Édition</translation>
     </message>
     <message>
-        <location filename="build/ui_QLabellingArrangementWindow.h" line="344"/>
+        <location filename="build/ui_QArrangementLabellingWindow.h" line="344"/>
         <source>T&amp;ools</source>
         <translation type="unfinished">&amp;Outils</translation>
+    </message>
+</context>
+<context>
+    <name>QLabellingArrangementWindow</name>
+    <message>
+        <source>QLabellingArrangement</source>
+        <translation type="obsolete">QLabellingArrangement</translation>
+    </message>
+    <message>
+        <source>&amp;Quit</source>
+        <translation type="obsolete">&amp;Quitter</translation>
+    </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="obsolete">&amp;Insérer</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="obsolete">&amp;Supprimer</translation>
+    </message>
+    <message>
+        <source>Drag</source>
+        <translation type="obsolete">Déplacer</translation>
+    </message>
+    <message>
+        <source>Point Location</source>
+        <translation type="obsolete">Localiser un point</translation>
+    </message>
+    <message>
+        <source>Merge</source>
+        <translation type="obsolete">Fusionner</translation>
+    </message>
+    <message>
+        <source>Split</source>
+        <translation type="obsolete">Séparer</translation>
+    </message>
+    <message>
+        <source>Fill</source>
+        <translation type="obsolete">Remplir</translation>
+    </message>
+    <message>
+        <source>Enable snapping</source>
+        <translation type="obsolete">Active l&apos;aimantation</translation>
+    </message>
+    <message>
+        <source>Snap to grid</source>
+        <translation type="obsolete">Aimanter à la grille</translation>
+    </message>
+    <message>
+        <source>Segment</source>
+        <translation type="obsolete">Segment</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation type="obsolete">Polygone</translation>
+    </message>
+    <message>
+        <source>New tab</source>
+        <translation type="obsolete">Nouvel onglet</translation>
+    </message>
+    <message>
+        <source>Ctrl+N</source>
+        <translation type="obsolete">Ctrl+N</translation>
+    </message>
+    <message>
+        <source>&amp;Overlay...</source>
+        <translation type="obsolete">&amp;Superposer...</translation>
+    </message>
+    <message>
+        <source>&amp;Clean the arrangement</source>
+        <translation type="obsolete">&amp;Nettoyer l&apos;arrangement</translation>
+    </message>
+    <message>
+        <source>&amp;Preferences...</source>
+        <translation type="obsolete">&amp;Préférences...</translation>
+    </message>
+    <message>
+        <source>Show &amp;grid</source>
+        <translation type="obsolete">Afficher la &amp;grille</translation>
+    </message>
+    <message>
+        <source>Close Tab</source>
+        <translation type="obsolete">Fermer l&apos;onglet</translation>
+    </message>
+    <message>
+        <source>Ctrl+W</source>
+        <translation type="obsolete">Ctrl+W</translation>
+    </message>
+    <message>
+        <source>Save arrangement as...</source>
+        <translation type="obsolete">Enregistrer l&apos;arrangement sous...</translation>
+    </message>
+    <message>
+        <source>Ctrl+S</source>
+        <translation type="obsolete">Ctrl+S</translation>
+    </message>
+    <message>
+        <source>Open an arrangement...</source>
+        <translation type="obsolete">Ouvrir un arrangement...</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="obsolete">Ouvrir</translation>
+    </message>
+    <message>
+        <source>Ctrl+O</source>
+        <translation type="obsolete">Ctrl+O</translation>
+    </message>
+    <message>
+        <source>Zoom In</source>
+        <translation type="obsolete">Zommer</translation>
+    </message>
+    <message>
+        <source>Zoom Out</source>
+        <translation type="obsolete">Dézoomer</translation>
+    </message>
+    <message>
+        <source>Open an image</source>
+        <translation type="obsolete">Ouvrir une image</translation>
+    </message>
+    <message>
+        <source>Insert horizontal line</source>
+        <translation type="obsolete">Insérer une ligne horizontale</translation>
+    </message>
+    <message>
+        <source>Insert vertical line</source>
+        <translation type="obsolete">Insérer une ligne verticale</translation>
+    </message>
+    <message>
+        <source>Save a project</source>
+        <translation type="obsolete">Sauver le projet</translation>
+    </message>
+    <message>
+        <source>Open a project</source>
+        <translation type="obsolete">Ouvrir un projet</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="obsolete">&amp;Fichier</translation>
+    </message>
+    <message>
+        <source>&amp;Mode</source>
+        <translation type="obsolete">&amp;Mode</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="obsolete">&amp;Édition</translation>
+    </message>
+    <message>
+        <source>T&amp;ools</source>
+        <translation type="obsolete">&amp;Outils</translation>
     </message>
 </context>
 <context>

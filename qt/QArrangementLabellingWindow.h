@@ -17,8 +17,8 @@
 //
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
-#ifndef ARRANGEMENT_DEMO_WINDOW_H
-#define ARRANGEMENT_DEMO_WINDOW_H
+#ifndef __QARRANGEMENT_LABELLING_WINDOW_H__
+#define __QARRANGEMENT_LABELLING_WINDOW_H__
 
 #include "ArrangementGraphicsItem.h"
 #include "DeleteCurveCallback.h"
@@ -31,20 +31,18 @@
 #include <CGAL/Qt/DemosMainWindow.h>
 #include <CGAL/IO/pixmaps/hand.xpm>
 
-#include "ui_QLabellingArrangementWindow.h"
-
 #include <QGraphicsView>
 
 #include <QSettings>
 
-namespace Ui { class QLabellingArrangementWindow; }
+namespace Ui { class QArrangementLabellingWindow; }
 
 class QActionGroup;
 
 class QLabellingLogWidget;
 class QLabellingWidget;
 
-class QLabellingArrangementWindow : public CGAL::Qt::DemosMainWindow
+class QArrangementLabellingWindow : public CGAL::Qt::DemosMainWindow
 {
     Q_OBJECT
 public:
@@ -52,8 +50,8 @@ public:
         POLYLINE_TRAITS
     } TraitsType;
     
-    QLabellingArrangementWindow(QWidget* parent = 0);
-    ~QLabellingArrangementWindow() {}
+    QArrangementLabellingWindow(QWidget* parent = 0);
+    ~QArrangementLabellingWindow() {}
 
     ArrangementDemoTabBase* makeTab( TraitsType tt );
     ArrangementDemoTabBase* getTab( unsigned int tabIndex ) const;
@@ -102,7 +100,7 @@ protected:
     std::vector< QAction* > activeModes; // for the current tab; always size 1
     unsigned int lastTabIndex;
 
-    Ui::QLabellingArrangementWindow* ui;
+    Ui::QArrangementLabellingWindow* ui;
     QActionGroup* modeGroup;
     QActionGroup* snapGroup;
 
@@ -114,9 +112,7 @@ protected:
 };
 
 template < class ArrType >
-void
-QLabellingArrangementWindow::
-makeOverlayTab( ArrType* arr1, ArrType* arr2 )
+void QArrangementLabellingWindow::makeOverlayTab( ArrType* arr1, ArrType* arr2 )
 {
     QString tabLabel = tr( "Overlay Tab" );
 
@@ -136,4 +132,4 @@ makeOverlayTab( ArrType* arr1, ArrType* arr2 )
     this->lastTabIndex = this->ui->tabWidget->currentIndex( );
 }
 
-#endif // ARRANGEMENT_DEMO_WINDOW_H
+#endif // __QARRANGEMENT_LABELLING_WINDOW_H__

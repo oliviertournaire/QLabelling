@@ -21,10 +21,11 @@
 #include <QImageReader>
 #include <QImageWriter>
 #include <QObject>
+#include <QLocale>
 
 #include <QTranslator>
 
-#include "QLabellingArrangementWindow.h"
+#include "QArrangementLabellingWindow.h"
 #include "QLabellingLogWidget.hpp"
 
 int main( int argc, char* argv[] )
@@ -47,7 +48,7 @@ int main( int argc, char* argv[] )
     app.addLibraryPath(qgetenv ("QTDIR")+"\\plugins");
 #endif
 
-    QLabellingArrangementWindow demoWindow;
+    QArrangementLabellingWindow demoWindow;
     demoWindow.show( );
 
     QString readFileFormats = "(";

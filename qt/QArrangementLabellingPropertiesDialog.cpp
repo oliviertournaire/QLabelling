@@ -19,14 +19,13 @@
 
 #include "QArrangementLabellingPropertiesDialog.h"
 #include "ui_QArrangementLabellingPropertiesDialog.h"
-#include "QLabellingArrangementWindow.h"
+#include "QArrangementLabellingWindow.h"
 #include "PropertyValueDelegate.h"
 #include "DeleteCurveMode.h"
 #include "ArrangementDemoGraphicsView.h"
 
 QArrangementLabellingPropertiesDialog::
-QArrangementLabellingPropertiesDialog( QLabellingArrangementWindow* parent_,
-                                 Qt::WindowFlags f ) :
+QArrangementLabellingPropertiesDialog( QArrangementLabellingWindow* parent_, Qt::WindowFlags f ) :
     QDialog( parent_, f ),
     parent( parent_ ),
     ui( new Ui::QArrangementLabellingPropertiesDialog )

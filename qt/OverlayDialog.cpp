@@ -18,7 +18,7 @@
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
 #include "OverlayDialog.h"
-#include "QLabellingArrangementWindow.h"
+#include "QArrangementLabellingWindow.h"
 #include "ArrangementTypes.h"
 
 #include <QListWidgetItem>
@@ -29,8 +29,7 @@
 
 // TODO: Don't color the text, but set an icon for each arrangement type...
 // TODO: Or maybe don't bother
-OverlayDialog::OverlayDialog( QLabellingArrangementWindow* parent,
-                              Qt::WindowFlags f ) :
+OverlayDialog::OverlayDialog( QArrangementLabellingWindow* parent, Qt::WindowFlags f ) :
     QDialog( parent, f ),
     ui( new Ui::OverlayDialog )
 {
