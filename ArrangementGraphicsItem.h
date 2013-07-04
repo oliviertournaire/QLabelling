@@ -147,12 +147,14 @@ protected:
     template < typename TTraits >
     void paint( QPainter* painter, TTraits traits );
 
+public:
     void paintFaces( QPainter* painter )
     {
         typename Traits::Left_side_category category;
         this->paintFaces( painter, category );
     }
 
+protected:
     void paintFaces( QPainter* painter, CGAL::Arr_oblivious_side_tag )
     {
         for( Face_iterator fi = this->arr->faces_begin( );
