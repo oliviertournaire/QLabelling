@@ -82,8 +82,7 @@ public slots:
     void on_actionZoomIn_triggered( );
     void on_actionZoomOut_triggered( );
     void on_actionPreferences_triggered( );
-//     void on_actionFillColor_triggered( );
-    void saveLabelsImage(QGraphicsScene* scene);
+    void saveLabelsImage(QGraphicsScene* scene, const QString& filename);
     void labelChanged();
 
 signals:
@@ -91,10 +90,9 @@ signals:
 
 protected:
     void setupUi( );
-    void doSave(const QString& filename);
+    void doSaveArrangement(const QString& filename);
     void resetCallbackState( unsigned int tabIndex );
     void removeCallback( unsigned int tabIndex );
-//     void updateFillColorSwatch( );
 
     void openArrFile( QString filename );
     void openDatFile( QString filename );

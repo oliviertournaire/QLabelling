@@ -523,11 +523,10 @@ void ArrangementDemoWindow::on_actionSaveAs_triggered( )
     if ( filename.isNull( ) )
         return;
 
-    doSave(filename);
+    doSaveArrangement(filename);
 }
 
-// TODO: save arrangement labels' faces ...
-void ArrangementDemoWindow::doSave(const QString& filename)
+void ArrangementDemoWindow::doSaveArrangement( const QString& filename )
 {
     std::ofstream ofs( filename.toStdString( ).c_str( ) );
     CGAL::Object arr = this->arrangements[ this->ui->tabWidget->currentIndex( ) ];
@@ -926,10 +925,8 @@ void ArrangementDemoWindow::on_actionSaveProject_triggered()
             xmlWriter->writeEndDocument();
 
             // Now, write labels image and the arrangement
-            // TODO: write labels image
-            doSave(spd.arrangementPath());
-            
-            saveLabelsImage(tabView->scene());
+            doSaveArrangement(spd.arrangementPath());
+            saveLabelsImage(tabView->scene(), spd.labelsImagePath());
             
             getCurrentTab()->setArrHasBeenSaved(true);
 
@@ -1141,48 +1138,19 @@ void ArrangementDemoWindow::on_actionClean_triggered()
 }
 
 // Save the label-colored image
-void ArrangementDemoWindow::saveLabelsImage(QGraphicsScene *scene)
+void ArrangementDemoWindow::saveLabelsImage(QGraphicsScene *scene, const QString& filename)
 {
     if(!scene)
-        return;
-    
-//     // On efface l'image
-//     QList<QGraphicsItem*> allItems = scene->items();
-//     for(int i=0;i<allItems.count();++i)
-//         if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
-//             scene->removeItem(p);
-
-    /*
-    // On a besoin de connaître la taille de l'image
-    QRect rectIm = this->getCurrentTab()->getView()->imageToLabel().rect();
-    
-    
-QImage image(rectIm.width(), rectIm.height(), QImage::Format_RGB32);
-QPainter painter(&image);
-painter.setRenderHint(QPainter::Antialiasing);
-scene->render(&painter, QRect(0,0,rectIm.width(), rectIm.height()));
-if(!image.save("labels.png","png"))
-    QLabellingLogWidget::instance()->logError( tr("Error saving the label image...") );
-    */
-
-/*    QImage pixmap(rectIm.width(), rectIm.height(), QImage::Format_RGB32);  
-    QPainter p;  
-    p.begin(&pixmap);
-//     p.setRenderHint(QPainter::Antialiasing, true);  
-    scene->render(&p);  
-    p.end();
-    pixmap.save("labels.jpg", "JPG"); */ 
-    
+        return;    
 
     QRect rectIm = this->getCurrentTab()->getView()->imageToLabel().rect();
-
     QImage image(rectIm.width(), rectIm.height(), QImage::Format_ARGB32);
     QPainter painter(&image);
 
     CGAL::Qt::ArrangementGraphicsItem<Pol_arr>* agi = (CGAL::Qt::ArrangementGraphicsItem<Pol_arr>*)getCurrentTab()->getArrangementGraphicsItem();
     agi->paintFaces(&painter);
 
-    if(!image.save("labels.png"))
+    if(!image.save(filename))
         QLabellingLogWidget::instance()->logError( tr("Error saving the label image...") );
 }
 
