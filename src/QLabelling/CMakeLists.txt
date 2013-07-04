@@ -19,7 +19,7 @@ if(WIN32)
         add_definitions( -D_SCL_SECURE_NO_WARNINGS )
 endif()
 
-set( DEFAULT_LABEL_PATH ${CMAKE_SOURCE_DIR}/rc/labels_facade_simple.txt )
+set( DEFAULT_LABEL_PATH ${CMAKE_SOURCE_DIR}/rc/labels/labels_facade_simple.txt )
 configure_file( ${CMAKE_SOURCE_DIR}/config/config.hpp.cmake.in ${CMAKE_SOURCE_DIR}/config/config.hpp )
 
 # Qt
