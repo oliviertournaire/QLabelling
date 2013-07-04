@@ -14,7 +14,7 @@
    <string>Options</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../rc/ArrangementDemoWindow.qrc">
+   <iconset resource="../rc/QLabellingArrangementWindow.qrc">
     <normaloff>:/options.png</normaloff>:/options.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -87,7 +87,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../rc/ArrangementDemoWindow.qrc"/>
+  <include location="../rc/QLabellingArrangementWindow.qrc"/>
  </resources>
  <connections>
   <connection>

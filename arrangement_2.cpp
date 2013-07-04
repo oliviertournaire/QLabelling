@@ -24,7 +24,7 @@
 
 #include <QTranslator>
 
-#include "ArrangementDemoWindow.h"
+#include "QLabellingArrangementWindow.h"
 #include "QLabellingLogWidget.hpp"
 
 int main( int argc, char* argv[] )
@@ -47,7 +47,7 @@ int main( int argc, char* argv[] )
     app.addLibraryPath(qgetenv ("QTDIR")+"\\plugins");
 #endif
 
-    ArrangementDemoWindow demoWindow;
+    QLabellingArrangementWindow demoWindow;
     demoWindow.show( );
 
     QString readFileFormats = "(";

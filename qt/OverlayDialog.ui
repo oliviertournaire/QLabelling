@@ -14,7 +14,7 @@
    <string>Overlay</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../rc/ArrangementDemoWindow.qrc">
+   <iconset resource="../rc/QLabellingArrangementWindow.qrc">
     <normaloff>:/icons/arrangement_overlay.png</normaloff>:/icons/arrangement_overlay.png</iconset>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
@@ -81,7 +81,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="../rc/ArrangementDemoWindow.qrc"/>
+  <include location="../rc/QLabellingArrangementWindow.qrc"/>
  </resources>
  <connections>
   <connection>

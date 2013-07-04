@@ -22,7 +22,7 @@
 
 #include <QDialog>
 
-class ArrangementDemoWindow;
+class QLabellingArrangementWindow;
 
 namespace Ui
 {
@@ -44,7 +44,7 @@ public:
         GRID_COLOR_KEY
     };
 
-    ArrangementDemoPropertiesDialog( ArrangementDemoWindow* parent_ = 0,
+    ArrangementDemoPropertiesDialog( QLabellingArrangementWindow* parent_ = 0,
                                      Qt::WindowFlags f = 0 );
     QVariant property( int index );
 
@@ -52,7 +52,7 @@ protected:
     void setupUi( );
     void updateUi( );
     
-    ArrangementDemoWindow* parent;
+    QLabellingArrangementWindow* parent;
     Ui::ArrangementDemoPropertiesDialog* ui;
 }; // class ArrangementDemoPropertiesDialog
 

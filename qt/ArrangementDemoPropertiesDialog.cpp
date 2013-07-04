@@ -19,13 +19,13 @@
 
 #include "ArrangementDemoPropertiesDialog.h"
 #include "ui_ArrangementDemoPropertiesDialog.h"
-#include "ArrangementDemoWindow.h"
+#include "QLabellingArrangementWindow.h"
 #include "PropertyValueDelegate.h"
 #include "DeleteCurveMode.h"
 #include "ArrangementDemoGraphicsView.h"
 
 ArrangementDemoPropertiesDialog::
-ArrangementDemoPropertiesDialog( ArrangementDemoWindow* parent_,
+ArrangementDemoPropertiesDialog( QLabellingArrangementWindow* parent_,
                                  Qt::WindowFlags f ) :
     QDialog( parent_, f ),
     parent( parent_ ),

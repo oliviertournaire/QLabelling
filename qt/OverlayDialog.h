@@ -24,7 +24,7 @@
 #include <vector>
 #include <CGAL/Object.h>
 
-class ArrangementDemoWindow;
+class QLabellingArrangementWindow;
 class QListWidgetItem;
 namespace Ui { class OverlayDialog; }
 
@@ -37,7 +37,7 @@ public:
         ARRANGEMENT = 32
     } OverlayDialogRole;
 
-    OverlayDialog( ArrangementDemoWindow* parent, Qt::WindowFlags f = 0 );
+    OverlayDialog( QLabellingArrangementWindow* parent, Qt::WindowFlags f = 0 );
 
     std::vector< CGAL::Object > selectedArrangements( ) const;
 

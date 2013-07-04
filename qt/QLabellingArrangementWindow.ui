@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ArrangementDemoWindow</class>
- <widget class="QMainWindow" name="ArrangementDemoWindow">
+ <class>QLabellingArrangementWindow</class>
+ <widget class="QMainWindow" name="QLabellingArrangementWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,7 +14,7 @@
    <string>QLabellingArrangement</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../rc/ArrangementDemoWindow.qrc">
+   <iconset resource="../rc/QLabellingArrangementWindow.qrc">
     <normaloff>:/QLabelling/Arrangement_2.png</normaloff>:/QLabelling/Arrangement_2.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -126,7 +126,7 @@
   </widget>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/process-stop.png</normaloff>:/process-stop.png</iconset>
    </property>
    <property name="text">
@@ -141,7 +141,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/demo_insert.xpm</normaloff>:/icons/demo_insert.xpm</iconset>
    </property>
    <property name="text">
@@ -153,7 +153,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/demo_delete.xpm</normaloff>:/icons/demo_delete.xpm</iconset>
    </property>
    <property name="text">
@@ -165,7 +165,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/hand.xpm</normaloff>:/icons/hand.xpm</iconset>
    </property>
    <property name="text">
@@ -177,7 +177,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/demo_pointlocation.xpm</normaloff>:/icons/demo_pointlocation.xpm</iconset>
    </property>
    <property name="text">
@@ -189,7 +189,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/demo_merge.xpm</normaloff>:/icons/demo_merge.xpm</iconset>
    </property>
    <property name="text">
@@ -201,7 +201,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/demo_split.xpm</normaloff>:/icons/demo_split.xpm</iconset>
    </property>
    <property name="text">
@@ -213,7 +213,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/demo_fill.xpm</normaloff>:/icons/demo_fill.xpm</iconset>
    </property>
    <property name="text">
@@ -225,7 +225,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/demo_snapvertex.xpm</normaloff>:/icons/demo_snapvertex.xpm</iconset>
    </property>
    <property name="text">
@@ -237,7 +237,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/demo_snapgrid.xpm</normaloff>:/icons/demo_snapgrid.xpm</iconset>
    </property>
    <property name="text">
@@ -256,7 +256,7 @@
   </action>
   <action name="actionNewTab">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/new_tab.png</normaloff>:/new_tab.png</iconset>
    </property>
    <property name="text">
@@ -268,7 +268,7 @@
   </action>
   <action name="actionOverlay">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/arrangement_overlay.png</normaloff>:/icons/arrangement_overlay.png</iconset>
    </property>
    <property name="text">
@@ -277,7 +277,7 @@
   </action>
   <action name="actionClean">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/QLabelling/edit-clear.png</normaloff>:/QLabelling/edit-clear.png</iconset>
    </property>
    <property name="text">
@@ -286,7 +286,7 @@
   </action>
   <action name="actionPreferences">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/options.png</normaloff>:/options.png</iconset>
    </property>
    <property name="text">
@@ -303,7 +303,7 @@
   </action>
   <action name="actionCloseTab">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/close_tab.png</normaloff>:/close_tab.png</iconset>
    </property>
    <property name="text">
@@ -315,7 +315,7 @@
   </action>
   <action name="actionSaveAs">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/document-save.png</normaloff>:/document-save.png</iconset>
    </property>
    <property name="text">
@@ -327,7 +327,7 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/QLabelling/Arrangement_2.png</normaloff>:/QLabelling/Arrangement_2.png</iconset>
    </property>
    <property name="text">
@@ -342,7 +342,7 @@
   </action>
   <action name="actionZoomIn">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/demo_zoomin.xpm</normaloff>:/icons/demo_zoomin.xpm</iconset>
    </property>
    <property name="text">
@@ -351,7 +351,7 @@
   </action>
   <action name="actionZoomOut">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/icons/demo_zoomout.xpm</normaloff>:/icons/demo_zoomout.xpm</iconset>
    </property>
    <property name="text">
@@ -360,7 +360,7 @@
   </action>
   <action name="actionOpenImage">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/image.png</normaloff>:/image.png</iconset>
    </property>
    <property name="text">
@@ -372,7 +372,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/horizontal-insert.png</normaloff>:/horizontal-insert.png</iconset>
    </property>
    <property name="text">
@@ -384,7 +384,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/vertical-insert.png</normaloff>:/vertical-insert.png</iconset>
    </property>
    <property name="text">
@@ -393,7 +393,7 @@
   </action>
   <action name="actionSaveProject">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/document-save.png</normaloff>:/document-save.png</iconset>
    </property>
    <property name="text">
@@ -402,7 +402,7 @@
   </action>
   <action name="actionOpenProject">
    <property name="icon">
-    <iconset resource="../rc/ArrangementDemoWindow.qrc">
+    <iconset resource="../rc/QLabellingArrangementWindow.qrc">
      <normaloff>:/document-open.png</normaloff>:/document-open.png</iconset>
    </property>
    <property name="text">
@@ -411,7 +411,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../rc/ArrangementDemoWindow.qrc"/>
+  <include location="../rc/QLabellingArrangementWindow.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -32,7 +32,7 @@
    <string>Arrangement info</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../rc/ArrangementDemoWindow.qrc">
+   <iconset resource="../rc/QLabellingArrangementWindow.qrc">
     <normaloff>:/dialog-information.png</normaloff>:/dialog-information.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -81,7 +81,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../rc/ArrangementDemoWindow.qrc"/>
+  <include location="../rc/QLabellingArrangementWindow.qrc"/>
  </resources>
  <connections/>
 </ui>

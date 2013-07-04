@@ -17,7 +17,7 @@
 //
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
-#include "ArrangementDemoWindow.h"
+#include "QLabellingArrangementWindow.h"
 #include "ArrangementTypes.h"
 #include "OverlayDialog.h"
 #include "ArrangementDemoPropertiesDialog.h"
@@ -48,10 +48,10 @@
 #include "config.hpp"
 #include "SaveProjectDialog.h"
 
-ArrangementDemoWindow::ArrangementDemoWindow(QWidget* parent) :
+QLabellingArrangementWindow::QLabellingArrangementWindow(QWidget* parent) :
 CGAL::Qt::DemosMainWindow( parent ),
     lastTabIndex(static_cast<unsigned int>(-1)),
-    ui( new Ui::ArrangementDemoWindow ),
+    ui( new Ui::QLabellingArrangementWindow ),
     _loggerWidget(QLabellingLogWidget::instance()),
     _labellingWidget(QLabellingWidget::instance())
 {
@@ -100,13 +100,13 @@ CGAL::Qt::DemosMainWindow( parent ),
     updateToolBarButtonsEnable(false);
 }
 
-void ArrangementDemoWindow::labelChanged(){
+void QLabellingArrangementWindow::labelChanged(){
     _loggerWidget->logTrace( tr("Label just changed, switching current mode to \"fill\"...") );
     this->ui->actionFill->setChecked(true);
     updateMode(this->ui->actionFill);
 }
 
-ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
+ArrangementDemoTabBase* QLabellingArrangementWindow::makeTab( TraitsType tt )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -151,7 +151,7 @@ ArrangementDemoTabBase* ArrangementDemoWindow::makeTab( TraitsType tt )
     return demoTab;
 }
 
-ArrangementDemoTabBase* ArrangementDemoWindow::getTab( unsigned int tabIndex )
+ArrangementDemoTabBase* QLabellingArrangementWindow::getTab( unsigned int tabIndex )
     const
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
@@ -160,7 +160,7 @@ ArrangementDemoTabBase* ArrangementDemoWindow::getTab( unsigned int tabIndex )
     return this->tabs[tabIndex];
 }
 
-ArrangementDemoTabBase* ArrangementDemoWindow::getCurrentTab( ) const
+ArrangementDemoTabBase* QLabellingArrangementWindow::getCurrentTab( ) const
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -172,7 +172,7 @@ ArrangementDemoTabBase* ArrangementDemoWindow::getCurrentTab( ) const
     return res;
 }
 
-std::vector< QString > ArrangementDemoWindow::getTabLabels( ) const
+std::vector< QString > QLabellingArrangementWindow::getTabLabels( ) const
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -184,7 +184,7 @@ std::vector< QString > ArrangementDemoWindow::getTabLabels( ) const
     return res;
 }
 
-std::vector< CGAL::Object > ArrangementDemoWindow::getArrangements( ) const
+std::vector< CGAL::Object > QLabellingArrangementWindow::getArrangements( ) const
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -196,7 +196,7 @@ std::vector< CGAL::Object > ArrangementDemoWindow::getArrangements( ) const
     return res;
 }
 
-void ArrangementDemoWindow::setupUi( )
+void QLabellingArrangementWindow::setupUi( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -223,7 +223,7 @@ void ArrangementDemoWindow::setupUi( )
 //     this->updateFillColorSwatch( );
 }
 
-void ArrangementDemoWindow::updateMode( QAction* newMode )
+void QLabellingArrangementWindow::updateMode( QAction* newMode )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -298,7 +298,7 @@ void ArrangementDemoWindow::updateMode( QAction* newMode )
     _loggerWidget->logTrace(messageToLog);
 }
 
-void ArrangementDemoWindow::resetCallbackState( unsigned int tabIndex )
+void QLabellingArrangementWindow::resetCallbackState( unsigned int tabIndex )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -340,7 +340,7 @@ void ArrangementDemoWindow::resetCallbackState( unsigned int tabIndex )
     }
 }
 
-void ArrangementDemoWindow::removeCallback( unsigned int tabIndex )
+void QLabellingArrangementWindow::removeCallback( unsigned int tabIndex )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -359,27 +359,7 @@ void ArrangementDemoWindow::removeCallback( unsigned int tabIndex )
     activeScene->removeEventFilter( activeTab->getFillFaceCallback( ) );
 }
 
-// void ArrangementDemoWindow::updateFillColorSwatch( )
-// {
-//     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
-// 
-//     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
-//     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
-//     ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
-//     FillFaceCallbackBase* fillFaceCallback = currentTab->getFillFaceCallback( );
-//     QColor fillColor = fillFaceCallback->getColor( );
-//     if ( !fillColor.isValid( ) )
-//     {
-//         fillColor = ::Qt::black;
-//     }
-// 
-//     QPixmap fillColorPixmap( 16, 16 );
-//     fillColorPixmap.fill( fillColor );
-//     QIcon fillColorIcon( fillColorPixmap );
-//     this->ui->actionFillColor->setIcon( fillColorIcon );
-// }
-
-void ArrangementDemoWindow::openArrFile( QString filename )
+void QLabellingArrangementWindow::openArrFile( QString filename )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -413,7 +393,7 @@ void ArrangementDemoWindow::openArrFile( QString filename )
     ifs.close( );
 }
 
-void ArrangementDemoWindow::openDatFile( QString filename )
+void QLabellingArrangementWindow::openDatFile( QString filename )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -476,7 +456,7 @@ void ArrangementDemoWindow::openDatFile( QString filename )
     inputFile.close();
 }
 
-void ArrangementDemoWindow::updateSnapping( QAction* newMode )
+void QLabellingArrangementWindow::updateSnapping( QAction* newMode )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -512,7 +492,7 @@ void ArrangementDemoWindow::updateSnapping( QAction* newMode )
 }
 
 // Saving arrangement
-void ArrangementDemoWindow::on_actionSaveAs_triggered( )
+void QLabellingArrangementWindow::on_actionSaveAs_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -526,7 +506,7 @@ void ArrangementDemoWindow::on_actionSaveAs_triggered( )
     doSaveArrangement(filename);
 }
 
-void ArrangementDemoWindow::doSaveArrangement( const QString& filename )
+void QLabellingArrangementWindow::doSaveArrangement( const QString& filename )
 {
     std::ofstream ofs( filename.toStdString( ).c_str( ) );
     CGAL::Object arr = this->arrangements[ this->ui->tabWidget->currentIndex( ) ];
@@ -542,7 +522,7 @@ void ArrangementDemoWindow::doSaveArrangement( const QString& filename )
     ofs.close( );
 }
 
-void ArrangementDemoWindow::on_actionOpen_triggered( )
+void QLabellingArrangementWindow::on_actionOpen_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -596,13 +576,13 @@ void ArrangementDemoWindow::on_actionOpen_triggered( )
     */
 }
 
-void ArrangementDemoWindow::on_actionQuit_triggered( )
+void QLabellingArrangementWindow::on_actionQuit_triggered( )
 {
     _loggerWidget->logInfo( tr("Quitting QDemoArrangement application") );
     qApp->exit( );
 }
 
-void ArrangementDemoWindow::on_actionNewTab_triggered( )
+void QLabellingArrangementWindow::on_actionNewTab_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -611,7 +591,7 @@ void ArrangementDemoWindow::on_actionNewTab_triggered( )
     ui->actionOpenImage->setEnabled(true);
 }
 
-void ArrangementDemoWindow::on_tabWidget_currentChanged( )
+void QLabellingArrangementWindow::on_tabWidget_currentChanged( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -636,7 +616,7 @@ void ArrangementDemoWindow::on_tabWidget_currentChanged( )
     infoWidget->setChanged              ( false );
 }
 
-void ArrangementDemoWindow::on_actionOverlay_triggered( )
+void QLabellingArrangementWindow::on_actionOverlay_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -657,7 +637,7 @@ void ArrangementDemoWindow::on_actionOverlay_triggered( )
     delete overlayDialog;
 }
 
-void ArrangementDemoWindow::on_actionCloseTab_triggered( )
+void QLabellingArrangementWindow::on_actionCloseTab_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -691,7 +671,7 @@ void ArrangementDemoWindow::on_actionCloseTab_triggered( )
         ui->actionOpenImage->setEnabled(false);
 }
 
-void ArrangementDemoWindow::on_actionZoomIn_triggered( )
+void QLabellingArrangementWindow::on_actionZoomIn_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
     QLabellingLogWidget::instance()->logDebug( tr("Zoomed in, current scale = ") + QString::number(view->transform().m11()) + tr(" et ") + QString::number(view->transform().m22()) );
@@ -703,7 +683,7 @@ void ArrangementDemoWindow::on_actionZoomIn_triggered( )
     view->scale( 2.0, 2.0 );
 }
 
-void ArrangementDemoWindow::on_actionZoomOut_triggered( )
+void QLabellingArrangementWindow::on_actionZoomOut_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
     QLabellingLogWidget::instance()->logDebug( tr("Zoomed out, current scale = ") + QString::number(view->transform().m11()) + tr(" et ") + QString::number(view->transform().m22()) );
@@ -715,7 +695,7 @@ void ArrangementDemoWindow::on_actionZoomOut_triggered( )
     view->scale( 0.5, 0.5 );
 }
 
-void ArrangementDemoWindow::on_actionPreferences_triggered( )
+void QLabellingArrangementWindow::on_actionPreferences_triggered( )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -750,7 +730,7 @@ void ArrangementDemoWindow::on_actionPreferences_triggered( )
     }
 }
 
-void ArrangementDemoWindow::on_actionOpenProject_triggered()
+void QLabellingArrangementWindow::on_actionOpenProject_triggered()
 {
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
     settings.beginGroup("QLabellingMainWindow");
@@ -863,7 +843,7 @@ void ArrangementDemoWindow::on_actionOpenProject_triggered()
         _loggerWidget->logWarning( tr("No 'Labelling project choosed'...") );
 }
 
-void ArrangementDemoWindow::on_actionSaveProject_triggered()
+void QLabellingArrangementWindow::on_actionSaveProject_triggered()
 {
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
 
@@ -935,7 +915,7 @@ void ArrangementDemoWindow::on_actionSaveProject_triggered()
     }
 }
 
-bool ArrangementDemoWindow::on_actionOpenImage_triggered()
+bool QLabellingArrangementWindow::on_actionOpenImage_triggered()
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -987,7 +967,7 @@ bool ArrangementDemoWindow::on_actionOpenImage_triggered()
     return result;
 }
 
-bool ArrangementDemoWindow::doLoadImage(const QString &fileName)
+bool QLabellingArrangementWindow::doLoadImage(const QString &fileName)
 {
     QLabellingLogWidget::instance()->logTrace( tr("Opening image ") + fileName );
     ArrangementDemoTabBase *currentTab = getCurrentTab();
@@ -1009,7 +989,7 @@ bool ArrangementDemoWindow::doLoadImage(const QString &fileName)
     return result;
 }
 
-void ArrangementDemoWindow::updateToolBarButtonsEnable(bool enable)
+void QLabellingArrangementWindow::updateToolBarButtonsEnable(bool enable)
 {
     ui->actionInsert->setEnabled(enable);
     ui->actionInsert_horizontal_line->setEnabled(enable);
@@ -1033,7 +1013,7 @@ void ArrangementDemoWindow::updateToolBarButtonsEnable(bool enable)
 
 
 // Clean the arrangement
-void ArrangementDemoWindow::on_actionClean_triggered()
+void QLabellingArrangementWindow::on_actionClean_triggered()
 {
     int tabIndex = this->ui->tabWidget->currentIndex( );
     if ( tabIndex == -1 )
@@ -1138,7 +1118,7 @@ void ArrangementDemoWindow::on_actionClean_triggered()
 }
 
 // Save the label-colored image
-void ArrangementDemoWindow::saveLabelsImage(QGraphicsScene *scene, const QString& filename)
+void QLabellingArrangementWindow::saveLabelsImage(QGraphicsScene *scene, const QString& filename)
 {
     if(!scene)
         return;    

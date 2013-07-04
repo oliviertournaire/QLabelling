@@ -31,20 +31,20 @@
 #include <CGAL/Qt/DemosMainWindow.h>
 #include <CGAL/IO/pixmaps/hand.xpm>
 
-#include "ui_ArrangementDemoWindow.h"
+#include "ui_QLabellingArrangementWindow.h"
 
 #include <QGraphicsView>
 
 #include <QSettings>
 
-namespace Ui { class ArrangementDemoWindow; }
+namespace Ui { class QLabellingArrangementWindow; }
 
 class QActionGroup;
 
 class QLabellingLogWidget;
 class QLabellingWidget;
 
-class ArrangementDemoWindow : public CGAL::Qt::DemosMainWindow
+class QLabellingArrangementWindow : public CGAL::Qt::DemosMainWindow
 {
     Q_OBJECT
 public:
@@ -52,8 +52,8 @@ public:
         POLYLINE_TRAITS
     } TraitsType;
     
-    ArrangementDemoWindow(QWidget* parent = 0);
-    ~ArrangementDemoWindow() {}
+    QLabellingArrangementWindow(QWidget* parent = 0);
+    ~QLabellingArrangementWindow() {}
 
     ArrangementDemoTabBase* makeTab( TraitsType tt );
     ArrangementDemoTabBase* getTab( unsigned int tabIndex ) const;
@@ -102,7 +102,7 @@ protected:
     std::vector< QAction* > activeModes; // for the current tab; always size 1
     unsigned int lastTabIndex;
 
-    Ui::ArrangementDemoWindow* ui;
+    Ui::QLabellingArrangementWindow* ui;
     QActionGroup* modeGroup;
     QActionGroup* snapGroup;
 
@@ -115,7 +115,7 @@ protected:
 
 template < class ArrType >
 void
-ArrangementDemoWindow::
+QLabellingArrangementWindow::
 makeOverlayTab( ArrType* arr1, ArrType* arr2 )
 {
     QString tabLabel = tr( "Overlay Tab" );
