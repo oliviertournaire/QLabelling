@@ -287,43 +287,43 @@
     <name>QArrangementLabellingInfoWidget</name>
     <message>
         <location filename="qt/QArrangementLabellingInfoWidget.ui" line="32"/>
-        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="90"/>
+        <location filename="../../build/ui_QArrangementLabellingInfoWidget.h" line="90"/>
         <source>Arrangement info</source>
         <translation type="unfinished">Informations sur l&apos;arrangement</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingInfoWidget.ui" line="42"/>
-        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="91"/>
+        <location filename="../../build/ui_QArrangementLabellingInfoWidget.h" line="91"/>
         <source>0 faces</source>
         <translation type="unfinished">0 face</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingInfoWidget.ui" line="49"/>
-        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="92"/>
+        <location filename="../../build/ui_QArrangementLabellingInfoWidget.h" line="92"/>
         <source>0 edges</source>
         <translation type="unfinished">0 arête</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingInfoWidget.ui" line="56"/>
-        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="93"/>
+        <location filename="../../build/ui_QArrangementLabellingInfoWidget.h" line="93"/>
         <source>0 vertices</source>
         <translation type="unfinished">0 point</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingInfoWidget.ui" line="63"/>
-        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="94"/>
+        <location filename="../../build/ui_QArrangementLabellingInfoWidget.h" line="94"/>
         <source>0 isolated vertices</source>
         <translation type="unfinished">0 point isolé</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingInfoWidget.ui" line="70"/>
-        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="95"/>
+        <location filename="../../build/ui_QArrangementLabellingInfoWidget.h" line="95"/>
         <source>0 vertices at infinity</source>
         <translation type="unfinished">0 point à l&apos;infini</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingInfoWidget.ui" line="77"/>
-        <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="96"/>
+        <location filename="../../build/ui_QArrangementLabellingInfoWidget.h" line="96"/>
         <location filename="qt/QArrangementLabellingInfoWidget.cpp" line="44"/>
         <source>No new changes</source>
         <translation type="unfinished">Pas de nouveau changement</translation>
@@ -386,55 +386,55 @@
     <name>QArrangementLabellingLogWidget</name>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="14"/>
-        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="115"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="115"/>
         <source>Logger</source>
         <translation type="unfinished">Journal</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="29"/>
-        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="118"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="118"/>
         <source>DEBUG</source>
         <translation type="unfinished">DEBUG</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="34"/>
-        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="119"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="119"/>
         <source>TRACE</source>
         <translation type="unfinished">TRACE</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="39"/>
-        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="120"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="120"/>
         <source>INFO</source>
         <translation type="unfinished">INFO</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="44"/>
-        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="121"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="121"/>
         <source>WARNING</source>
         <translation type="unfinished">AVERTISSEMENT</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="49"/>
-        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="122"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="122"/>
         <source>ERROR</source>
         <translation type="unfinished">ERREUR</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="54"/>
-        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="123"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="123"/>
         <source>FATAL_ERROR</source>
         <translation type="unfinished">ERREUR_FATALE</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="96"/>
-        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="126"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="126"/>
         <source>Clear log</source>
         <translation type="unfinished">Effacer le journal</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="113"/>
-        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="130"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="130"/>
         <source>Save log</source>
         <translation type="unfinished">Enregistrer le journal</translation>
     </message>
@@ -482,17 +482,17 @@
 <context>
     <name>QArrangementLabellingOverlayDialog</name>
     <message>
-        <location filename="build/ui_QArrangementLabellingOverlayDialog.h" line="69"/>
+        <location filename="../../build/ui_QArrangementLabellingOverlayDialog.h" line="69"/>
         <source>Overlay</source>
         <translation type="unfinished">Superposition</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingOverlayDialog.h" line="70"/>
+        <location filename="../../build/ui_QArrangementLabellingOverlayDialog.h" line="70"/>
         <source>&gt;&gt;</source>
         <translation type="unfinished">&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingOverlayDialog.h" line="71"/>
+        <location filename="../../build/ui_QArrangementLabellingOverlayDialog.h" line="71"/>
         <source>&lt;&lt;</source>
         <translation type="unfinished">&lt;&lt;</translation>
     </message>
@@ -500,47 +500,47 @@
 <context>
     <name>QArrangementLabellingPropertiesDialog</name>
     <message>
-        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="91"/>
+        <location filename="../../build/ui_QArrangementLabellingPropertiesDialog.h" line="91"/>
         <source>Options</source>
         <translation type="unfinished">Options</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="93"/>
+        <location filename="../../build/ui_QArrangementLabellingPropertiesDialog.h" line="93"/>
         <source>Value</source>
         <translation type="unfinished">Valeur</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="95"/>
+        <location filename="../../build/ui_QArrangementLabellingPropertiesDialog.h" line="95"/>
         <source>Edge Color</source>
         <translation type="unfinished">Couleur des arêtes</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="97"/>
+        <location filename="../../build/ui_QArrangementLabellingPropertiesDialog.h" line="97"/>
         <source>Edge Width</source>
         <translation type="unfinished">Épaisseur de l&apos;arête</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="99"/>
+        <location filename="../../build/ui_QArrangementLabellingPropertiesDialog.h" line="99"/>
         <source>Vertex Color</source>
         <translation type="unfinished">Couleur des points</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="101"/>
+        <location filename="../../build/ui_QArrangementLabellingPropertiesDialog.h" line="101"/>
         <source>Vertex Radius</source>
         <translation type="unfinished">Rayon des points</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="103"/>
+        <location filename="../../build/ui_QArrangementLabellingPropertiesDialog.h" line="103"/>
         <source>Delete Curve Mode</source>
         <translation type="unfinished">Mode de suppression des traits</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="105"/>
+        <location filename="../../build/ui_QArrangementLabellingPropertiesDialog.h" line="105"/>
         <source>Grid Size</source>
         <translation type="unfinished">Taille de la grille</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingPropertiesDialog.h" line="107"/>
+        <location filename="../../build/ui_QArrangementLabellingPropertiesDialog.h" line="107"/>
         <source>Grid Color</source>
         <translation type="unfinished">Couleur de la grille</translation>
     </message>
@@ -548,32 +548,32 @@
 <context>
     <name>QArrangementLabellingSaveProjectDialog</name>
     <message>
-        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="138"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="138"/>
         <source>Save labelling project</source>
         <translation type="unfinished">Enregistrer le projet</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="139"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="139"/>
         <source>Arrangement path</source>
         <translation type="unfinished">Chemin vers l&apos;arrangement</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="140"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="140"/>
         <source>Labels definition path</source>
         <translation type="unfinished">Chemin vers le pack des labels</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="141"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="141"/>
         <source>Labels image path</source>
         <translation type="unfinished">Chemin vers l&apos;image</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="142"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="142"/>
         <source>Input image path</source>
         <translation type="unfinished">Chemin vers l&apos;image labellisée</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingSaveProjectDialog.h" line="143"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="143"/>
         <source>Labeling project path</source>
         <translation type="unfinished">Chemin vers le fichier de projet</translation>
     </message>
@@ -582,19 +582,19 @@
     <name>QArrangementLabellingWidget</name>
     <message>
         <location filename="qt/QArrangementLabellingWidget.ui" line="14"/>
-        <location filename="build/ui_QArrangementLabellingWidget.h" line="85"/>
+        <location filename="../../build/ui_QArrangementLabellingWidget.h" line="85"/>
         <source>Labelling</source>
         <translation type="unfinished">Labellisation</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingWidget.ui" line="24"/>
-        <location filename="build/ui_QArrangementLabellingWidget.h" line="86"/>
+        <location filename="../../build/ui_QArrangementLabellingWidget.h" line="86"/>
         <source>Labels</source>
         <translation type="unfinished">Labels</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingWidget.ui" line="39"/>
-        <location filename="build/ui_QArrangementLabellingWidget.h" line="87"/>
+        <location filename="../../build/ui_QArrangementLabellingWidget.h" line="87"/>
         <source>Choose labels</source>
         <translation type="unfinished">Choisir des labels</translation>
     </message>
@@ -622,192 +622,192 @@
 <context>
     <name>QArrangementLabellingWindow</name>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="307"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="307"/>
         <source>QLabellingArrangement</source>
         <translation type="unfinished">QLabellingArrangement</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="308"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="308"/>
         <source>&amp;Quit</source>
         <translation type="unfinished">&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="309"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="309"/>
         <source>&amp;Insert</source>
         <translation type="unfinished">&amp;Insérer</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="310"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="310"/>
         <source>&amp;Delete</source>
         <translation type="unfinished">&amp;Supprimer</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="311"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="311"/>
         <source>Drag</source>
         <translation type="unfinished">Déplacer</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="312"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="312"/>
         <source>Point Location</source>
         <translation type="unfinished">Localiser un point</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="313"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="313"/>
         <source>Merge</source>
         <translation type="unfinished">Fusionner</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="314"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="314"/>
         <source>Split</source>
         <translation type="unfinished">Séparer</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="315"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="315"/>
         <source>Fill</source>
         <translation type="unfinished">Remplir</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="316"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="316"/>
         <source>Enable snapping</source>
         <translation type="unfinished">Active l&apos;aimantation</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="317"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="317"/>
         <source>Snap to grid</source>
         <translation type="unfinished">Aimanter à la grille</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="318"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="318"/>
         <source>Segment</source>
         <translation type="unfinished">Segment</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="319"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="319"/>
         <source>Polyline</source>
         <translation type="unfinished">Polygone</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="320"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="320"/>
         <source>New tab</source>
         <translation type="unfinished">Nouvel onglet</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="321"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="321"/>
         <source>Ctrl+N</source>
         <translation type="unfinished">Ctrl+N</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="322"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="322"/>
         <source>&amp;Overlay...</source>
         <translation type="unfinished">&amp;Superposer...</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="323"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="323"/>
         <source>&amp;Clean the arrangement</source>
         <translation type="unfinished">&amp;Nettoyer l&apos;arrangement</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="324"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="324"/>
         <source>&amp;Preferences...</source>
         <translation type="unfinished">&amp;Préférences...</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="325"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="325"/>
         <source>Show &amp;grid</source>
         <translation type="unfinished">Afficher la &amp;grille</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="326"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="326"/>
         <source>Close Tab</source>
         <translation type="unfinished">Fermer l&apos;onglet</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="327"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="327"/>
         <source>Ctrl+W</source>
         <translation type="unfinished">Ctrl+W</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="328"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="328"/>
         <source>Save arrangement as...</source>
         <translation type="unfinished">Enregistrer l&apos;arrangement sous...</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="329"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="329"/>
         <source>Ctrl+S</source>
         <translation type="unfinished">Ctrl+S</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="330"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="330"/>
         <source>Open an arrangement...</source>
         <translation type="unfinished">Ouvrir un arrangement...</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="331"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="331"/>
         <source>Open</source>
         <translation type="unfinished">Ouvrir</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="332"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="332"/>
         <source>Ctrl+O</source>
         <translation type="unfinished">Ctrl+O</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="333"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="333"/>
         <source>Zoom In</source>
         <translation type="unfinished">Zommer</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="334"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="334"/>
         <source>Zoom Out</source>
         <translation type="unfinished">Dézoomer</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="335"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="335"/>
         <source>Open an image</source>
         <translation type="unfinished">Ouvrir une image</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="336"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="336"/>
         <source>Insert horizontal line</source>
         <translation type="unfinished">Insérer une ligne horizontale</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="337"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="337"/>
         <source>Insert vertical line</source>
         <translation type="unfinished">Insérer une ligne verticale</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="338"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="338"/>
         <source>Save a project</source>
         <translation type="unfinished">Sauver le projet</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="339"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="339"/>
         <source>Open a project</source>
         <translation type="unfinished">Ouvrir un projet</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="340"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="340"/>
         <source>toolBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="341"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="341"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="342"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="342"/>
         <source>&amp;Mode</source>
         <translation type="unfinished">&amp;Mode</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="343"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="343"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Édition</translation>
     </message>
     <message>
-        <location filename="build/ui_QArrangementLabellingWindow.h" line="344"/>
+        <location filename="../../build/ui_QArrangementLabellingWindow.h" line="344"/>
         <source>T&amp;ools</source>
         <translation type="unfinished">&amp;Outils</translation>
     </message>
