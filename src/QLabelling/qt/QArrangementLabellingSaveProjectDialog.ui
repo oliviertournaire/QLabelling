@@ -14,7 +14,7 @@
    <string>Save labelling project</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../rc/QArrangementLabellingWindow.qrc">
+   <iconset resource="../rc/QArrangementLabelling.qrc">
     <normaloff>:/project.png</normaloff>:/project.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -84,7 +84,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="../rc/QArrangementLabellingWindow.qrc">
+        <iconset resource="../rc/QArrangementLabelling.qrc">
          <normaloff>:/document-save.png</normaloff>:/document-save.png</iconset>
        </property>
       </widget>
@@ -104,7 +104,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../rc/QArrangementLabellingWindow.qrc"/>
+  <include location="../rc/QArrangementLabelling.qrc"/>
  </resources>
  <connections>
   <connection>

@@ -386,57 +386,63 @@
     <name>QArrangementLabellingLogWidget</name>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="14"/>
-        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="115"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="117"/>
         <source>Logger</source>
         <translation type="unfinished">Journal</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="29"/>
-        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="118"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="120"/>
         <source>DEBUG</source>
         <translation type="unfinished">DEBUG</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="34"/>
-        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="119"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="121"/>
         <source>TRACE</source>
         <translation type="unfinished">TRACE</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="39"/>
-        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="120"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="122"/>
         <source>INFO</source>
         <translation type="unfinished">INFO</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="44"/>
-        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="121"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="123"/>
         <source>WARNING</source>
         <translation type="unfinished">AVERTISSEMENT</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="49"/>
-        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="122"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="124"/>
         <source>ERROR</source>
         <translation type="unfinished">ERREUR</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="54"/>
-        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="123"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="125"/>
         <source>FATAL_ERROR</source>
         <translation type="unfinished">ERREUR_FATALE</translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.ui" line="96"/>
-        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="126"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="128"/>
         <source>Clear log</source>
         <translation type="unfinished">Effacer le journal</translation>
     </message>
     <message>
-        <location filename="qt/QArrangementLabellingLogWidget.ui" line="113"/>
-        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="130"/>
+        <location filename="qt/QArrangementLabellingLogWidget.ui" line="119"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="132"/>
         <source>Save log</source>
         <translation type="unfinished">Enregistrer le journal</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.ui" line="135"/>
+        <location filename="../../build/ui_QArrangementLabellingLogWidget.h" line="135"/>
+        <source>Enter</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qt/QArrangementLabellingLogWidget.cpp" line="41"/>
