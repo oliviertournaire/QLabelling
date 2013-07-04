@@ -31,9 +31,7 @@
 
 #include "Utils.h"
 
-#include "QLabellingLogWidget.hpp"
-
-// #include <CGAL/Curved_kernel_via_analysis_2/Curve_renderer_facade.h>
+#include "QArrangementLabellingLogWidget.h"
 
 class QPainter;
 
@@ -135,12 +133,6 @@ public: // typedefs
     typedef typename Superclass::Kernel                   Kernel;
     typedef typename Superclass::Point_2                  Point_2;
     typedef typename Superclass::Segment_2                Segment_2;
-//     typedef typename Superclass::Ray_2                    Ray_2;
-//     typedef typename Superclass::Line_2                   Line_2;
-//     typedef typename Superclass::Triangle_2               Triangle_2;
-//     typedef typename Superclass::Iso_rectangle_2          Iso_rectangle_2;
-//     typedef typename Superclass::Circle_2                 Circle_2;
-//     typedef typename Traits::Curve_2                      Curve_2;
     typedef typename Traits::X_monotone_curve_2           X_monotone_curve_2;
 
 public:

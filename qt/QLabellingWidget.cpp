@@ -12,7 +12,7 @@
 #include "config.hpp"
 
 #include "QLabelItem.hpp"
-#include "QLabellingLogWidget.hpp"
+#include "QArrangementLabellingLogWidget.h"
 
 using namespace std;
 

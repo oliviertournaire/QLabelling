@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QLabellingLogWidget</class>
- <widget class="QWidget" name="QLabellingLogWidget">
+ <class>QArrangementLabellingLogWidget</class>
+ <widget class="QWidget" name="QArrangementLabellingLogWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

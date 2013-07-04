@@ -39,7 +39,7 @@ namespace Ui { class QArrangementLabellingWindow; }
 
 class QActionGroup;
 
-class QLabellingLogWidget;
+class QArrangementLabellingLogWidget;
 class QLabellingWidget;
 
 class QArrangementLabellingWindow : public CGAL::Qt::DemosMainWindow
@@ -104,7 +104,7 @@ protected:
     QActionGroup* modeGroup;
     QActionGroup* snapGroup;
 
-    QLabellingLogWidget *_loggerWidget; // Le logger
+    QArrangementLabellingLogWidget *_loggerWidget; // Le logger
     QLabellingWidget *_labellingWidget; // Le widget de choix des labels + des modes
 
     bool doLoadImage(const QString &fileName);

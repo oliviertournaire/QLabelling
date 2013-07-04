@@ -33,7 +33,7 @@
 #include "Utils.h"
 #include "ArrangementObserver.h"
 
-#include "QLabellingLogWidget.hpp"
+#include "QArrangementLabellingLogWidget.h"
 
 template <typename Arr_, typename ArrTraits = typename Arr_::Geometry_traits_2>
 class ArrangementCurveInputCallback:
@@ -69,7 +69,7 @@ public:
         X_monotone_curve_2 xcurve;
         if ( CGAL::assign( curve, o ) )
         {
-            QLabellingLogWidget::instance()->logTrace(QObject::tr("Inserting object (%n vertices) into the arrangement.","",curve.points()));
+            QArrangementLabellingLogWidget::instance()->logTrace(QObject::tr("Inserting object (%n vertices) into the arrangement.","",curve.points()));
 
             Arrangement_Observer<Arrangement> obs(*( this->arrangement ));
 
@@ -86,10 +86,10 @@ public:
                 message += QString::number(CGAL::to_double(v->point().y()));
                 message = message + QObject::tr("), degree %n.\n","",(int)v->degree());
             }
-            QLabellingLogWidget::instance()->logTrace(message);
+            QArrangementLabellingLogWidget::instance()->logTrace(message);
         }
         else{
-            QLabellingLogWidget::instance()->logError(QObject::tr("Unable to add the element in the arrangement !"));
+            QArrangementLabellingLogWidget::instance()->logError(QObject::tr("Unable to add the element in the arrangement !"));
 	}
 
         emit CGAL::Qt::GraphicsViewInput::modelChanged( );

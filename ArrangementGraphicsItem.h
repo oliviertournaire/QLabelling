@@ -32,9 +32,9 @@
 #include "Utils.h"
 #include <iostream>
 
-#include "QLabellingLogWidget.hpp"
+#include "QArrangementLabellingLogWidget.h"
 #include "QArrangementLabellingInfoWidget.h"
-#include "QLabellingLogWidget.hpp"
+#include "QArrangementLabellingLogWidget.h"
 
 class QGraphicsScene;
 
@@ -54,7 +54,7 @@ public:
         _backgroundColor( ::Qt::white ),
         changed( false )
     {
-        QLabellingLogWidget::instance()->logTrace("Instanciation de ArrangementGraphicsItemBase.");
+        QArrangementLabellingLogWidget::instance()->logTrace("Instanciation de ArrangementGraphicsItemBase.");
         _verticesPen.setCosmetic( true );
         _verticesPen.setCapStyle( ::Qt::SquareCap );
         _edgesPen.setCosmetic( true );
@@ -85,7 +85,7 @@ public:
     inline QGraphicsScene* scene() const { return _scene; }
     void setScene(QGraphicsScene* scene_)
     {
-        QLabellingLogWidget::instance()->logTrace(QString::fromUtf8("Définition d'une scène pour ArrangementGraphicsItemBase."));
+        QArrangementLabellingLogWidget::instance()->logTrace(QString::fromUtf8("Définition d'une scène pour ArrangementGraphicsItemBase."));
         _scene = scene_;
     }
     
@@ -393,7 +393,7 @@ template < typename TTraits >
 void ArrangementGraphicsItem< Arr_, ArrTraits >:: paint(QPainter* painter, TTraits /* traits */)
 {
     // C'est ici qu'on peint la scène
-    QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+    QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     // Filling Arrangement info widget
     QArrangementLabellingInfoWidget* infoWidget = QArrangementLabellingInfoWidget::instance();
@@ -410,16 +410,7 @@ void ArrangementGraphicsItem< Arr_, ArrTraits >:: paint(QPainter* painter, TTrai
     QGraphicsScene* currentScene = this->_scene;
     QList<QGraphicsItem*> allItems = currentScene->items();
     
-    QLabellingLogWidget::instance()->logTrace( tr("Found %n item(s) in the scene","",allItems.count()) );
-//     for(int i=0;i<allItems.count();++i)
-//     {
-//         if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
-//         {
-//             QLabellingLogWidget::instance()->logTrace( tr("Found a Pixmap at position ") + QString::number(i) + "!" );
-//             this->painterostream << p->pixmap();
-//         }
-//     }
-    
+    QArrangementLabellingLogWidget::instance()->logTrace( tr("Found %n item(s) in the scene","",allItems.count()) );    
 
     QBrush currentPainterBrush = painter->brush();
     currentPainterBrush.setColor( QColor(currentPainterBrush.color().red(), currentPainterBrush.color().green(), currentPainterBrush.color().blue(), 0.5) );
@@ -483,7 +474,7 @@ void ArrangementGraphicsItem< Arr_, ArrTraits >::updateBoundingBox(TTraits /* tr
 template < typename Arr_, typename ArrTraits >
 void ArrangementGraphicsItem< Arr_, ArrTraits >::modelChanged( )
 {
-    QLabellingLogWidget::instance()->logTrace( __FUNCTION__ );
+    QArrangementLabellingLogWidget::instance()->logTrace( __FUNCTION__ );
     if ( this->arr->is_empty( ) )
     {
         this->hide( );

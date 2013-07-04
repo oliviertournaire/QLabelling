@@ -1,22 +1,22 @@
-#ifndef QLABELLINGLOGWIDGET_HPP
-#define QLABELLINGLOGWIDGET_HPP
+#ifndef __QARRANGEMENT_LABELLING_LOG_WIDGET_H__
+#define __QARRANGEMENT_LABELLING_LOG_WIDGET_H__
 
 #include "utilities/Singleton.hpp"
 
 #include <QWidget>
 
 namespace Ui {
-class QLabellingLogWidget;
+class QArrangementLabellingLogWidget;
 }
 
-class QLabellingLogWidget : public QWidget, public Singleton<QLabellingLogWidget>
+class QArrangementLabellingLogWidget : public QWidget, public Singleton<QArrangementLabellingLogWidget>
 {
-    friend class Singleton<QLabellingLogWidget>;
+    friend class Singleton<QArrangementLabellingLogWidget>;
     Q_OBJECT
     
 private:
-    explicit QLabellingLogWidget();
-    ~QLabellingLogWidget();
+    explicit QArrangementLabellingLogWidget();
+    ~QArrangementLabellingLogWidget();
 
 public:
     typedef enum logLevel
@@ -46,11 +46,11 @@ public slots:
     void logDebug(const QString& text);
 
 private:
-    Ui::QLabellingLogWidget *ui;
+    Ui::QArrangementLabellingLogWidget *ui;
 
     void log(const QString& prefix, const QString& text, const QColor &color);
 
     int _loglevel;
 };
 
-#endif // QLABELLINGLOGWIDGET_HPP
+#endif // __QARRANGEMENT_LABELLING_LOG_WIDGET_H__

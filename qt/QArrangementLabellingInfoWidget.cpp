@@ -1,6 +1,6 @@
 #include "QArrangementLabellingInfoWidget.h"
 #include "ui_QArrangementLabellingInfoWidget.h"
-#include <QLabellingLogWidget.hpp>
+#include "QArrangementLabellingLogWidget.h"
 
 QArrangementLabellingInfoWidget::QArrangementLabellingInfoWidget(QWidget *parent) :
     QWidget(parent),

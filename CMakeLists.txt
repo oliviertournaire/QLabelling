@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project( QLabelling )
+project( QArrangementLabelling )
 
 if(NOT CMAKEMODULES_PATH)
     set(CMAKEMODULES_PATH $ENV{CMAKEMODULES_PATH})
@@ -64,9 +64,9 @@ qt4_wrap_ui(  ALL_UI_QARRANGEMENTLABELLING   ${MOCS_QARRANGEMENTLABELLING_UI}  )
 qt4_add_resources( RCS_QARRANGEMENTLABELLING ${CMAKE_CURRENT_SOURCE_DIR}/rc/QArrangementLabellingWindow.qrc )
 
 # Log widget
-set( LOGWIDGET_HPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QLabellingLogWidget.hpp )
-set( LOGWIDGET_CPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QLabellingLogWidget.cpp )
-set( LOGWIDGET_UI  ${CMAKE_CURRENT_SOURCE_DIR}/qt/QLabellingLogWidget.ui )
+set( LOGWIDGET_HPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementLabellingLogWidget.h )
+set( LOGWIDGET_CPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementLabellingLogWidget.cpp )
+set( LOGWIDGET_UI  ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementLabellingLogWidget.ui )
 qt4_wrap_cpp( MOCS_LOGWIDGET ${LOGWIDGET_HPP} )
 if( NOT WIN32)
 	qt4_wrap_ui( UI_LOGWIDGET ${LOGWIDGET_UI}  )
@@ -114,9 +114,9 @@ SET( FILES_TO_TRANSLATE ${ALL_UI_QARRANGEMENTLABELLING}
                         ${MOCS_LABELITEM}
                         ${UI_LOGWIDGET}
                         ${UI_LABELLINGWIDGET}
-                        ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementInfoWidget.cpp
-                        ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementInfoWidget.h
-                        ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementInfoWidget.ui
+                        ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementLabellingInfoWidget.cpp
+                        ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementLabellingInfoWidget.h
+                        ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementLabellingInfoWidget.ui
 )
 
 SET(LANGUAGES fr_FR)

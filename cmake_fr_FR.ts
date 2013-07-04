@@ -289,39 +289,197 @@
 <context>
     <name>QArrangementLabellingInfoWidget</name>
     <message>
+        <location filename="qt/QArrangementLabellingInfoWidget.ui" line="32"/>
         <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="90"/>
         <source>Arrangement info</source>
         <translation type="unfinished">Informations sur l&apos;arrangement</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementLabellingInfoWidget.ui" line="42"/>
         <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="91"/>
         <source>0 faces</source>
         <translation type="unfinished">0 face</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementLabellingInfoWidget.ui" line="49"/>
         <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="92"/>
         <source>0 edges</source>
         <translation type="unfinished">0 arête</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementLabellingInfoWidget.ui" line="56"/>
         <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="93"/>
         <source>0 vertices</source>
         <translation type="unfinished">0 point</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementLabellingInfoWidget.ui" line="63"/>
         <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="94"/>
         <source>0 isolated vertices</source>
         <translation type="unfinished">0 point isolé</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementLabellingInfoWidget.ui" line="70"/>
         <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="95"/>
         <source>0 vertices at infinity</source>
         <translation type="unfinished">0 point à l&apos;infini</translation>
     </message>
     <message>
+        <location filename="qt/QArrangementLabellingInfoWidget.ui" line="77"/>
         <location filename="build/ui_QArrangementLabellingInfoWidget.h" line="96"/>
+        <location filename="qt/QArrangementLabellingInfoWidget.cpp" line="44"/>
         <source>No new changes</source>
         <translation type="unfinished">Pas de nouveau changement</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementLabellingInfoWidget.cpp" line="19"/>
+        <source>%n face(s)</source>
+        <translation type="unfinished">
+            <numerusform>%n face</numerusform>
+            <numerusform>%n faces</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementLabellingInfoWidget.cpp" line="19"/>
+        <source> (%n unbounded)</source>
+        <translation type="unfinished">
+            <numerusform> (%n infinie)</numerusform>
+            <numerusform> (%n infinies)</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementLabellingInfoWidget.cpp" line="24"/>
+        <source>%n edge(s)</source>
+        <translation type="unfinished">
+            <numerusform>%n arrête</numerusform>
+            <numerusform>%n arrêtes</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementLabellingInfoWidget.cpp" line="29"/>
+        <source>%n vertice(s)</source>
+        <translation type="unfinished">
+            <numerusform>%n point</numerusform>
+            <numerusform>%n points</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementLabellingInfoWidget.cpp" line="34"/>
+        <source>%n isolated vertice(s)</source>
+        <translation type="unfinished">
+            <numerusform>%n point isolé</numerusform>
+            <numerusform>%n point isolés</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="qt/QArrangementLabellingInfoWidget.cpp" line="39"/>
+        <source>%n vertice(s) at infinity</source>
+        <translation type="unfinished">
+            <numerusform>%n point à l&apos;infini</numerusform>
+            <numerusform>%n points à l&apos;infini</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingInfoWidget.cpp" line="44"/>
+        <source>Changes not saved</source>
+        <translation type="unfinished">Changements non enregistrés</translation>
+    </message>
+</context>
+<context>
+    <name>QArrangementLabellingLogWidget</name>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.ui" line="14"/>
+        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="115"/>
+        <source>Logger</source>
+        <translation type="unfinished">Journal</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.ui" line="29"/>
+        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="118"/>
+        <source>DEBUG</source>
+        <translation type="unfinished">DEBUG</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.ui" line="34"/>
+        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="119"/>
+        <source>TRACE</source>
+        <translation type="unfinished">TRACE</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.ui" line="39"/>
+        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="120"/>
+        <source>INFO</source>
+        <translation type="unfinished">INFO</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.ui" line="44"/>
+        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="121"/>
+        <source>WARNING</source>
+        <translation type="unfinished">AVERTISSEMENT</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.ui" line="49"/>
+        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="122"/>
+        <source>ERROR</source>
+        <translation type="unfinished">ERREUR</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.ui" line="54"/>
+        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="123"/>
+        <source>FATAL_ERROR</source>
+        <translation type="unfinished">ERREUR_FATALE</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.ui" line="96"/>
+        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="126"/>
+        <source>Clear log</source>
+        <translation type="unfinished">Effacer le journal</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.ui" line="113"/>
+        <location filename="build/ui_QArrangementLabellingLogWidget.h" line="130"/>
+        <source>Save log</source>
+        <translation type="unfinished">Enregistrer le journal</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.cpp" line="41"/>
+        <source>Open image to label</source>
+        <translation type="unfinished">Ouvrir une image à labelliser</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.cpp" line="41"/>
+        <source>Text files (*.txt *.log)</source>
+        <translation type="unfinished">Fichiers textes (*.txt *.log)</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.cpp" line="59"/>
+        <source>[FATAL ERROR]</source>
+        <translation type="unfinished">[ERREUR FATALE]</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.cpp" line="65"/>
+        <source>[ERROR]</source>
+        <translation type="unfinished">[ERREUR]</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.cpp" line="71"/>
+        <source>[WARNING]</source>
+        <translation type="unfinished">[AVERTISSEMENT]</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.cpp" line="77"/>
+        <source>[INFO]</source>
+        <translation type="unfinished">[INFO]</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.cpp" line="83"/>
+        <source>[TRACE]</source>
+        <translation type="unfinished">[TRACE]</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingLogWidget.cpp" line="89"/>
+        <source>[DEBUG]</source>
+        <translation type="unfinished">[DEBUG]</translation>
     </message>
 </context>
 <context>
@@ -719,98 +877,72 @@
 <context>
     <name>QLabellingLogWidget</name>
     <message>
-        <location filename="qt/QLabellingLogWidget.ui" line="14"/>
-        <location filename="build/ui_QLabellingLogWidget.h" line="115"/>
         <source>Logger</source>
-        <translation>Journal</translation>
+        <translation type="obsolete">Journal</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.ui" line="29"/>
-        <location filename="build/ui_QLabellingLogWidget.h" line="118"/>
         <source>DEBUG</source>
-        <translation>DEBUG</translation>
+        <translation type="obsolete">DEBUG</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.ui" line="34"/>
-        <location filename="build/ui_QLabellingLogWidget.h" line="119"/>
         <source>TRACE</source>
-        <translation>TRACE</translation>
+        <translation type="obsolete">TRACE</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.ui" line="39"/>
-        <location filename="build/ui_QLabellingLogWidget.h" line="120"/>
         <source>INFO</source>
-        <translation>INFO</translation>
+        <translation type="obsolete">INFO</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.ui" line="44"/>
-        <location filename="build/ui_QLabellingLogWidget.h" line="121"/>
         <source>WARNING</source>
-        <translation>AVERTISSEMENT</translation>
+        <translation type="obsolete">AVERTISSEMENT</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.ui" line="49"/>
-        <location filename="build/ui_QLabellingLogWidget.h" line="122"/>
         <source>ERROR</source>
-        <translation>ERREUR</translation>
+        <translation type="obsolete">ERREUR</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.ui" line="54"/>
-        <location filename="build/ui_QLabellingLogWidget.h" line="123"/>
         <source>FATAL_ERROR</source>
-        <translation>ERREUR_FATALE</translation>
+        <translation type="obsolete">ERREUR_FATALE</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.ui" line="96"/>
-        <location filename="build/ui_QLabellingLogWidget.h" line="126"/>
         <source>Clear log</source>
-        <translation>Effacer le journal</translation>
+        <translation type="obsolete">Effacer le journal</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.ui" line="113"/>
-        <location filename="build/ui_QLabellingLogWidget.h" line="130"/>
         <source>Save log</source>
-        <translation>Enregistrer le journal</translation>
+        <translation type="obsolete">Enregistrer le journal</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.cpp" line="41"/>
         <source>Open image to label</source>
-        <translation>Ouvrir une image à labelliser</translation>
+        <translation type="obsolete">Ouvrir une image à labelliser</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.cpp" line="41"/>
         <source>Text files (*.txt *.log)</source>
-        <translation>Fichiers textes (*.txt *.log)</translation>
+        <translation type="obsolete">Fichiers textes (*.txt *.log)</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.cpp" line="59"/>
         <source>[FATAL ERROR]</source>
-        <translation>[ERREUR FATALE]</translation>
+        <translation type="obsolete">[ERREUR FATALE]</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.cpp" line="65"/>
         <source>[ERROR]</source>
-        <translation>[ERREUR]</translation>
+        <translation type="obsolete">[ERREUR]</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.cpp" line="71"/>
         <source>[WARNING]</source>
-        <translation>[AVERTISSEMENT]</translation>
+        <translation type="obsolete">[AVERTISSEMENT]</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.cpp" line="77"/>
         <source>[INFO]</source>
-        <translation>[INFO]</translation>
+        <translation type="obsolete">[INFO]</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.cpp" line="83"/>
         <source>[TRACE]</source>
-        <translation>[TRACE]</translation>
+        <translation type="obsolete">[TRACE]</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingLogWidget.cpp" line="89"/>
         <source>[DEBUG]</source>
-        <translation>[DEBUG]</translation>
+        <translation type="obsolete">[DEBUG]</translation>
     </message>
 </context>
 <context>

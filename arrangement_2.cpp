@@ -26,7 +26,7 @@
 #include <QTranslator>
 
 #include "QArrangementLabellingWindow.h"
-#include "QLabellingLogWidget.hpp"
+#include "QArrangementLabellingLogWidget.h"
 
 int main( int argc, char* argv[] )
 {
@@ -41,7 +41,7 @@ int main( int argc, char* argv[] )
     translator.load("cmake_fr_FR");
 #endif // WIN32
     app.installTranslator(&translator);
-    QLabellingLogWidget::instance()->logInfo( QObject::tr("Current locale : ") + locale);
+    QArrangementLabellingLogWidget::instance()->logInfo( QObject::tr("Current locale : ") + locale);
  
     
 #ifdef WIN32
@@ -59,7 +59,7 @@ int main( int argc, char* argv[] )
     }
     readFileFormats += ")";
 
-    QLabellingLogWidget::instance()->logInfo( QObject::tr("Available image file formats (read): ") + readFileFormats );
+    QArrangementLabellingLogWidget::instance()->logInfo( QObject::tr("Available image file formats (read): ") + readFileFormats );
 
     QString writeFileFormats = "(";
     for (int i = 0; i < QImageWriter::supportedImageFormats().count(); i++)
@@ -69,7 +69,7 @@ int main( int argc, char* argv[] )
     }
     writeFileFormats += ")";
 
-    QLabellingLogWidget::instance()->logInfo( QObject::tr("Available image file formats (write): ") + writeFileFormats );
+    QArrangementLabellingLogWidget::instance()->logInfo( QObject::tr("Available image file formats (write): ") + writeFileFormats );
 
     return app.exec( );
 }

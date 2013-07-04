@@ -24,7 +24,7 @@
 #include "QArrangementLabellingTab.h"
 #include "ArrangementTypes.h"
 
-#include "QLabellingLogWidget.hpp"
+#include "QArrangementLabellingLogWidget.h"
 #include "config.hpp"
 
 ArrangementDemoGraphicsView::ArrangementDemoGraphicsView( QWidget* parent ) :
@@ -97,7 +97,7 @@ bool ArrangementDemoGraphicsView::setImageToLabel(const QString& path, QArrangem
 
     if(imageToLabel().isNull())
     {
-        QLabellingLogWidget::instance()->logError( tr("Unable to open image ") + path );
+        QArrangementLabellingLogWidget::instance()->logError( tr("Unable to open image ") + path );
         return false;
     }
 
@@ -119,7 +119,7 @@ bool ArrangementDemoGraphicsView::setImageToLabel(const QString& path, QArrangem
     imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbl.x())) + "," + QString::number(CGAL::to_double(pbl.y())) + ") / ";
     imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbr.x())) + "," + QString::number(CGAL::to_double(pbr.y())) + ") / ";
     imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptr.x())) + "," + QString::number(CGAL::to_double(ptr.y())) + ")";
-    QLabellingLogWidget::instance()->logTrace( imageBoundaryMessage );
+    QArrangementLabellingLogWidget::instance()->logTrace( imageBoundaryMessage );
 
     std::vector<Arr_pol_point_2> allPoints;
     allPoints.push_back(ptl);
@@ -148,7 +148,7 @@ bool ArrangementDemoGraphicsView::setImageToLabel(const QString& path, QArrangem
     }
     else
     {
-        QLabellingLogWidget::instance()->logWarning( tr("Unable to retrieve the arrangement!") );
+        QArrangementLabellingLogWidget::instance()->logWarning( tr("Unable to retrieve the arrangement!") );
         return false;
     }
 

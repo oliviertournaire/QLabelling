@@ -1,5 +1,5 @@
-#include "QLabellingLogWidget.hpp"
-#include "ui_QLabellingLogWidget.h"
+#include "QArrangementLabellingLogWidget.h"
+#include "ui_QArrangementLabellingLogWidget.h"
 
 #include <QTime>
 #include <QFile>
@@ -10,9 +10,9 @@
 
 #include "config.hpp"
 
-QLabellingLogWidget::QLabellingLogWidget() :
+QArrangementLabellingLogWidget::QArrangementLabellingLogWidget() :
     QWidget(),
-    ui(new Ui::QLabellingLogWidget)
+    ui(new Ui::QArrangementLabellingLogWidget)
 {
     ui->setupUi(this);
     int currentIndex = ui->_comboBoxLogLevel->currentIndex();
@@ -20,18 +20,18 @@ QLabellingLogWidget::QLabellingLogWidget() :
         _loglevel = currentIndex;
 }
 
-QLabellingLogWidget::~QLabellingLogWidget()
+QArrangementLabellingLogWidget::~QArrangementLabellingLogWidget()
 {
     delete ui;
 }
 
-void QLabellingLogWidget::on__toolButtonClear_clicked(bool checked)
+void QArrangementLabellingLogWidget::on__toolButtonClear_clicked(bool checked)
 {
     Q_UNUSED(checked);
     ui->_textEdit->clear();
 }
 
-void QLabellingLogWidget::on__toolButtonSave_clicked(bool checked)
+void QArrangementLabellingLogWidget::on__toolButtonSave_clicked(bool checked)
 {
     Q_UNUSED(checked);
     QSettings settings(QLABELLING_ORGANIZATION_STRING, QLABELLING_NAME_STRING);
@@ -53,43 +53,43 @@ void QLabellingLogWidget::on__toolButtonSave_clicked(bool checked)
     settings.endGroup();
 }
 
-void QLabellingLogWidget::logFatalError(const QString& text)
+void QArrangementLabellingLogWidget::logFatalError(const QString& text)
 {
     if(_loglevel<=FATAL_ERROR)
         log(tr("[FATAL ERROR]"), text, Qt::red);
 }
 
-void QLabellingLogWidget::logError(const QString& text)
+void QArrangementLabellingLogWidget::logError(const QString& text)
 {
     if(_loglevel<=ERROR)
         log(tr("[ERROR]"), text, Qt::red);
 }
 
-void QLabellingLogWidget::logWarning(const QString& text)
+void QArrangementLabellingLogWidget::logWarning(const QString& text)
 {
     if(_loglevel<=WARNING)
         log(tr("[WARNING]"), text, QColor(255,115,0));
 }
 
-void QLabellingLogWidget::logInfo(const QString& text)
+void QArrangementLabellingLogWidget::logInfo(const QString& text)
 {
     if(_loglevel<=INFO)
         log(tr("[INFO]"), text, Qt::blue);
 }
 
-void QLabellingLogWidget::logTrace(const QString& text)
+void QArrangementLabellingLogWidget::logTrace(const QString& text)
 {
     if(_loglevel<=TRACE)
         log(tr("[TRACE]"), text, Qt::green);
 }
 
-void QLabellingLogWidget::logDebug(const QString& text)
+void QArrangementLabellingLogWidget::logDebug(const QString& text)
 {
     if(_loglevel<=DEBUG)
         log(tr("[DEBUG]"), text, Qt::magenta);
 }
 
-void QLabellingLogWidget::log(const QString& prefix, const QString& text, const QColor& color)
+void QArrangementLabellingLogWidget::log(const QString& prefix, const QString& text, const QColor& color)
 {
     ui->_textEdit->setTextColor(color);
     QTime time = QTime::currentTime();
