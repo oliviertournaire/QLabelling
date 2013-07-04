@@ -40,7 +40,7 @@ namespace Ui { class QArrangementLabellingWindow; }
 class QActionGroup;
 
 class QArrangementLabellingLogWidget;
-class QLabellingWidget;
+class QArrangementLabellingWidget;
 
 class QArrangementLabellingWindow : public CGAL::Qt::DemosMainWindow
 {
@@ -105,7 +105,7 @@ protected:
     QActionGroup* snapGroup;
 
     QArrangementLabellingLogWidget *_loggerWidget; // Le logger
-    QLabellingWidget *_labellingWidget; // Le widget de choix des labels + des modes
+    QArrangementLabellingWidget *_labellingWidget; // Le widget de choix des labels + des modes
 
     bool doLoadImage(const QString &fileName);
     void updateToolBarButtonsEnable(bool enable);

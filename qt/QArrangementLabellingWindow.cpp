@@ -42,7 +42,7 @@
 #include "DeleteCurveMode.h"
 #include "ArrangementGraphicsItem.h"
 #include "QArrangementLabellingLogWidget.h"
-#include "QLabellingWidget.hpp"
+#include "QArrangementLabellingWidget.h"
 #include "QArrangementLabellingInfoWidget.h"
 #include "config.hpp"
 #include "SaveProjectDialog.h"
@@ -54,7 +54,7 @@ CGAL::Qt::DemosMainWindow( parent ),
     lastTabIndex(static_cast<unsigned int>(-1)),
     ui( new Ui::QArrangementLabellingWindow ),
     _loggerWidget(QArrangementLabellingLogWidget::instance()),
-    _labellingWidget(QLabellingWidget::instance())
+    _labellingWidget(QArrangementLabellingWidget::instance())
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
     _labellingWidget->setLabelsPath(QLABELLING_DEFAULT_LABEL_PATH);
@@ -794,7 +794,7 @@ void QArrangementLabellingWindow::on_actionOpenProject_triggered()
         // Load arrangement
         openArrFile(projectArrangement);
         // Set labels definition
-        QLabellingWidget::instance()->setLabelsPath( projectLabelsDefinition );
+        QArrangementLabellingWidget::instance()->setLabelsPath( projectLabelsDefinition );
 
         _loggerWidget->logInfo( tr("Labelling project ") + projectFilename + tr(" loaded") );
     }
@@ -967,7 +967,7 @@ void QArrangementLabellingWindow::updateToolBarButtonsEnable(bool enable)
     ui->actionClean->setEnabled(enable);
     
     // Enabling/Disabling the label list too
-    QLabellingWidget::instance()->setEnabledAllLabelButtons(enable);
+    QArrangementLabellingWidget::instance()->setEnabledAllLabelButtons(enable);
 }
 
 

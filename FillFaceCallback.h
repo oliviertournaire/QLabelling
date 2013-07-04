@@ -33,7 +33,7 @@
 #include <CGAL/Arr_tags.h>
 
 #include "Utils.h"
-#include "QLabellingWidget.hpp"
+#include "QArrangementLabellingWidget.h"
 #include "QLabelItem.hpp"
 
 class FillFaceCallbackBase : public CGAL::Qt::Callback
@@ -139,11 +139,11 @@ fillFace( QGraphicsSceneMouseEvent* event )
     Face_const_handle face = this->getFace( pointLocationResult );
     Face_handle f = this->arr->non_const_handle( face );
     
-    this->fillColor = QLabellingWidget::instance()->findActiveLabelItem()->labelColor();
+    this->fillColor = QArrangementLabellingWidget::instance()->findActiveLabelItem()->labelColor();
     if ( this->fillColor.isValid( ) )
     {
         f->set_color( this->fillColor );
-        f->set_label( QLabellingWidget::instance()->Color2Label(this->fillColor));
+        f->set_label( QArrangementLabellingWidget::instance()->Color2Label(this->fillColor));
     }
 }
 

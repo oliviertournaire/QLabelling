@@ -531,6 +531,47 @@
     </message>
 </context>
 <context>
+    <name>QArrangementLabellingWidget</name>
+    <message>
+        <location filename="qt/QArrangementLabellingWidget.ui" line="14"/>
+        <location filename="build/ui_QArrangementLabellingWidget.h" line="85"/>
+        <source>Labelling</source>
+        <translation type="unfinished">Labellisation</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingWidget.ui" line="24"/>
+        <location filename="build/ui_QArrangementLabellingWidget.h" line="86"/>
+        <source>Labels</source>
+        <translation type="unfinished">Labels</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingWidget.ui" line="39"/>
+        <location filename="build/ui_QArrangementLabellingWidget.h" line="87"/>
+        <source>Choose labels</source>
+        <translation type="unfinished">Choisir des labels</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingWidget.cpp" line="102"/>
+        <source>Labels path </source>
+        <translation type="unfinished">Fichier de labels </translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingWidget.cpp" line="102"/>
+        <source> not found!</source>
+        <translation type="unfinished"> non trouvé !</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingWidget.cpp" line="157"/>
+        <source>Open label file</source>
+        <translation type="unfinished">Ouvrir un pack de labels</translation>
+    </message>
+    <message>
+        <location filename="qt/QArrangementLabellingWidget.cpp" line="157"/>
+        <source>Label Files (*.txt);;All files (*.*)</source>
+        <translation type="unfinished">Fichiers de labels (*.txt);;Tous les fichiers (*.*)</translation>
+    </message>
+</context>
+<context>
     <name>QArrangementLabellingWindow</name>
     <message>
         <location filename="build/ui_QArrangementLabellingWindow.h" line="307"/>
@@ -948,43 +989,33 @@
 <context>
     <name>QLabellingWidget</name>
     <message>
-        <location filename="qt/QLabellingWidget.ui" line="14"/>
-        <location filename="build/ui_QLabellingWidget.h" line="85"/>
         <source>Labelling</source>
         <oldsource>QLabellingWidget</oldsource>
-        <translation>Labellisation</translation>
+        <translation type="obsolete">Labellisation</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingWidget.ui" line="24"/>
-        <location filename="build/ui_QLabellingWidget.h" line="86"/>
         <source>Labels</source>
-        <translation>Labels</translation>
+        <translation type="obsolete">Labels</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingWidget.ui" line="39"/>
-        <location filename="build/ui_QLabellingWidget.h" line="87"/>
         <source>Choose labels</source>
-        <translation>Choisir des labels</translation>
+        <translation type="obsolete">Choisir des labels</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingWidget.cpp" line="102"/>
         <source>Labels path </source>
-        <translation>Fichier de labels </translation>
+        <translation type="obsolete">Fichier de labels </translation>
     </message>
     <message>
-        <location filename="qt/QLabellingWidget.cpp" line="102"/>
         <source> not found!</source>
-        <translation> non trouvé !</translation>
+        <translation type="obsolete"> non trouvé !</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingWidget.cpp" line="157"/>
         <source>Open label file</source>
-        <translation>Ouvrir un pack de labels</translation>
+        <translation type="obsolete">Ouvrir un pack de labels</translation>
     </message>
     <message>
-        <location filename="qt/QLabellingWidget.cpp" line="157"/>
         <source>Label Files (*.txt);;All files (*.*)</source>
-        <translation>Fichiers de labels (*.txt);;Tous les fichiers (*.*)</translation>
+        <translation type="obsolete">Fichiers de labels (*.txt);;Tous les fichiers (*.*)</translation>
     </message>
 </context>
 <context>

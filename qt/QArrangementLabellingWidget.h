@@ -1,5 +1,5 @@
-#ifndef QLABELLINGWIDGET_HPP
-#define QLABELLINGWIDGET_HPP
+#ifndef __QARRANGEMENT_LABELLING_WIDGET_H__
+#define __QARRANGEMENT_LABELLING_WIDGET_H__
 
 #include "utilities/Singleton.hpp"
 
@@ -12,17 +12,17 @@ class QLabelItem;
 class QButtonGroup;
 
 namespace Ui {
-class QLabellingWidget; 
+class QArrangementLabellingWidget; 
 }
 
-class QLabellingWidget : public QWidget, public Singleton<QLabellingWidget>
+class QArrangementLabellingWidget : public QWidget, public Singleton<QArrangementLabellingWidget>
 {
-    friend class Singleton<QLabellingWidget>;
+    friend class Singleton<QArrangementLabellingWidget>;
     Q_OBJECT
     
 private:
-    explicit QLabellingWidget();
-    ~QLabellingWidget();
+    explicit QArrangementLabellingWidget();
+    ~QArrangementLabellingWidget();
 
 public:
 //     QImage labelsImage();
@@ -47,11 +47,11 @@ public slots:
     void labelChanged();
     
 protected:
-    Ui::QLabellingWidget *ui;
+    Ui::QArrangementLabellingWidget *ui;
     QString _stylesheetString;
     std::vector<QLabelItem*> _labelItems;
     QButtonGroup *_buttonGroup;
     QString _labelsPath;
 };
 
-#endif // QLABELLINGWIDGET_HPP
+#endif // __QARRANGEMENT_LABELLING_WIDGET_H__

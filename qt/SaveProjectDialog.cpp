@@ -4,7 +4,7 @@
 #include <QFileInfo>
 #include <QDir>
 
-#include "QLabellingWidget.hpp"
+#include "QArrangementLabellingWidget.h"
 
 SaveProjectDialog::SaveProjectDialog(const QString& inputImagePath, QWidget *parent) :
     QDialog(parent),
@@ -21,7 +21,7 @@ SaveProjectDialog::SaveProjectDialog(const QString& inputImagePath, QWidget *par
     ui->_lineEditInputImagePath->setText(_inputImagePath);
     ui->_lineEditLabelsImagePath->setText(dir.path() + "/" + _projectName + "_labels." + extension);
     ui->_lineEditArrangementPath->setText(dir.path() + "/" + _projectName + "_arrangement.arr");
-    ui->_lineEditLabelsDefinitionPath->setText( QLabellingWidget::instance()->labelsPath());
+    ui->_lineEditLabelsDefinitionPath->setText( QArrangementLabellingWidget::instance()->labelsPath());
     ui->_lineEditProjectPath->setText(dir.path() + "/" + _projectName + ".qlb");
 }
 

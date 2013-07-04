@@ -1,5 +1,5 @@
-#include "QLabellingWidget.hpp"
-#include "ui_QLabellingWidget.h"
+#include "QArrangementLabellingWidget.h"
+#include "ui_QArrangementLabellingWidget.h"
 
 #include <QSettings>
 #include <QColorDialog>
@@ -16,9 +16,9 @@
 
 using namespace std;
 
-QLabellingWidget::QLabellingWidget() :
+QArrangementLabellingWidget::QArrangementLabellingWidget() :
 QWidget(),
-    ui(new Ui::QLabellingWidget),
+    ui(new Ui::QArrangementLabellingWidget),
     _stylesheetString(""),
     _buttonGroup( new QButtonGroup() ),
     _labelsPath("")
@@ -33,12 +33,12 @@ QWidget(),
 //     QLabellingView::instance()->readSettings();
 }
 
-QLabellingWidget::~QLabellingWidget()
+QArrangementLabellingWidget::~QArrangementLabellingWidget()
 {
     delete ui;
 }
 
-void QLabellingWidget::setEnabledAllLabelButtons( bool enabled )
+void QArrangementLabellingWidget::setEnabledAllLabelButtons( bool enabled )
 {
     for(unsigned int i=0;i<_labelItems.size();++i)
         _labelItems[i]->radioButtonlabel()->setEnabled(enabled);
@@ -47,7 +47,7 @@ void QLabellingWidget::setEnabledAllLabelButtons( bool enabled )
         _labelItems[0]->radioButtonlabel()->setChecked(true);
 }
 
-void QLabellingWidget::parseLabels()
+void QArrangementLabellingWidget::parseLabels()
 {
     // Then, parse file
     ifstream ifs(_labelsPath.toStdString().c_str());
@@ -118,13 +118,13 @@ void QLabellingWidget::parseLabels()
     ifs.close();
 }
 
-void QLabellingWidget::setLabelsPath(const QString &labelsPath)
+void QArrangementLabellingWidget::setLabelsPath(const QString &labelsPath)
 {
     _labelsPath = labelsPath;
     parseLabels();
 }
 
-const QLabelItem* QLabellingWidget::findActiveLabelItem() const
+const QLabelItem* QArrangementLabellingWidget::findActiveLabelItem() const
 {
     QAbstractButton *selectedButton = _buttonGroup->checkedButton();
     QRadioButton *selectedRadioButton = dynamic_cast<QRadioButton*>(selectedButton);
@@ -136,7 +136,7 @@ const QLabelItem* QLabellingWidget::findActiveLabelItem() const
     return NULL;
 }
 
-const QLabelItem* QLabellingWidget::findLabelItemFromName(const QString &name) const
+const QLabelItem* QArrangementLabellingWidget::findLabelItemFromName(const QString &name) const
 {
     for(unsigned int i=0;i<_labelItems.size();++i)
         if ( _labelItems[i]->labelName() == name )
@@ -144,7 +144,7 @@ const QLabelItem* QLabellingWidget::findLabelItemFromName(const QString &name) c
     return NULL;
 }
 
-const QString QLabellingWidget::Color2Label(const QColor color) const
+const QString QArrangementLabellingWidget::Color2Label(const QColor color) const
 {
     for(unsigned int i=0;i<_labelItems.size();++i)
         if ( _labelItems[i]->labelColor() == color )
@@ -152,14 +152,14 @@ const QString QLabellingWidget::Color2Label(const QColor color) const
     return QLABELLING_UNKNOW_LABEL_STRING;
 }
 
-void QLabellingWidget::on__toolButtonChooseLabelsPath_clicked(bool checked)
+void QArrangementLabellingWidget::on__toolButtonChooseLabelsPath_clicked(bool checked)
 {
     _labelsPath = QFileDialog::getOpenFileName(this, tr("Open label file"), "", tr("Label Files (*.txt);;All files (*.*)"));
     if(!_labelsPath.isNull())
         parseLabels();
 }
 
-void QLabellingWidget::updateAlphaValue(const int alpha)
+void QArrangementLabellingWidget::updateAlphaValue(const int alpha)
 {
     for(unsigned int i=0;i<_labelItems.size();++i)
     {

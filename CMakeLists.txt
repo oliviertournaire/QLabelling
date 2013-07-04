@@ -73,9 +73,9 @@ if( NOT WIN32)
 endif()
 
 # Labelling widget
-set( LABELLINGWIDGET_HPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QLabellingWidget.hpp )
-set( LABELLINGWIDGET_CPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QLabellingWidget.cpp )
-set( LABELLINGWIDGET_UI  ${CMAKE_CURRENT_SOURCE_DIR}/qt/QLabellingWidget.ui )
+set( LABELLINGWIDGET_HPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementLabellingWidget.h )
+set( LABELLINGWIDGET_CPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementLabellingWidget.cpp )
+set( LABELLINGWIDGET_UI  ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementLabellingWidget.ui )
 qt4_wrap_cpp( MOCS_LABELLINGWIDGET ${LABELLINGWIDGET_HPP} )
 if( NOT WIN32)
 	qt4_wrap_ui( UI_LABELLINGWIDGET ${LABELLINGWIDGET_UI}  )
