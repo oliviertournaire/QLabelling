@@ -38,7 +38,7 @@
 #include "ArrangementTypes.h"
 #include "OverlayDialog.h"
 #include "QArrangementLabellingPropertiesDialog.h"
-#include "ArrangementDemoTab.h"
+#include "QArrangementLabellingTab.h"
 #include "DeleteCurveMode.h"
 #include "ArrangementGraphicsItem.h"
 #include "QLabellingLogWidget.hpp"
@@ -81,8 +81,7 @@ CGAL::Qt::DemosMainWindow( parent ),
 
     _loggerWidget->logInfo( tr("QDemoArrangement application started") );
 
-    // set up the demo window
-    // ArrangementDemoTabBase* demoTab =
+    // set up the window
     this->makeTab( POLYLINE_TRAITS );
     this->setupStatusBar( );
     this->setupOptionsMenu( );
@@ -107,27 +106,21 @@ void QArrangementLabellingWindow::labelChanged(){
     updateMode(this->ui->actionFill);
 }
 
-ArrangementDemoTabBase* QArrangementLabellingWindow::makeTab( TraitsType tt )
+QArrangementLabellingTabBase* QArrangementLabellingWindow::makeTab( TraitsType tt )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     static int tabLabelCounter = 1;
     QString tabLabel;
 
-    ArrangementDemoTabBase* demoTab;
+    QArrangementLabellingTabBase* demoTab;
     Pol_arr* pol_arr;
     CGAL::Object arr;
 
-    //     switch ( tt )
-    //     {
-    //     default:
-    //     case POLYLINE_TRAITS:
     pol_arr = new Pol_arr;
-    demoTab = new ArrangementDemoTab< Pol_arr >( pol_arr, 0 );
+    demoTab = new QArrangementLabellingTab< Pol_arr >( pol_arr, 0 );
     arr = CGAL::make_object( pol_arr );
     tabLabel = tr( "Labelling (#%n)","", tabLabelCounter++ );
-    //         break;
-    //     }
 
     this->arrangements.push_back( arr );
     this->tabs.push_back( demoTab );
@@ -141,7 +134,6 @@ ArrangementDemoTabBase* QArrangementLabellingWindow::makeTab( TraitsType tt )
     this->resetCallbackState( this->ui->tabWidget->currentIndex( ) );
     this->removeCallback( this->ui->tabWidget->currentIndex( ) );
     this->updateMode( this->modeGroup->checkedAction( ) );
-//     this->updateFillColorSwatch( );
 
     if(!demoTab->_imageHasBeenLoaded){
         QLabellingLogWidget::instance()->logWarning( tr("Before being able to edit the label arrangement, you must open an image!!!") );
@@ -152,7 +144,7 @@ ArrangementDemoTabBase* QArrangementLabellingWindow::makeTab( TraitsType tt )
     return demoTab;
 }
 
-ArrangementDemoTabBase* QArrangementLabellingWindow::getTab( unsigned int tabIndex )
+QArrangementLabellingTabBase* QArrangementLabellingWindow::getTab( unsigned int tabIndex )
     const
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
@@ -161,7 +153,7 @@ ArrangementDemoTabBase* QArrangementLabellingWindow::getTab( unsigned int tabInd
     return this->tabs[tabIndex];
 }
 
-ArrangementDemoTabBase* QArrangementLabellingWindow::getCurrentTab( ) const
+QArrangementLabellingTabBase* QArrangementLabellingWindow::getCurrentTab( ) const
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
@@ -169,7 +161,7 @@ ArrangementDemoTabBase* QArrangementLabellingWindow::getCurrentTab( ) const
     if ( currentIndex == -1 )
         return NULL;
 
-    ArrangementDemoTabBase* res = this->tabs[ currentIndex ];
+    QArrangementLabellingTabBase* res = this->tabs[ currentIndex ];
     return res;
 }
 
@@ -228,12 +220,9 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    // QWidget* widget = this->ui->tabWidget->currentWidget( );
-    // ArrangementDemoTabBase* demoTab =
-    //   static_cast< ArrangementDemoTabBase* >( widget );
     const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
     if (TabIndex == static_cast<unsigned int>(-1)) return;
-    ArrangementDemoTabBase* activeTab = this->tabs[ TabIndex ];
+    QArrangementLabellingTabBase* activeTab = this->tabs[ TabIndex ];
     QGraphicsScene* activeScene = activeTab->getScene( );
     QGraphicsView* activeView = activeTab->getView( );
 
@@ -303,10 +292,10 @@ void QArrangementLabellingWindow::resetCallbackState( unsigned int tabIndex )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    if (tabIndex == static_cast<unsigned int>(-1)
-        || tabIndex >= this->tabs.size( )) return;
+    if (tabIndex == static_cast<unsigned int>(-1) || tabIndex >= this->tabs.size( ))
+        return;
 
-    ArrangementDemoTabBase* activeTab = this->tabs[ tabIndex ];
+    QArrangementLabellingTabBase* activeTab = this->tabs[ tabIndex ];
 
     QAction* activeMode = this->activeModes.at( 0 );
 
@@ -345,9 +334,10 @@ void QArrangementLabellingWindow::removeCallback( unsigned int tabIndex )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    if (tabIndex == static_cast<unsigned int>(-1)) return;
+    if (tabIndex == static_cast<unsigned int>(-1))
+        return;
 
-    ArrangementDemoTabBase* activeTab = this->tabs[ tabIndex ];
+    QArrangementLabellingTabBase* activeTab = this->tabs[ tabIndex ];
     QGraphicsScene* activeScene = activeTab->getScene( );
     QGraphicsView* activeView = activeTab->getView( );
 
@@ -380,10 +370,9 @@ void QArrangementLabellingWindow::openArrFile( QString filename )
     Pol_arr* pol;
     if ( CGAL::assign( pol, arr ) )
     {
-        typedef CGAL::Arr_text_formatter< Pol_arr >         Pol_text_formatter;
-        typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter>
-            ArrFormatter;
-        typedef ArrangementDemoTab< Pol_arr >               TabType;
+        typedef CGAL::Arr_text_formatter< Pol_arr >                       Pol_text_formatter;
+        typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter> ArrFormatter;
+        typedef QArrangementLabellingTab< Pol_arr >                       TabType;
 
         ArrFormatter arrFormatter;
         CGAL::read( *pol, ifs, arrFormatter );
@@ -449,7 +438,7 @@ void QArrangementLabellingWindow::openDatFile( QString filename )
         }
         CGAL::insert(*pol, pol_list.begin(), pol_list.end());
 
-        typedef ArrangementDemoTab< Pol_arr > TabType;
+        typedef QArrangementLabellingTab< Pol_arr > TabType;
         TabType* tab = static_cast< TabType* >( this->tabs[ index ] );
         tab->setArrangement( pol );
     }
@@ -461,7 +450,7 @@ void QArrangementLabellingWindow::updateSnapping( QAction* newMode )
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    ArrangementDemoTabBase* activeTab =
+    QArrangementLabellingTabBase* activeTab =
         this->tabs[ this->ui->tabWidget->currentIndex( ) ];
     QGraphicsScene* activeScene = activeTab->getScene( );
     ArrangementDemoGraphicsView* activeView = activeTab->getView( );
@@ -545,36 +534,6 @@ void QArrangementLabellingWindow::on_actionOpen_triggered( )
     {
         this->openDatFile( filename );
     }
-
-    /*
-    ArrangementDemoTabBase* currentTab = this->tabs[ index ];
-    CGAL::Qt::ArrangementGraphicsItemBase* agi = currentTab->getArrangementGraphicsItem( );
-    QRectF bb = agi->boundingRect( );
-    QGraphicsView* view = currentTab->getView( );
-
-
-
-#ifndef _WINDOWS
-    if ( std::isinf(bb.left( )) ||
-        std::isinf(bb.right( )) ||
-        std::isinf(bb.top( )) ||
-        std::isinf(bb.bottom( )) )
-#else
-    if ( boost::math::isinf(bb.left( )) ||
-        boost::math::isinf(bb.right( )) ||
-        boost::math::isinf(bb.top( )) ||
-        boost::math::isinf(bb.bottom( )) )
-#endif // _WINDOWS
-    {
-        bb = QRectF( -100, -100, 200, 200 );
-        view->setSceneRect( bb );
-    }
-    else
-    {
-        view->fitInView( bb, ::Qt::KeepAspectRatio );
-        view->setSceneRect( bb );
-    }
-    */
 }
 
 void QArrangementLabellingWindow::on_actionQuit_triggered( )
@@ -679,7 +638,7 @@ void QArrangementLabellingWindow::on_actionZoomIn_triggered( )
 
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
-    ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
+    QArrangementLabellingTabBase* currentTab = this->tabs[ currentTabIndex ];
     QGraphicsView* view = currentTab->getView( );
     view->scale( 2.0, 2.0 );
 }
@@ -691,7 +650,7 @@ void QArrangementLabellingWindow::on_actionZoomOut_triggered( )
 
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
-    ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
+    QArrangementLabellingTabBase* currentTab = this->tabs[ currentTabIndex ];
     QGraphicsView* view = currentTab->getView( );
     view->scale( 0.5, 0.5 );
 }
@@ -702,7 +661,7 @@ void QArrangementLabellingWindow::on_actionPreferences_triggered( )
 
     unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
-    ArrangementDemoTabBase* currentTab = this->tabs[ currentTabIndex ];
+    QArrangementLabellingTabBase* currentTab = this->tabs[ currentTabIndex ];
     CGAL::Qt::ArrangementGraphicsItemBase* agi = currentTab->getArrangementGraphicsItem( );
     ArrangementDemoGraphicsView* view = currentTab->getView( );
     SplitEdgeCallbackBase* splitEdgeCallback = currentTab->getSplitEdgeCallback( );
@@ -828,7 +787,7 @@ void QArrangementLabellingWindow::on_actionOpenProject_triggered()
 
         // If so, we can really open the project
         // The project will be opened in a new tab
-        ArrangementDemoTabBase *projectTab =  makeTab( POLYLINE_TRAITS );
+        QArrangementLabellingTabBase *projectTab =  makeTab( POLYLINE_TRAITS );
         // TODO: set tab name based on project name ...
         // Load input image
         doLoadImage(projectInputImage);
@@ -919,7 +878,7 @@ bool QArrangementLabellingWindow::on_actionOpenImage_triggered()
 {
     QLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    ArrangementDemoTabBase *currentTab = getCurrentTab();
+    QArrangementLabellingTabBase *currentTab = getCurrentTab();
     if(!currentTab)
     {
         _loggerWidget->logWarning( tr("There is no open tab !") );
@@ -970,7 +929,7 @@ bool QArrangementLabellingWindow::on_actionOpenImage_triggered()
 bool QArrangementLabellingWindow::doLoadImage(const QString &fileName)
 {
     QLabellingLogWidget::instance()->logTrace( tr("Opening image ") + fileName );
-    ArrangementDemoTabBase *currentTab = getCurrentTab();
+    QArrangementLabellingTabBase *currentTab = getCurrentTab();
     const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
 
     QGraphicsScene              *currentTabScene = currentTab->getScene();

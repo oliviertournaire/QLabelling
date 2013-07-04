@@ -25,7 +25,7 @@
 #include "PointLocationCallback.h"
 #include "MergeEdgeCallback.h"
 #include "SplitEdgeCallback.h"
-#include "ArrangementDemoTab.h"
+#include "QArrangementLabellingTab.h"
 
 #include <CGAL/Arr_default_overlay_traits.h>
 #include <CGAL/Qt/DemosMainWindow.h>
@@ -53,9 +53,9 @@ public:
     QArrangementLabellingWindow(QWidget* parent = 0);
     ~QArrangementLabellingWindow() {}
 
-    ArrangementDemoTabBase* makeTab( TraitsType tt );
-    ArrangementDemoTabBase* getTab( unsigned int tabIndex ) const;
-    ArrangementDemoTabBase* getCurrentTab( ) const;
+    QArrangementLabellingTabBase* makeTab( TraitsType tt );
+    QArrangementLabellingTabBase* getTab( unsigned int tabIndex ) const;
+    QArrangementLabellingTabBase* getCurrentTab( ) const;
 
     std::vector< QString > getTabLabels( ) const;
     std::vector< CGAL::Object > getArrangements( ) const;
@@ -95,7 +95,7 @@ protected:
     void openArrFile( QString filename );
     void openDatFile( QString filename );
 
-    std::vector< ArrangementDemoTabBase* > tabs;
+    std::vector< QArrangementLabellingTabBase* > tabs;
     std::vector< CGAL::Object > arrangements;
     std::vector< QAction* > activeModes; // for the current tab; always size 1
     unsigned int lastTabIndex;
@@ -116,13 +116,13 @@ void QArrangementLabellingWindow::makeOverlayTab( ArrType* arr1, ArrType* arr2 )
 {
     QString tabLabel = tr( "Overlay Tab" );
 
-    ArrangementDemoTabBase* demoTab;
+    QArrangementLabellingTabBase* demoTab;
     ArrType* overlayArr = new ArrType;
     CGAL::Arr_default_overlay_traits< ArrType > defaultTraits;
 
     CGAL::overlay( *arr1, *arr2, *overlayArr, defaultTraits );
 
-    demoTab = new ArrangementDemoTab< ArrType >( overlayArr, 0 );
+    demoTab = new QArrangementLabellingTab< ArrType >( overlayArr, 0 );
     this->arrangements.push_back( CGAL::make_object( overlayArr ) );
     this->tabs.push_back( demoTab );
 

@@ -96,7 +96,7 @@ void QArrangementLabellingPropertiesDialog::updateUi( )
     {
         return;
     }
-    ArrangementDemoTabBase* currentTab = this->parent->getCurrentTab( );
+    QArrangementLabellingTabBase* currentTab = this->parent->getCurrentTab( );
     if ( currentTab == NULL )
     {
         return;

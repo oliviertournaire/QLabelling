@@ -21,7 +21,7 @@
 #include <QPen>
 
 #include "ArrangementDemoGraphicsView.h"
-#include "ArrangementDemoTab.h"
+#include "QArrangementLabellingTab.h"
 #include "ArrangementTypes.h"
 
 #include "QLabellingLogWidget.hpp"
@@ -88,7 +88,7 @@ QRectF ArrangementDemoGraphicsView::getViewportRect( ) const
     return res;
 }
 
-bool ArrangementDemoGraphicsView::setImageToLabel(const QString& path, ArrangementDemoTabBase *currentTab, CGAL::Object currentArrangement)
+bool ArrangementDemoGraphicsView::setImageToLabel(const QString& path, QArrangementLabellingTabBase *currentTab, CGAL::Object currentArrangement)
 {
     QPixmap imagetolabel = QPixmap(path);
     setImageToLabel(imagetolabel);

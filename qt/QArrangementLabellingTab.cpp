@@ -17,11 +17,11 @@
 //
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
-#include "ArrangementDemoTab.h"
+#include "QArrangementLabellingTab.h"
 
 #include <QGridLayout>
 
-ArrangementDemoTabBase::ArrangementDemoTabBase( QWidget* parent ) :
+QArrangementLabellingTabBase::QArrangementLabellingTabBase( QWidget* parent ) :
     QWidget( parent ),
     graphicsView( new ArrangementDemoGraphicsView( this ) ),
     scene( new QGraphicsScene( -100, -100, 100, 100 ) ),
@@ -37,56 +37,56 @@ ArrangementDemoTabBase::ArrangementDemoTabBase( QWidget* parent ) :
     this->setupUi( );
 }
 
-void ArrangementDemoTabBase::setupUi( )
+void QArrangementLabellingTabBase::setupUi( )
 {
     this->layout->addWidget( this->graphicsView, 0, 0, 1, 1 );
     this->graphicsView->setScene( this->scene );
     this->graphicsView->setMouseTracking( true );
 }
 
-QGraphicsScene* ArrangementDemoTabBase::getScene( ) const
+QGraphicsScene* QArrangementLabellingTabBase::getScene( ) const
 {
     return this->scene;
 }
 
-ArrangementDemoGraphicsView* ArrangementDemoTabBase::getView( ) const
+ArrangementDemoGraphicsView* QArrangementLabellingTabBase::getView( ) const
 {
     return this->graphicsView;
 }
 
 CGAL::Qt::ArrangementGraphicsItemBase*
-ArrangementDemoTabBase::getArrangementGraphicsItem( ) const
+QArrangementLabellingTabBase::getArrangementGraphicsItem( ) const
 {
     return this->arrangementGraphicsItem;
 }
 
 CGAL::Qt::GraphicsViewCurveInputBase*
-ArrangementDemoTabBase::getCurveInputCallback( ) const
+QArrangementLabellingTabBase::getCurveInputCallback( ) const
 {
     return this->curveInputCallback;
 }
 
-CGAL::Qt::Callback* ArrangementDemoTabBase::getDeleteCurveCallback( ) const
+CGAL::Qt::Callback* QArrangementLabellingTabBase::getDeleteCurveCallback( ) const
 {
     return this->deleteCurveCallback;
 }
 
-CGAL::Qt::Callback* ArrangementDemoTabBase::getPointLocationCallback( ) const
+CGAL::Qt::Callback* QArrangementLabellingTabBase::getPointLocationCallback( ) const
 {
     return this->pointLocationCallback;
 }
 
-CGAL::Qt::Callback* ArrangementDemoTabBase::getMergeEdgeCallback( ) const
+CGAL::Qt::Callback* QArrangementLabellingTabBase::getMergeEdgeCallback( ) const
 {
     return this->mergeEdgeCallback;
 }
 
-SplitEdgeCallbackBase* ArrangementDemoTabBase::getSplitEdgeCallback( ) const
+SplitEdgeCallbackBase* QArrangementLabellingTabBase::getSplitEdgeCallback( ) const
 {
     return this->splitEdgeCallback;
 }
 
-FillFaceCallbackBase* ArrangementDemoTabBase::getFillFaceCallback( ) const
+FillFaceCallbackBase* QArrangementLabellingTabBase::getFillFaceCallback( ) const
 {
     return this->fillFaceCallback;
 }

@@ -17,8 +17,8 @@
 //
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
-#ifndef ARRANGEMENT_DEMO_TAB_H
-#define ARRANGEMENT_DEMO_TAB_H
+#ifndef __QARRANGEMENT_LABELLING_TAB_H__
+#define __QARRANGEMENT_LABELLING_TAB_H__
 
 #include <QWidget>
 
@@ -33,7 +33,7 @@
 
 class QGridLayout;
 
-class ArrangementDemoTabBase : public QWidget
+class QArrangementLabellingTabBase : public QWidget
 {
     Q_OBJECT
 
@@ -41,8 +41,8 @@ signals:
     void modelChanged( );
 
 public:
-    ArrangementDemoTabBase( QWidget* parent );
-    virtual ~ArrangementDemoTabBase() {}
+    QArrangementLabellingTabBase( QWidget* parent );
+    virtual ~QArrangementLabellingTabBase() {}
 
     virtual QGraphicsScene* getScene( ) const;
     virtual ArrangementDemoGraphicsView* getView( ) const;
@@ -79,13 +79,13 @@ protected:
 }; // class ArrangementDemoTabBase
 
 template < class Arr_ >
-class ArrangementDemoTab : public ArrangementDemoTabBase
+class QArrangementLabellingTab : public QArrangementLabellingTabBase
 {
 public:
-    typedef ArrangementDemoTabBase Superclass;
+    typedef QArrangementLabellingTabBase Superclass;
     typedef Arr_ Arrangement;
 
-    ArrangementDemoTab( Arrangement* arrangement_, QWidget* parent = 0 ):
+    QArrangementLabellingTab( Arrangement* arrangement_, QWidget* parent = 0 ):
         Superclass( parent ),
         arrangement( arrangement_ )
     {
@@ -183,4 +183,4 @@ protected:
 
 }; // class ArrangementDemoTab
 
-#endif // ARRANGEMENT_DEMO_TAB_H
+#endif // __QARRANGEMENT_LABELLING_TAB_H__
