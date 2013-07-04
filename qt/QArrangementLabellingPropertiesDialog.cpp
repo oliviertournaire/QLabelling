@@ -22,10 +22,9 @@
 #include "QArrangementLabellingWindow.h"
 #include "PropertyValueDelegate.h"
 #include "DeleteCurveMode.h"
-#include "ArrangementDemoGraphicsView.h"
+#include "QArrangementLabellingGraphicsView.h"
 
-QArrangementLabellingPropertiesDialog::
-QArrangementLabellingPropertiesDialog( QArrangementLabellingWindow* parent_, Qt::WindowFlags f ) :
+QArrangementLabellingPropertiesDialog::QArrangementLabellingPropertiesDialog( QArrangementLabellingWindow* parent_, Qt::WindowFlags f ) :
     QDialog( parent_, f ),
     parent( parent_ ),
     ui( new Ui::QArrangementLabellingPropertiesDialog )
@@ -105,7 +104,7 @@ void QArrangementLabellingPropertiesDialog::updateUi( )
     if ( agi == NULL )
         return;
 
-    ArrangementDemoGraphicsView* view = currentTab->getView( );
+    QArrangementLabellingGraphicsView* view = currentTab->getView( );
     QPen vertexPen            = agi->verticesPen( );
     QPen edgePen              = agi->edgesPen( );
     QBrush vertexPenBrush     = vertexPen.brush( );
@@ -122,8 +121,8 @@ void QArrangementLabellingPropertiesDialog::updateUi( )
     QTableWidgetItem* vertexColorItem     = this->ui->tableWidget->item( int(VERTEX_COLOR_KEY), 0 );
     QTableWidgetItem* vertexRadiusItem    = this->ui->tableWidget->item( int(VERTEX_RADIUS_KEY), 0 );
     QTableWidgetItem* deleteCurveModeItem = this->ui->tableWidget->item( int(DELETE_CURVE_MODE_KEY), 0 );
-    QTableWidgetItem* gridSizeItem        = this->ui->tableWidget->item( int( GRID_SIZE_KEY ), 0 );
-    QTableWidgetItem* gridColorItem       = this->ui->tableWidget->item( int( GRID_COLOR_KEY ), 0 );
+    QTableWidgetItem* gridSizeItem        = this->ui->tableWidget->item( int(GRID_SIZE_KEY), 0 );
+    QTableWidgetItem* gridColorItem       = this->ui->tableWidget->item( int(GRID_COLOR_KEY), 0 );
 
     // arrangement properties
     edgeColorItem->setData( Qt::DisplayRole, edgeColor );

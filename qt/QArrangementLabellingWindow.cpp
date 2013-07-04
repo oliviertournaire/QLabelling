@@ -453,7 +453,7 @@ void QArrangementLabellingWindow::updateSnapping( QAction* newMode )
     QArrangementLabellingTabBase* activeTab =
         this->tabs[ this->ui->tabWidget->currentIndex( ) ];
     QGraphicsScene* activeScene = activeTab->getScene( );
-    ArrangementDemoGraphicsView* activeView = activeTab->getView( );
+    QArrangementLabellingGraphicsView* activeView = activeTab->getView( );
 
     bool enabled = newMode->isChecked( );
     if ( newMode == this->ui->actionSnapMode )
@@ -663,7 +663,7 @@ void QArrangementLabellingWindow::on_actionPreferences_triggered( )
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
     QArrangementLabellingTabBase* currentTab = this->tabs[ currentTabIndex ];
     CGAL::Qt::ArrangementGraphicsItemBase* agi = currentTab->getArrangementGraphicsItem( );
-    ArrangementDemoGraphicsView* view = currentTab->getView( );
+    QArrangementLabellingGraphicsView* view = currentTab->getView( );
     SplitEdgeCallbackBase* splitEdgeCallback = currentTab->getSplitEdgeCallback( );
 
     QArrangementLabellingPropertiesDialog* dialog = new QArrangementLabellingPropertiesDialog( this );
@@ -812,7 +812,7 @@ void QArrangementLabellingWindow::on_actionSaveProject_triggered()
         return;
     }
 
-    ArrangementDemoGraphicsView* tabView = getCurrentTab()->getView();
+    QArrangementLabellingGraphicsView* tabView = getCurrentTab()->getView();
     if(tabView->imageToLabel().isNull())
     {
         _loggerWidget->logError( tr("No image has been opened. Cannot save such a project!") );
@@ -933,7 +933,7 @@ bool QArrangementLabellingWindow::doLoadImage(const QString &fileName)
     const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
 
     QGraphicsScene              *currentTabScene = currentTab->getScene();
-    ArrangementDemoGraphicsView *currentTabView  = currentTab->getView();
+    QArrangementLabellingGraphicsView *currentTabView  = currentTab->getView();
 
     bool result = currentTabView->setImageToLabel(fileName, currentTab, getArrangements()[TabIndex]);
     updateToolBarButtonsEnable(result);

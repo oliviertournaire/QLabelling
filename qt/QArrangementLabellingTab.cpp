@@ -23,7 +23,7 @@
 
 QArrangementLabellingTabBase::QArrangementLabellingTabBase( QWidget* parent ) :
     QWidget( parent ),
-    graphicsView( new ArrangementDemoGraphicsView( this ) ),
+    graphicsView( new QArrangementLabellingGraphicsView( this ) ),
     scene( new QGraphicsScene( -100, -100, 100, 100 ) ),
     layout( new QGridLayout( this ) ),
     arrangementGraphicsItem( NULL ),
@@ -49,7 +49,7 @@ QGraphicsScene* QArrangementLabellingTabBase::getScene( ) const
     return this->scene;
 }
 
-ArrangementDemoGraphicsView* QArrangementLabellingTabBase::getView( ) const
+QArrangementLabellingGraphicsView* QArrangementLabellingTabBase::getView( ) const
 {
     return this->graphicsView;
 }

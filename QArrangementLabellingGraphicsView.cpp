@@ -20,14 +20,14 @@
 #include <QVarLengthArray>
 #include <QPen>
 
-#include "ArrangementDemoGraphicsView.h"
+#include "QArrangementLabellingGraphicsView.h"
 #include "QArrangementLabellingTab.h"
 #include "ArrangementTypes.h"
 
 #include "QArrangementLabellingLogWidget.h"
 #include "config.hpp"
 
-ArrangementDemoGraphicsView::ArrangementDemoGraphicsView( QWidget* parent ) :
+QArrangementLabellingGraphicsView::QArrangementLabellingGraphicsView( QWidget* parent ) :
     QGraphicsView( parent ),
     _showGrid( false ),
     _gridSize( 50 ),
@@ -39,7 +39,7 @@ ArrangementDemoGraphicsView::ArrangementDemoGraphicsView( QWidget* parent ) :
     this->setBackgroundBrush( QBrush( _backgroundColor ) );
 }
 
-void ArrangementDemoGraphicsView::drawForeground( QPainter* painter, const QRectF& rect )
+void QArrangementLabellingGraphicsView::drawForeground( QPainter* painter, const QRectF& rect )
 {
     QRectF viewportRect = this->getViewportRect();
     if ( this->_showGrid )
@@ -73,7 +73,7 @@ void ArrangementDemoGraphicsView::drawForeground( QPainter* painter, const QRect
     }
 }
 
-QRectF ArrangementDemoGraphicsView::getViewportRect( ) const
+QRectF QArrangementLabellingGraphicsView::getViewportRect( ) const
 {
     QPointF p1 = this->mapToScene( 0, 0 );
     QPointF p2 = this->mapToScene( this->width( ), this->height( ) );
@@ -88,7 +88,7 @@ QRectF ArrangementDemoGraphicsView::getViewportRect( ) const
     return res;
 }
 
-bool ArrangementDemoGraphicsView::setImageToLabel(const QString& path, QArrangementLabellingTabBase *currentTab, CGAL::Object currentArrangement)
+bool QArrangementLabellingGraphicsView::setImageToLabel(const QString& path, QArrangementLabellingTabBase *currentTab, CGAL::Object currentArrangement)
 {
     QPixmap imagetolabel = QPixmap(path);
     setImageToLabel(imagetolabel);

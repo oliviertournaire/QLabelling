@@ -17,8 +17,8 @@
 //
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
-#ifndef ARRANGEMENT_DEMO_GRAPHICS_VIEW_H
-#define ARRANGEMENT_DEMO_GRAPHICS_VIEW_H
+#ifndef __QARRANGEMENTLABELLING_GRAPHICS_VIEW_H__
+#define __QARRANGEMENTLABELLING_GRAPHICS_VIEW_H__
 
 #include <QGraphicsView>
 #include <QColor>
@@ -27,10 +27,10 @@
 
 class QArrangementLabellingTabBase;
 
-class ArrangementDemoGraphicsView : public QGraphicsView
+class QArrangementLabellingGraphicsView : public QGraphicsView
 {
 public:
-    ArrangementDemoGraphicsView( QWidget* parent = 0 );
+    QArrangementLabellingGraphicsView( QWidget* parent = 0 );
 
     inline void setShowGrid(bool b)                     { _showGrid = b; }
     inline bool showGrid() const                        { return _showGrid; }
@@ -80,4 +80,4 @@ protected:
     QSize _imageToLabelSize;
 };
 
-#endif // ARRANGEMENT_DEMO_GRAPHICS_VIEW_H
+#endif // __QARRANGEMENTLABELLING_GRAPHICS_VIEW_H__

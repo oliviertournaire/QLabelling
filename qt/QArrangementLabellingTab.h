@@ -22,7 +22,7 @@
 
 #include <QWidget>
 
-#include "ArrangementDemoGraphicsView.h"
+#include "QArrangementLabellingGraphicsView.h"
 #include "ArrangementGraphicsItem.h"
 #include "ArrangementCurveInputCallback.h"
 #include "DeleteCurveCallback.h"
@@ -45,7 +45,7 @@ public:
     virtual ~QArrangementLabellingTabBase() {}
 
     virtual QGraphicsScene* getScene( ) const;
-    virtual ArrangementDemoGraphicsView* getView( ) const;
+    virtual QArrangementLabellingGraphicsView* getView( ) const;
 
     virtual CGAL::Qt::ArrangementGraphicsItemBase* getArrangementGraphicsItem( )
     const;
@@ -64,7 +64,7 @@ public:
 protected:
     virtual void setupUi( );
 
-    ArrangementDemoGraphicsView* graphicsView;
+    QArrangementLabellingGraphicsView* graphicsView;
     QGraphicsScene* scene;
     QGridLayout* layout;
 
