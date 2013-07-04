@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../rc/QArrangementLabelling.qrc">
-    <normaloff>:/QLabelling/Arrangement_2.png</normaloff>:/QLabelling/Arrangement_2.png</iconset>
+    <normaloff>:/icons/Arrangement_2.png</normaloff>:/icons/Arrangement_2.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -127,7 +127,7 @@
   <action name="actionQuit">
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/process-stop.png</normaloff>:/process-stop.png</iconset>
+     <normaloff>:/icons/process-stop.png</normaloff>:/icons/process-stop.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
@@ -257,7 +257,7 @@
   <action name="actionNewTab">
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/new_tab.png</normaloff>:/new_tab.png</iconset>
+     <normaloff>:/icons/new_tab.png</normaloff>:/icons/new_tab.png</iconset>
    </property>
    <property name="text">
     <string>New tab</string>
@@ -278,7 +278,7 @@
   <action name="actionClean">
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/QLabelling/edit-clear.png</normaloff>:/QLabelling/edit-clear.png</iconset>
+     <normaloff>:/icons/edit-clear.png</normaloff>:/icons/edit-clear.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Clean the arrangement</string>
@@ -287,7 +287,7 @@
   <action name="actionPreferences">
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/options.png</normaloff>:/options.png</iconset>
+     <normaloff>:/icons/options.png</normaloff>:/icons/options.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Preferences...</string>
@@ -304,7 +304,7 @@
   <action name="actionCloseTab">
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/close_tab.png</normaloff>:/close_tab.png</iconset>
+     <normaloff>:/icons/close_tab.png</normaloff>:/icons/close_tab.png</iconset>
    </property>
    <property name="text">
     <string>Close Tab</string>
@@ -316,7 +316,7 @@
   <action name="actionSaveAs">
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/document-save.png</normaloff>:/document-save.png</iconset>
+     <normaloff>:/icons/document-save.png</normaloff>:/icons/document-save.png</iconset>
    </property>
    <property name="text">
     <string>Save arrangement as...</string>
@@ -328,7 +328,7 @@
   <action name="actionOpen">
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/QLabelling/Arrangement_2.png</normaloff>:/QLabelling/Arrangement_2.png</iconset>
+     <normaloff>:/icons/Arrangement_2.png</normaloff>:/icons/Arrangement_2.png</iconset>
    </property>
    <property name="text">
     <string>Open an arrangement...</string>
@@ -361,7 +361,7 @@
   <action name="actionOpenImage">
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/image.png</normaloff>:/image.png</iconset>
+     <normaloff>:/icons/image.png</normaloff>:/icons/image.png</iconset>
    </property>
    <property name="text">
     <string>Open an image</string>
@@ -373,7 +373,7 @@
    </property>
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/horizontal-insert.png</normaloff>:/horizontal-insert.png</iconset>
+     <normaloff>:/icons/horizontal-insert.png</normaloff>:/icons/horizontal-insert.png</iconset>
    </property>
    <property name="text">
     <string>Insert horizontal line</string>
@@ -385,7 +385,7 @@
    </property>
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/vertical-insert.png</normaloff>:/vertical-insert.png</iconset>
+     <normaloff>:/icons/vertical-insert.png</normaloff>:/icons/vertical-insert.png</iconset>
    </property>
    <property name="text">
     <string>Insert vertical line</string>
@@ -394,7 +394,7 @@
   <action name="actionSaveProject">
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/document-save.png</normaloff>:/document-save.png</iconset>
+     <normaloff>:/icons/document-save.png</normaloff>:/icons/document-save.png</iconset>
    </property>
    <property name="text">
     <string>Save a project</string>
@@ -403,7 +403,7 @@
   <action name="actionOpenProject">
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
-     <normaloff>:/document-open.png</normaloff>:/document-open.png</iconset>
+     <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
    </property>
    <property name="text">
     <string>Open a project</string>

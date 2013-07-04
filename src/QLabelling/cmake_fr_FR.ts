@@ -554,32 +554,32 @@
 <context>
     <name>QArrangementLabellingSaveProjectDialog</name>
     <message>
-        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="138"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="135"/>
         <source>Save labelling project</source>
         <translation type="unfinished">Enregistrer le projet</translation>
     </message>
     <message>
-        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="139"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="136"/>
         <source>Arrangement path</source>
         <translation type="unfinished">Chemin vers l&apos;arrangement</translation>
     </message>
     <message>
-        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="140"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="137"/>
         <source>Labels definition path</source>
         <translation type="unfinished">Chemin vers le pack des labels</translation>
     </message>
     <message>
-        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="141"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="138"/>
         <source>Labels image path</source>
         <translation type="unfinished">Chemin vers l&apos;image</translation>
     </message>
     <message>
-        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="142"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="139"/>
         <source>Input image path</source>
         <translation type="unfinished">Chemin vers l&apos;image labellisée</translation>
     </message>
     <message>
-        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="143"/>
+        <location filename="../../build/ui_QArrangementLabellingSaveProjectDialog.h" line="140"/>
         <source>Labeling project path</source>
         <translation type="unfinished">Chemin vers le fichier de projet</translation>
     </message>

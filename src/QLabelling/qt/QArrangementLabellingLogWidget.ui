@@ -100,7 +100,7 @@
          </property>
          <property name="icon">
           <iconset resource="../rc/QArrangementLabelling.qrc">
-           <normaloff>:/QLabelling/edit-clear.png</normaloff>:/QLabelling/edit-clear.png</iconset>
+           <normaloff>:/icons/edit-clear.png</normaloff>:/icons/edit-clear.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -123,7 +123,7 @@
          </property>
          <property name="icon">
           <iconset resource="../rc/QArrangementLabelling.qrc">
-           <normaloff>:/QLabelling/document-save.png</normaloff>:/QLabelling/document-save.png</iconset>
+           <normaloff>:/icons/document-save.png</normaloff>:/icons/document-save.png</iconset>
          </property>
          <property name="iconSize">
           <size>

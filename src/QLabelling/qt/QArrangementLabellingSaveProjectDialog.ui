@@ -13,10 +13,6 @@
   <property name="windowTitle">
    <string>Save labelling project</string>
   </property>
-  <property name="windowIcon">
-   <iconset resource="../rc/QArrangementLabelling.qrc">
-    <normaloff>:/project.png</normaloff>:/project.png</iconset>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
@@ -85,7 +81,7 @@
        </property>
        <property name="icon">
         <iconset resource="../rc/QArrangementLabelling.qrc">
-         <normaloff>:/document-save.png</normaloff>:/document-save.png</iconset>
+         <normaloff>:/icons/document-save.png</normaloff>:/icons/document-save.png</iconset>
        </property>
       </widget>
      </item>

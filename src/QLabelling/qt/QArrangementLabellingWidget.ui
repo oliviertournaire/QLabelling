@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../rc/RessourcesQLabelling.qrc">
-    <normaloff>:/QLabelling/QLabellingIcon.png</normaloff>:/QLabelling/QLabellingIcon.png</iconset>
+    <normaloff>:/icons/QArrangementLabellingIcon.png</normaloff>:/icons/QArrangementLabellingIcon.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
