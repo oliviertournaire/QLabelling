@@ -17,7 +17,7 @@
 //
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
-#include "OverlayDialog.h"
+#include "QArrangementLabellingOverlayDialog.h"
 #include "QArrangementLabellingWindow.h"
 #include "ArrangementTypes.h"
 
@@ -25,13 +25,13 @@
 #include <QString>
 #include <QItemSelectionModel>
 
-#include "ui_OverlayDialog.h"
+#include "ui_QArrangementLabellingOverlayDialog.h"
 
 // TODO: Don't color the text, but set an icon for each arrangement type...
 // TODO: Or maybe don't bother
-OverlayDialog::OverlayDialog( QArrangementLabellingWindow* parent, Qt::WindowFlags f ) :
+QArrangementLabellingOverlayDialog::QArrangementLabellingOverlayDialog( QArrangementLabellingWindow* parent, Qt::WindowFlags f ) :
     QDialog( parent, f ),
-    ui( new Ui::OverlayDialog )
+    ui( new Ui::QArrangementLabellingOverlayDialog )
 {
     // An extra parenthesis around QColor to avoid the
     // http://en.wikipedia.org/wiki/Most_vexing_parse
@@ -61,7 +61,7 @@ OverlayDialog::OverlayDialog( QArrangementLabellingWindow* parent, Qt::WindowFla
 }
 
 std::vector< CGAL::Object >
-OverlayDialog::selectedArrangements( ) const
+QArrangementLabellingOverlayDialog::selectedArrangements( ) const
 {
     std::vector< CGAL::Object > res;
     for ( int i = 0; i < this->ui->overlayListWidget->count( ); ++i )
@@ -74,7 +74,7 @@ OverlayDialog::selectedArrangements( ) const
     return res;
 }
 
-void OverlayDialog::on_pickPushButton_pressed( )
+void QArrangementLabellingOverlayDialog::on_pickPushButton_pressed( )
 {
     int currentIndex = this->ui->arrangementsListWidget->currentRow( );
     if ( currentIndex == -1 )
@@ -85,8 +85,7 @@ void OverlayDialog::on_pickPushButton_pressed( )
     {
         return;
     }
-    QListWidgetItem* takenItem =
-            this->ui->arrangementsListWidget->takeItem( currentIndex );
+    QListWidgetItem* takenItem = this->ui->arrangementsListWidget->takeItem( currentIndex );
     this->ui->overlayListWidget->addItem( takenItem );
 
     if ( this->ui->overlayListWidget->count( ) == 2 )
@@ -97,20 +96,18 @@ void OverlayDialog::on_pickPushButton_pressed( )
     {
         this->ui->pickPushButton->setEnabled( true );
     }
-    QItemSelectionModel* selectionModel =
-            this->ui->arrangementsListWidget->selectionModel( );
+    QItemSelectionModel* selectionModel = this->ui->arrangementsListWidget->selectionModel( );
     selectionModel->clearSelection( );
     this->restrictSelection( takenItem );
 }
 
-void OverlayDialog::on_unpickPushButton_pressed( )
+void QArrangementLabellingOverlayDialog::on_unpickPushButton_pressed( )
 {
     int currentIndex = this->ui->overlayListWidget->currentRow( );
     if ( currentIndex == -1 )
         return;
 
-    QListWidgetItem* takenItem =
-            this->ui->overlayListWidget->takeItem( currentIndex );
+    QListWidgetItem* takenItem = this->ui->overlayListWidget->takeItem( currentIndex );
     this->ui->arrangementsListWidget->addItem( takenItem );
 
     if ( this->ui->overlayListWidget->count( ) == 2 )
@@ -125,7 +122,7 @@ void OverlayDialog::on_unpickPushButton_pressed( )
         this->unrestrictSelection( );
 }
 
-void OverlayDialog::restrictSelection( QListWidgetItem* item )
+void QArrangementLabellingOverlayDialog::restrictSelection( QListWidgetItem* item )
 {
     CGAL::Object o = item->data( ARRANGEMENT ).value< CGAL::Object >( );
     Pol_arr* pol;
@@ -150,7 +147,7 @@ void OverlayDialog::restrictSelection( QListWidgetItem* item )
     }
 }
 
-void OverlayDialog::unrestrictSelection( )
+void QArrangementLabellingOverlayDialog::unrestrictSelection( )
 {
     for ( int i = 0; i < this->ui->arrangementsListWidget->count( ); ++i )
     {

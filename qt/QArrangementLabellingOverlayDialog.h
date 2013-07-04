@@ -17,8 +17,8 @@
 //
 // Author(s)     : Alex Tsui <alextsui05@gmail.com>
 
-#ifndef OVERLAY_DIALOG_H
-#define OVERLAY_DIALOG_H
+#ifndef __QARRANGEMENT_LABELLING_OVERLAY_DIALOG_H__
+#define __QARRANGEMENT_LABELLING_OVERLAY_DIALOG_H__
 
 #include <QDialog>
 #include <vector>
@@ -26,9 +26,10 @@
 
 class QArrangementLabellingWindow;
 class QListWidgetItem;
-namespace Ui { class OverlayDialog; }
 
-class OverlayDialog : public QDialog
+namespace Ui { class QArrangementLabellingOverlayDialog; }
+
+class QArrangementLabellingOverlayDialog : public QDialog
 {
     Q_OBJECT
 
@@ -37,7 +38,7 @@ public:
         ARRANGEMENT = 32
     } OverlayDialogRole;
 
-    OverlayDialog( QArrangementLabellingWindow* parent, Qt::WindowFlags f = 0 );
+    QArrangementLabellingOverlayDialog( QArrangementLabellingWindow* parent, Qt::WindowFlags f = 0 );
 
     std::vector< CGAL::Object > selectedArrangements( ) const;
 
@@ -49,7 +50,7 @@ protected:
     void restrictSelection( QListWidgetItem* item );
     void unrestrictSelection( );
 
-    Ui::OverlayDialog* ui;
+    Ui::QArrangementLabellingOverlayDialog* ui;
 };
 
-#endif // OVERLAY_DIALOG_H
+#endif // __QARRANGEMENT_LABELLING_OVERLAY_DIALOG_H__

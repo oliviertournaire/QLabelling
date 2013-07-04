@@ -36,7 +36,7 @@
 #endif // _WINDOWS
 
 #include "ArrangementTypes.h"
-#include "OverlayDialog.h"
+#include "QArrangementLabellingOverlayDialog.h"
 #include "QArrangementLabellingPropertiesDialog.h"
 #include "QArrangementLabellingTab.h"
 #include "DeleteCurveMode.h"
@@ -580,7 +580,7 @@ void QArrangementLabellingWindow::on_actionOverlay_triggered( )
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    OverlayDialog* overlayDialog = new OverlayDialog( this );
+    QArrangementLabellingOverlayDialog* overlayDialog = new QArrangementLabellingOverlayDialog( this );
     if ( overlayDialog->exec( ) == QDialog::Accepted )
     {
         std::vector< CGAL::Object > arrs = overlayDialog->selectedArrangements( );

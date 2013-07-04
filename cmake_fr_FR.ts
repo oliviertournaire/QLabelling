@@ -194,19 +194,16 @@
 <context>
     <name>OverlayDialog</name>
     <message>
-        <location filename="build/ui_OverlayDialog.h" line="69"/>
         <source>Overlay</source>
-        <translation>Superposition</translation>
+        <translation type="obsolete">Superposition</translation>
     </message>
     <message>
-        <location filename="build/ui_OverlayDialog.h" line="70"/>
         <source>&gt;&gt;</source>
-        <translation>&gt;&gt;</translation>
+        <translation type="obsolete">&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="build/ui_OverlayDialog.h" line="71"/>
         <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
+        <translation type="obsolete">&lt;&lt;</translation>
     </message>
 </context>
 <context>
@@ -480,6 +477,24 @@
         <location filename="qt/QArrangementLabellingLogWidget.cpp" line="89"/>
         <source>[DEBUG]</source>
         <translation type="unfinished">[DEBUG]</translation>
+    </message>
+</context>
+<context>
+    <name>QArrangementLabellingOverlayDialog</name>
+    <message>
+        <location filename="build/ui_QArrangementLabellingOverlayDialog.h" line="69"/>
+        <source>Overlay</source>
+        <translation type="unfinished">Superposition</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingOverlayDialog.h" line="70"/>
+        <source>&gt;&gt;</source>
+        <translation type="unfinished">&gt;&gt;</translation>
+    </message>
+    <message>
+        <location filename="build/ui_QArrangementLabellingOverlayDialog.h" line="71"/>
+        <source>&lt;&lt;</source>
+        <translation type="unfinished">&lt;&lt;</translation>
     </message>
 </context>
 <context>
