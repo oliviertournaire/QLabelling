@@ -503,7 +503,8 @@ void QArrangementLabellingWindow::doSaveArrangement( const QString& filename )
     Pol_arr* pol;
     if ( CGAL::assign( pol, arr ) )
     {
-        typedef CGAL::Arr_text_formatter<Pol_arr>                         Pol_text_formatter;
+        typedef CGAL::Arr_face_extended_text_formatter<Pol_arr> Pol_text_formatter;
+        //typedef CGAL::Arr_text_formatter<Pol_arr>                         Pol_text_formatter;
         typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter> ArrFormatter;
         ArrFormatter arrFormatter;
         CGAL::write( *pol, ofs, arrFormatter );
