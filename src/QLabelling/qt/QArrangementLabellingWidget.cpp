@@ -99,7 +99,7 @@ void QArrangementLabellingWidget::parseLabels()
     }
     else
     {
-        ui->_lineEditLabelsPath->setText( tr("Labels path ") + _labelsPath + tr(" not found!") );
+        ui->_lineEditLabelsPath->setText( tr("Labels path") + _labelsPath + tr(" not found!") );
         ifs.close();
         return;
     }

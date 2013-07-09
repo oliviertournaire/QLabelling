@@ -606,7 +606,8 @@
     </message>
     <message>
         <location filename="qt/QArrangementLabellingWidget.cpp" line="102"/>
-        <source>Labels path </source>
+        <source>Labels path</source>
+        <oldsource>Labels path </oldsource>
         <translation type="unfinished">Fichier de labels </translation>
     </message>
     <message>

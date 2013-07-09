@@ -95,14 +95,14 @@ protected:
     void openArrFile( QString filename );
     void openDatFile( QString filename );
 
-    std::vector< QArrangementLabellingTabBase* > tabs;
-    std::vector< CGAL::Object > arrangements;
-    std::vector< QAction* > activeModes; // for the current tab; always size 1
-    unsigned int lastTabIndex;
+    std::vector< QArrangementLabellingTabBase* > _tabs;
+    std::vector< CGAL::Object > _arrangements;
+    std::vector< QAction* > _activeModes; // for the current tab; always size 1
+    unsigned int _lastTabIndex;
 
-    Ui::QArrangementLabellingWindow* ui;
-    QActionGroup* modeGroup;
-    QActionGroup* snapGroup;
+    Ui::QArrangementLabellingWindow* _ui;
+    QActionGroup* _modeGroup;
+    QActionGroup* _snapGroup;
 
     QArrangementLabellingLogWidget *_loggerWidget; // Le logger
     QArrangementLabellingWidget *_labellingWidget; // Le widget de choix des labels + des modes
@@ -123,13 +123,13 @@ void QArrangementLabellingWindow::makeOverlayTab( ArrType* arr1, ArrType* arr2 )
     CGAL::overlay( *arr1, *arr2, *overlayArr, defaultTraits );
 
     demoTab = new QArrangementLabellingTab< ArrType >( overlayArr, 0 );
-    this->arrangements.push_back( CGAL::make_object( overlayArr ) );
-    this->tabs.push_back( demoTab );
+    this->_arrangements.push_back( CGAL::make_object( overlayArr ) );
+    this->_tabs.push_back( demoTab );
 
     QGraphicsView* view = demoTab->getView( );
     this->addNavigation( view );
-    this->ui->tabWidget->addTab( demoTab, tabLabel );
-    this->lastTabIndex = this->ui->tabWidget->currentIndex( );
+    this->_ui->tabWidget->addTab( demoTab, tabLabel );
+    this->_lastTabIndex = this->_ui->tabWidget->currentIndex( );
 }
 
 #endif // __QARRANGEMENT_LABELLING_WINDOW_H__

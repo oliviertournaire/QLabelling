@@ -51,8 +51,8 @@
 
 QArrangementLabellingWindow::QArrangementLabellingWindow(QWidget* parent) :
 CGAL::Qt::DemosMainWindow( parent ),
-    lastTabIndex(static_cast<unsigned int>(-1)),
-    ui( new Ui::QArrangementLabellingWindow ),
+    _lastTabIndex(static_cast<unsigned int>(-1)),
+    _ui( new Ui::QArrangementLabellingWindow ),
     _loggerWidget(QArrangementLabellingLogWidget::instance()),
     _labellingWidget(QArrangementLabellingWidget::instance())
 {
@@ -91,9 +91,9 @@ CGAL::Qt::DemosMainWindow( parent ),
     // set up callbacks
     QObject::connect( _labellingWidget, SIGNAL( labelChanged() ),
         this, SLOT( labelChanged() ) );
-    QObject::connect( this->modeGroup, SIGNAL( triggered( QAction* ) ),
+    QObject::connect( this->_modeGroup, SIGNAL( triggered( QAction* ) ),
         this, SLOT( updateMode( QAction* ) ) );
-    QObject::connect( this->snapGroup, SIGNAL( triggered( QAction* ) ),
+    QObject::connect( this->_snapGroup, SIGNAL( triggered( QAction* ) ),
         this, SLOT( updateSnapping( QAction* ) ) );
 
     // disable arrangement edition
@@ -102,8 +102,8 @@ CGAL::Qt::DemosMainWindow( parent ),
 
 void QArrangementLabellingWindow::labelChanged(){
     _loggerWidget->logTrace( tr("Label just changed, switching current mode to \"fill\"...") );
-    this->ui->actionFill->setChecked(true);
-    updateMode(this->ui->actionFill);
+    this->_ui->actionFill->setChecked(true);
+    updateMode(this->_ui->actionFill);
 }
 
 QArrangementLabellingTabBase* QArrangementLabellingWindow::makeTab( TraitsType tt )
@@ -122,22 +122,22 @@ QArrangementLabellingTabBase* QArrangementLabellingWindow::makeTab( TraitsType t
     arr = CGAL::make_object( pol_arr );
     tabLabel = tr( "Labelling (#%n)","", tabLabelCounter++ );
 
-    this->arrangements.push_back( arr );
-    this->tabs.push_back( demoTab );
+    this->_arrangements.push_back( arr );
+    this->_tabs.push_back( demoTab );
 
     QGraphicsView* view = demoTab->getView( );
     this->addNavigation( view );
-    this->ui->tabWidget->addTab( demoTab, tabLabel );
-    this->lastTabIndex = this->ui->tabWidget->currentIndex( );
-    this->ui->tabWidget->setCurrentWidget( demoTab );
+    this->_ui->tabWidget->addTab( demoTab, tabLabel );
+    this->_lastTabIndex = this->_ui->tabWidget->currentIndex( );
+    this->_ui->tabWidget->setCurrentWidget( demoTab );
 
-    this->resetCallbackState( this->ui->tabWidget->currentIndex( ) );
-    this->removeCallback( this->ui->tabWidget->currentIndex( ) );
-    this->updateMode( this->modeGroup->checkedAction( ) );
+    this->resetCallbackState( this->_ui->tabWidget->currentIndex( ) );
+    this->removeCallback( this->_ui->tabWidget->currentIndex( ) );
+    this->updateMode( this->_modeGroup->checkedAction( ) );
 
     if(!demoTab->_imageHasBeenLoaded){
         QArrangementLabellingLogWidget::instance()->logWarning( tr("Before being able to edit the label arrangement, you must open an image!!!") );
-        updateMode( this->ui->actionDrag );
+        updateMode( this->_ui->actionDrag );
     }
 
     
@@ -149,19 +149,19 @@ QArrangementLabellingTabBase* QArrangementLabellingWindow::getTab( unsigned int 
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    if (tabIndex > this->tabs.size()) return NULL;
-    return this->tabs[tabIndex];
+    if (tabIndex > this->_tabs.size()) return NULL;
+    return this->_tabs[tabIndex];
 }
 
 QArrangementLabellingTabBase* QArrangementLabellingWindow::getCurrentTab( ) const
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    int currentIndex = this->ui->tabWidget->currentIndex( );
+    int currentIndex = this->_ui->tabWidget->currentIndex( );
     if ( currentIndex == -1 )
         return NULL;
 
-    QArrangementLabellingTabBase* res = this->tabs[ currentIndex ];
+    QArrangementLabellingTabBase* res = this->_tabs[ currentIndex ];
     return res;
 }
 
@@ -170,9 +170,9 @@ std::vector< QString > QArrangementLabellingWindow::getTabLabels( ) const
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     std::vector< QString > res;
-    for ( int i = 0; i < this->ui->tabWidget->count( ); ++i )
+    for ( int i = 0; i < this->_ui->tabWidget->count( ); ++i )
     {
-        res.push_back( this->ui->tabWidget->tabText( i ) );
+        res.push_back( this->_ui->tabWidget->tabText( i ) );
     }
     return res;
 }
@@ -182,9 +182,9 @@ std::vector< CGAL::Object > QArrangementLabellingWindow::getArrangements( ) cons
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     std::vector< CGAL::Object > res;
-    for ( unsigned int i = 0; i < this->arrangements.size( ); ++i )
+    for ( unsigned int i = 0; i < this->_arrangements.size( ); ++i )
     {
-        res.push_back( this->arrangements[ i ] );
+        res.push_back( this->_arrangements[ i ] );
     }
     return res;
 }
@@ -193,25 +193,25 @@ void QArrangementLabellingWindow::setupUi( )
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    this->ui->setupUi( this );
+    this->_ui->setupUi( this );
 
-    this->modeGroup = new QActionGroup( this );
-    this->modeGroup->addAction( this->ui->actionDrag );
-    this->modeGroup->addAction( this->ui->actionInsert );
-    this->modeGroup->addAction( this->ui->actionInsert_horizontal_line );
-    this->modeGroup->addAction( this->ui->actionInsert_vertical_line );
-    this->modeGroup->addAction( this->ui->actionDelete );
-    this->modeGroup->addAction( this->ui->actionPointLocation );
-    this->modeGroup->addAction( this->ui->actionMerge );
-    this->modeGroup->addAction( this->ui->actionSplit );
-    this->modeGroup->addAction( this->ui->actionFill );
-    this->activeModes.push_back( this->ui->actionDrag );
+    this->_modeGroup = new QActionGroup( this );
+    this->_modeGroup->addAction( this->_ui->actionDrag );
+    this->_modeGroup->addAction( this->_ui->actionInsert );
+    this->_modeGroup->addAction( this->_ui->actionInsert_horizontal_line );
+    this->_modeGroup->addAction( this->_ui->actionInsert_vertical_line );
+    this->_modeGroup->addAction( this->_ui->actionDelete );
+    this->_modeGroup->addAction( this->_ui->actionPointLocation );
+    this->_modeGroup->addAction( this->_ui->actionMerge );
+    this->_modeGroup->addAction( this->_ui->actionSplit );
+    this->_modeGroup->addAction( this->_ui->actionFill );
+    this->_activeModes.push_back( this->_ui->actionDrag );
 
-    this->snapGroup = new QActionGroup( this );
-    this->snapGroup->addAction( this->ui->actionSnapMode );
-    this->snapGroup->addAction( this->ui->actionGridSnapMode );
-    this->snapGroup->setExclusive( false );
-    this->ui->actionGridSnapMode->setEnabled( false );
+    this->_snapGroup = new QActionGroup( this );
+    this->_snapGroup->addAction( this->_ui->actionSnapMode );
+    this->_snapGroup->addAction( this->_ui->actionGridSnapMode );
+    this->_snapGroup->setExclusive( false );
+    this->_ui->actionGridSnapMode->setEnabled( false );
 
 //     this->updateFillColorSwatch( );
 }
@@ -220,9 +220,9 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
+    const unsigned int TabIndex = this->_ui->tabWidget->currentIndex( );
     if (TabIndex == static_cast<unsigned int>(-1)) return;
-    QArrangementLabellingTabBase* activeTab = this->tabs[ TabIndex ];
+    QArrangementLabellingTabBase* activeTab = this->_tabs[ TabIndex ];
     QGraphicsScene* activeScene = activeTab->getScene( );
     QGraphicsView* activeView = activeTab->getView( );
 
@@ -230,55 +230,55 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
     this->removeCallback( TabIndex );
 
     // update the active mode
-    this->activeModes.at( 0 ) = newMode;
+    this->_activeModes.at( 0 ) = newMode;
 
     QString messageToLog(tr("Updating mode --> "));
 
     // hook up the new active mode
-    if ( newMode == this->ui->actionInsert )
+    if ( newMode == this->_ui->actionInsert )
     {
 	activeTab->getCurveInputCallback( )->mode = POLYLINE;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion mode");
     }
-    else if ( newMode == this->ui->actionInsert_horizontal_line  )
+    else if ( newMode == this->_ui->actionInsert_horizontal_line  )
     {
 	activeTab->getCurveInputCallback( )->mode = HORIZONTAL;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion (horizontal) mode");
     }
-    else if ( newMode == this->ui->actionInsert_vertical_line )
+    else if ( newMode == this->_ui->actionInsert_vertical_line )
     {
 	activeTab->getCurveInputCallback( )->mode = VERTICAL;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion (vertical) mode");
     }
-    else if ( newMode == this->ui->actionDrag )
+    else if ( newMode == this->_ui->actionDrag )
     {
         activeView->setDragMode( QGraphicsView::ScrollHandDrag );
         messageToLog += tr("Drag mode");
     }
-    else if ( newMode == this->ui->actionDelete )
+    else if ( newMode == this->_ui->actionDelete )
     {
         activeScene->installEventFilter( activeTab->getDeleteCurveCallback( ) );
         messageToLog += tr("Delete mode");
     }
-    else if ( newMode == this->ui->actionPointLocation )
+    else if ( newMode == this->_ui->actionPointLocation )
     {
         activeScene->installEventFilter( activeTab->getPointLocationCallback( ) );
         messageToLog += tr("Point location mode");
     }
-    else if ( newMode == this->ui->actionMerge )
+    else if ( newMode == this->_ui->actionMerge )
     {
         activeScene->installEventFilter( activeTab->getMergeEdgeCallback( ) );
         messageToLog += tr("Merge mode");
     }
-    else if ( newMode == this->ui->actionSplit )
+    else if ( newMode == this->_ui->actionSplit )
     {
         activeScene->installEventFilter( activeTab->getSplitEdgeCallback( ) );
         messageToLog += tr("Split mode");
     }
-    else if ( newMode == this->ui->actionFill )
+    else if ( newMode == this->_ui->actionFill )
     {
         activeScene->installEventFilter( activeTab->getFillFaceCallback( ) );
         messageToLog += tr("Fill mode");
@@ -292,39 +292,39 @@ void QArrangementLabellingWindow::resetCallbackState( unsigned int tabIndex )
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    if (tabIndex == static_cast<unsigned int>(-1) || tabIndex >= this->tabs.size( ))
+    if (tabIndex == static_cast<unsigned int>(-1) || tabIndex >= this->_tabs.size( ))
         return;
 
-    QArrangementLabellingTabBase* activeTab = this->tabs[ tabIndex ];
+    QArrangementLabellingTabBase* activeTab = this->_tabs[ tabIndex ];
 
-    QAction* activeMode = this->activeModes.at( 0 );
+    QAction* activeMode = this->_activeModes.at( 0 );
 
     // unhook the old active mode
-    if ( activeMode == this->ui->actionInsert )
+    if ( activeMode == this->_ui->actionInsert )
     {  }
-    else if ( activeMode == this->ui->actionInsert_horizontal_line )
+    else if ( activeMode == this->_ui->actionInsert_horizontal_line )
     {  }
-    else if ( activeMode == this->ui->actionInsert_vertical_line )
+    else if ( activeMode == this->_ui->actionInsert_vertical_line )
     {  }
-    else if ( activeMode == this->ui->actionDrag )
+    else if ( activeMode == this->_ui->actionDrag )
     {  }
-    else if ( activeMode == this->ui->actionDelete )
+    else if ( activeMode == this->_ui->actionDelete )
     {
         activeTab->getDeleteCurveCallback( )->reset( );
     }
-    else if ( activeMode == this->ui->actionPointLocation )
+    else if ( activeMode == this->_ui->actionPointLocation )
     {
         activeTab->getPointLocationCallback( )->reset( );
     }
-    else if ( activeMode == this->ui->actionMerge )
+    else if ( activeMode == this->_ui->actionMerge )
     {
         activeTab->getMergeEdgeCallback( )->reset( );
     }
-    else if ( activeMode == this->ui->actionSplit )
+    else if ( activeMode == this->_ui->actionSplit )
     {
         activeTab->getSplitEdgeCallback( )->reset( );
     }
-    else if ( activeMode == this->ui->actionFill )
+    else if ( activeMode == this->_ui->actionFill )
     {
         activeTab->getFillFaceCallback( )->reset( );
     }
@@ -337,7 +337,7 @@ void QArrangementLabellingWindow::removeCallback( unsigned int tabIndex )
     if (tabIndex == static_cast<unsigned int>(-1))
         return;
 
-    QArrangementLabellingTabBase* activeTab = this->tabs[ tabIndex ];
+    QArrangementLabellingTabBase* activeTab = this->_tabs[ tabIndex ];
     QGraphicsScene* activeScene = activeTab->getScene( );
     QGraphicsView* activeView = activeTab->getView( );
 
@@ -354,7 +354,7 @@ void QArrangementLabellingWindow::openArrFile( QString filename )
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    int index = this->ui->tabWidget->currentIndex( );
+    int index = this->_ui->tabWidget->currentIndex( );
     if ( index == -1 )
     {
         QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
@@ -366,18 +366,18 @@ void QArrangementLabellingWindow::openArrFile( QString filename )
     }
 
     std::ifstream ifs( filename.toStdString( ).c_str( ) );
-    CGAL::Object arr = this->arrangements[ index ];
+    CGAL::Object arr = this->_arrangements[ index ];
     Pol_arr* pol;
     if ( CGAL::assign( pol, arr ) )
     {
-        typedef CGAL::Arr_text_formatter< Pol_arr >                       Pol_text_formatter;
-        typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter> ArrFormatter;
-        typedef QArrangementLabellingTab< Pol_arr >                       TabType;
+        typedef CGAL::Arr_face_extended_text_formatter<Pol_arr>             Pol_text_formatter;
+        typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter>   ArrFormatter;
+        typedef QArrangementLabellingTab< Pol_arr >                         TabType;
 
         ArrFormatter arrFormatter;
         CGAL::read( *pol, ifs, arrFormatter );
-        this->arrangements[ index ] = CGAL::make_object( pol );
-        TabType* tab = static_cast< TabType* >( this->tabs[ index ] );
+        this->_arrangements[ index ] = CGAL::make_object( pol );
+        TabType* tab = static_cast< TabType* >( this->_tabs[ index ] );
         tab->setArrangement( pol );
     }
     ifs.close( );
@@ -387,7 +387,7 @@ void QArrangementLabellingWindow::openDatFile( QString filename )
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    int index = this->ui->tabWidget->currentIndex( );
+    int index = this->_ui->tabWidget->currentIndex( );
     if ( index == -1 )
     {
         QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
@@ -399,7 +399,7 @@ void QArrangementLabellingWindow::openDatFile( QString filename )
     }
 
     std::ifstream inputFile( filename.toStdString( ).c_str( ) );
-    CGAL::Object arr = this->arrangements[ index ];
+    CGAL::Object arr = this->_arrangements[ index ];
     Pol_arr* pol;
 
     // Creates an ofstream object named inputFile
@@ -439,7 +439,7 @@ void QArrangementLabellingWindow::openDatFile( QString filename )
         CGAL::insert(*pol, pol_list.begin(), pol_list.end());
 
         typedef QArrangementLabellingTab< Pol_arr > TabType;
-        TabType* tab = static_cast< TabType* >( this->tabs[ index ] );
+        TabType* tab = static_cast< TabType* >( this->_tabs[ index ] );
         tab->setArrangement( pol );
     }
 
@@ -451,28 +451,28 @@ void QArrangementLabellingWindow::updateSnapping( QAction* newMode )
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     QArrangementLabellingTabBase* activeTab =
-        this->tabs[ this->ui->tabWidget->currentIndex( ) ];
+        this->_tabs[ this->_ui->tabWidget->currentIndex( ) ];
     QGraphicsScene* activeScene = activeTab->getScene( );
     QArrangementLabellingGraphicsView* activeView = activeTab->getView( );
 
     bool enabled = newMode->isChecked( );
-    if ( newMode == this->ui->actionSnapMode )
+    if ( newMode == this->_ui->actionSnapMode )
     {
         activeTab->getCurveInputCallback( )->setSnappingEnabled( enabled );
         activeTab->getSplitEdgeCallback( )->setSnappingEnabled( enabled );
         if ( ! enabled )
         {
-            this->ui->actionGridSnapMode->setChecked( false );
-            this->ui->actionGridSnapMode->setEnabled( false );
+            this->_ui->actionGridSnapMode->setChecked( false );
+            this->_ui->actionGridSnapMode->setEnabled( false );
             activeTab->getCurveInputCallback( )->setSnapToGridEnabled( false );
             activeTab->getSplitEdgeCallback( )->setSnapToGridEnabled( false );
         }
         else
         {
-            this->ui->actionGridSnapMode->setEnabled( true );
+            this->_ui->actionGridSnapMode->setEnabled( true );
         }
     }
-    else if ( newMode == this->ui->actionGridSnapMode )
+    else if ( newMode == this->_ui->actionGridSnapMode )
     {
         activeTab->getCurveInputCallback( )->setSnapToGridEnabled( enabled );
         activeTab->getSplitEdgeCallback( )->setSnapToGridEnabled( enabled );
@@ -486,7 +486,7 @@ void QArrangementLabellingWindow::on_actionSaveAs_triggered( )
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    int index = this->ui->tabWidget->currentIndex( );
+    int index = this->_ui->tabWidget->currentIndex( );
     if ( index == -1 )
         return;
     QString filename = QFileDialog::getSaveFileName( this, tr( "Save file" ), "", tr("Arrangement (*.arr)") );
@@ -499,12 +499,11 @@ void QArrangementLabellingWindow::on_actionSaveAs_triggered( )
 void QArrangementLabellingWindow::doSaveArrangement( const QString& filename )
 {
     std::ofstream ofs( filename.toStdString( ).c_str( ) );
-    CGAL::Object arr = this->arrangements[ this->ui->tabWidget->currentIndex( ) ];
+    CGAL::Object arr = this->_arrangements[ this->_ui->tabWidget->currentIndex( ) ];
     Pol_arr* pol;
     if ( CGAL::assign( pol, arr ) )
     {
         typedef CGAL::Arr_face_extended_text_formatter<Pol_arr> Pol_text_formatter;
-        //typedef CGAL::Arr_text_formatter<Pol_arr>                         Pol_text_formatter;
         typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter> ArrFormatter;
         ArrFormatter arrFormatter;
         CGAL::write( *pol, ofs, arrFormatter );
@@ -517,7 +516,7 @@ void QArrangementLabellingWindow::on_actionOpen_triggered( )
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    int index = this->ui->tabWidget->currentIndex( );
+    int index = this->_ui->tabWidget->currentIndex( );
     if ( index == -1 )
     {
         QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
@@ -549,7 +548,7 @@ void QArrangementLabellingWindow::on_actionNewTab_triggered( )
 
     this->makeTab( POLYLINE_TRAITS );
     
-    ui->actionOpenImage->setEnabled(true);
+    _ui->actionOpenImage->setEnabled(true);
 }
 
 void QArrangementLabellingWindow::on_tabWidget_currentChanged( )
@@ -561,11 +560,11 @@ void QArrangementLabellingWindow::on_tabWidget_currentChanged( )
 
     // std::cout << "Tab changed" << std::endl;
     // disable the callback for the previously active tab
-    this->resetCallbackState( this->lastTabIndex );
-    this->removeCallback( this->lastTabIndex );
-    this->lastTabIndex = this->ui->tabWidget->currentIndex( );
+    this->resetCallbackState( this->_lastTabIndex );
+    this->removeCallback( this->_lastTabIndex );
+    this->_lastTabIndex = this->_ui->tabWidget->currentIndex( );
 
-    this->updateMode( this->modeGroup->checkedAction( ) );
+    this->updateMode( this->_modeGroup->checkedAction( ) );
 
     // Filling Arrangement info widget
     QArrangementLabellingInfoWidget* infoWidget = QArrangementLabellingInfoWidget::instance();
@@ -602,8 +601,8 @@ void QArrangementLabellingWindow::on_actionCloseTab_triggered( )
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
-    if (! this->ui->tabWidget->count() || (currentTabIndex == static_cast<unsigned int>(-1)))
+    unsigned int currentTabIndex = this->_ui->tabWidget->currentIndex( );
+    if (! this->_ui->tabWidget->count() || (currentTabIndex == static_cast<unsigned int>(-1)))
         return;
     
     if(! getCurrentTab()->arrHasBeenSaved() && ! getCurrentTab()->_labelsHaveBeenSaved){ // If labels have already been saved, do not complain
@@ -621,15 +620,15 @@ void QArrangementLabellingWindow::on_actionCloseTab_triggered( )
     }
     
     // delete the tab
-    this->ui->tabWidget->removeTab( currentTabIndex );
-    this->tabs.erase( this->tabs.begin( ) + currentTabIndex );
+    this->_ui->tabWidget->removeTab( currentTabIndex );
+    this->_tabs.erase( this->_tabs.begin( ) + currentTabIndex );
 
     // delete the arrangement
-    this->arrangements.erase( this->arrangements.begin( ) + currentTabIndex );
+    this->_arrangements.erase( this->_arrangements.begin( ) + currentTabIndex );
     
     // If we have closed the last tab, we forbid the openImage action
-    if (! this->ui->tabWidget->count() || (currentTabIndex == static_cast<unsigned int>(-1)))
-        ui->actionOpenImage->setEnabled(false);
+    if (! this->_ui->tabWidget->count() || (currentTabIndex == static_cast<unsigned int>(-1)))
+        _ui->actionOpenImage->setEnabled(false);
 }
 
 void QArrangementLabellingWindow::on_actionZoomIn_triggered( )
@@ -637,9 +636,9 @@ void QArrangementLabellingWindow::on_actionZoomIn_triggered( )
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
     QArrangementLabellingLogWidget::instance()->logDebug( tr("Zoomed in, current scale = ") + QString::number(view->transform().m11()) + tr(" et ") + QString::number(view->transform().m22()) );
 
-    unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
+    unsigned int currentTabIndex = this->_ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
-    QArrangementLabellingTabBase* currentTab = this->tabs[ currentTabIndex ];
+    QArrangementLabellingTabBase* currentTab = this->_tabs[ currentTabIndex ];
     QGraphicsView* view = currentTab->getView( );
     view->scale( 2.0, 2.0 );
 }
@@ -649,9 +648,9 @@ void QArrangementLabellingWindow::on_actionZoomOut_triggered( )
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
     QArrangementLabellingLogWidget::instance()->logDebug( tr("Zoomed out, current scale = ") + QString::number(view->transform().m11()) + tr(" et ") + QString::number(view->transform().m22()) );
 
-    unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
+    unsigned int currentTabIndex = this->_ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
-    QArrangementLabellingTabBase* currentTab = this->tabs[ currentTabIndex ];
+    QArrangementLabellingTabBase* currentTab = this->_tabs[ currentTabIndex ];
     QGraphicsView* view = currentTab->getView( );
     view->scale( 0.5, 0.5 );
 }
@@ -660,9 +659,9 @@ void QArrangementLabellingWindow::on_actionPreferences_triggered( )
 {
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
-    unsigned int currentTabIndex = this->ui->tabWidget->currentIndex( );
+    unsigned int currentTabIndex = this->_ui->tabWidget->currentIndex( );
     if (currentTabIndex == static_cast<unsigned int>(-1)) return;
-    QArrangementLabellingTabBase* currentTab = this->tabs[ currentTabIndex ];
+    QArrangementLabellingTabBase* currentTab = this->_tabs[ currentTabIndex ];
     CGAL::Qt::ArrangementGraphicsItemBase* agi = currentTab->getArrangementGraphicsItem( );
     QArrangementLabellingGraphicsView* view = currentTab->getView( );
     SplitEdgeCallbackBase* splitEdgeCallback = currentTab->getSplitEdgeCallback( );
@@ -789,7 +788,7 @@ void QArrangementLabellingWindow::on_actionOpenProject_triggered()
         // If so, we can really open the project
         // The project will be opened in a new tab
         QArrangementLabellingTabBase *projectTab =  makeTab( POLYLINE_TRAITS );
-        // TODO: set tab name based on project name ...
+        _ui->tabWidget->setTabText(_lastTabIndex, projectName);
         // Load input image
         doLoadImage(projectInputImage);
         // Load arrangement
@@ -886,7 +885,7 @@ bool QArrangementLabellingWindow::on_actionOpenImage_triggered()
         return false;
     }
 
-    const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
+    const unsigned int TabIndex = this->_ui->tabWidget->currentIndex( );
     if (TabIndex == static_cast<unsigned int>(-1))
     {
         QArrangementLabellingLogWidget::instance()->logError( tr("Unable to add an image : there is no open tab !") );
@@ -931,7 +930,7 @@ bool QArrangementLabellingWindow::doLoadImage(const QString &fileName)
 {
     QArrangementLabellingLogWidget::instance()->logTrace( tr("Opening image ") + fileName );
     QArrangementLabellingTabBase *currentTab = getCurrentTab();
-    const unsigned int TabIndex = this->ui->tabWidget->currentIndex( );
+    const unsigned int TabIndex = this->_ui->tabWidget->currentIndex( );
 
     QGraphicsScene              *currentTabScene = currentTab->getScene();
     QArrangementLabellingGraphicsView *currentTabView  = currentTab->getView();
@@ -941,7 +940,7 @@ bool QArrangementLabellingWindow::doLoadImage(const QString &fileName)
     if(result)
     {
         currentTab->_imageHasBeenLoaded = true;
-        updateMode( this->ui->actionInsert );
+        updateMode( this->_ui->actionInsert );
     }
     else
         currentTab->_imageHasBeenLoaded = false;
@@ -951,21 +950,21 @@ bool QArrangementLabellingWindow::doLoadImage(const QString &fileName)
 
 void QArrangementLabellingWindow::updateToolBarButtonsEnable(bool enable)
 {
-    ui->actionInsert->setEnabled(enable);
-    ui->actionInsert_horizontal_line->setEnabled(enable);
-    ui->actionInsert_vertical_line->setEnabled(enable);
-    ui->actionDelete->setEnabled(enable);
-    ui->actionPointLocation->setEnabled(enable);
-    ui->actionMerge->setEnabled(enable);
-    ui->actionSplit->setEnabled(enable);
-    ui->actionFill->setEnabled(enable);
+    _ui->actionInsert->setEnabled(enable);
+    _ui->actionInsert_horizontal_line->setEnabled(enable);
+    _ui->actionInsert_vertical_line->setEnabled(enable);
+    _ui->actionDelete->setEnabled(enable);
+    _ui->actionPointLocation->setEnabled(enable);
+    _ui->actionMerge->setEnabled(enable);
+    _ui->actionSplit->setEnabled(enable);
+    _ui->actionFill->setEnabled(enable);
 //     ui->actionFillColor->setEnabled(enable);
-    ui->actionDrag->setEnabled(enable);
-    ui->actionZoomIn->setEnabled(enable);
-    ui->actionZoomOut->setEnabled(enable);
-    ui->actionSnapMode->setEnabled(enable);
-    ui->actionGridSnapMode->setEnabled(enable);
-    ui->actionClean->setEnabled(enable);
+    _ui->actionDrag->setEnabled(enable);
+    _ui->actionZoomIn->setEnabled(enable);
+    _ui->actionZoomOut->setEnabled(enable);
+    _ui->actionSnapMode->setEnabled(enable);
+    _ui->actionGridSnapMode->setEnabled(enable);
+    _ui->actionClean->setEnabled(enable);
     
     // Enabling/Disabling the label list too
     QArrangementLabellingWidget::instance()->setEnabledAllLabelButtons(enable);
@@ -975,14 +974,14 @@ void QArrangementLabellingWindow::updateToolBarButtonsEnable(bool enable)
 // Clean the arrangement
 void QArrangementLabellingWindow::on_actionClean_triggered()
 {
-    int tabIndex = this->ui->tabWidget->currentIndex( );
+    int tabIndex = this->_ui->tabWidget->currentIndex( );
     if ( tabIndex == -1 )
     {
         QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
         return;
     }
     
-    CGAL::Object arr = this->arrangements[ tabIndex ];
+    CGAL::Object arr = this->_arrangements[ tabIndex ];
     Pol_arr* pol;
     
     if ( CGAL::assign( pol, arr ) )
@@ -1074,7 +1073,7 @@ void QArrangementLabellingWindow::on_actionClean_triggered()
         QArrangementLabellingLogWidget::instance()->logError(tr("[Cleaning] Parsing arrangement failed..."));
     }
 
-    this->tabs[ tabIndex ]->getScene()->update( );
+    this->_tabs[ tabIndex ]->getScene()->update( );
 }
 
 // Save the label-colored image
