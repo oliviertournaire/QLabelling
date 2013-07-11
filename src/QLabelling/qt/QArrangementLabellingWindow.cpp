@@ -205,7 +205,7 @@ void QArrangementLabellingWindow::setupUi( )
     this->_modeGroup->addAction( this->_ui->actionMerge );
     this->_modeGroup->addAction( this->_ui->actionSplit );
     this->_modeGroup->addAction( this->_ui->actionFill );
-    this->_activeModes.push_back( this->_ui->actionDrag );
+    this->_activeModes.push_back(this->_ui->actionDrag );
 
     this->_snapGroup = new QActionGroup( this );
     this->_snapGroup->addAction( this->_ui->actionSnapMode );
@@ -370,9 +370,9 @@ void QArrangementLabellingWindow::openArrFile( QString filename )
     Pol_arr* pol;
     if ( CGAL::assign( pol, arr ) )
     {
-        typedef CGAL::Arr_face_extended_text_formatter<Pol_arr>             Pol_text_formatter;
-        typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter>   ArrFormatter;
-        typedef QArrangementLabellingTab< Pol_arr >                         TabType;
+        typedef CGAL::Arr_face_extended_text_formatter<Pol_arr>           Pol_text_formatter;
+        typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter> ArrFormatter;
+        typedef QArrangementLabellingTab< Pol_arr >                       TabType;
 
         ArrFormatter arrFormatter;
         CGAL::read( *pol, ifs, arrFormatter );
@@ -385,6 +385,7 @@ void QArrangementLabellingWindow::openArrFile( QString filename )
 
 void QArrangementLabellingWindow::openDatFile( QString filename )
 {
+    /*
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     int index = this->_ui->tabWidget->currentIndex( );
@@ -399,7 +400,7 @@ void QArrangementLabellingWindow::openDatFile( QString filename )
     }
 
     std::ifstream inputFile( filename.toStdString( ).c_str( ) );
-    CGAL::Object arr = this->_arrangements[ index ];
+    CGAL::Object arr = this->arrangements[ index ];
     Pol_arr* pol;
 
     // Creates an ofstream object named inputFile
@@ -439,11 +440,12 @@ void QArrangementLabellingWindow::openDatFile( QString filename )
         CGAL::insert(*pol, pol_list.begin(), pol_list.end());
 
         typedef QArrangementLabellingTab< Pol_arr > TabType;
-        TabType* tab = static_cast< TabType* >( this->_tabs[ index ] );
+        TabType* tab = static_cast< TabType* >( this->tabs[ index ] );
         tab->setArrangement( pol );
     }
 
     inputFile.close();
+    */
 }
 
 void QArrangementLabellingWindow::updateSnapping( QAction* newMode )
@@ -503,7 +505,7 @@ void QArrangementLabellingWindow::doSaveArrangement( const QString& filename )
     Pol_arr* pol;
     if ( CGAL::assign( pol, arr ) )
     {
-        typedef CGAL::Arr_face_extended_text_formatter<Pol_arr> Pol_text_formatter;
+        typedef CGAL::Arr_face_extended_text_formatter<Pol_arr>           Pol_text_formatter;
         typedef CGAL::Arr_with_history_text_formatter<Pol_text_formatter> ArrFormatter;
         ArrFormatter arrFormatter;
         CGAL::write( *pol, ofs, arrFormatter );
@@ -788,7 +790,7 @@ void QArrangementLabellingWindow::on_actionOpenProject_triggered()
         // If so, we can really open the project
         // The project will be opened in a new tab
         QArrangementLabellingTabBase *projectTab =  makeTab( POLYLINE_TRAITS );
-        _ui->tabWidget->setTabText(_lastTabIndex, projectName);
+        // TODO: set tab name based on project name ...
         // Load input image
         doLoadImage(projectInputImage);
         // Load arrangement
@@ -958,7 +960,7 @@ void QArrangementLabellingWindow::updateToolBarButtonsEnable(bool enable)
     _ui->actionMerge->setEnabled(enable);
     _ui->actionSplit->setEnabled(enable);
     _ui->actionFill->setEnabled(enable);
-//     ui->actionFillColor->setEnabled(enable);
+//  _   ui->actionFillColor->setEnabled(enable);
     _ui->actionDrag->setEnabled(enable);
     _ui->actionZoomIn->setEnabled(enable);
     _ui->actionZoomOut->setEnabled(enable);
@@ -1061,7 +1063,7 @@ void QArrangementLabellingWindow::on_actionClean_triggered()
                 curr++;
                 if(pol->are_mergeable(first,curr))
                 {
-                    QArrangementLabellingLogWidget::instance()->logTrace(tr("Merging edges."));   
+                    QArrangementLabellingLogWidget::instance()->logTrace(tr("Merging edges."));
                     pol->merge_edge(first,curr);
                 }
             }
