@@ -797,6 +797,7 @@ void QArrangementLabellingWindow::on_actionOpenProject_triggered()
         openArrFile(projectArrangement);
         // Set labels definition
         QArrangementLabellingWidget::instance()->setLabelsPath( projectLabelsDefinition );
+        _ui->tabWidget->setTabText(_ui->tabWidget->count()-1, projectName);
 
         _loggerWidget->logInfo( tr("Labelling project ") + projectFilename + tr(" loaded") );
     }
