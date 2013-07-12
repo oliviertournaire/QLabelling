@@ -30,20 +30,21 @@ An attribute describing the policy for deleting curves from the arrangement.
 class DeleteCurveMode
 {
 public:
-    enum Mode {
+    enum Mode
+    {
         DELETE_CURVE,
         DELETE_EDGE
     };
 
-    DeleteCurveMode( );
-    DeleteCurveMode( const DeleteCurveMode& dcm );
-    DeleteCurveMode( Mode mode );
-    ~DeleteCurveMode( );
+    DeleteCurveMode() : m_mode( DELETE_EDGE ) {}
+    DeleteCurveMode( const DeleteCurveMode& dcm ) : m_mode( dcm.mode( ) ) {}
+    DeleteCurveMode( Mode mode ) : m_mode( mode ) {}
+    ~DeleteCurveMode() {}
 
-    Mode mode( ) const;
-    void setMode( Mode mode );
+    inline Mode mode() const { return m_mode; }
+    inline void setMode( Mode mode ) { m_mode = mode; }
 
-    static QString ToString( const DeleteCurveMode& mode );
+    static QString ToString( const DeleteCurveMode& mode ) { return ( mode.mode( ) == DELETE_CURVE ) ? QObject::tr("Delete Curve") : QObject::tr("Delete Edge"); }
 
 protected:
     Mode m_mode;
