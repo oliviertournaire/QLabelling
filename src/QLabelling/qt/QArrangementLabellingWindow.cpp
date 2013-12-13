@@ -47,8 +47,6 @@
 #include "config.hpp"
 #include "QArrangementLabellingSaveProjectDialog.h"
 
-#include "ui_QArrangementLabellingWindow.h"
-
 QArrangementLabellingWindow::QArrangementLabellingWindow(QWidget* parent) :
 CGAL::Qt::DemosMainWindow( parent ),
     _lastTabIndex(static_cast<unsigned int>(-1)),

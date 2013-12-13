@@ -35,7 +35,7 @@
 
 #include <QSettings>
 
-namespace Ui { class QArrangementLabellingWindow; }
+#include "ui_QArrangementLabellingWindow.h"
 
 class QActionGroup;
 
