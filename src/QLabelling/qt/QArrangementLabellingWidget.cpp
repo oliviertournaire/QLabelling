@@ -152,6 +152,14 @@ const QString QArrangementLabellingWidget::Color2Label(const QColor color) const
     return QLABELLING_UNKNOW_LABEL_STRING;
 }
 
+const QColor QArrangementLabellingWidget::Label2Color(const QString label) const
+{
+    for(unsigned int i=0;i<_labelItems.size();++i)
+        if ( _labelItems[i]->labelName() == label )
+            return _labelItems[i]->labelColor();
+    return QLABELLING_UNKNOW_LABEL_BRUSH_COLOR;
+}
+
 void QArrangementLabellingWidget::on__toolButtonChooseLabelsPath_clicked(bool checked)
 {
     _labelsPath = QFileDialog::getOpenFileName(this, tr("Open label file"), "", tr("Label Files (*.txt);;All files (*.*)"));

@@ -25,6 +25,7 @@ public:
     void setNumIsolatedVertices(const int &numIsolatedVertices);
     void setNumVerticesAtInfinity(const int &numVerticesAtInfinity);
     void setChanged(const bool &changed);
+    void setFaceLabel(QString t);
     void reset();
     
 private:

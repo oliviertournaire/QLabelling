@@ -34,6 +34,7 @@
 
 #include "Utils.h"
 #include "QArrangementLabellingWidget.h"
+#include "QArrangementLabellingInfoWidget.h"
 #include "QLabelItem.hpp"
 
 class FillFaceCallbackBase : public CGAL::Qt::Callback
@@ -91,6 +92,8 @@ protected:
     void mouseMoveEvent( QGraphicsSceneMouseEvent *event );
 
     void fillFace( QGraphicsSceneMouseEvent* event );
+    void infoFace( QGraphicsSceneMouseEvent* event);
+
 
     Face_const_handle getFace( const CGAL::Object& o );
     CGAL::Object locate( const Kernel_point_2& point );
@@ -122,12 +125,19 @@ void FillFaceCallback<Arr_>::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     this->fillFace( event );
     emit modelChanged( );
+
+
 }
 
+//WIP debut
 template < class Arr_ >
-void 
-FillFaceCallback< Arr_ >::mouseMoveEvent(QGraphicsSceneMouseEvent* /* event */)
-{ }
+void
+FillFaceCallback< Arr_ >::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+{
+    this->infoFace( event );
+    emit modelChanged( );
+}
+//WIP fin
 
 template < class Arr_ >
 void 
@@ -146,7 +156,31 @@ fillFace( QGraphicsSceneMouseEvent* event )
         f->data().set_label( QArrangementLabellingWidget::instance()->Color2Label(this->fillColor));
     }
 }
+//debut de WIP
+template < class Arr_ >
+void
+FillFaceCallback< Arr_ >::
+infoFace(QGraphicsSceneMouseEvent* event)
+{
+    Kernel_point_2 point = this->convert( event->scenePos( ) );
+    CGAL::Object pointLocationResult = this->locate( point );
+    Face_const_handle face = this->getFace( pointLocationResult );
+    Face_handle f = this->arr->non_const_handle( face );
 
+    QArrangementLabellingInfoWidget::instance()->setFaceLabel(f->data().label());
+//    this->fillColor = QArrangementLabellingWidget::instance()->findActiveLabelItem()->labelColor();
+//    if ( this->fillColor.isValid( ) )
+//    {
+//        f->data().set_color( this->fillColor );
+//        f->data().set_label( QArrangementLabellingWidget::instance()->Color2Label(this->fillColor));
+//    }
+}
+
+
+
+
+
+//fin de WIP
 template < class Arr_ >
 typename FillFaceCallback< Arr_ >::Face_const_handle
 FillFaceCallback< Arr_ >::getFace( const CGAL::Object& obj )

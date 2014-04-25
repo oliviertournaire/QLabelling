@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>245</width>
-    <height>190</height>
+    <height>300</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -25,14 +25,14 @@
   <property name="maximumSize">
    <size>
     <width>16777215</width>
-    <height>190</height>
+    <height>300</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Arrangement info</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../rc/QArrangementLabelling.qrc">
+   <iconset>
     <normaloff>:/dialog-information.png</normaloff>:/dialog-information.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -78,10 +78,15 @@
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QLabel" name="_labelCurrentFaceLabel">
+     <property name="text">
+      <string>current face label</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
- <resources>
-  <include location="../rc/QArrangementLabelling.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

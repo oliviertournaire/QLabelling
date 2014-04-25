@@ -33,6 +33,10 @@ void QArrangementLabellingInfoWidget::setNumIsolatedVertices(const int &numIsola
 {
     ui->_labelIsolatedVertices->setText( tr("%n isolated vertice(s)","",numIsolatedVertices ));
 }
+void QArrangementLabellingInfoWidget::setFaceLabel(QString t)
+{
+    ui->_labelCurrentFaceLabel->setText(t);
+}
 
 void QArrangementLabellingInfoWidget::setNumVerticesAtInfinity(const int &numVerticesAtInfinity)
 {

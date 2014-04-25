@@ -54,6 +54,7 @@ CGAL::Qt::DemosMainWindow( parent ),
     _loggerWidget(QArrangementLabellingLogWidget::instance()),
     _labellingWidget(QArrangementLabellingWidget::instance())
 {
+    setAttribute( Qt::WA_AlwaysShowToolTips);
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
     _labellingWidget->setLabelsPath(QLABELLING_DEFAULT_LABEL_PATH);
 

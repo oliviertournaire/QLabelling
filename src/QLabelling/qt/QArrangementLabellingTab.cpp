@@ -34,6 +34,7 @@ QArrangementLabellingTabBase::QArrangementLabellingTabBase( QWidget* parent ) :
     splitEdgeCallback( NULL ),
     fillFaceCallback( NULL )
 {
+    setAttribute( Qt::WA_AlwaysShowToolTips);
     this->setupUi( );
 }
 
@@ -90,3 +91,4 @@ FillFaceCallbackBase* QArrangementLabellingTabBase::getFillFaceCallback( ) const
 {
     return this->fillFaceCallback;
 }
+

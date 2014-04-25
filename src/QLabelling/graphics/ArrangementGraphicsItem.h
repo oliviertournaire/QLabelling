@@ -35,6 +35,7 @@
 #include "QArrangementLabellingLogWidget.h"
 #include "QArrangementLabellingInfoWidget.h"
 #include "QArrangementLabellingLogWidget.h"
+#include "QArrangementLabellingWidget.h"
 
 class QGraphicsScene;
 
@@ -300,9 +301,12 @@ protected:
             }
             else
             {
-                QColor faceColor = f->data().color();
-                faceColor.setAlpha(127);
-                painter->setBrush( faceColor );
+                QString faceLabel = f->data().label();
+                QColor labelColor = QArrangementLabellingWidget::instance()->Label2Color(faceLabel);
+                // Update face color wrt label name
+                f->data().set_color( labelColor );
+                labelColor.setAlpha(127);
+                painter->setBrush( labelColor );
             }
             painter->drawPolygon( pgn );
             painter->setBrush( oldBrush );
