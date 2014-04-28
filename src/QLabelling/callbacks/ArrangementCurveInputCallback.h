@@ -65,15 +65,19 @@ public:
 
     void processInput( CGAL::Object o )
     {
+        QArrangementLabellingLogWidget::instance()->logDebug(__FUNCTION__);
         Curve_2 curve;
         X_monotone_curve_2 xcurve;
+        QArrangementLabellingLogWidget::instance()->logDebug( tr("Trying to assign 'CGAL::Object' to 'Curve_2' ...") );
         if ( CGAL::assign( curve, o ) )
         {
             QArrangementLabellingLogWidget::instance()->logTrace(QObject::tr("Inserting object (%n vertices) into the arrangement.","",curve.points()));
 
             Arrangement_Observer<Arrangement> obs(*( this->arrangement ));
 
+            QArrangementLabellingLogWidget::instance()->logDebug( tr("Trying to insert curve into the arrangement ...") );
             CGAL::insert( *( this->arrangement ), curve );
+            QArrangementLabellingLogWidget::instance()->logDebug( tr("Curve inserted with success in the arrangement ...") );
 
             QString message(QObject::tr("Vertices of the arrangement :\n"));
             Vertex_iterator v;
@@ -88,9 +92,10 @@ public:
             }
             QArrangementLabellingLogWidget::instance()->logTrace(message);
         }
-        else{
+        else
+        {
             QArrangementLabellingLogWidget::instance()->logError(QObject::tr("Unable to add the element in the arrangement !"));
-	}
+	    }
 
         emit CGAL::Qt::GraphicsViewInput::modelChanged( );
     }
