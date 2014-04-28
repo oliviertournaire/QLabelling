@@ -55,12 +55,16 @@ public:
     virtual CGAL::Qt::Callback* getMergeEdgeCallback( ) const;
     virtual SplitEdgeCallbackBase* getSplitEdgeCallback( ) const;
     virtual FillFaceCallbackBase* getFillFaceCallback( ) const;
+    void FaceLabelToolTip ();
 
     bool _imageHasBeenLoaded;
     bool arrHasBeenSaved() { return !arrangementGraphicsItem->changed; };
     void setArrHasBeenSaved(bool saved) { arrangementGraphicsItem->changed = !saved; QArrangementLabellingInfoWidget::instance()->setChanged(!saved);  };
     bool _labelsHaveBeenSaved;
-
+    //WIP
+public slots:
+   void UpdateFaceLabel();
+   //WIP
 protected:
     virtual void setupUi( );
 
@@ -81,6 +85,7 @@ protected:
 template < class Arr_ >
 class QArrangementLabellingTab : public QArrangementLabellingTabBase
 {
+
 public:
     typedef QArrangementLabellingTabBase Superclass;
     typedef Arr_ Arrangement;
@@ -121,6 +126,10 @@ public:
                          SIGNAL(modelChanged()));
         QObject::connect(this, SIGNAL(modelChanged()),
                          this->arrangementGraphicsItem, SLOT(modelChanged()));
+        //WIP
+        QObject::connect(this, SIGNAL(modelChanged()),
+                         this, SLOT(UpdateFaceLabel()));
+        //WIP
         // TODO: Add a connection to update the demo window when the fill color
         //       changes
     }
@@ -172,12 +181,12 @@ public:
                          SIGNAL(modelChanged()));
         QObject::connect(this, SIGNAL(modelChanged()),
                          this->arrangementGraphicsItem, SLOT(modelChanged()));
+
         // TODO: Add a connection to update the demo window when the fill color
         //       changes
 
         emit modelChanged( );
     }
-
 protected:
     Arrangement* arrangement;
 

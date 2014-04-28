@@ -44,7 +44,13 @@ void QArrangementLabellingTabBase::setupUi( )
     this->graphicsView->setScene( this->scene );
     this->graphicsView->setMouseTracking( true );
 }
+//WIP
+void QArrangementLabellingTabBase::UpdateFaceLabel(){//DEF : Affiche une infobulle lorsque l'on passe sur une face de l'arrangement, avec son Label
+    setStyleSheet("QToolTip { color: white; background-color: #2a82da; border: 1px solid white; }");
+    setToolTip(QArrangementLabellingInfoWidget::instance()->FaceLabel());
+}
 
+//WIP
 QGraphicsScene* QArrangementLabellingTabBase::getScene( ) const
 {
     return this->scene;
@@ -91,4 +97,6 @@ FillFaceCallbackBase* QArrangementLabellingTabBase::getFillFaceCallback( ) const
 {
     return this->fillFaceCallback;
 }
-
+void QArrangementLabellingTabBase::FaceLabelToolTip(){
+    setToolTip(QArrangementLabellingInfoWidget::instance()->FaceLabel());
+}

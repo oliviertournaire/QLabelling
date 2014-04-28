@@ -139,7 +139,6 @@ QArrangementLabellingTabBase* QArrangementLabellingWindow::makeTab( TraitsType t
         updateMode( this->_ui->actionDrag );
     }
 
-    
     return demoTab;
 }
 
@@ -453,6 +452,7 @@ void QArrangementLabellingWindow::updateSnapping( QAction* newMode )
 
     QArrangementLabellingTabBase* activeTab =
         this->_tabs[ this->_ui->tabWidget->currentIndex( ) ];
+
     QGraphicsScene* activeScene = activeTab->getScene( );
     QArrangementLabellingGraphicsView* activeView = activeTab->getView( );
 

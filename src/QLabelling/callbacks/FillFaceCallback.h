@@ -37,6 +37,7 @@
 #include "QArrangementLabellingInfoWidget.h"
 #include "QLabelItem.hpp"
 
+
 class FillFaceCallbackBase : public CGAL::Qt::Callback
 {
 public:

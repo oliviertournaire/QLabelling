@@ -37,6 +37,14 @@ void QArrangementLabellingInfoWidget::setFaceLabel(QString t)
 {
     ui->_labelCurrentFaceLabel->setText(t);
 }
+QString QArrangementLabellingInfoWidget::FaceLabel()
+{   QString t;
+    if (ui->_labelCurrentFaceLabel->text()==NULL)
+        t="";
+    else
+        t=ui->_labelCurrentFaceLabel->text();
+    return t;
+}
 
 void QArrangementLabellingInfoWidget::setNumVerticesAtInfinity(const int &numVerticesAtInfinity)
 {

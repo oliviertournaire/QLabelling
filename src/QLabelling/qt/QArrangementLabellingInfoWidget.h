@@ -26,6 +26,7 @@ public:
     void setNumVerticesAtInfinity(const int &numVerticesAtInfinity);
     void setChanged(const bool &changed);
     void setFaceLabel(QString t);
+    QString FaceLabel();
     void reset();
     
 private:
