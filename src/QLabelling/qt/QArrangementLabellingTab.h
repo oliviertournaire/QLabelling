@@ -22,16 +22,20 @@
 
 #include <QWidget>
 
-#include "QArrangementLabellingGraphicsView.h"
-#include "ArrangementGraphicsItem.h"
-#include "ArrangementCurveInputCallback.h"
-#include "DeleteCurveCallback.h"
-#include "PointLocationCallback.h"
-#include "MergeEdgeCallback.h"
-#include "SplitEdgeCallback.h"
-#include "FillFaceCallback.h"
-
 class QGridLayout;
+class QGraphicsScene;
+
+class QArrangementLabellingGraphicsView;
+class SplitEdgeCallbackBase;
+class FillFaceCallbackBase;
+
+namespace CGAL {
+    namespace Qt {
+        class ArrangementGraphicsItemBase;
+        class GraphicsViewCurveInputBase;
+        class Callback;
+    }
+}
 
 class QArrangementLabellingTabBase : public QWidget
 {
@@ -47,8 +51,7 @@ public:
     virtual QGraphicsScene* getScene( ) const;
     virtual QArrangementLabellingGraphicsView* getView( ) const;
 
-    virtual CGAL::Qt::ArrangementGraphicsItemBase* getArrangementGraphicsItem( )
-    const;
+    virtual CGAL::Qt::ArrangementGraphicsItemBase* getArrangementGraphicsItem( ) const;
     virtual CGAL::Qt::GraphicsViewCurveInputBase* getCurveInputCallback( ) const;
     virtual CGAL::Qt::Callback* getDeleteCurveCallback( ) const;
     virtual CGAL::Qt::Callback* getPointLocationCallback( ) const;
@@ -58,8 +61,8 @@ public:
     void FaceLabelToolTip ();
 
     bool _imageHasBeenLoaded;
-    bool arrHasBeenSaved() { return !arrangementGraphicsItem->changed; };
-    void setArrHasBeenSaved(bool saved) { arrangementGraphicsItem->changed = !saved; QArrangementLabellingInfoWidget::instance()->setChanged(!saved);  };
+    bool arrHasBeenSaved();
+    void setArrHasBeenSaved(bool saved);
     bool _labelsHaveBeenSaved;
     //WIP
 public slots:

@@ -38,15 +38,17 @@
 #include "ArrangementTypes.h"
 #include "QArrangementLabellingOverlayDialog.h"
 #include "QArrangementLabellingPropertiesDialog.h"
+#include "QArrangementLabellingSaveProjectDialog.h"
+#include "QArrangementLabellingGraphicsView.h"
 #include "QArrangementLabellingTab.h"
-#include "DeleteCurveMode.h"
 #include "ArrangementGraphicsItem.h"
 #include "QArrangementLabellingLogWidget.h"
 #include "QArrangementLabellingWidget.h"
 #include "QArrangementLabellingInfoWidget.h"
-#include "config.hpp"
-#include "QArrangementLabellingSaveProjectDialog.h"
 #include "ArrangementCurveInputCallback.h"
+#include "FillFaceCallback.h"
+#include "DeleteCurveMode.h"
+#include "config.hpp"
 
 QArrangementLabellingWindow::QArrangementLabellingWindow(QWidget* parent) :
 CGAL::Qt::DemosMainWindow( parent ),

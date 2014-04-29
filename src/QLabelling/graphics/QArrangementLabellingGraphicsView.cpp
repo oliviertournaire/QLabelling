@@ -25,6 +25,7 @@
 #include "ArrangementTypes.h"
 
 #include "QArrangementLabellingLogWidget.h"
+#include "ArrangementCurveInputCallback.h"
 #include "config.hpp"
 
 QArrangementLabellingGraphicsView::QArrangementLabellingGraphicsView( QWidget* parent ) :
