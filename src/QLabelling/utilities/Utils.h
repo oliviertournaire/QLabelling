@@ -487,7 +487,6 @@ public:
         return this->snapPoint( event, ArrTraits( ) );
     }
 
-    // TODO: handle snapping distance wrt the parameter
     template < class TTraits >
     Point_2 snapPoint(QGraphicsSceneMouseEvent* event, TTraits /* traits */)
     {
@@ -499,7 +498,7 @@ public:
             return Point_2( CGAL::to_double(res.x( )), CGAL::to_double(res.y()) );
         }
 
-        qreal d( this->_gridSize / 2.0 );
+        qreal d( _snappingDistance );
         int left = int( viewportRect.left( ) ) - (int( viewportRect.left( ) ) % this->_gridSize);
         int right = int( viewportRect.right( ) ) + (this->_gridSize - int( viewportRect.right( ) ) % this->_gridSize);
         int x = int(clickedPoint.x( ));
