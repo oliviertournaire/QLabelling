@@ -31,15 +31,12 @@ PropertyValueDelegate::PropertyValueDelegate( QObject* parent ):
     QItemDelegate( parent )
 { 
     QItemEditorFactory* factory = new QItemEditorFactory;
-    QItemEditorCreatorBase* creator =
-            new QStandardItemEditorCreator< PositiveSpinBox >( );
+    QItemEditorCreatorBase* creator = new QStandardItemEditorCreator< PositiveSpinBox >( );
     factory->registerEditor( QVariant::UInt, creator );
     this->setItemEditorFactory( factory );
 }
 
-QWidget* PropertyValueDelegate::
-createEditor( QWidget* parent, const QStyleOptionViewItem& option,
-              const QModelIndex& index ) const
+QWidget* PropertyValueDelegate::createEditor( QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index ) const
 {
     QWidget* editor;
     QVariant myData = index.data( Qt::UserRole );
@@ -54,13 +51,12 @@ createEditor( QWidget* parent, const QStyleOptionViewItem& option,
     }
     else*/ if ( qVariantCanConvert< DeleteCurveMode >( myData ) )
     {
-        DeleteCurveModeItemEditor* modeEditor =
-                new DeleteCurveModeItemEditor( parent );
+        DeleteCurveModeItemEditor* modeEditor = new DeleteCurveModeItemEditor( parent );
         modeEditor->setMode( qVariantValue< DeleteCurveMode >( myData ) );
         editor = modeEditor;
 
-        QObject::connect( modeEditor, SIGNAL( currentIndexChanged( int ) ), this,
-                          SLOT( commit( ) ) );
+        QObject::connect( modeEditor, SIGNAL( currentIndexChanged( int ) ),
+                          this,       SLOT( commit( ) ) );
     }
     else
     { // default handler
@@ -128,6 +124,7 @@ PositiveSpinBox::PositiveSpinBox( QWidget* parent ) :
     QSpinBox( parent )
 {
     this->setMinimum( 1 );
+    this->setMaximum(200);
 }
 
 void PositiveSpinBox::setValue( unsigned int val )

@@ -21,6 +21,15 @@
 
 #include <QGridLayout>
 
+#include "QArrangementLabellingGraphicsView.h"
+#include "ArrangementGraphicsItem.h"
+#include "ArrangementCurveInputCallback.h"
+#include "DeleteCurveCallback.h"
+#include "PointLocationCallback.h"
+#include "MergeEdgeCallback.h"
+#include "SplitEdgeCallback.h"
+#include "FillFaceCallback.h"
+
 QArrangementLabellingTabBase::QArrangementLabellingTabBase( QWidget* parent ) :
     QWidget( parent ),
     graphicsView( new QArrangementLabellingGraphicsView( this ) ),
@@ -99,4 +108,14 @@ FillFaceCallbackBase* QArrangementLabellingTabBase::getFillFaceCallback( ) const
 }
 void QArrangementLabellingTabBase::FaceLabelToolTip(){
     setToolTip(QArrangementLabellingInfoWidget::instance()->FaceLabel());
+}
+
+bool QArrangementLabellingTabBase::arrHasBeenSaved()
+{
+    return !arrangementGraphicsItem->changed;
+}
+
+void QArrangementLabellingTabBase::setArrHasBeenSaved( bool saved )
+{
+    arrangementGraphicsItem->changed = !saved; QArrangementLabellingInfoWidget::instance()->setChanged(!saved);
 }

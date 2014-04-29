@@ -36,8 +36,7 @@
 #include "QArrangementLabellingLogWidget.h"
 
 template <typename Arr_, typename ArrTraits = typename Arr_::Geometry_traits_2>
-class ArrangementCurveInputCallback:
-    public CGAL::Qt::GraphicsViewCurveInput< typename Arr_::Geometry_traits_2 >
+class ArrangementCurveInputCallback: public CGAL::Qt::GraphicsViewCurveInput< typename Arr_::Geometry_traits_2 >
 {
 public:
     typedef Arr_ Arrangement;
@@ -53,32 +52,39 @@ public:
     typedef typename Kernel::Segment_2                    Segment_2;
     typedef typename Kernel::FT                           FT;
 
-    ArrangementCurveInputCallback( Arrangement* arrangement_, QObject* parent ):
+    ArrangementCurveInputCallback( Arrangement* arrangement, QObject* parent):
     Superclass( parent ),
-        arrangement( arrangement_ )
+    _arrangement( arrangement )
     {
-        this->snapToVertexStrategy.setArrangement( arrangement_ );
+        this->_snapToVertexStrategy.setArrangement( arrangement );
 
-        QObject::connect( this, SIGNAL( generate( CGAL::Object ) ),
-            this, SLOT( processInput( CGAL::Object ) ) );
+        QObject::connect( this, SIGNAL( generate    ( CGAL::Object ) ),
+                          this, SLOT  ( processInput( CGAL::Object ) ) );
     }
 
-    void processInput( CGAL::Object o )
+    const unsigned int gridSnappingDistance() const       { return this->_snapToGridStrategy.snappingDistance();   }
+    void gridSnappingDistance(const unsigned int value)   { this->_snapToGridStrategy.snappingDistance(value);     }
+    const unsigned int vertexSnappingDistance() const     { return this->_snapToVertexStrategy.snappingDistance(); }
+    void vertexSnappingDistance(const unsigned int value) { this->_snapToVertexStrategy.snappingDistance(value);   }
+
+    void processInput( CGAL::Object inputObject )
     {
         Curve_2 curve;
-        X_monotone_curve_2 xcurve;
-        if ( CGAL::assign( curve, o ) )
+        QArrangementLabellingLogWidget::instance()->logDebug( tr("Trying to assign 'CGAL::Object' to 'Curve_2' ...") );
+        if ( CGAL::assign( curve, inputObject ) )
         {
             QArrangementLabellingLogWidget::instance()->logTrace(QObject::tr("Inserting object (%n vertices) into the arrangement.","",curve.points()));
 
-            Arrangement_Observer<Arrangement> obs(*( this->arrangement ));
+            Arrangement_Observer<Arrangement> obs(*( this->_arrangement ));
 
-            CGAL::insert( *( this->arrangement ), curve );
+            QArrangementLabellingLogWidget::instance()->logDebug( tr("Trying to insert curve into the arrangement ...") );
+            CGAL::insert( *( this->_arrangement ), curve );
+            QArrangementLabellingLogWidget::instance()->logDebug( tr("Curve inserted with success in the arrangement ...") );
 
             QString message(QObject::tr("Vertices of the arrangement :\n"));
             Vertex_iterator v;
             int index;
-            for (v = this->arrangement->vertices_begin(), index=0 ; v != this->arrangement->vertices_end(); ++v, ++index)
+            for (v = this->_arrangement->vertices_begin(), index=0 ; v != this->_arrangement->vertices_end(); ++v, ++index)
             {
                 message = message + QObject::tr("\t* Found vertex #%n : (","",index);
                 message += QString::number(CGAL::to_double(v->point().x()));
@@ -88,9 +94,10 @@ public:
             }
             QArrangementLabellingLogWidget::instance()->logTrace(message);
         }
-        else{
+        else
+        {
             QArrangementLabellingLogWidget::instance()->logError(QObject::tr("Unable to add the element in the arrangement !"));
-	}
+	    }
 
         emit CGAL::Qt::GraphicsViewInput::modelChanged( );
     }
@@ -98,38 +105,38 @@ public:
     void setScene( QGraphicsScene* scene )
     {
         this->Superclass::setScene( scene );
-        this->snapToVertexStrategy.setScene( scene );
-        this->snapToGridStrategy.setScene( scene );
+        this->_snapToVertexStrategy.setScene( scene );
+        this->_snapToGridStrategy.setScene( scene );
     }
 
-    void setArrangement( Arrangement* newArr )
+    void setArrangement( Arrangement* arrangement )
     {
-        this->arrangement = newArr;
+        this->_arrangement = arrangement;
     }
 
 protected:
     Point_2 snapPoint( QGraphicsSceneMouseEvent* event )
     {
-        if ( this->snapToGridEnabled )
+        if ( this->_snapToGridEnabled )
         {
-            return this->snapToGridStrategy.snapPoint( event );
+            return this->_snapToGridStrategy.snapPoint( event );
         }
-        else if ( this->snappingEnabled )
+        else if ( this->_snappingEnabled )
         {
-            return this->snapToVertexStrategy.snapPoint( event );
+            return this->_snapToVertexStrategy.snapPoint( event );
         }
         else
         {
-            Kernel_point_2 p = this->convert( event->scenePos( ) );
-            Point_2 res = this->toArrPoint( p );
+            Kernel_point_2 p = this->_converter( event->scenePos( ) );
+            Point_2 res = this->_toArrPoint( p );
             return res;
         }
     }
 
-    Arrangement* arrangement;
-    SnapToArrangementVertexStrategy< Arrangement > snapToVertexStrategy;
-    SnapToGridStrategy< typename Arrangement::Geometry_traits_2 > snapToGridStrategy;
-    Arr_construct_point_2< Traits > toArrPoint;
+    Arrangement* _arrangement;
+    SnapToArrangementVertexStrategy< Arrangement > _snapToVertexStrategy;
+    SnapToGridStrategy< typename Arrangement::Geometry_traits_2 > _snapToGridStrategy;
+    Arr_construct_point_2< Traits > _toArrPoint;
 }; // class ArrangementCurveInputCallback
 
 #endif // ARRANGEMENT_SEGMENT_INPUT_CALLBACK_H

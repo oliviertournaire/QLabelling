@@ -38,14 +38,17 @@
 #include "ArrangementTypes.h"
 #include "QArrangementLabellingOverlayDialog.h"
 #include "QArrangementLabellingPropertiesDialog.h"
+#include "QArrangementLabellingSaveProjectDialog.h"
+#include "QArrangementLabellingGraphicsView.h"
 #include "QArrangementLabellingTab.h"
-#include "DeleteCurveMode.h"
 #include "ArrangementGraphicsItem.h"
 #include "QArrangementLabellingLogWidget.h"
 #include "QArrangementLabellingWidget.h"
 #include "QArrangementLabellingInfoWidget.h"
+#include "ArrangementCurveInputCallback.h"
+#include "FillFaceCallback.h"
+#include "DeleteCurveMode.h"
 #include "config.hpp"
-#include "QArrangementLabellingSaveProjectDialog.h"
 
 QArrangementLabellingWindow::QArrangementLabellingWindow(QWidget* parent) :
 CGAL::Qt::DemosMainWindow( parent ),
@@ -236,19 +239,19 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
     // hook up the new active mode
     if ( newMode == this->_ui->actionInsert )
     {
-	activeTab->getCurveInputCallback( )->mode = POLYLINE;
+	activeTab->getCurveInputCallback( )->_mode = POLYLINE;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion mode");
     }
     else if ( newMode == this->_ui->actionInsert_horizontal_line  )
     {
-	activeTab->getCurveInputCallback( )->mode = HORIZONTAL;
+	activeTab->getCurveInputCallback( )->_mode = HORIZONTAL;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion (horizontal) mode");
     }
     else if ( newMode == this->_ui->actionInsert_vertical_line )
     {
-	activeTab->getCurveInputCallback( )->mode = VERTICAL;
+	activeTab->getCurveInputCallback( )->_mode = VERTICAL;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion (vertical) mode");
     }
@@ -662,23 +665,28 @@ void QArrangementLabellingWindow::on_actionPreferences_triggered( )
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     unsigned int currentTabIndex = this->_ui->tabWidget->currentIndex( );
-    if (currentTabIndex == static_cast<unsigned int>(-1)) return;
+    if (currentTabIndex == static_cast<unsigned int>(-1))
+        return;
+
     QArrangementLabellingTabBase* currentTab = this->_tabs[ currentTabIndex ];
     CGAL::Qt::ArrangementGraphicsItemBase* agi = currentTab->getArrangementGraphicsItem( );
     QArrangementLabellingGraphicsView* view = currentTab->getView( );
     SplitEdgeCallbackBase* splitEdgeCallback = currentTab->getSplitEdgeCallback( );
+    CGAL::Qt::GraphicsViewCurveInputBase* viewCurveInputBase = currentTab->getCurveInputCallback();
 
     QArrangementLabellingPropertiesDialog* dialog = new QArrangementLabellingPropertiesDialog( this );
     if ( dialog->exec( ) == QDialog::Accepted )
     {
         typedef QArrangementLabellingPropertiesDialog Dialog;
-        QColor edgeColor          = qVariantValue<QColor>(dialog->property(Dialog::EDGE_COLOR_KEY));
-        unsigned int edgeWidth    = qVariantValue<unsigned int>(dialog->property(Dialog::EDGE_WIDTH_KEY));
-        QColor vertexColor        = qVariantValue<QColor>(dialog->property(Dialog::VERTEX_COLOR_KEY));
-        unsigned int vertexRadius = qVariantValue<unsigned int>(dialog->property(Dialog::VERTEX_RADIUS_KEY));
-        DeleteCurveMode mode      = qVariantValue<DeleteCurveMode>(dialog->property(Dialog::DELETE_CURVE_MODE_KEY));
-        unsigned int gridSize     = qVariantValue<unsigned int>(dialog->property(Dialog::GRID_SIZE_KEY));
-        QColor gridColor          = qVariantValue<QColor>(dialog->property(Dialog::GRID_COLOR_KEY));
+        QColor edgeColor                    = qVariantValue<QColor>(dialog->property(Dialog::EDGE_COLOR_KEY));
+        unsigned int edgeWidth              = qVariantValue<unsigned int>(dialog->property(Dialog::EDGE_WIDTH_KEY));
+        QColor vertexColor                  = qVariantValue<QColor>(dialog->property(Dialog::VERTEX_COLOR_KEY));
+        unsigned int vertexRadius           = qVariantValue<unsigned int>(dialog->property(Dialog::VERTEX_RADIUS_KEY));
+        DeleteCurveMode mode                = qVariantValue<DeleteCurveMode>(dialog->property(Dialog::DELETE_CURVE_MODE_KEY));
+        unsigned int gridSize               = qVariantValue<unsigned int>(dialog->property(Dialog::GRID_SIZE_KEY));
+        QColor gridColor                    = qVariantValue<QColor>(dialog->property(Dialog::GRID_COLOR_KEY));
+        unsigned int gridSnappingDistance   = qVariantValue<unsigned int>(dialog->property(Dialog::GRID_SNAPPING_DISTANCE));
+        unsigned int vertexSnappingDistance = qVariantValue<unsigned int>(dialog->property(Dialog::VERTEX_SNAPPING_DISTANCE));
 
         QPen edgesPen(QBrush(edgeColor), edgeWidth);
         QPen verticesPen(QBrush(vertexColor), vertexRadius);
@@ -688,6 +696,17 @@ void QArrangementLabellingWindow::on_actionPreferences_triggered( )
         view->setGridSize( gridSize );
         view->setGridColor( gridColor );
         splitEdgeCallback->setColor( edgeColor );
+
+        // Set snapping distances
+        ArrangementCurveInputCallback<Pol_arr>* arrangementCurveInputCB = dynamic_cast< ArrangementCurveInputCallback<Pol_arr>* >(viewCurveInputBase);
+        if(arrangementCurveInputCB)
+        {
+            arrangementCurveInputCB->gridSnappingDistance(gridSnappingDistance);
+            arrangementCurveInputCB->vertexSnappingDistance(vertexSnappingDistance);
+
+            view->setGridSnappingDistance(gridSnappingDistance);
+            view->setVertexSnappingDistance(vertexSnappingDistance);
+        }
     }
 }
 
