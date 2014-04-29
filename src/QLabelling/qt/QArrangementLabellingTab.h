@@ -168,13 +168,13 @@ public:
         this->fillFaceCallback->setScene( this->scene );
 
         this->scene->installEventFilter(this->curveInputCallback);
-        QObject::connect(this->curveInputCallback, SIGNAL(modelChanged()), this,
-                         SIGNAL(modelChanged()));
-        QObject::connect(this->deleteCurveCallback, SIGNAL(modelChanged()), this,
-                         SIGNAL(modelChanged()));
-        QObject::connect(this->fillFaceCallback, SIGNAL(modelChanged()), this,
-                         SIGNAL(modelChanged()));
-        QObject::connect(this, SIGNAL(modelChanged()),
+        QObject::connect(this->curveInputCallback, SIGNAL(modelChanged()),
+                         this,                     SLOT  (modelChanged()));
+        QObject::connect(this->deleteCurveCallback, SIGNAL(modelChanged()),
+                         this,                      SLOT  (modelChanged()));
+        QObject::connect(this->fillFaceCallback, SIGNAL(modelChanged()),
+                         this,                   SLOT  (modelChanged()));
+        QObject::connect(this,                          SIGNAL(modelChanged()),
                          this->arrangementGraphicsItem, SLOT(modelChanged()));
 
         // TODO: Add a connection to update the demo window when the fill color
