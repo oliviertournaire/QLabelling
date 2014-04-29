@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>451</width>
-    <height>313</height>
+    <width>539</width>
+    <height>346</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -69,7 +69,12 @@
      </row>
      <row>
       <property name="text">
-       <string>Snapping distance</string>
+       <string>Grid Snapping distance</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>Vertex snapping distance</string>
       </property>
      </row>
      <column>

@@ -487,6 +487,7 @@ public:
         return this->snapPoint( event, ArrTraits( ) );
     }
 
+    // TODO: handle snapping distance wrt the parameter
     template < class TTraits >
     Point_2 snapPoint(QGraphicsSceneMouseEvent* event, TTraits /* traits */)
     {

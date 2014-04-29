@@ -40,8 +40,10 @@ public:
     inline QColor gridColor() const                     { return _gridColor;         }
     inline void setBackgroundColor(const QColor &color) { _backgroundColor = color;  }
     inline QColor backgroundColor() const               { return _backgroundColor;   }
-    inline void setSnappingDistance(unsigned int value) { _snappingDistance = value; }
-    inline unsigned int snappingDistance() const        { return _snappingDistance;  }
+    inline void setGridSnappingDistance(unsigned int value) { _gridSnappingDistance = value; }
+    inline unsigned int gridSnappingDistance() const        { return _gridSnappingDistance;  }
+    inline void setVertexSnappingDistance(unsigned int value) { _vertexSnappingDistance = value; }
+    inline unsigned int vertexSnappingDistance() const        { return _vertexSnappingDistance;  }
 
     inline const QString imageToLabelFilename() const                     { return _imageToLabelFilename; }
     inline void          setImageToLabelFilename(const QString &filename) { _imageToLabelFilename = filename; }
@@ -73,7 +75,8 @@ protected:
     int _gridSize;
     QColor _gridColor;
     QColor _backgroundColor;
-    unsigned int _snappingDistance;
+    unsigned int _gridSnappingDistance;
+    unsigned int _vertexSnappingDistance;
 
     /// Filename of the current image to label
     QString _imageToLabelFilename;

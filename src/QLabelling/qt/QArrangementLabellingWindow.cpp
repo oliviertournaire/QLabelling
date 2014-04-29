@@ -675,14 +675,15 @@ void QArrangementLabellingWindow::on_actionPreferences_triggered( )
     if ( dialog->exec( ) == QDialog::Accepted )
     {
         typedef QArrangementLabellingPropertiesDialog Dialog;
-        QColor edgeColor              = qVariantValue<QColor>(dialog->property(Dialog::EDGE_COLOR_KEY));
-        unsigned int edgeWidth        = qVariantValue<unsigned int>(dialog->property(Dialog::EDGE_WIDTH_KEY));
-        QColor vertexColor            = qVariantValue<QColor>(dialog->property(Dialog::VERTEX_COLOR_KEY));
-        unsigned int vertexRadius     = qVariantValue<unsigned int>(dialog->property(Dialog::VERTEX_RADIUS_KEY));
-        DeleteCurveMode mode          = qVariantValue<DeleteCurveMode>(dialog->property(Dialog::DELETE_CURVE_MODE_KEY));
-        unsigned int gridSize         = qVariantValue<unsigned int>(dialog->property(Dialog::GRID_SIZE_KEY));
-        QColor gridColor              = qVariantValue<QColor>(dialog->property(Dialog::GRID_COLOR_KEY));
-        unsigned int snappingDistance = qVariantValue<unsigned int>(dialog->property(Dialog::SNAPPING_DISTANCE));
+        QColor edgeColor                    = qVariantValue<QColor>(dialog->property(Dialog::EDGE_COLOR_KEY));
+        unsigned int edgeWidth              = qVariantValue<unsigned int>(dialog->property(Dialog::EDGE_WIDTH_KEY));
+        QColor vertexColor                  = qVariantValue<QColor>(dialog->property(Dialog::VERTEX_COLOR_KEY));
+        unsigned int vertexRadius           = qVariantValue<unsigned int>(dialog->property(Dialog::VERTEX_RADIUS_KEY));
+        DeleteCurveMode mode                = qVariantValue<DeleteCurveMode>(dialog->property(Dialog::DELETE_CURVE_MODE_KEY));
+        unsigned int gridSize               = qVariantValue<unsigned int>(dialog->property(Dialog::GRID_SIZE_KEY));
+        QColor gridColor                    = qVariantValue<QColor>(dialog->property(Dialog::GRID_COLOR_KEY));
+        unsigned int gridSnappingDistance   = qVariantValue<unsigned int>(dialog->property(Dialog::GRID_SNAPPING_DISTANCE));
+        unsigned int vertexSnappingDistance = qVariantValue<unsigned int>(dialog->property(Dialog::VERTEX_SNAPPING_DISTANCE));
 
         QPen edgesPen(QBrush(edgeColor), edgeWidth);
         QPen verticesPen(QBrush(vertexColor), vertexRadius);
@@ -693,15 +694,16 @@ void QArrangementLabellingWindow::on_actionPreferences_triggered( )
         view->setGridColor( gridColor );
         splitEdgeCallback->setColor( edgeColor );
 
-        // Set snapping distance
+        // Set snapping distances
         ArrangementCurveInputCallback<Pol_arr>* arrangementCurveInputCB = dynamic_cast< ArrangementCurveInputCallback<Pol_arr>* >(viewCurveInputBase);
         if(arrangementCurveInputCB)
         {
-            arrangementCurveInputCB->gridSnappingDistance(snappingDistance);
-            arrangementCurveInputCB->vertexSnappingDistance(snappingDistance);
-        }
+            arrangementCurveInputCB->gridSnappingDistance(gridSnappingDistance);
+            arrangementCurveInputCB->vertexSnappingDistance(vertexSnappingDistance);
 
-        view->setSnappingDistance(snappingDistance);
+            view->setGridSnappingDistance(gridSnappingDistance);
+            view->setVertexSnappingDistance(vertexSnappingDistance);
+        }
     }
 }
 

@@ -33,7 +33,8 @@ QArrangementLabellingGraphicsView::QArrangementLabellingGraphicsView( QWidget* p
     _gridSize( 50 ),
     _gridColor( ::Qt::black ),
     _backgroundColor( ::Qt::white ),
-    _snappingDistance(5)
+    _gridSnappingDistance(5),
+    _vertexSnappingDistance(5)
 {
     QMatrix m( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
     this->setMatrix( m );

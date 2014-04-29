@@ -75,7 +75,8 @@ void QArrangementLabellingPropertiesDialog::setupUi( )
     QTableWidgetItem* deleteCurveModeItem = new QTableWidgetItem;
     QTableWidgetItem* gridSizeItem = new QTableWidgetItem;
     QTableWidgetItem* gridColorItem = new QTableWidgetItem;
-    QTableWidgetItem* snappingDistanceItem = new QTableWidgetItem;
+    QTableWidgetItem* gridSnappingDistanceItem = new QTableWidgetItem;
+    QTableWidgetItem* vertexSnappingDistanceItem = new QTableWidgetItem;
 
     this->ui->tableWidget->setItem( int(EDGE_COLOR_KEY), 0, edgeColorItem );
     this->ui->tableWidget->setItem( int(VERTEX_COLOR_KEY), 0, vertexColorItem );
@@ -84,7 +85,8 @@ void QArrangementLabellingPropertiesDialog::setupUi( )
     this->ui->tableWidget->setItem( int(DELETE_CURVE_MODE_KEY), 0, deleteCurveModeItem );
     this->ui->tableWidget->setItem( int(GRID_SIZE_KEY), 0, gridSizeItem );
     this->ui->tableWidget->setItem( int(GRID_COLOR_KEY), 0, gridColorItem );
-    this->ui->tableWidget->setItem( int(SNAPPING_DISTANCE), 0, snappingDistanceItem );
+    this->ui->tableWidget->setItem( int(GRID_SNAPPING_DISTANCE), 0, gridSnappingDistanceItem );
+    this->ui->tableWidget->setItem( int(VERTEX_SNAPPING_DISTANCE), 0, vertexSnappingDistanceItem );
 
     // fill in the items with data
     this->updateUi( );
@@ -106,26 +108,28 @@ void QArrangementLabellingPropertiesDialog::updateUi( )
         return;
 
     QArrangementLabellingGraphicsView* view = currentTab->getView( );
-    QPen vertexPen                = agi->verticesPen( );
-    QPen edgePen                  = agi->edgesPen( );
-    QBrush vertexPenBrush         = vertexPen.brush( );
-    QBrush edgePenBrush           = edgePen.brush( );
-    QColor vertexColor            = vertexPenBrush.color( );
-    QColor edgeColor              = edgePenBrush.color( );
-    unsigned int edgeWidth        = edgePen.width( );
-    unsigned int vertexRadius     = vertexPen.width( );
-    unsigned int gridSize         = view->gridSize();
-    QColor gridColor              = view->gridColor();
-    unsigned int snappingDistance = view->snappingDistance();
+    QPen vertexPen                      = agi->verticesPen( );
+    QPen edgePen                        = agi->edgesPen( );
+    QBrush vertexPenBrush               = vertexPen.brush( );
+    QBrush edgePenBrush                 = edgePen.brush( );
+    QColor vertexColor                  = vertexPenBrush.color( );
+    QColor edgeColor                    = edgePenBrush.color( );
+    unsigned int edgeWidth              = edgePen.width( );
+    unsigned int vertexRadius           = vertexPen.width( );
+    unsigned int gridSize               = view->gridSize();
+    QColor gridColor                    = view->gridColor();
+    unsigned int gridSnappingDistance   = view->gridSnappingDistance();
+    unsigned int vertexSnappingDistance = view->vertexSnappingDistance();
     
-    QTableWidgetItem* edgeColorItem        = this->ui->tableWidget->item( int(EDGE_COLOR_KEY), 0 );
-    QTableWidgetItem* edgeWidthItem        = this->ui->tableWidget->item( int(EDGE_WIDTH_KEY), 0 );
-    QTableWidgetItem* vertexColorItem      = this->ui->tableWidget->item( int(VERTEX_COLOR_KEY), 0 );
-    QTableWidgetItem* vertexRadiusItem     = this->ui->tableWidget->item( int(VERTEX_RADIUS_KEY), 0 );
-    QTableWidgetItem* deleteCurveModeItem  = this->ui->tableWidget->item( int(DELETE_CURVE_MODE_KEY), 0 );
-    QTableWidgetItem* gridSizeItem         = this->ui->tableWidget->item( int(GRID_SIZE_KEY), 0 );
-    QTableWidgetItem* gridColorItem        = this->ui->tableWidget->item( int(GRID_COLOR_KEY), 0 );
-    QTableWidgetItem* snappingDistanceItem = this->ui->tableWidget->item( int(SNAPPING_DISTANCE), 0 );
+    QTableWidgetItem* edgeColorItem              = this->ui->tableWidget->item( int(EDGE_COLOR_KEY), 0 );
+    QTableWidgetItem* edgeWidthItem              = this->ui->tableWidget->item( int(EDGE_WIDTH_KEY), 0 );
+    QTableWidgetItem* vertexColorItem            = this->ui->tableWidget->item( int(VERTEX_COLOR_KEY), 0 );
+    QTableWidgetItem* vertexRadiusItem           = this->ui->tableWidget->item( int(VERTEX_RADIUS_KEY), 0 );
+    QTableWidgetItem* deleteCurveModeItem        = this->ui->tableWidget->item( int(DELETE_CURVE_MODE_KEY), 0 );
+    QTableWidgetItem* gridSizeItem               = this->ui->tableWidget->item( int(GRID_SIZE_KEY), 0 );
+    QTableWidgetItem* gridColorItem              = this->ui->tableWidget->item( int(GRID_COLOR_KEY), 0 );
+    QTableWidgetItem* gridSnappingDistanceItem   = this->ui->tableWidget->item( int(GRID_SNAPPING_DISTANCE), 0 );
+    QTableWidgetItem* vertexSnappingDistanceItem = this->ui->tableWidget->item( int(VERTEX_SNAPPING_DISTANCE), 0 );
 
     // arrangement properties
     edgeColorItem->setData( Qt::DisplayRole, edgeColor );
@@ -152,7 +156,10 @@ void QArrangementLabellingPropertiesDialog::updateUi( )
     gridColorItem->setData( Qt::UserRole, QVariant::fromValue( gridColor ) );
 
     // Snapping distance
-    snappingDistanceItem->setData( Qt::DisplayRole, snappingDistance );
-    snappingDistanceItem->setData( Qt::DecorationRole, snappingDistance );
-    snappingDistanceItem->setData( Qt::UserRole, snappingDistance );
+    gridSnappingDistanceItem->setData( Qt::DisplayRole, gridSnappingDistance );
+    gridSnappingDistanceItem->setData( Qt::DecorationRole, gridSnappingDistance );
+    gridSnappingDistanceItem->setData( Qt::UserRole, gridSnappingDistance );
+    vertexSnappingDistanceItem->setData( Qt::DisplayRole, vertexSnappingDistance );
+    vertexSnappingDistanceItem->setData( Qt::DecorationRole, vertexSnappingDistance );
+    vertexSnappingDistanceItem->setData( Qt::UserRole, vertexSnappingDistance );
 }
