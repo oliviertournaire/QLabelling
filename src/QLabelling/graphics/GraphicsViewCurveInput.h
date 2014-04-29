@@ -33,8 +33,39 @@
 #include "ISnappable.h"
 #include "PointsGraphicsItem.h"
 
+
+
+//WIP
+//class VanishingPoint : public Singleton<QArrangementLabellingWidget>{
+//public :
+//   CGAL::Arr_polyline_traits_2::Point_2 VanishingPoint(int nb) ;//trouve le point de fuite numéro nb
+//    virtual void SetVanishingPoint(int nb, CGAL::Arr_polyline_traits_2::Point_2 NewVanishingPoint ) ;//associe de nouvelle coordonnées au point de fuite nb
+//private:
+
+//    CGAL::Arrangement_with_history_2::Point_2* VanishingP; //liste des points de fuite
+//}
+
+// void VanishingPoint::SetVanishingPoint(int nb, CGAL::Arr_polyline_traits_2::Point_2 NewVanishingPoint ){
+//    if (nb>VanishingP->dimension()){
+//        CGAL::Point_2* VanishingPCopy=VanishingP;
+//        VanishingP=new CGAL::Point_2[nb];
+//        for(int i=0;i<nb-1;i++)
+//            VanishingP[i]=VanishingPCopy[i];
+//        VanishingP[nb-1]=NewVanishingPoint;
+//        delete [] VanishingPCopy;
+
+//    }
+//    else
+//        VanishingP[nb]=NewVanishingPoint;
+//}
+//CGAL::Point_2 VanishingPoint::VanishingPoint(int nb){
+//    return VanishingP[nb];
+
+//}
+
+//WIP
 enum InsertType {
-    POLYLINE, HORIZONTAL, VERTICAL
+    POLYLINE, HORIZONTAL, VERTICAL,DEFINE_VANISHING,USE_VANISHING
 };
     
 namespace CGAL {
@@ -221,6 +252,37 @@ protected:
 	    this->points.clear( );
 	    emit generate( CGAL::make_object( res ) );
 	}
+    //WIP
+//    else if ( mode == USE_VANISHING)
+//	{ // Tracer à l'aide du point de fuite
+//	    QRect size_imagetolabel(0,0,1000,1000);
+
+//	    QGraphicsScene* currentScene = this->_scene;
+//	    QList<QGraphicsItem*> allItems = currentScene->items();
+//	    for(int i=0;i<allItems.count();++i){
+//		if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+//		    size_imagetolabel = p->pixmap().rect();
+//	    }
+
+//	    QPointF pt = this->convert( clickedPoint );
+//        //Ici, il faut un moyen de stocker le point sous forme de singleton et de type compatiple avec les autres points
+//        //Ensuite, on calcul l'equation de la droite qui passe entre ce point et le point cliqué
+//        //f(x)=a*x+b
+//        //on trouve a=(y2-y1)/(x2-x1) et b=(x1y2-x2y1)/(x2-x1)
+//        //on réalise ensuite un test pour voir sur quelles bordures se trouve le point : on teste donc si f(0) est compris entre 0 et size_imagetolabel.height() :
+//        //si oui, on prend Point_2 g(0,(int)f(0));
+//        //si non, on calcul x pour y=0 => Point_2 g((int)-b/a,0)
+//        //Prévoir tous les risques avec un autre cas : hors cadre => on trace rien
+//        //On applique les mêmes étapes pour le second point
+//	    Point_2 g(0, (int) pt.y());
+//	    Point_2 d(size_imagetolabel.width(), (int) pt.y());
+//	    this->points.push_back( g );
+//	    this->points.push_back( d );
+//	    Curve_2 res( this->points.begin( ), this->points.end( ) );
+//	    this->points.clear( );
+//	    emit generate( CGAL::make_object( res ) );
+//	}
+    //WIP
     }
     // override this to snap to the points you like
     virtual Point_2 snapPoint( QGraphicsSceneMouseEvent* event )

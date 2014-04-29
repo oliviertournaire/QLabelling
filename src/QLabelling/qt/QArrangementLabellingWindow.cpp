@@ -221,6 +221,7 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
     const unsigned int TabIndex = this->_ui->tabWidget->currentIndex( );
     if (TabIndex == static_cast<unsigned int>(-1)) return;
     QArrangementLabellingTabBase* activeTab = this->_tabs[ TabIndex ];
+
     QGraphicsScene* activeScene = activeTab->getScene( );
     QGraphicsView* activeView = activeTab->getView( );
 

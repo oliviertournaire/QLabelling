@@ -305,7 +305,7 @@ protected:
                 QColor labelColor = QArrangementLabellingWidget::instance()->Label2Color(faceLabel);
                 // Update face color wrt label name
                 f->data().set_color( labelColor );
-                labelColor.setAlpha(127);
+                //labelColor.setAlpha(127);
                 painter->setBrush( labelColor );
             }
             painter->drawPolygon( pgn );
