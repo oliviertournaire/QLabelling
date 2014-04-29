@@ -36,8 +36,7 @@
 #include "QArrangementLabellingLogWidget.h"
 
 template <typename Arr_, typename ArrTraits = typename Arr_::Geometry_traits_2>
-class ArrangementCurveInputCallback:
-    public CGAL::Qt::GraphicsViewCurveInput< typename Arr_::Geometry_traits_2 >
+class ArrangementCurveInputCallback: public CGAL::Qt::GraphicsViewCurveInput< typename Arr_::Geometry_traits_2 >
 {
 public:
     typedef Arr_ Arrangement;
@@ -53,7 +52,7 @@ public:
     typedef typename Kernel::Segment_2                    Segment_2;
     typedef typename Kernel::FT                           FT;
 
-    ArrangementCurveInputCallback( Arrangement* arrangement, QObject* parent ):
+    ArrangementCurveInputCallback( Arrangement* arrangement, QObject* parent):
     Superclass( parent ),
     _arrangement( arrangement )
     {
@@ -62,6 +61,11 @@ public:
         QObject::connect( this, SIGNAL( generate    ( CGAL::Object ) ),
                           this, SLOT  ( processInput( CGAL::Object ) ) );
     }
+
+    const unsigned int gridSnappingDistance() const       { return this->_snapToGridStrategy->snappingDistance(); }
+    void gridSnappingDistance(const unsigned int value)   { this->_snapToGridStrategy->snapingDistance(value);    }
+    const unsigned int vertexSnappingDistance() const     { return this->_snapToVertexStrategy->snappingDistance(); }
+    void vertexSnappingDistance(const unsigned int value) { this->_snapToVertexStrategy->snapingDistance(value);    }
 
     void processInput( CGAL::Object inputObject )
     {

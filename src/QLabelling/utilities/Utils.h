@@ -444,14 +444,19 @@ public:
 
     virtual Point_2 snapPoint( QGraphicsSceneMouseEvent* event ) = 0;
 
+    const unsigned int snappingDistance() const     { return _snappingDistance;  }
+    void snappingDistance(const unsigned int value) { _snappingDistance = value; }
+
 protected:
-    SnapStrategy( QGraphicsScene* scene_ );
+    SnapStrategy( QGraphicsScene* scene, unsigned int snappingDistance = 5 );
+    unsigned int _snappingDistance;
 }; // class SnapStrategy
 
 template < class ArrTraits >
-SnapStrategy< ArrTraits >::SnapStrategy( QGraphicsScene* scene_ )
+SnapStrategy< ArrTraits >::SnapStrategy( QGraphicsScene* scene, unsigned int snappingDistance )
 { 
-    this->_scene = scene_;
+    this->_scene = scene;
+    this->_snappingDistance = snappingDistance;
 }
 
 template < class ArrTraits >
@@ -464,15 +469,15 @@ public:
     typedef SnapStrategy< ArrTraits >                      Superclass;
 
     /*! Constructors */
-    SnapToGridStrategy( ) :
-        Superclass( NULL ),
-        _gridSize( 50 )
-    { }
+    SnapToGridStrategy() :
+    Superclass( NULL ),
+    _gridSize( 50 )
+    {}
 
-    SnapToGridStrategy( QGraphicsScene* scene ) :
-        Superclass( scene ),
-        _gridSize( 50 )
-    { }
+    SnapToGridStrategy( QGraphicsScene* scene) :
+    Superclass(scene),
+    _gridSize( 50 )
+    {}
 
     /*! Destructors (virtual) */
     ~SnapToGridStrategy() {}
@@ -494,10 +499,8 @@ public:
         }
 
         qreal d( this->_gridSize / 2.0 );
-        int left = int( viewportRect.left( ) ) -
-                (int( viewportRect.left( ) ) % this->_gridSize);
-        int right = int( viewportRect.right( ) ) +
-                (this->_gridSize - int( viewportRect.right( ) ) % this->_gridSize);
+        int left = int( viewportRect.left( ) ) - (int( viewportRect.left( ) ) % this->_gridSize);
+        int right = int( viewportRect.right( ) ) + (this->_gridSize - int( viewportRect.right( ) ) % this->_gridSize);
         int x = int(clickedPoint.x( ));
         int y = int(clickedPoint.y( ));
         for ( int i = left - this->_gridSize; i <= right; i += this->_gridSize )
@@ -508,10 +511,8 @@ public:
                 break;
             }
         }
-        int top = int( viewportRect.top( ) ) -
-                (int( viewportRect.top( ) ) % this->_gridSize);
-        int bottom = int( viewportRect.bottom( ) ) +
-                (this->_gridSize - int( viewportRect.bottom( ) ) % this->_gridSize);
+        int top = int( viewportRect.top( ) ) - (int( viewportRect.top( ) ) % this->_gridSize);
+        int bottom = int( viewportRect.bottom( ) ) + (this->_gridSize - int( viewportRect.bottom( ) ) % this->_gridSize);
         for ( int i = top - this->_gridSize; i <= bottom; i += this->_gridSize )
         {
             if ( i - d <= clickedPoint.y( ) && clickedPoint.y( ) <= i + d )
@@ -550,14 +551,14 @@ public:
     typedef typename Kernel::Point_2                     Kernel_point_2;
 
     SnapToArrangementVertexStrategy( ):
-        Superclass( NULL ),
-        _arrangement( NULL )
-    { }
+    Superclass(NULL),
+    _arrangement(NULL)
+    {}
 
-    SnapToArrangementVertexStrategy( Arrangement* arr, QGraphicsScene* scene_ ):
-        Superclass( scene_ ),
-        _arrangement( arr )
-    { }
+    SnapToArrangementVertexStrategy( Arrangement* arr, QGraphicsScene* scene ):
+    Superclass(scene),
+    _arrangement(arr)
+    {}
 
     Point_2 snapPoint( QGraphicsSceneMouseEvent* event )
     {
@@ -580,13 +581,13 @@ public:
             return initialPoint;
         }
 
-        FT maxDist( ( viewportRect.right( ) - viewportRect.left( ) ) / 4.0 );
-        for ( Vertex_iterator vit = this->_arrangement->vertices_begin( );
-              vit != this->_arrangement->vertices_end( ); ++vit )
+        //FT maxDist( ( viewportRect.right( ) - viewportRect.left( ) ) / 4.0 );
+        FT maxDist(_snappingDistance);
+        Vertex_iterator vit = this->_arrangement->vertices_begin(), vite = this->_arrangement->vertices_end();
+        for (;vit!=vite;++vit)
         {
-            Point_2 point = vit->point( );
-            Kernel_point_2 thisPoint( CGAL::to_double(point.x()),
-                                      CGAL::to_double(point.y()) );
+            Point_2 point = vit->point();
+            Kernel_point_2 thisPoint( CGAL::to_double(point.x()), CGAL::to_double(point.y()) );
             FT dist = this->_compute_squared_distance_2( clickedPoint, thisPoint );
             if ( first || ( dist < minDist ) )
             {
@@ -595,7 +596,7 @@ public:
                 closestPoint = point;
             }
         }
-        if ( ! first && minDist < maxDist )
+        if ( !first && minDist < maxDist )
         {
             return closestPoint;
         }

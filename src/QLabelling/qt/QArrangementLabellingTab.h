@@ -101,6 +101,7 @@ public:
         // set up demo components
         this->arrangementGraphicsItem = new CGAL::Qt::ArrangementGraphicsItem<Arrangement>(this->arrangement);
         this->curveInputCallback = new ArrangementCurveInputCallback<Arrangement>(this->arrangement, this);
+        // TODO: set snapping distances (grid and vertex)
         this->deleteCurveCallback = new DeleteCurveCallback<Arrangement>( this->arrangement, this );
         this->pointLocationCallback = new PointLocationCallback<Arrangement>( this->arrangement, this );
         this->mergeEdgeCallback = new MergeEdgeCallback<Arrangement>( this->arrangement, this );
@@ -147,21 +148,15 @@ public:
 
         this->arrangement = newArr;
 
-        this->arrangementGraphicsItem =
-                new CGAL::Qt::ArrangementGraphicsItem<Arrangement>( this->arrangement );
+        this->arrangementGraphicsItem = new CGAL::Qt::ArrangementGraphicsItem<Arrangement>( this->arrangement );
 
-        this->curveInputCallback =
-                new ArrangementCurveInputCallback<Arrangement>(this->arrangement, this);
-        this->deleteCurveCallback =
-                new DeleteCurveCallback<Arrangement>( this->arrangement, this );
-        this->pointLocationCallback =
-                new PointLocationCallback<Arrangement>( this->arrangement, this );
-        this->mergeEdgeCallback =
-                new MergeEdgeCallback<Arrangement>( this->arrangement, this );
-        this->splitEdgeCallback =
-                new SplitEdgeCallback<Arrangement>( this->arrangement, this );
-        this->fillFaceCallback =
-                new FillFaceCallback<Arrangement>( this->arrangement, this );
+        this->curveInputCallback = new ArrangementCurveInputCallback<Arrangement>(this->arrangement, this);
+        // TODO: set snapping distances (grid and vertex)
+        this->deleteCurveCallback = new DeleteCurveCallback<Arrangement>( this->arrangement, this );
+        this->pointLocationCallback = new PointLocationCallback<Arrangement>( this->arrangement, this );
+        this->mergeEdgeCallback = new MergeEdgeCallback<Arrangement>( this->arrangement, this );
+        this->splitEdgeCallback = new SplitEdgeCallback<Arrangement>( this->arrangement, this );
+        this->fillFaceCallback = new FillFaceCallback<Arrangement>( this->arrangement, this );
 
         this->scene->addItem( this->arrangementGraphicsItem );
         this->arrangementGraphicsItem->setScene( this->scene );
