@@ -41,7 +41,8 @@ public:
         VERTEX_RADIUS_KEY,
         DELETE_CURVE_MODE_KEY,
         GRID_SIZE_KEY,
-        GRID_COLOR_KEY
+        GRID_COLOR_KEY,
+        SNAPPING_DISTANCE
     };
 
     QArrangementLabellingPropertiesDialog( QArrangementLabellingWindow* parent_ = 0, Qt::WindowFlags f = 0 );

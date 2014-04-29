@@ -32,7 +32,8 @@ QArrangementLabellingGraphicsView::QArrangementLabellingGraphicsView( QWidget* p
     _showGrid( false ),
     _gridSize( 50 ),
     _gridColor( ::Qt::black ),
-    _backgroundColor( ::Qt::white )
+    _backgroundColor( ::Qt::white ),
+    _snappingDistance(5)
 {
     QMatrix m( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
     this->setMatrix( m );

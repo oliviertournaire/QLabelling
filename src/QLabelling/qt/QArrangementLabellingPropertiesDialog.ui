@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>488</width>
-    <height>292</height>
+    <width>451</width>
+    <height>313</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <iconset resource="../rc/QArrangementLabelling.qrc">
     <normaloff>:/icons/options.png</normaloff>:/icons/options.png</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <widget class="QTableWidget" name="tableWidget">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -67,14 +67,24 @@
        <string>Grid Color</string>
       </property>
      </row>
+     <row>
+      <property name="text">
+       <string>Snapping distance</string>
+      </property>
+     </row>
      <column>
       <property name="text">
        <string>Value</string>
       </property>
      </column>
+     <item row="7" column="0">
+      <property name="text">
+       <string/>
+      </property>
+     </item>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>

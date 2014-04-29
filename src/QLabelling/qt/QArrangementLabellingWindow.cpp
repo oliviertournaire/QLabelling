@@ -671,13 +671,14 @@ void QArrangementLabellingWindow::on_actionPreferences_triggered( )
     if ( dialog->exec( ) == QDialog::Accepted )
     {
         typedef QArrangementLabellingPropertiesDialog Dialog;
-        QColor edgeColor          = qVariantValue<QColor>(dialog->property(Dialog::EDGE_COLOR_KEY));
-        unsigned int edgeWidth    = qVariantValue<unsigned int>(dialog->property(Dialog::EDGE_WIDTH_KEY));
-        QColor vertexColor        = qVariantValue<QColor>(dialog->property(Dialog::VERTEX_COLOR_KEY));
-        unsigned int vertexRadius = qVariantValue<unsigned int>(dialog->property(Dialog::VERTEX_RADIUS_KEY));
-        DeleteCurveMode mode      = qVariantValue<DeleteCurveMode>(dialog->property(Dialog::DELETE_CURVE_MODE_KEY));
-        unsigned int gridSize     = qVariantValue<unsigned int>(dialog->property(Dialog::GRID_SIZE_KEY));
-        QColor gridColor          = qVariantValue<QColor>(dialog->property(Dialog::GRID_COLOR_KEY));
+        QColor edgeColor              = qVariantValue<QColor>(dialog->property(Dialog::EDGE_COLOR_KEY));
+        unsigned int edgeWidth        = qVariantValue<unsigned int>(dialog->property(Dialog::EDGE_WIDTH_KEY));
+        QColor vertexColor            = qVariantValue<QColor>(dialog->property(Dialog::VERTEX_COLOR_KEY));
+        unsigned int vertexRadius     = qVariantValue<unsigned int>(dialog->property(Dialog::VERTEX_RADIUS_KEY));
+        DeleteCurveMode mode          = qVariantValue<DeleteCurveMode>(dialog->property(Dialog::DELETE_CURVE_MODE_KEY));
+        unsigned int gridSize         = qVariantValue<unsigned int>(dialog->property(Dialog::GRID_SIZE_KEY));
+        QColor gridColor              = qVariantValue<QColor>(dialog->property(Dialog::GRID_COLOR_KEY));
+        unsigned int snappingDistance = qVariantValue<unsigned int>(dialog->property(Dialog::SNAPPING_DISTANCE));
 
         QPen edgesPen(QBrush(edgeColor), edgeWidth);
         QPen verticesPen(QBrush(vertexColor), vertexRadius);
@@ -687,6 +688,7 @@ void QArrangementLabellingWindow::on_actionPreferences_triggered( )
         view->setGridSize( gridSize );
         view->setGridColor( gridColor );
         splitEdgeCallback->setColor( edgeColor );
+        view->setSnappingDistance(snappingDistance);
     }
 }
 
