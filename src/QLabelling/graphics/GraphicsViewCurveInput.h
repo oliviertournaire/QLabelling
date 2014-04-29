@@ -140,6 +140,9 @@ protected:
                     clickedPoint = this->_points.front();
                 }
                 
+                // Fix #37: when the user clicks the same point twice, do not add it to the current polyline and exit now
+                if(clickedPoint == _points.back())
+                    return;
 		        this->_points.push_back( clickedPoint );
                 
                 // #37 (https://github.com/oliviertournaire/QLabelling/issues/37): This is where the crash happens when the user click consecutively the same point
