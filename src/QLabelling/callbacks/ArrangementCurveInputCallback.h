@@ -62,10 +62,10 @@ public:
                           this, SLOT  ( processInput( CGAL::Object ) ) );
     }
 
-    const unsigned int gridSnappingDistance() const       { return this->_snapToGridStrategy->snappingDistance(); }
-    void gridSnappingDistance(const unsigned int value)   { this->_snapToGridStrategy->snapingDistance(value);    }
-    const unsigned int vertexSnappingDistance() const     { return this->_snapToVertexStrategy->snappingDistance(); }
-    void vertexSnappingDistance(const unsigned int value) { this->_snapToVertexStrategy->snapingDistance(value);    }
+    const unsigned int gridSnappingDistance() const       { return this->_snapToGridStrategy.snappingDistance();   }
+    void gridSnappingDistance(const unsigned int value)   { this->_snapToGridStrategy.snappingDistance(value);     }
+    const unsigned int vertexSnappingDistance() const     { return this->_snapToVertexStrategy.snappingDistance(); }
+    void vertexSnappingDistance(const unsigned int value) { this->_snapToVertexStrategy.snappingDistance(value);   }
 
     void processInput( CGAL::Object inputObject )
     {

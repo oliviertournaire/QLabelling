@@ -46,6 +46,7 @@
 #include "QArrangementLabellingInfoWidget.h"
 #include "config.hpp"
 #include "QArrangementLabellingSaveProjectDialog.h"
+#include "ArrangementCurveInputCallback.h"
 
 QArrangementLabellingWindow::QArrangementLabellingWindow(QWidget* parent) :
 CGAL::Qt::DemosMainWindow( parent ),
@@ -661,11 +662,14 @@ void QArrangementLabellingWindow::on_actionPreferences_triggered( )
     QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
 
     unsigned int currentTabIndex = this->_ui->tabWidget->currentIndex( );
-    if (currentTabIndex == static_cast<unsigned int>(-1)) return;
+    if (currentTabIndex == static_cast<unsigned int>(-1))
+        return;
+
     QArrangementLabellingTabBase* currentTab = this->_tabs[ currentTabIndex ];
     CGAL::Qt::ArrangementGraphicsItemBase* agi = currentTab->getArrangementGraphicsItem( );
     QArrangementLabellingGraphicsView* view = currentTab->getView( );
     SplitEdgeCallbackBase* splitEdgeCallback = currentTab->getSplitEdgeCallback( );
+    CGAL::Qt::GraphicsViewCurveInputBase* viewCurveInputBase = currentTab->getCurveInputCallback();
 
     QArrangementLabellingPropertiesDialog* dialog = new QArrangementLabellingPropertiesDialog( this );
     if ( dialog->exec( ) == QDialog::Accepted )
@@ -688,6 +692,15 @@ void QArrangementLabellingWindow::on_actionPreferences_triggered( )
         view->setGridSize( gridSize );
         view->setGridColor( gridColor );
         splitEdgeCallback->setColor( edgeColor );
+
+        // Set snapping distance
+        ArrangementCurveInputCallback<Pol_arr>* arrangementCurveInputCB = dynamic_cast< ArrangementCurveInputCallback<Pol_arr>* >(viewCurveInputBase);
+        if(arrangementCurveInputCB)
+        {
+            arrangementCurveInputCB->gridSnappingDistance(snappingDistance);
+            arrangementCurveInputCB->vertexSnappingDistance(snappingDistance);
+        }
+
         view->setSnappingDistance(snappingDistance);
     }
 }
