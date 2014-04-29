@@ -512,49 +512,59 @@
 <context>
     <name>QArrangementLabellingPropertiesDialog</name>
     <message>
-        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="90"/>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="96"/>
         <source>Options</source>
         <translation type="unfinished">Options</translation>
     </message>
     <message>
-        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="92"/>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="98"/>
         <source>Value</source>
         <translation type="unfinished">Valeur</translation>
     </message>
     <message>
-        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="94"/>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="100"/>
         <source>Edge Color</source>
         <translation type="unfinished">Couleur des arêtes</translation>
     </message>
     <message>
-        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="96"/>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="102"/>
         <source>Edge Width</source>
         <translation type="unfinished">Épaisseur de l&apos;arête</translation>
     </message>
     <message>
-        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="98"/>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="104"/>
         <source>Vertex Color</source>
         <translation type="unfinished">Couleur des points</translation>
     </message>
     <message>
-        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="100"/>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="106"/>
         <source>Vertex Radius</source>
         <translation type="unfinished">Rayon des points</translation>
     </message>
     <message>
-        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="102"/>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="108"/>
         <source>Delete Curve Mode</source>
         <translation type="unfinished">Mode de suppression des traits</translation>
     </message>
     <message>
-        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="104"/>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="110"/>
         <source>Grid Size</source>
         <translation type="unfinished">Taille de la grille</translation>
     </message>
     <message>
-        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="106"/>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="112"/>
         <source>Grid Color</source>
         <translation type="unfinished">Couleur de la grille</translation>
+    </message>
+    <message>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="114"/>
+        <source>Grid Snapping distance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingPropertiesDialog.h" line="116"/>
+        <source>Vertex snapping distance</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

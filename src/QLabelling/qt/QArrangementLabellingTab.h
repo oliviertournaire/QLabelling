@@ -21,21 +21,16 @@
 #define __QARRANGEMENT_LABELLING_TAB_H__
 
 #include <QWidget>
-
 class QGridLayout;
-class QGraphicsScene;
 
-class QArrangementLabellingGraphicsView;
-class SplitEdgeCallbackBase;
-class FillFaceCallbackBase;
-
-namespace CGAL {
-    namespace Qt {
-        class ArrangementGraphicsItemBase;
-        class GraphicsViewCurveInputBase;
-        class Callback;
-    }
-}
+#include "ArrangementGraphicsItem.h"
+#include "QArrangementLabellingGraphicsView.h"
+#include "ArrangementCurveInputCallback.h"
+#include "DeleteCurveCallback.h"
+#include "PointLocationCallback.h"
+#include "MergeEdgeCallback.h"
+#include "SplitEdgeCallback.h"
+#include "FillFaceCallback.h"
 
 class QArrangementLabellingTabBase : public QWidget
 {

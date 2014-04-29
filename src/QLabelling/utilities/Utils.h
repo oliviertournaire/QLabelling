@@ -498,7 +498,7 @@ public:
             return Point_2( CGAL::to_double(res.x( )), CGAL::to_double(res.y()) );
         }
 
-        qreal d( _snappingDistance );
+        qreal d( this->_snappingDistance );
         int left = int( viewportRect.left( ) ) - (int( viewportRect.left( ) ) % this->_gridSize);
         int right = int( viewportRect.right( ) ) + (this->_gridSize - int( viewportRect.right( ) ) % this->_gridSize);
         int x = int(clickedPoint.x( ));
@@ -582,7 +582,7 @@ public:
         }
 
         //FT maxDist( ( viewportRect.right( ) - viewportRect.left( ) ) / 4.0 );
-        FT maxDist(_snappingDistance);
+        FT maxDist( this->_snappingDistance );
         Vertex_iterator vit = this->_arrangement->vertices_begin(), vite = this->_arrangement->vertices_end();
         for (;vit!=vite;++vit)
         {

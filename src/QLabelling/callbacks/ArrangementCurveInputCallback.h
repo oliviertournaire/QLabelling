@@ -70,16 +70,16 @@ public:
     void processInput( CGAL::Object inputObject )
     {
         Curve_2 curve;
-        QArrangementLabellingLogWidget::instance()->logDebug( tr("Trying to assign 'CGAL::Object' to 'Curve_2' ...") );
+        QArrangementLabellingLogWidget::instance()->logDebug( QObject::tr("Trying to assign 'CGAL::Object' to 'Curve_2' ...") );
         if ( CGAL::assign( curve, inputObject ) )
         {
             QArrangementLabellingLogWidget::instance()->logTrace(QObject::tr("Inserting object (%n vertices) into the arrangement.","",curve.points()));
 
             Arrangement_Observer<Arrangement> obs(*( this->_arrangement ));
 
-            QArrangementLabellingLogWidget::instance()->logDebug( tr("Trying to insert curve into the arrangement ...") );
+            QArrangementLabellingLogWidget::instance()->logDebug( QObject::tr("Trying to insert curve into the arrangement ...") );
             CGAL::insert( *( this->_arrangement ), curve );
-            QArrangementLabellingLogWidget::instance()->logDebug( tr("Curve inserted with success in the arrangement ...") );
+            QArrangementLabellingLogWidget::instance()->logDebug( QObject::tr("Curve inserted with success in the arrangement ...") );
 
             QString message(QObject::tr("Vertices of the arrangement :\n"));
             Vertex_iterator v;
