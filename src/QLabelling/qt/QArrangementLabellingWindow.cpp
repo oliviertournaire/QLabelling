@@ -235,19 +235,19 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
     // hook up the new active mode
     if ( newMode == this->_ui->actionInsert )
     {
-	activeTab->getCurveInputCallback( )->mode = POLYLINE;
+	activeTab->getCurveInputCallback( )->_mode = POLYLINE;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion mode");
     }
     else if ( newMode == this->_ui->actionInsert_horizontal_line  )
     {
-	activeTab->getCurveInputCallback( )->mode = HORIZONTAL;
+	activeTab->getCurveInputCallback( )->_mode = HORIZONTAL;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion (horizontal) mode");
     }
     else if ( newMode == this->_ui->actionInsert_vertical_line )
     {
-	activeTab->getCurveInputCallback( )->mode = VERTICAL;
+	activeTab->getCurveInputCallback( )->_mode = VERTICAL;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion (vertical) mode");
     }

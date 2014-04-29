@@ -29,7 +29,7 @@ void GraphicsViewCurveInputBase::setScene( QGraphicsScene* scene_ )
     this->QGraphicsSceneMixin::setScene( scene_ );
     if ( this->_scene != NULL )
     {
-        this->_scene->addItem( &this->pointsGraphicsItem );
+        this->_scene->addItem( &this->_pointsGraphicsItem );
     }
 }
 
@@ -40,25 +40,25 @@ QGraphicsScene* GraphicsViewCurveInputBase::getScene() const
 
 void GraphicsViewCurveInputBase::setSnappingEnabled( bool b )
 {
-    this->snappingEnabled = b;
+    this->_snappingEnabled = b;
 }
 
 void GraphicsViewCurveInputBase::setSnapToGridEnabled( bool b )
 {
-    this->snapToGridEnabled = b;
+    this->_snapToGridEnabled = b;
 }
 
 /*! Constructor */
 GraphicsViewCurveInputBase::GraphicsViewCurveInputBase( QObject* parent ) :
     GraphicsViewInput( parent ),
     //    scene( NULL ),
-    snappingEnabled( false ),
-    snapToGridEnabled( false ),
-    color( ::Qt::blue )
+    _snappingEnabled( false ),
+    _snapToGridEnabled( false ),
+    _color( ::Qt::blue )
 {
 //     this->color.setAlpha(150); Tentative pour rendre les dessins transparents
-    this->pointsGraphicsItem.setZValue( 100 );
-    this->pointsGraphicsItem.setColor( this->color );
+    this->_pointsGraphicsItem.setZValue( 100 );
+    this->_pointsGraphicsItem.setColor( this->_color );
 }
 
 void
@@ -91,13 +91,13 @@ bool GraphicsViewCurveInputBase::eventFilter( QObject* obj, QEvent* event )
 
 void GraphicsViewCurveInputBase::setColor( QColor c )
 {
-    this->color = c;
-    this->pointsGraphicsItem.setColor( this->color );
+    this->_color = c;
+    this->_pointsGraphicsItem.setColor( this->_color );
 }
 
 QColor GraphicsViewCurveInputBase::getColor( ) const
 {
-    return this->color;
+    return this->_color;
 }
 
 } // namespace Qt
