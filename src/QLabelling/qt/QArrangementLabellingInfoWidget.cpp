@@ -2,6 +2,8 @@
 #include "ui_QArrangementLabellingInfoWidget.h"
 #include "QArrangementLabellingLogWidget.h"
 
+#include "arrangement/ArrangementBuffer.h"
+
 QArrangementLabellingInfoWidget::QArrangementLabellingInfoWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::QArrangementLabellingInfoWidget)
@@ -64,4 +66,11 @@ void QArrangementLabellingInfoWidget::reset()
     setNumIsolatedVertices  ( 0 );
     setNumVerticesAtInfinity( 0 );
     setChanged              ( false );
+}
+
+void QArrangementLabellingInfoWidget::updateNumberOfArrangementsInHistory()
+{
+    size_t size = ArrangementBuffer::instance()->size();
+    size_t capacity = ArrangementBuffer::instance()->capacity();
+    ui->_labelNbArrangementsInHistory->setText( QString("%1 arrangement(s) in history buffer (capacity: %2)").arg(size).arg(capacity) );
 }

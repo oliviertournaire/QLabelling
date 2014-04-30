@@ -31,6 +31,7 @@ class QGridLayout;
 #include "MergeEdgeCallback.h"
 #include "SplitEdgeCallback.h"
 #include "FillFaceCallback.h"
+#include "arrangement/ArrangementBuffer.h"
 
 class QArrangementLabellingTabBase : public QWidget
 {
@@ -131,6 +132,8 @@ public:
         //WIP
         // TODO: Add a connection to update the demo window when the fill color
         //       changes
+
+        ArrangementBuffer::instance()->push_back(_arrangement);
     }
 
     void setArrangement( Arrangement* newArr )
@@ -178,6 +181,7 @@ public:
         // TODO: Add a connection to update the demo window when the fill color
         //       changes
 
+        ArrangementBuffer::instance()->push_back(_arrangement);
         emit modelChanged( );
     }
 protected:

@@ -36,6 +36,7 @@
 #include "QArrangementLabellingWidget.h"
 #include "QArrangementLabellingInfoWidget.h"
 #include "QLabelItem.hpp"
+#include "arrangement/ArrangementBuffer.h"
 
 
 class FillFaceCallbackBase : public CGAL::Qt::Callback
@@ -124,10 +125,9 @@ void FillFaceCallback< Arr_ >::reset( )
 template < class Arr_ >
 void FillFaceCallback<Arr_>::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
+    ArrangementBuffer::instance()->push_back(arr);
     this->fillFace( event );
     emit modelChanged( );
-
-
 }
 
 //WIP debut

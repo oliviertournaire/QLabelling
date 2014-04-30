@@ -405,12 +405,13 @@ void ArrangementGraphicsItem< Arr_, ArrTraits >:: paint(QPainter* painter, TTrai
 
     // Filling Arrangement info widget
     QArrangementLabellingInfoWidget* infoWidget = QArrangementLabellingInfoWidget::instance();
-    infoWidget->setNumFaces             ( (int)this->arr->number_of_faces(), (int)this->arr->number_of_unbounded_faces() );
-    infoWidget->setNumEdges             ( (int)this->arr->number_of_edges() );
-    infoWidget->setNumVertices          ( (int)this->arr->number_of_vertices() );
-    infoWidget->setNumIsolatedVertices  ( (int)this->arr->number_of_isolated_vertices() );
-    infoWidget->setNumVerticesAtInfinity( (int)this->arr->number_of_vertices_at_infinity() );
-    infoWidget->setChanged              ( this->changed );
+    infoWidget->setNumFaces                        ( (int)this->arr->number_of_faces(), (int)this->arr->number_of_unbounded_faces() );
+    infoWidget->setNumEdges                        ( (int)this->arr->number_of_edges() );
+    infoWidget->setNumVertices                     ( (int)this->arr->number_of_vertices() );
+    infoWidget->setNumIsolatedVertices             ( (int)this->arr->number_of_isolated_vertices() );
+    infoWidget->setNumVerticesAtInfinity           ( (int)this->arr->number_of_vertices_at_infinity() );
+    infoWidget->setChanged                         ( this->changed );
+    infoWidget->updateNumberOfArrangementsInHistory();
 
     this->painterostream = ArrangementPainterOstream< Traits >( painter, this->boundingRect( ) );
     this->painterostream.setScene( this->_scene );

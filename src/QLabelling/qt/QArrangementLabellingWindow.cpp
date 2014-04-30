@@ -49,6 +49,7 @@
 #include "FillFaceCallback.h"
 #include "DeleteCurveMode.h"
 #include "config.hpp"
+#include "arrangement/ArrangementBuffer.h"
 
 QArrangementLabellingWindow::QArrangementLabellingWindow(QWidget* parent) :
 CGAL::Qt::DemosMainWindow( parent ),
@@ -948,6 +949,8 @@ void QArrangementLabellingWindow::on_actionClean_triggered()
     
     if ( CGAL::assign( pol, arr ) )
     {
+        ArrangementBuffer::instance()->push_back(pol);
+
         int index;
         
         // Suppression des vertices isolés
@@ -1053,5 +1056,15 @@ void QArrangementLabellingWindow::saveLabelsImage(QGraphicsScene *scene, const Q
 
     if(!image.save(filename))
         QArrangementLabellingLogWidget::instance()->logError( tr("Error saving the label image...") );
+}
+
+void QArrangementLabellingWindow::on_actionUndo_triggered()
+{
+    QArrangementLabellingLogWidget::instance()->logWarning( tr("Undo currently not implemented") );
+}
+
+void QArrangementLabellingWindow::on_actionRedo_triggered()
+{
+    QArrangementLabellingLogWidget::instance()->logWarning( tr("Redo currently not implemented") );
 }
 

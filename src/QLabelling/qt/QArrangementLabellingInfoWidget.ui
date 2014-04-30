@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>245</width>
-    <height>300</height>
+    <width>194</width>
+    <height>190</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -82,6 +82,13 @@
     <widget class="QLabel" name="_labelCurrentFaceLabel">
      <property name="text">
       <string>current face label</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="_labelNbArrangementsInHistory">
+     <property name="text">
+      <string>Number of arrangements in history</string>
      </property>
     </widget>
    </item>

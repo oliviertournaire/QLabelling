@@ -80,6 +80,10 @@ public slots:
     void on_actionZoomIn_triggered( );
     void on_actionZoomOut_triggered( );
     void on_actionPreferences_triggered( );
+
+    void on_actionUndo_triggered();
+    void on_actionRedo_triggered();
+
     void saveLabelsImage(QGraphicsScene* scene, const QString& filename);
     void labelChanged();
 
