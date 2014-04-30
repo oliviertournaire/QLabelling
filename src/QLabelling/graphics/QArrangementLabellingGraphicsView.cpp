@@ -148,6 +148,7 @@ bool QArrangementLabellingGraphicsView::setImageToLabel(const QString& path, QAr
             if(!fit->is_unbounded())
             {
                 fit->data().set_label(QLABELLING_UNKNOW_LABEL_STRING);
+                fit->data().set_color(QLABELLING_UNKNOW_LABEL_BRUSH_COLOR);
             }
         }
     }
