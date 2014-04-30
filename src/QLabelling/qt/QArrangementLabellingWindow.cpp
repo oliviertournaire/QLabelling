@@ -387,67 +387,7 @@ void QArrangementLabellingWindow::openArrFile( QString filename )
 
 void QArrangementLabellingWindow::openDatFile( QString filename )
 {
-    /*
-    QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
-
-    int index = this->_ui->tabWidget->currentIndex( );
-    if ( index == -1 )
-    {
-        QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
-        return;
-    }
-    if ( filename.isNull( ) )
-    {
-        return;
-    }
-
-    std::ifstream inputFile( filename.toStdString( ).c_str( ) );
-    CGAL::Object arr = this->arrangements[ index ];
-    Pol_arr* pol;
-
-    // Creates an ofstream object named inputFile
-    if (! inputFile.is_open() ) // Always test file open
-    {
-        QArrangementLabellingLogWidget::instance()->logError(tr("Error opening input file"));
-        return;
-    }
-
-    if ( CGAL::assign( pol, arr ) )
-    {
-        pol->clear( );
-
-        std::vector<Arr_pol_point_2> points;
-
-        unsigned int num_polylines;
-        inputFile >> num_polylines;
-        std::list<Arr_pol_2> pol_list;
-
-        unsigned int i;
-        for (i = 0; i < num_polylines; i++)
-        {
-            unsigned int num_segments;
-            inputFile >> num_segments;
-            points.clear();
-            unsigned int j;
-            for (j = 0; j < num_segments; j++)
-            {
-                int ix, iy;
-                inputFile >> ix >> iy;
-                points.push_back (Arr_pol_point_2(CGAL::to_double(ix),CGAL::to_double(iy)));
-            }
-
-            Arr_pol_2 curve (points.begin(), points.end());
-            pol_list.push_back(curve);
-        }
-        CGAL::insert(*pol, pol_list.begin(), pol_list.end());
-
-        typedef QArrangementLabellingTab< Pol_arr > TabType;
-        TabType* tab = static_cast< TabType* >( this->tabs[ index ] );
-        tab->setArrangement( pol );
-    }
-
-    inputFile.close();
-    */
+    QArrangementLabellingLogWidget::instance()->logWarning( QString(__FUNCTION__) + " --> Not implemented " );
 }
 
 void QArrangementLabellingWindow::updateSnapping( QAction* newMode )
