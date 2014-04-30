@@ -1060,7 +1060,22 @@ void QArrangementLabellingWindow::saveLabelsImage(QGraphicsScene *scene, const Q
 
 void QArrangementLabellingWindow::on_actionUndo_triggered()
 {
-    QArrangementLabellingLogWidget::instance()->logWarning( tr("Undo currently not implemented") );
+    int tabIndex = this->_ui->tabWidget->currentIndex( );
+    if ( tabIndex == -1 )
+    {
+        QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
+        return;
+    }
+
+    Pol_arr* arr = ArrangementBuffer::instance()->back();
+    ArrangementBuffer::instance()->pop_back();
+    this->_arrangements[tabIndex] = CGAL::make_object(arr);
+
+    typedef QArrangementLabellingTab< Pol_arr >                       TabType;
+    TabType* tab = static_cast< TabType* >( this->_tabs[ tabIndex ] );
+    tab->setArrangement( arr, false );
+
+    updateMode( this->_activeModes.at( 0 ) );
 }
 
 void QArrangementLabellingWindow::on_actionRedo_triggered()

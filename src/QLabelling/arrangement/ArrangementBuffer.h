@@ -21,6 +21,8 @@ public:
     void set_capacity(const unsigned int size);
     const size_t capacity();
     const size_t size();
+    Pol_arr* back();
+    void pop_back();
 };
 
 #endif // __ARRANGEMENT_BUFFER_H__

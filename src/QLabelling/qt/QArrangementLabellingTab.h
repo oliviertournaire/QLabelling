@@ -136,7 +136,7 @@ public:
         ArrangementBuffer::instance()->push_back(_arrangement);
     }
 
-    void setArrangement( Arrangement* newArr )
+    void setArrangement( Arrangement* newArr, bool pushInBuffer = true )
     {
         this->_scene->removeItem( this->_arrangementGraphicsItem );
         delete this->_arrangementGraphicsItem;
@@ -149,8 +149,12 @@ public:
 
         this->_arrangement = newArr;
 
-        this->_arrangementGraphicsItem = new CGAL::Qt::ArrangementGraphicsItem<Arrangement>( this->_arrangement );
+        if(pushInBuffer)
+            ArrangementBuffer::instance()->push_back(_arrangement);
 
+        // std::cout << this->scene->views( ).size( ) << std::endl;
+        // set up demo components
+        this->_arrangementGraphicsItem = new CGAL::Qt::ArrangementGraphicsItem<Arrangement>(this->_arrangement);
         this->_curveInputCallback = new ArrangementCurveInputCallback<Arrangement>(this->_arrangement, this);
         // TODO: set snapping distances (grid and vertex)
         this->_deleteCurveCallback = new DeleteCurveCallback<Arrangement>( this->_arrangement, this );
@@ -168,20 +172,22 @@ public:
         this->_splitEdgeCallback->setScene( this->_scene );
         this->_fillFaceCallback->setScene( this->_scene );
 
-        this->_scene->installEventFilter(this->_curveInputCallback);
-        QObject::connect(this->_curveInputCallback, SIGNAL(modelChanged()),
-                         this,                     SLOT  (modelChanged()));
-        QObject::connect(this->_deleteCurveCallback, SIGNAL(modelChanged()),
-                         this,                      SLOT  (modelChanged()));
-        QObject::connect(this->_fillFaceCallback, SIGNAL(modelChanged()),
-                         this,                   SLOT  (modelChanged()));
-        QObject::connect(this,                          SIGNAL(modelChanged()),
-                         this->_arrangementGraphicsItem, SLOT(modelChanged()));
+        // set up callbacks
+        this->_scene->installEventFilter( this->_curveInputCallback );
+        QObject::connect(this->_curveInputCallback, SIGNAL(modelChanged()), this,
+            SIGNAL(modelChanged()));
+        QObject::connect(this->_deleteCurveCallback, SIGNAL(modelChanged()), this,
+            SIGNAL(modelChanged()));
+        QObject::connect(this->_fillFaceCallback, SIGNAL(modelChanged()), this,
+            SIGNAL(modelChanged()));
+        QObject::connect(this, SIGNAL(modelChanged()),
+            this->_arrangementGraphicsItem, SLOT(modelChanged()));
+        //WIP
+        QObject::connect(this, SIGNAL(modelChanged()),
+            this, SLOT(UpdateFaceLabel()));
 
         // TODO: Add a connection to update the demo window when the fill color
         //       changes
-
-        ArrangementBuffer::instance()->push_back(_arrangement);
         emit modelChanged( );
     }
 protected:

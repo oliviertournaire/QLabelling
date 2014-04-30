@@ -74,8 +74,6 @@ public:
         QArrangementLabellingLogWidget::instance()->logDebug( QObject::tr("Trying to assign 'CGAL::Object' to 'Curve_2' ...") );
         if ( CGAL::assign( curve, inputObject ) )
         {
-            ArrangementBuffer::instance()->push_back(_arrangement);
-
             QArrangementLabellingLogWidget::instance()->logTrace(QObject::tr("Inserting object (%n vertices) into the arrangement.","",curve.points()));
 
             Arrangement_Observer<Arrangement> obs(*( this->_arrangement ));
