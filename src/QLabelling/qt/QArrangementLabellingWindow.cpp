@@ -928,6 +928,8 @@ void QArrangementLabellingWindow::updateToolBarButtonsEnable(bool enable)
     _ui->actionSnapMode->setEnabled(enable);
     _ui->actionGridSnapMode->setEnabled(enable);
     _ui->actionClean->setEnabled(enable);
+    // #43: update when redo implemented
+    _ui->actionRedo->setEnabled(false);
     
     // Enabling/Disabling the label list too
     QArrangementLabellingWidget::instance()->setEnabledAllLabelButtons(enable);
