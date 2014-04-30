@@ -149,14 +149,14 @@ protected:
     void paint( QPainter* painter, TTraits traits );
 
 public:
-    void paintFaces( QPainter* painter )
+    void paintFaces(bool removeAlpha, QPainter* painter )
     {
         typename Traits::Left_side_category category;
-        this->paintFaces( painter, category );
+        this->paintFaces(removeAlpha, painter, category );
     }
 
 protected:
-    void paintFaces( QPainter* painter, CGAL::Arr_oblivious_side_tag )
+    void paintFaces(bool removeAlpha, QPainter* painter, CGAL::Arr_oblivious_side_tag )
     {
         for( Face_iterator fi = this->arr->faces_begin( );
              fi != this->arr->faces_end( ); ++fi )
@@ -165,10 +165,10 @@ protected:
         }
 
         Face_handle unboundedFace = this->arr->unbounded_face( );
-        this->paintFace( unboundedFace, painter );
+        this->paintFace(removeAlpha, unboundedFace, painter );
     }
 
-    void paintFaces( QPainter* painter, CGAL::Arr_open_side_tag )
+    void paintFaces(bool removeAlpha, QPainter* painter, CGAL::Arr_open_side_tag )
     {
         for( Face_iterator fi = this->arr->faces_begin( );
              fi != this->arr->faces_end( ); ++fi )
@@ -181,17 +181,17 @@ protected:
         }
 
         Face_handle fictitiousFace = this->arr->fictitious_face( );
-        this->paintFace( fictitiousFace, painter );
+        this->paintFace(removeAlpha, fictitiousFace, painter );
     }
 
-    void paintFace( Face_handle f, QPainter* painter )
+    void paintFace(bool removeAlpha, Face_handle f, QPainter* painter )
     {
         if (! f->data().visited( ) )
         {
             int holes = 0;
             int inner_faces = 0;
             Holes_iterator hit; // holes iterator
-            this->paintFace( f, painter, Traits( ) );
+            this->paintFace(removeAlpha, f, painter, Traits( ) );
             f->data().set_visited( true );
             for ( hit = f->holes_begin(); hit != f->holes_end(); ++hit )
             {
@@ -206,16 +206,16 @@ protected:
                     // move on to next hole
                     if ( ! inner_face->data().visited( ) )
                         inner_faces++;
-                    this->visit_ccb_faces( inner_face, painter );
+                    this->visit_ccb_faces(removeAlpha, inner_face, painter );
                 } while ( ++cc != *hit );
                 holes++;
             }// for
         }
     }
 
-    void visit_ccb_faces( Face_handle & fh, QPainter* painter )
+    void visit_ccb_faces(bool removeAlpha, Face_handle & fh, QPainter* painter )
     {
-        this->paintFace( fh, painter );
+        this->paintFace(removeAlpha, fh, painter );
 
         Ccb_halfedge_circulator cc=fh->outer_ccb();
         do {
@@ -223,7 +223,7 @@ protected:
             if (! he.twin()->face()->data().visited())
             {
                 Face_handle nei = (Face_handle) he.twin()->face();
-                this->visit_ccb_faces( nei , painter );
+                this->visit_ccb_faces(removeAlpha, nei , painter );
             }
             //created from the outer boundary of the face
         } while (++cc != fh->outer_ccb());
@@ -239,12 +239,12 @@ protected:
     }
 
     template < typename Traits >
-    void paintFace(Face_handle /* f */, QPainter* /* painter */,
+    void paintFace(bool removeAlpha, Face_handle /* f */, QPainter* /* painter */,
                    Traits /* traits */)
     { }
     
     template < typename Kernel_ >
-    void paintFace( Face_handle f, QPainter* painter,
+    void paintFace(bool removeAlpha, Face_handle f, QPainter* painter,
                     CGAL::Arr_polyline_traits_2< Kernel_ > )
     {
         if (!f->is_unbounded())  // f is not the unbounded face
@@ -289,12 +289,15 @@ protected:
             // make polygon from the outer ccb of the face 'f'
             QPolygonF pgn( pts );
 
-            // fill the face according to its color (stored at any of her
-            // incidents curves)
+            // fill the face according to its color (stored at any of her incidents curves)
             QBrush oldBrush = painter->brush( );
             QColor def_bg_color = this->_backgroundColor;
             // Just add an alpha
             def_bg_color.setAlpha(127);
+
+            if(removeAlpha)
+                def_bg_color.setAlpha(255);
+
             if (! f->data().color().isValid())
             {
                 painter->setBrush( def_bg_color );
@@ -305,7 +308,8 @@ protected:
                 QColor labelColor = QArrangementLabellingWidget::instance()->Label2Color(faceLabel);
                 // Update face color wrt label name
                 f->data().set_color( labelColor );
-                //labelColor.setAlpha(127);
+                if(removeAlpha)
+                    labelColor.setAlpha(255);
                 painter->setBrush( labelColor );
             }
             painter->drawPolygon( pgn );
@@ -417,9 +421,9 @@ void ArrangementGraphicsItem< Arr_, ArrTraits >:: paint(QPainter* painter, TTrai
     QArrangementLabellingLogWidget::instance()->logTrace( tr("Found %n item(s) in the scene","",allItems.count()) );    
 
     QBrush currentPainterBrush = painter->brush();
-    currentPainterBrush.setColor( QColor(currentPainterBrush.color().red(), currentPainterBrush.color().green(), currentPainterBrush.color().blue(), 0.5) );
+    currentPainterBrush.setColor( QColor(currentPainterBrush.color().red(), currentPainterBrush.color().green(), currentPainterBrush.color().blue(), currentPainterBrush.color().alpha()) );
     painter->setBrush(currentPainterBrush);
-    this->paintFaces( painter );
+    this->paintFaces(false /*removeAlpha*/, painter );
 
     painter->setPen( this->_verticesPen );
     for ( Vertex_iterator it = this->arr->vertices_begin( );

@@ -1105,11 +1105,11 @@ void QArrangementLabellingWindow::saveLabelsImage(QGraphicsScene *scene, const Q
         return;    
 
     QRect rectIm = this->getCurrentTab()->getView()->imageToLabel().rect();
-    QImage image(rectIm.width(), rectIm.height(), QImage::Format_ARGB32);
+    QImage image(rectIm.width(), rectIm.height(), QImage::Format_RGB32);
     QPainter painter(&image);
 
     CGAL::Qt::ArrangementGraphicsItem<Pol_arr>* agi = (CGAL::Qt::ArrangementGraphicsItem<Pol_arr>*)getCurrentTab()->getArrangementGraphicsItem();
-    agi->paintFaces(&painter);
+    agi->paintFaces(true, &painter);
 
     if(!image.save(filename))
         QArrangementLabellingLogWidget::instance()->logError( tr("Error saving the label image...") );
