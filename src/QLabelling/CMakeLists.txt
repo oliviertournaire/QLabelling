@@ -69,7 +69,7 @@ set( LOGWIDGET_CPP ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementLabellingLogWidget
 set( LOGWIDGET_UI  ${CMAKE_CURRENT_SOURCE_DIR}/qt/QArrangementLabellingLogWidget.ui )
 qt4_wrap_cpp( MOCS_LOGWIDGET ${LOGWIDGET_HPP} )
 if( NOT WIN32)
-	qt4_wrap_ui( UI_LOGWIDGET ${LOGWIDGET_UI}  )
+        qt4_wrap_ui( UI_LOGWIDGET ${LOGWIDGET_UI}  )
 endif()
 
 # Labelling widget

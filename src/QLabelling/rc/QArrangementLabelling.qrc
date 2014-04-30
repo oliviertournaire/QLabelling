@@ -1,5 +1,8 @@
 <RCC>
   <qresource>
+    <file>vanishingpointboldmoins.png</file>
+    <file>vanishingpointboldplus.png</file>
+    <file>vanishingpointbold.png</file>
     <file>icons/Arrangement_2.png</file>
     <file>icons/document-open.png</file>
     <file>icons/folder.png</file>

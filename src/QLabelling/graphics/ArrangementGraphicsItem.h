@@ -36,6 +36,7 @@
 #include "QArrangementLabellingInfoWidget.h"
 #include "QArrangementLabellingLogWidget.h"
 #include "QArrangementLabellingWidget.h"
+#include "QArrangementLabellingVanishingPointsWidget.h"
 
 class QGraphicsScene;
 

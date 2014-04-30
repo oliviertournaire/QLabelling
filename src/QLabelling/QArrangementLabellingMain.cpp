@@ -27,6 +27,7 @@
 
 #include "QArrangementLabellingWindow.h"
 #include "QArrangementLabellingLogWidget.h"
+#include "QArrangementLabellingVanishingPointsWidget.h"
 
 int main( int argc, char* argv[] )
 {

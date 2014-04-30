@@ -36,11 +36,13 @@
 #include <QSettings>
 
 #include "ui_QArrangementLabellingWindow.h"
+#include "QArrangementLabellingVanishingPointsWidget.h"
 
 class QActionGroup;
 
 class QArrangementLabellingLogWidget;
 class QArrangementLabellingWidget;
+class QArrangementLabellingVanishingPointsWidget;
 
 class QArrangementLabellingWindow : public CGAL::Qt::DemosMainWindow
 {
@@ -106,6 +108,7 @@ protected:
 
     QArrangementLabellingLogWidget *_loggerWidget; // Le logger
     QArrangementLabellingWidget *_labellingWidget; // Le widget de choix des labels + des modes
+    QArrangementLabellingVanishingPointsWidget *_vanishingWidget;
 
     bool doLoadImage(const QString &fileName);
     void updateToolBarButtonsEnable(bool enable);

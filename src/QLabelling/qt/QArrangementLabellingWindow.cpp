@@ -50,11 +50,14 @@
 #include "DeleteCurveMode.h"
 #include "config.hpp"
 
+#include "QArrangementLabellingVanishingPointsWidget.h"
+
 QArrangementLabellingWindow::QArrangementLabellingWindow(QWidget* parent) :
 CGAL::Qt::DemosMainWindow( parent ),
     _lastTabIndex(static_cast<unsigned int>(-1)),
     _ui( new Ui::QArrangementLabellingWindow ),
     _loggerWidget(QArrangementLabellingLogWidget::instance()),
+    _vanishingWidget(QArrangementLabellingVanishingPointsWidget::instance()),
     _labellingWidget(QArrangementLabellingWidget::instance())
 {
     setAttribute( Qt::WA_AlwaysShowToolTips);
@@ -80,6 +83,9 @@ CGAL::Qt::DemosMainWindow( parent ),
     dockInfoWidget->setWindowTitle( QArrangementLabellingInfoWidget::instance()->windowTitle() );
     dockInfoWidget->setWindowIcon( dockInfoWidget->windowIcon() );
     this->addDockWidget(Qt::RightDockWidgetArea, dockInfoWidget);
+
+    QDockWidget* dockVanishingPointsWidget =  _vanishingWidget;
+    this->addDockWidget(Qt::RightDockWidgetArea, dockVanishingPointsWidget);
 
     _loggerWidget->logInfo( tr("QDemoArrangement application started") );
 

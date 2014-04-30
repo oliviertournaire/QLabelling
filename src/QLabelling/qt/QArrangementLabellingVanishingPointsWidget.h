@@ -9,19 +9,19 @@ namespace Ui {
 class QArrangementLabellingVanishingPointsWidget;
 }
 
-class QArrangementLabellingVanishingPointsWidget : public QWidget, public Singleton<QArrangementLabellingVanishingPointsWidget>
+class QArrangementLabellingVanishingPointsWidget : public QDockWidget, public Singleton<QArrangementLabellingVanishingPointsWidget>
 {
     friend class Singleton<QArrangementLabellingVanishingPointsWidget>;
     Q_OBJECT
 
 private:
-    explicit QArrangementLabellingVanishingPointsWidget(QWidget *parent = 0);
+    explicit QArrangementLabellingVanishingPointsWidget(QDockWidget *parent = 0);
     ~QArrangementLabellingVanishingPointsWidget();
 
-public:
 
 
 private:
+
     Ui::QArrangementLabellingVanishingPointsWidget *ui;
 };
 

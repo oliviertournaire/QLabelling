@@ -1,3 +1,0 @@
-#include "QArrangementLabellingVanishingPointsWidget.h"
-
-
