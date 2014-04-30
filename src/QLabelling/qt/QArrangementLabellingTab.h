@@ -66,17 +66,17 @@ public slots:
 protected:
     virtual void setupUi( );
 
-    QArrangementLabellingGraphicsView* graphicsView;
-    QGraphicsScene* scene;
-    QGridLayout* layout;
+    QArrangementLabellingGraphicsView* _graphicsView;
+    QGraphicsScene* _scene;
+    QGridLayout* _layout;
 
-    CGAL::Qt::ArrangementGraphicsItemBase* arrangementGraphicsItem;
-    CGAL::Qt::GraphicsViewCurveInputBase* curveInputCallback;
-    CGAL::Qt::Callback* deleteCurveCallback;
-    CGAL::Qt::Callback* pointLocationCallback;
-    CGAL::Qt::Callback* mergeEdgeCallback;
-    SplitEdgeCallbackBase* splitEdgeCallback;
-    FillFaceCallbackBase* fillFaceCallback;
+    CGAL::Qt::ArrangementGraphicsItemBase* _arrangementGraphicsItem;
+    CGAL::Qt::GraphicsViewCurveInputBase* _curveInputCallback;
+    CGAL::Qt::Callback* _deleteCurveCallback;
+    CGAL::Qt::Callback* _pointLocationCallback;
+    CGAL::Qt::Callback* _mergeEdgeCallback;
+    SplitEdgeCallbackBase* _splitEdgeCallback;
+    FillFaceCallbackBase* _fillFaceCallback;
 
 }; // class ArrangementDemoTabBase
 
@@ -88,43 +88,43 @@ public:
     typedef QArrangementLabellingTabBase Superclass;
     typedef Arr_ Arrangement;
 
-    QArrangementLabellingTab( Arrangement* arrangement_, QWidget* parent = 0 ):
+    QArrangementLabellingTab( Arrangement* arrangement, QWidget* parent = 0 ):
         Superclass( parent ),
-        arrangement( arrangement_ )
+        _arrangement( arrangement )
     {
         _imageHasBeenLoaded = false;
         _labelsHaveBeenSaved = true;
         
         // std::cout << this->scene->views( ).size( ) << std::endl;
         // set up demo components
-        this->arrangementGraphicsItem = new CGAL::Qt::ArrangementGraphicsItem<Arrangement>(this->arrangement);
-        this->curveInputCallback = new ArrangementCurveInputCallback<Arrangement>(this->arrangement, this);
+        this->_arrangementGraphicsItem = new CGAL::Qt::ArrangementGraphicsItem<Arrangement>(this->_arrangement);
+        this->_curveInputCallback = new ArrangementCurveInputCallback<Arrangement>(this->_arrangement, this);
         // TODO: set snapping distances (grid and vertex)
-        this->deleteCurveCallback = new DeleteCurveCallback<Arrangement>( this->arrangement, this );
-        this->pointLocationCallback = new PointLocationCallback<Arrangement>( this->arrangement, this );
-        this->mergeEdgeCallback = new MergeEdgeCallback<Arrangement>( this->arrangement, this );
-        this->splitEdgeCallback = new SplitEdgeCallback<Arrangement>( this->arrangement, this );
-        this->fillFaceCallback = new FillFaceCallback<Arrangement>( this->arrangement, this );
+        this->_deleteCurveCallback = new DeleteCurveCallback<Arrangement>( this->_arrangement, this );
+        this->_pointLocationCallback = new PointLocationCallback<Arrangement>( this->_arrangement, this );
+        this->_mergeEdgeCallback = new MergeEdgeCallback<Arrangement>( this->_arrangement, this );
+        this->_splitEdgeCallback = new SplitEdgeCallback<Arrangement>( this->_arrangement, this );
+        this->_fillFaceCallback = new FillFaceCallback<Arrangement>( this->_arrangement, this );
 
-        this->scene->addItem( this->arrangementGraphicsItem );
-        this->arrangementGraphicsItem->setScene( this->scene );
-        this->curveInputCallback->setScene( this->scene );
-        this->deleteCurveCallback->setScene( this->scene );
-        this->pointLocationCallback->setScene( this->scene );
-        this->mergeEdgeCallback->setScene( this->scene );
-        this->splitEdgeCallback->setScene( this->scene );
-        this->fillFaceCallback->setScene( this->scene );
+        this->_scene->addItem( this->_arrangementGraphicsItem );
+        this->_arrangementGraphicsItem->setScene( this->_scene );
+        this->_curveInputCallback->setScene( this->_scene );
+        this->_deleteCurveCallback->setScene( this->_scene );
+        this->_pointLocationCallback->setScene( this->_scene );
+        this->_mergeEdgeCallback->setScene( this->_scene );
+        this->_splitEdgeCallback->setScene( this->_scene );
+        this->_fillFaceCallback->setScene( this->_scene );
 
         // set up callbacks
-        this->scene->installEventFilter( this->curveInputCallback );
-        QObject::connect(this->curveInputCallback, SIGNAL(modelChanged()), this,
+        this->_scene->installEventFilter( this->_curveInputCallback );
+        QObject::connect(this->_curveInputCallback, SIGNAL(modelChanged()), this,
                          SIGNAL(modelChanged()));
-        QObject::connect(this->deleteCurveCallback, SIGNAL(modelChanged()), this,
+        QObject::connect(this->_deleteCurveCallback, SIGNAL(modelChanged()), this,
                          SIGNAL(modelChanged()));
-        QObject::connect(this->fillFaceCallback, SIGNAL(modelChanged()), this,
+        QObject::connect(this->_fillFaceCallback, SIGNAL(modelChanged()), this,
                          SIGNAL(modelChanged()));
         QObject::connect(this, SIGNAL(modelChanged()),
-                         this->arrangementGraphicsItem, SLOT(modelChanged()));
+                         this->_arrangementGraphicsItem, SLOT(modelChanged()));
         //WIP
         QObject::connect(this, SIGNAL(modelChanged()),
                          this, SLOT(UpdateFaceLabel()));
@@ -135,45 +135,45 @@ public:
 
     void setArrangement( Arrangement* newArr )
     {
-        this->scene->removeItem( this->arrangementGraphicsItem );
-        delete this->arrangementGraphicsItem;
-        delete this->curveInputCallback;
-        delete this->deleteCurveCallback;
-        delete this->pointLocationCallback;
-        delete this->mergeEdgeCallback;
-        delete this->splitEdgeCallback;
-        delete this->fillFaceCallback;
+        this->_scene->removeItem( this->_arrangementGraphicsItem );
+        delete this->_arrangementGraphicsItem;
+        delete this->_curveInputCallback;
+        delete this->_deleteCurveCallback;
+        delete this->_pointLocationCallback;
+        delete this->_mergeEdgeCallback;
+        delete this->_splitEdgeCallback;
+        delete this->_fillFaceCallback;
 
-        this->arrangement = newArr;
+        this->_arrangement = newArr;
 
-        this->arrangementGraphicsItem = new CGAL::Qt::ArrangementGraphicsItem<Arrangement>( this->arrangement );
+        this->_arrangementGraphicsItem = new CGAL::Qt::ArrangementGraphicsItem<Arrangement>( this->_arrangement );
 
-        this->curveInputCallback = new ArrangementCurveInputCallback<Arrangement>(this->arrangement, this);
+        this->_curveInputCallback = new ArrangementCurveInputCallback<Arrangement>(this->_arrangement, this);
         // TODO: set snapping distances (grid and vertex)
-        this->deleteCurveCallback = new DeleteCurveCallback<Arrangement>( this->arrangement, this );
-        this->pointLocationCallback = new PointLocationCallback<Arrangement>( this->arrangement, this );
-        this->mergeEdgeCallback = new MergeEdgeCallback<Arrangement>( this->arrangement, this );
-        this->splitEdgeCallback = new SplitEdgeCallback<Arrangement>( this->arrangement, this );
-        this->fillFaceCallback = new FillFaceCallback<Arrangement>( this->arrangement, this );
+        this->_deleteCurveCallback = new DeleteCurveCallback<Arrangement>( this->_arrangement, this );
+        this->_pointLocationCallback = new PointLocationCallback<Arrangement>( this->_arrangement, this );
+        this->_mergeEdgeCallback = new MergeEdgeCallback<Arrangement>( this->_arrangement, this );
+        this->_splitEdgeCallback = new SplitEdgeCallback<Arrangement>( this->_arrangement, this );
+        this->_fillFaceCallback = new FillFaceCallback<Arrangement>( this->_arrangement, this );
 
-        this->scene->addItem( this->arrangementGraphicsItem );
-        this->arrangementGraphicsItem->setScene( this->scene );
-        this->curveInputCallback->setScene( this->scene );
-        this->deleteCurveCallback->setScene( this->scene );
-        this->pointLocationCallback->setScene( this->scene );
-        this->mergeEdgeCallback->setScene( this->scene );
-        this->splitEdgeCallback->setScene( this->scene );
-        this->fillFaceCallback->setScene( this->scene );
+        this->_scene->addItem( this->_arrangementGraphicsItem );
+        this->_arrangementGraphicsItem->setScene( this->_scene );
+        this->_curveInputCallback->setScene( this->_scene );
+        this->_deleteCurveCallback->setScene( this->_scene );
+        this->_pointLocationCallback->setScene( this->_scene );
+        this->_mergeEdgeCallback->setScene( this->_scene );
+        this->_splitEdgeCallback->setScene( this->_scene );
+        this->_fillFaceCallback->setScene( this->_scene );
 
-        this->scene->installEventFilter(this->curveInputCallback);
-        QObject::connect(this->curveInputCallback, SIGNAL(modelChanged()),
+        this->_scene->installEventFilter(this->_curveInputCallback);
+        QObject::connect(this->_curveInputCallback, SIGNAL(modelChanged()),
                          this,                     SLOT  (modelChanged()));
-        QObject::connect(this->deleteCurveCallback, SIGNAL(modelChanged()),
+        QObject::connect(this->_deleteCurveCallback, SIGNAL(modelChanged()),
                          this,                      SLOT  (modelChanged()));
-        QObject::connect(this->fillFaceCallback, SIGNAL(modelChanged()),
+        QObject::connect(this->_fillFaceCallback, SIGNAL(modelChanged()),
                          this,                   SLOT  (modelChanged()));
         QObject::connect(this,                          SIGNAL(modelChanged()),
-                         this->arrangementGraphicsItem, SLOT(modelChanged()));
+                         this->_arrangementGraphicsItem, SLOT(modelChanged()));
 
         // TODO: Add a connection to update the demo window when the fill color
         //       changes
@@ -181,7 +181,7 @@ public:
         emit modelChanged( );
     }
 protected:
-    Arrangement* arrangement;
+    Arrangement* _arrangement;
 
 }; // class ArrangementDemoTab
 
