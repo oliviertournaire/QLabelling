@@ -250,8 +250,13 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
         messageToLog += tr("Insertion (horizontal) mode");
     }
     else if ( newMode == this->_ui->actionInsert_vertical_line )
-    {
-	activeTab->getCurveInputCallback( )->_mode = VERTICAL;
+    {   //WIP WIP à enlever
+        double n=600.;
+        Arr_pol_point_2 p(1110,235);
+        VanishingPoints::instance()->addVanishingPoint(p);
+        //WIP fin
+    activeTab->getCurveInputCallback( )->_mode = VERTICAL;
+    //WIP WIP WIP c'est VERTICAL normalement
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion (vertical) mode");
     }

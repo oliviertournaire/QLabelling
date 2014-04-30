@@ -601,6 +601,21 @@
     </message>
 </context>
 <context>
+    <name>QArrangementLabellingVanishingPointWidget</name>
+    <message>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingVanishingPointsWidget.h" line="84"/>
+        <source>Vanishing Points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingVanishingPointsWidget.h" line="85"/>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingVanishingPointsWidget.h" line="86"/>
+        <location filename="../../../QLabelling-build_debug/ui_QArrangementLabellingVanishingPointsWidget.h" line="87"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QArrangementLabellingWidget</name>
     <message>
         <location filename="qt/QArrangementLabellingWidget.ui" line="14"/>
