@@ -1,5 +1,7 @@
 <RCC>
   <qresource>
+    <file>icons/edit-redo.png</file>
+    <file>icons/edit-undo.png</file>
     <file>icons/Arrangement_2.png</file>
     <file>icons/document-open.png</file>
     <file>icons/folder.png</file>
