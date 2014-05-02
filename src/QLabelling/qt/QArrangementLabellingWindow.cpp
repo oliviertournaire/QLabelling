@@ -49,6 +49,7 @@
 #include "FillFaceCallback.h"
 #include "DeleteCurveMode.h"
 #include "config.hpp"
+#include "arrangement/ArrangementBuffer.h"
 
 #include "QArrangementLabellingVanishingPointsWidget.h"
 
@@ -398,67 +399,7 @@ void QArrangementLabellingWindow::openArrFile( QString filename )
 
 void QArrangementLabellingWindow::openDatFile( QString filename )
 {
-    /*
-    QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
-
-    int index = this->_ui->tabWidget->currentIndex( );
-    if ( index == -1 )
-    {
-        QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
-        return;
-    }
-    if ( filename.isNull( ) )
-    {
-        return;
-    }
-
-    std::ifstream inputFile( filename.toStdString( ).c_str( ) );
-    CGAL::Object arr = this->arrangements[ index ];
-    Pol_arr* pol;
-
-    // Creates an ofstream object named inputFile
-    if (! inputFile.is_open() ) // Always test file open
-    {
-        QArrangementLabellingLogWidget::instance()->logError(tr("Error opening input file"));
-        return;
-    }
-
-    if ( CGAL::assign( pol, arr ) )
-    {
-        pol->clear( );
-
-        std::vector<Arr_pol_point_2> points;
-
-        unsigned int num_polylines;
-        inputFile >> num_polylines;
-        std::list<Arr_pol_2> pol_list;
-
-        unsigned int i;
-        for (i = 0; i < num_polylines; i++)
-        {
-            unsigned int num_segments;
-            inputFile >> num_segments;
-            points.clear();
-            unsigned int j;
-            for (j = 0; j < num_segments; j++)
-            {
-                int ix, iy;
-                inputFile >> ix >> iy;
-                points.push_back (Arr_pol_point_2(CGAL::to_double(ix),CGAL::to_double(iy)));
-            }
-
-            Arr_pol_2 curve (points.begin(), points.end());
-            pol_list.push_back(curve);
-        }
-        CGAL::insert(*pol, pol_list.begin(), pol_list.end());
-
-        typedef QArrangementLabellingTab< Pol_arr > TabType;
-        TabType* tab = static_cast< TabType* >( this->tabs[ index ] );
-        tab->setArrangement( pol );
-    }
-
-    inputFile.close();
-    */
+    QArrangementLabellingLogWidget::instance()->logWarning( QString(__FUNCTION__) + " --> Not implemented " );
 }
 
 void QArrangementLabellingWindow::updateSnapping( QAction* newMode )
@@ -998,6 +939,8 @@ void QArrangementLabellingWindow::updateToolBarButtonsEnable(bool enable)
     _ui->actionSnapMode->setEnabled(enable);
     _ui->actionGridSnapMode->setEnabled(enable);
     _ui->actionClean->setEnabled(enable);
+    // #43: update when redo implemented
+    _ui->actionRedo->setEnabled(false);
     
     // Enabling/Disabling the label list too
     QArrangementLabellingWidget::instance()->setEnabledAllLabelButtons(enable);
@@ -1019,6 +962,8 @@ void QArrangementLabellingWindow::on_actionClean_triggered()
     
     if ( CGAL::assign( pol, arr ) )
     {
+        ArrangementBuffer::instance()->push_back(pol);
+
         int index;
         
         // Suppression des vertices isolés
@@ -1116,13 +1061,38 @@ void QArrangementLabellingWindow::saveLabelsImage(QGraphicsScene *scene, const Q
         return;    
 
     QRect rectIm = this->getCurrentTab()->getView()->imageToLabel().rect();
-    QImage image(rectIm.width(), rectIm.height(), QImage::Format_ARGB32);
+    QImage image(rectIm.width(), rectIm.height(), QImage::Format_RGB32);
     QPainter painter(&image);
 
     CGAL::Qt::ArrangementGraphicsItem<Pol_arr>* agi = (CGAL::Qt::ArrangementGraphicsItem<Pol_arr>*)getCurrentTab()->getArrangementGraphicsItem();
-    agi->paintFaces(&painter);
+    agi->paintFaces(true, &painter);
 
     if(!image.save(filename))
         QArrangementLabellingLogWidget::instance()->logError( tr("Error saving the label image...") );
+}
+
+void QArrangementLabellingWindow::on_actionUndo_triggered()
+{
+    int tabIndex = this->_ui->tabWidget->currentIndex( );
+    if ( tabIndex == -1 )
+    {
+        QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
+        return;
+    }
+
+    Pol_arr* arr = ArrangementBuffer::instance()->back();
+    ArrangementBuffer::instance()->pop_back();
+    this->_arrangements[tabIndex] = CGAL::make_object(arr);
+
+    typedef QArrangementLabellingTab< Pol_arr >                       TabType;
+    TabType* tab = static_cast< TabType* >( this->_tabs[ tabIndex ] );
+    tab->setArrangement( arr, false );
+
+    updateMode( this->_activeModes.at( 0 ) );
+}
+
+void QArrangementLabellingWindow::on_actionRedo_triggered()
+{
+    QArrangementLabellingLogWidget::instance()->logWarning( tr("Redo currently not implemented") );
 }
 

@@ -34,6 +34,7 @@
 #include "ArrangementObserver.h"
 
 #include "QArrangementLabellingLogWidget.h"
+#include "arrangement/ArrangementBuffer.h"
 
 template <typename Arr_, typename ArrTraits = typename Arr_::Geometry_traits_2>
 class ArrangementCurveInputCallback: public CGAL::Qt::GraphicsViewCurveInput< typename Arr_::Geometry_traits_2 >

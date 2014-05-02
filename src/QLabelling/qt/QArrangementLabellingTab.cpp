@@ -23,16 +23,16 @@
 
 QArrangementLabellingTabBase::QArrangementLabellingTabBase( QWidget* parent ) :
     QWidget( parent ),
-    graphicsView( new QArrangementLabellingGraphicsView( this ) ),
-    scene( new QGraphicsScene( -100, -100, 100, 100 ) ),
-    layout( new QGridLayout( this ) ),
-    arrangementGraphicsItem( NULL ),
-    curveInputCallback( NULL ),
-    deleteCurveCallback( NULL ),
-    pointLocationCallback( NULL ),
-    mergeEdgeCallback( NULL ),
-    splitEdgeCallback( NULL ),
-    fillFaceCallback( NULL )
+    _graphicsView( new QArrangementLabellingGraphicsView( this ) ),
+    _scene( new QGraphicsScene( -100, -100, 100, 100 ) ),
+    _layout( new QGridLayout( this ) ),
+    _arrangementGraphicsItem( NULL ),
+    _curveInputCallback( NULL ),
+    _deleteCurveCallback( NULL ),
+    _pointLocationCallback( NULL ),
+    _mergeEdgeCallback( NULL ),
+    _splitEdgeCallback( NULL ),
+    _fillFaceCallback( NULL )
 {
     setAttribute( Qt::WA_AlwaysShowToolTips);
     this->setupUi( );
@@ -40,9 +40,9 @@ QArrangementLabellingTabBase::QArrangementLabellingTabBase( QWidget* parent ) :
 
 void QArrangementLabellingTabBase::setupUi( )
 {
-    this->layout->addWidget( this->graphicsView, 0, 0, 1, 1 );
-    this->graphicsView->setScene( this->scene );
-    this->graphicsView->setMouseTracking( true );
+    this->_layout->addWidget( this->_graphicsView, 0, 0, 1, 1 );
+    this->_graphicsView->setScene( this->_scene );
+    this->_graphicsView->setMouseTracking( true );
 }
 //WIP
 void QArrangementLabellingTabBase::UpdateFaceLabel(){//DEF : Affiche une infobulle lorsque l'on passe sur une face de l'arrangement, avec son Label
@@ -53,49 +53,49 @@ void QArrangementLabellingTabBase::UpdateFaceLabel(){//DEF : Affiche une infobul
 //WIP
 QGraphicsScene* QArrangementLabellingTabBase::getScene( ) const
 {
-    return this->scene;
+    return this->_scene;
 }
 
 QArrangementLabellingGraphicsView* QArrangementLabellingTabBase::getView( ) const
 {
-    return this->graphicsView;
+    return this->_graphicsView;
 }
 
 CGAL::Qt::ArrangementGraphicsItemBase*
 QArrangementLabellingTabBase::getArrangementGraphicsItem( ) const
 {
-    return this->arrangementGraphicsItem;
+    return this->_arrangementGraphicsItem;
 }
 
 CGAL::Qt::GraphicsViewCurveInputBase*
 QArrangementLabellingTabBase::getCurveInputCallback( ) const
 {
-    return this->curveInputCallback;
+    return this->_curveInputCallback;
 }
 
 CGAL::Qt::Callback* QArrangementLabellingTabBase::getDeleteCurveCallback( ) const
 {
-    return this->deleteCurveCallback;
+    return this->_deleteCurveCallback;
 }
 
 CGAL::Qt::Callback* QArrangementLabellingTabBase::getPointLocationCallback( ) const
 {
-    return this->pointLocationCallback;
+    return this->_pointLocationCallback;
 }
 
 CGAL::Qt::Callback* QArrangementLabellingTabBase::getMergeEdgeCallback( ) const
 {
-    return this->mergeEdgeCallback;
+    return this->_mergeEdgeCallback;
 }
 
 SplitEdgeCallbackBase* QArrangementLabellingTabBase::getSplitEdgeCallback( ) const
 {
-    return this->splitEdgeCallback;
+    return this->_splitEdgeCallback;
 }
 
 FillFaceCallbackBase* QArrangementLabellingTabBase::getFillFaceCallback( ) const
 {
-    return this->fillFaceCallback;
+    return this->_fillFaceCallback;
 }
 void QArrangementLabellingTabBase::FaceLabelToolTip(){
     setToolTip(QArrangementLabellingInfoWidget::instance()->FaceLabel());
@@ -103,10 +103,10 @@ void QArrangementLabellingTabBase::FaceLabelToolTip(){
 
 bool QArrangementLabellingTabBase::arrHasBeenSaved()
 {
-    return !arrangementGraphicsItem->changed;
+    return !_arrangementGraphicsItem->changed;
 }
 
 void QArrangementLabellingTabBase::setArrHasBeenSaved( bool saved )
 {
-    arrangementGraphicsItem->changed = !saved; QArrangementLabellingInfoWidget::instance()->setChanged(!saved);
+    _arrangementGraphicsItem->changed = !saved; QArrangementLabellingInfoWidget::instance()->setChanged(!saved);
 }
