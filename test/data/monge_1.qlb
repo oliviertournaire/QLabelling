@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<QLabellingProject name="monge_1">
-    <inputImage path="/home/victor/work/dev/QLabelling/test/data/monge_1.jpg"/>
-    <labelsImage path="/home/victor/work/dev/QLabelling/test/data/monge_1_labels.jpg"/>
-    <arrangement path="/home/victor/work/dev/QLabelling/test/data/monge_1_arrangement.arr"/>
-    <labelsDefinition path="/home/victor/work/dev/QLabelling/src/QLabelling/rc/labels/labels_facade_simple.txt"/>
-</QLabellingProject>
