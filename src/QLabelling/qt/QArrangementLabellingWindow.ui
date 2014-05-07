@@ -48,6 +48,9 @@
    <addaction name="actionInsert"/>
    <addaction name="actionInsert_horizontal_line"/>
    <addaction name="actionInsert_vertical_line"/>
+   <addaction name="actionCreate_vanishing_point"/>
+   <addaction name="actionEdit_vanishing_point"/>
+   <addaction name="actionRemove_vanishing_point"/>
    <addaction name="actionDelete"/>
    <addaction name="separator"/>
    <addaction name="actionClean"/>
@@ -72,7 +75,7 @@
      <x>0</x>
      <y>0</y>
      <width>946</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -434,6 +437,51 @@
    </property>
    <property name="toolTip">
     <string>Redo</string>
+   </property>
+  </action>
+  <action name="actionEdit_vanishing_point">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rc/QArrangementLabelling.qrc">
+     <normaloff>:/icons/vanishingpointbold.png</normaloff>:/icons/vanishingpointbold.png</iconset>
+   </property>
+   <property name="text">
+    <string>Edit_vanishing_point</string>
+   </property>
+   <property name="toolTip">
+    <string>Editer un point de fuite</string>
+   </property>
+  </action>
+  <action name="actionCreate_vanishing_point">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rc/QArrangementLabelling.qrc">
+     <normaloff>:/icons/vanishingpointboldplus.png</normaloff>:/icons/vanishingpointboldplus.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create_vanishing_point</string>
+   </property>
+   <property name="toolTip">
+    <string>Créer un point de fuite</string>
+   </property>
+  </action>
+  <action name="actionRemove_vanishing_point">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rc/QArrangementLabelling.qrc">
+     <normaloff>:/icons/vanishingpointboldmoins.png</normaloff>:/icons/vanishingpointboldmoins.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove_vanishing_point</string>
+   </property>
+   <property name="toolTip">
+    <string>Supprimer le point de fuite</string>
    </property>
   </action>
  </widget>

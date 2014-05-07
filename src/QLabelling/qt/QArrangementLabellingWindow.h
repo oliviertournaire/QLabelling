@@ -64,6 +64,7 @@ public:
 
     template < class ArrType >
     void makeOverlayTab( ArrType* arr1, ArrType* arr2 );
+    QActionGroup* _modeGroup;
     
 public slots:
     void updateMode( QAction* a );
@@ -107,7 +108,7 @@ protected:
     unsigned int _lastTabIndex;
 
     Ui::QArrangementLabellingWindow* _ui;
-    QActionGroup* _modeGroup;
+
     QActionGroup* _snapGroup;
 
     QArrangementLabellingLogWidget *_loggerWidget; // Le logger

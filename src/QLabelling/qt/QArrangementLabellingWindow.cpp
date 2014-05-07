@@ -208,6 +208,10 @@ void QArrangementLabellingWindow::setupUi( )
     this->_modeGroup->addAction( this->_ui->actionInsert );
     this->_modeGroup->addAction( this->_ui->actionInsert_horizontal_line );
     this->_modeGroup->addAction( this->_ui->actionInsert_vertical_line );
+
+    this->_modeGroup->addAction( this->_ui->actionEdit_vanishing_point);
+    this->_modeGroup->addAction( this->_ui->actionCreate_vanishing_point);
+    this->_modeGroup->addAction( this->_ui->actionRemove_vanishing_point);
     this->_modeGroup->addAction( this->_ui->actionDelete );
     this->_modeGroup->addAction( this->_ui->actionPointLocation );
     this->_modeGroup->addAction( this->_ui->actionMerge );
@@ -252,17 +256,30 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
     }
     else if ( newMode == this->_ui->actionInsert_horizontal_line  )
     {
-	activeTab->getCurveInputCallback( )->_mode = HORIZONTAL;
+    activeTab->getCurveInputCallback( )->_mode = HORIZONTAL;
+        activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
+        messageToLog += tr("Insertion (horizontal) mode");
+    }
+    else if ( newMode == this->_ui->actionCreate_vanishing_point  )
+    { VanishingPoints::instance()->setIndexSelected(0);
+    activeTab->getCurveInputCallback( )->_mode = DEFINE_VANISHING;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion (horizontal) mode");
     }
     else if ( newMode == this->_ui->actionInsert_vertical_line )
+    {
+        activeTab->getCurveInputCallback( )->_mode = VERTICAL;
+        activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
+        messageToLog += tr("Insertion (vertical) mode");
+    }
+    else if ( newMode == this->_ui->actionEdit_vanishing_point)
     {   //WIP WIP à enlever
-        double n=600.;
+
         Arr_pol_point_2 p(1110,235);
         VanishingPoints::instance()->addVanishingPoint(p);
+        VanishingPoints::instance()->calculate_vanishing_point(0);
         //WIP fin
-    activeTab->getCurveInputCallback( )->_mode = VERTICAL;
+    activeTab->getCurveInputCallback( )->_mode = USE_VANISHING;
     //WIP WIP WIP c'est VERTICAL normalement
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion (vertical) mode");
@@ -927,6 +944,7 @@ void QArrangementLabellingWindow::updateToolBarButtonsEnable(bool enable)
     _ui->actionInsert->setEnabled(enable);
     _ui->actionInsert_horizontal_line->setEnabled(enable);
     _ui->actionInsert_vertical_line->setEnabled(enable);
+     //_ui->actionInsert_vanishing_line->setEnabled(enable);
     _ui->actionDelete->setEnabled(enable);
     _ui->actionPointLocation->setEnabled(enable);
     _ui->actionMerge->setEnabled(enable);

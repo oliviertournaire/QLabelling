@@ -112,8 +112,24 @@ protected:
             QLineF qSegment = this->_converter( segment );
             this->_polylineGuide.back( )->setLine( qSegment );
         }
-    }
 
+        if(VanishingPoints::instance()->countervanishing==1){
+            Point_2 clickedPoint = this->snapPoint( event );
+            Point_2  pp=VanishingPoints::instance()->GetPointForVanishing();
+            Segment_2 segment( pp, clickedPoint );
+            QLineF qSegment = this->_converter( segment );
+            int index=VanishingPoints::instance()->getIndexSelected();
+            if(VanishingPoints::instance()->_VanishingLineGuide.size()==0){
+                  QPointF pt = this->_converter( clickedPoint );
+                  QPointF px= this->_converter( pp );
+                QGraphicsLineItem* qSegprov=new QGraphicsLineItem(px.x(),px.y(),pt.x(),pt.y());
+
+                VanishingPoints::instance()->_VanishingLineGuide.push_back(qSegprov);
+            }
+            else
+                VanishingPoints::instance()->_VanishingLineGuide.back( )->setLine( qSegment );
+        }
+    }
     void mousePressEvent( QGraphicsSceneMouseEvent* event )
     {
         Point_2 clickedPoint = this->snapPoint( event );
@@ -217,6 +233,8 @@ protected:
                 }
 	        }
 	    }
+
+
 	    else if ( _mode == HORIZONTAL )
 	    {
             // Ligne horizontale
@@ -238,8 +256,8 @@ protected:
 	        Curve_2 res( this->_points.begin( ), this->_points.end( ) );
 	        this->_points.clear( );
 	        emit generate( CGAL::make_object( res ) );
-        }//WIP WIP a remettre VERTICAL
-        else if ( _mode == USE_VANISHING )
+        }
+        else if ( _mode == VERTICAL)
 	    {
             // Ligne verticale
 	        QRect size_imagetolabel(0,0,1000,1000);
@@ -261,8 +279,8 @@ protected:
 	        this->_points.clear( );
 	        emit generate( CGAL::make_object( res ) );
         }
-    //WIP WIp remettre USE_VANISHING
-  else if (_mode == VERTICAL)
+
+  else if (_mode == USE_VANISHING)
     { // Tracer à l'aide du point de fuite
         QRect size_imagetolabel(0,0,1000,1000);
 
@@ -344,6 +362,81 @@ protected:
             emit generate( CGAL::make_object( res ) );
         }
     }
+        else if( _mode == DEFINE_VANISHING )
+        {   int index=VanishingPoints::instance()->getIndexSelected();
+            if ( VanishingPoints::instance()->countervanishing==0)
+            {
+                // first
+                // add clicked point to polyline
+                VanishingPoints::instance()->SetPointForVanishing( clickedPoint );
+                // std::cout << "Insertion d'un point (premier de la ligne) en " << clickedPoint << "." << std::endl;
+
+                QPointF pt = this->_converter( clickedPoint );
+                QGraphicsLineItem* lineItem = new QGraphicsLineItem( pt.x( ), pt.y( ), pt.x( ), pt.y( ) );
+                lineItem->setZValue( 100 );
+                QPen pen = lineItem->pen( );
+                pen.setColor( this->_color );
+                lineItem->setPen( pen );
+                VanishingPoints::instance()->_VanishingLineGuide.push_back( lineItem );
+                if ( this->_scene != NULL )
+                {
+                    this->_scene->addItem( VanishingPoints::instance()->_VanishingLineGuide.back( ) );
+                }
+                VanishingPoints::instance()->countervanishing=1;
+           }
+            else
+            {
+
+
+                // Fix #37: when the user clicks the same point twice, do not add it to the current polyline and exit now
+                if(clickedPoint == VanishingPoints::instance()->GetPointForVanishing())
+                    return;
+                 QPointF point1 = this->_converter( clickedPoint );
+                QPointF point2=this->_converter(VanishingPoints::instance()->GetPointForVanishing());
+                qreal x1=point2.x();
+                VanishingPoints::instance()->addVanishingEdges(point1.x(),point1.y(),point2.x(),point2.y(),0);
+                this->_points.push_back( clickedPoint );
+
+                // #37 (https://github.com/oliviertournaire/QLabelling/issues/37): This is where the crash happens when the user click consecutively the same point
+               std::vector<Point_2>  pp;
+               pp.push_back(VanishingPoints::instance()->GetPointForVanishing());
+
+                VanishingPoints::instance()->countervanishing=0;
+
+                switch(event->button( ))
+                {
+                    case ::Qt::MiddleButton :
+                    case ::Qt::RightButton : // finalize polyline input
+                        // Destruction de la Polyline courante
+                        for ( unsigned int i = 0; i < VanishingPoints::instance()->_VanishingLineGuide.size( ); ++i )
+                        {
+                            if ( this->_scene != NULL )
+                            {
+                                this->_scene->removeItem( VanishingPoints::instance()->_VanishingLineGuide[ i ] );
+                            }
+                            delete VanishingPoints::instance()->_VanishingLineGuide[ i ];
+                        }
+                        VanishingPoints::instance()->_VanishingLineGuide.clear( );
+                        this->_points.clear( );
+
+                        QArrangementLabellingInfoWidget::instance()->setChanged( true );
+
+                        break;
+                    default:
+                        QPointF pt = this->_converter( clickedPoint );
+                        QGraphicsLineItem* lineItem = new QGraphicsLineItem( pt.x( ), pt.y( ), pt.x( ), pt.y( ) );
+                        lineItem->setZValue( 100 );
+                        QPen pen = lineItem->pen( );
+                        pen.setColor( this->_color );
+                        lineItem->setPen( pen );
+                        VanishingPoints::instance()->_VanishingLineGuide.push_back( lineItem ); // Ajout à l'objet Polyline de ce nouveau segment
+                        if ( this->_scene != NULL )
+                        {
+                            this->_scene->addItem( VanishingPoints::instance()->_VanishingLineGuide.back( ) ); // Ajout à la scène du dernier segment (celui qui vient d'être ajouté)
+                        }
+                }
+            }
+        }
     //WIP
     }
 
