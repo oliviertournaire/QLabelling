@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<QLabellingProject name="persp">
-    <inputImage path="/home/victor/work/dev/QLabelling/test/data/persp.jpeg"/>
-    <labelsImage path="/home/victor/work/dev/QLabelling/test/data/persp_labels.jpeg"/>
-    <arrangement path="/home/victor/work/dev/QLabelling/test/data/persp_arrangement.arr"/>
-    <labelsDefinition path="/home/victor/work/dev/QLabelling/src/QLabelling/rc/labels/labels_facade_simple.txt"/>
-</QLabellingProject>

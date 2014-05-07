@@ -37,3 +37,6 @@ config.hpp
 *.kdev4
 i18n/cmake_fr_FR.qm
 /.project
+test/data/*.qlb
+test/data/*.arr
+test/data/*_labels.*
