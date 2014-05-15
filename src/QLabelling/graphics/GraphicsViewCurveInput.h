@@ -32,6 +32,7 @@
 #include "QArrangementLabellingInfoWidget.h"
 #include "ISnappable.h"
 #include "PointsGraphicsItem.h"
+#include "QArrangementLabellingVanishingPointsWidget.h"
 
 #include "graphics/VanishingPoints.h"
 
@@ -114,6 +115,7 @@ protected:
         }
 
         if(VanishingPoints::instance()->countervanishing==1){
+            std::cout<<QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint();
             Point_2 clickedPoint = this->snapPoint( event );
             Point_2  pp=VanishingPoints::instance()->GetPointForVanishing();
             Segment_2 segment( pp, clickedPoint );
@@ -292,7 +294,8 @@ protected:
         }
 
         QPointF pt = this->_converter( clickedPoint );
-        Point_2 vp0=VanishingPoints::instance()->getVanishingPoints(0);
+        VanishingPoints::instance()->calculate_vanishing_point(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
+        Point_2 vp0=VanishingPoints::instance()->getVanishingPoints(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
          QPointF vp = this->_converter( vp0 );
         //Ici, il faut un moyen de stocker le point sous forme de singleton et de type compatiple avec les autres points
         //Ensuite, on calcul l'equation de la droite qui passe entre ce point et le point cliqué
@@ -363,7 +366,8 @@ protected:
         }
     }
         else if( _mode == DEFINE_VANISHING )
-        {   int index=VanishingPoints::instance()->getIndexSelected();
+        {   //WIP int index=VanishingPoints::instance()->getIndexSelected();
+            int index=QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint();
             if ( VanishingPoints::instance()->countervanishing==0)
             {
                 // first
@@ -394,7 +398,7 @@ protected:
                  QPointF point1 = this->_converter( clickedPoint );
                 QPointF point2=this->_converter(VanishingPoints::instance()->GetPointForVanishing());
                 qreal x1=point2.x();
-                VanishingPoints::instance()->addVanishingEdges(point1.x(),point1.y(),point2.x(),point2.y(),0);
+                VanishingPoints::instance()->addVanishingEdges(point1.x(),point1.y(),point2.x(),point2.y(),index);
                 this->_points.push_back( clickedPoint );
 
                 // #37 (https://github.com/oliviertournaire/QLabelling/issues/37): This is where the crash happens when the user click consecutively the same point

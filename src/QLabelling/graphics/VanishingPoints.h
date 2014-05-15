@@ -57,6 +57,14 @@ public:
     {
         return _vanishingPoints.size();
     }
+    unsigned int EdgesSize(unsigned int index){//taille d'un vecteur de lignes de fuite
+        return _vanishingEdges[index].size();
+    }
+    unsigned int EdgesVectorSize(){ //taille du vecteur de l'ensemble des lignes de fuites
+        return _vanishingEdges.size();
+    }
+
+
     //calcul un point de la droite
     qreal Affine(qreal x,qreal a,qreal b){
         return a*x+b;
@@ -79,13 +87,13 @@ public:
             newedge.x2=x2;
             newedge.y1=y1;
             newedge.y2=y2;
-            if (_vanishingEdges.size()<index || _vanishingEdges.size()==0){
+            if (_vanishingEdges.size()<=index || _vanishingEdges.size()==0){
 
               edges.push_back(newedge);
               _vanishingEdges.push_back(edges);
             }
             else
-                _vanishingEdges[0].push_back(newedge);
+                _vanishingEdges[index].push_back(newedge);
 
 
     };
@@ -123,8 +131,11 @@ public:
 
 
     void calculate_vanishing_point(unsigned int index){
+        //TODO : utiliser un autre algorithme si celui ci n'est pas suffisament précis
         //on verifie qu'il y ai au moins 2 droites
         //n : nombre de lignes de fuites définissant le point de fuite
+        if(_vanishingEdges.size()==0)
+            return;
         int n=_vanishingEdges[index].size();
         if (n<2)
             return;
@@ -190,10 +201,16 @@ public:
         }
         //On défini alors le point de fuite
          Arr_pol_point_2 new_vanishing_point(xmin,ymin);
-        if(_vanishingPoints.size()<index)
+        if(_vanishingPoints.size()<=index)
             addVanishingPoint(new_vanishing_point);
         else
             setVanishingPoints(new_vanishing_point,index);
+    }
+    void erase(unsigned int index){
+        _vanishingEdges.erase(_vanishingEdges.begin()+index);
+    }
+    void clearEdgesVector(){
+        _vanishingEdges.clear();
     }
 
 private:

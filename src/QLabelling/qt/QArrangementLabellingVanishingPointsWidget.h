@@ -4,6 +4,7 @@
 #include "utilities/Singleton.hpp"
 
 #include <QDockWidget>
+#include <QComboBox>
 class QActionGroup;
 
 namespace Ui {
@@ -17,11 +18,26 @@ class QArrangementLabellingVanishingPointsWidget : public QDockWidget, public Si
 public:
    void QCreateNewVanishingPoint_clicked(bool ckecked=false);
     void setupUi();
-       QActionGroup* _modeGroup;
         Ui::QArrangementLabellingVanishingPointsWidget *ui;
+        int GetIndexVanishingPoint();
+        int numEdges();
+        int numPoints();
+        bool DrawnVanishing();
+        void addVanishingPointMethod();
+        void removeVanishingTitle(unsigned int index);
+
+
+
+
+public slots:
+    void editIndexVanishingPoint(int index);
+    void addVanishingPoint();
+
+
 private:
     explicit QArrangementLabellingVanishingPointsWidget(QDockWidget *parent = 0);
     ~QArrangementLabellingVanishingPointsWidget();
+    int _indexVanishingPoint;
 
 
 

@@ -104,6 +104,11 @@ CGAL::Qt::DemosMainWindow( parent ),
         this, SLOT( updateMode( QAction* ) ) );
     QObject::connect( this->_snapGroup, SIGNAL( triggered( QAction* ) ),
         this, SLOT( updateSnapping( QAction* ) ) );
+    //WIP Vanishing
+   // QObject::connect( this->_ui->actionCreate_vanishing_point, SIGNAL( triggered(bool) ),
+      // QArrangementLabellingVanishingPointsWidget::instance(), SLOT( addVanishingPoint()) );
+        QArrangementLabellingVanishingPointsWidget::instance()->addVanishingPointMethod();
+    //WIP end
 
     // disable arrangement edition
     updateToolBarButtonsEnable(false);
@@ -261,8 +266,10 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
         messageToLog += tr("Insertion (horizontal) mode");
     }
     else if ( newMode == this->_ui->actionCreate_vanishing_point  )
-    { VanishingPoints::instance()->setIndexSelected(0);
-    activeTab->getCurveInputCallback( )->_mode = DEFINE_VANISHING;
+    { VanishingPoints::instance()->setIndexSelected(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
+      //TODO : something to create 0
+        // VanishingPoints::instance()->setIndexSelected(VanishingPoints::instance()->getIndexSelected()+1);
+        activeTab->getCurveInputCallback( )->_mode = DEFINE_VANISHING;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion (horizontal) mode");
     }
@@ -272,12 +279,13 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion (vertical) mode");
     }
+
     else if ( newMode == this->_ui->actionEdit_vanishing_point)
     {   //WIP WIP à enlever
 
         Arr_pol_point_2 p(1110,235);
         VanishingPoints::instance()->addVanishingPoint(p);
-        VanishingPoints::instance()->calculate_vanishing_point(0);
+        VanishingPoints::instance()->calculate_vanishing_point(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
         //WIP fin
     activeTab->getCurveInputCallback( )->_mode = USE_VANISHING;
     //WIP WIP WIP c'est VERTICAL normalement
@@ -294,6 +302,7 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
         activeScene->installEventFilter( activeTab->getDeleteCurveCallback( ) );
         messageToLog += tr("Delete mode");
     }
+
     else if ( newMode == this->_ui->actionPointLocation )
     {
         activeScene->installEventFilter( activeTab->getPointLocationCallback( ) );
@@ -303,6 +312,18 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
     {
         activeScene->installEventFilter( activeTab->getMergeEdgeCallback( ) );
         messageToLog += tr("Merge mode");
+    }
+    else if ( newMode == this->_ui->actionRemove_vanishing_point )
+    {   if(VanishingPoints::instance()->EdgesVectorSize()==1 ){
+
+           VanishingPoints::instance()->clearEdgesVector();
+        }
+        else if(VanishingPoints::instance()->EdgesVectorSize()==0){
+        }
+        else
+            VanishingPoints::instance()->erase(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
+            QArrangementLabellingVanishingPointsWidget::instance()->removeVanishingTitle(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
+            messageToLog += tr("Vanishing Point cleared");
     }
     else if ( newMode == this->_ui->actionSplit )
     {
