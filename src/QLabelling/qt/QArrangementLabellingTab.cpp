@@ -42,6 +42,9 @@ void QArrangementLabellingTabBase::setupUi( )
 {
     this->_layout->addWidget( this->_graphicsView, 0, 0, 1, 1 );
     this->_graphicsView->setScene( this->_scene );
+    //very WIP WIP
+    //4this->_graphicsView->move(1000,1000);
+    //WIP end
     this->_graphicsView->setMouseTracking( true );
 }
 //WIP

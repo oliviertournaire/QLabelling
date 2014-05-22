@@ -20,18 +20,20 @@ public:
     void setupUi();
         Ui::QArrangementLabellingVanishingPointsWidget *ui;
         int GetIndexVanishingPoint();
-        int numEdges();
+        void numEdges();
         int numPoints();
-        bool DrawnVanishing();
-        void addVanishingPointMethod();
         void removeVanishingTitle(unsigned int index);
+        void emitswitch();
 
-
+signals:
+        void switchvanishingmode();
 
 
 public slots:
     void editIndexVanishingPoint(int index);
     void addVanishingPoint();
+    void editComboBoxtext(QString text);
+    void numEdgesSlot();
 
 
 private:

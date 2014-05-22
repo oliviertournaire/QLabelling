@@ -35,6 +35,7 @@
 #include "QArrangementLabellingVanishingPointsWidget.h"
 
 #include "graphics/VanishingPoints.h"
+#include "findnearestedge.h"
 
 
 
@@ -43,7 +44,7 @@
 
 
 enum InsertType {
-    POLYLINE, HORIZONTAL, VERTICAL,DEFINE_VANISHING,USE_VANISHING
+    POLYLINE, HORIZONTAL, VERTICAL,DEFINE_VANISHING,USE_VANISHING,EXTEND
 };
     
 namespace CGAL {
@@ -104,7 +105,7 @@ public:
 
 protected:
     void mouseMoveEvent( QGraphicsSceneMouseEvent* event )
-    {
+    { if( _mode == POLYLINE ){
         if ( ! this->_polylineGuide.empty( ) )
         {
             Point_2 clickedPoint = this->snapPoint( event );
@@ -113,23 +114,29 @@ protected:
             QLineF qSegment = this->_converter( segment );
             this->_polylineGuide.back( )->setLine( qSegment );
         }
+        }
+        if(_mode==DEFINE_VANISHING){
+            if(VanishingPoints::instance()->countervanishing==1){
+                std::cout<<QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint();
+                Point_2 clickedPoint = this->snapPoint( event );
+                Point_2  pp=VanishingPoints::instance()->GetPointForVanishing();
+                Segment_2 segment( pp, clickedPoint );
+                QLineF qSegment = this->_converter( segment );
+                int index=VanishingPoints::instance()->getIndexSelected();
+                if(VanishingPoints::instance()->_VanishingLineGuide.size()==0){
+                      QPointF pt = this->_converter( clickedPoint );
+                      QPointF px= this->_converter( pp );
+                    QGraphicsLineItem* qSegprov=new QGraphicsLineItem(px.x(),px.y(),pt.x(),pt.y());
 
-        if(VanishingPoints::instance()->countervanishing==1){
-            std::cout<<QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint();
-            Point_2 clickedPoint = this->snapPoint( event );
-            Point_2  pp=VanishingPoints::instance()->GetPointForVanishing();
-            Segment_2 segment( pp, clickedPoint );
-            QLineF qSegment = this->_converter( segment );
-            int index=VanishingPoints::instance()->getIndexSelected();
-            if(VanishingPoints::instance()->_VanishingLineGuide.size()==0){
-                  QPointF pt = this->_converter( clickedPoint );
-                  QPointF px= this->_converter( pp );
-                QGraphicsLineItem* qSegprov=new QGraphicsLineItem(px.x(),px.y(),pt.x(),pt.y());
-
-                VanishingPoints::instance()->_VanishingLineGuide.push_back(qSegprov);
+                    VanishingPoints::instance()->_VanishingLineGuide.push_back(qSegprov);
+                }
+                else
+                    VanishingPoints::instance()->_VanishingLineGuide.back( )->setLine( qSegment );
             }
-            else
-                VanishingPoints::instance()->_VanishingLineGuide.back( )->setLine( qSegment );
+        }
+        if(_mode==EXTEND){
+            //findnearestedge::getnearestedge(event,this->,this->getScene());
+
         }
     }
     void mousePressEvent( QGraphicsSceneMouseEvent* event )
@@ -241,16 +248,18 @@ protected:
 	    {
             // Ligne horizontale
 	        QRect size_imagetolabel(0,0,1000,1000);
-	    
+            //WIP test
+                QRectF r(0,0,200,200);
+                Converter<Kernel> _converttry(r);
+                //endWIPTEST
 	        QGraphicsScene* currentScene = this->_scene;
 	        QList<QGraphicsItem*> allItems = currentScene->items();
 	        for(int i=0;i<allItems.count();++i)
             {
 		        if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
 		            size_imagetolabel = p->pixmap().rect();
-	        }
-	    
-	        QPointF pt = this->_converter( clickedPoint );
+            }
+            QPointF pt = _converttry( clickedPoint );
 	        Point_2 g(0, (int) pt.y());
 	        Point_2 d(size_imagetolabel.width(), (int) pt.y());
 	        this->_points.push_back( g );
@@ -295,68 +304,83 @@ protected:
 
         QPointF pt = this->_converter( clickedPoint );
         VanishingPoints::instance()->calculate_vanishing_point(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
+        if(VanishingPoints::instance()->size()<=QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint()){
+            _mode = DEFINE_VANISHING ;
+            QArrangementLabellingVanishingPointsWidget::instance()->emitswitch();
+
+            return;
+        }
         Point_2 vp0=VanishingPoints::instance()->getVanishingPoints(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
          QPointF vp = this->_converter( vp0 );
         //Ici, il faut un moyen de stocker le point sous forme de singleton et de type compatiple avec les autres points
         //Ensuite, on calcul l'equation de la droite qui passe entre ce point et le point cliqué
+         Point_2 g;
+         Point_2 d;
+          int counter=0;//Permet de savoir combien de points ont étés fixés sur la bordure. 1=>il reste d à fixer; 2=>plus de points à fixer
+         if(vp.x()==pt.x()){
+             Point_2 g1(vp.x(),0);
+             g=g1;
+             Point_2 d1(vp.x(), size_imagetolabel.height());
+             d=d1;
+         }
+         else{
+            qreal a=(vp.y()-pt.y())/(vp.x()-pt.x());
+            qreal b=(vp.x()*pt.y()-vp.y()*pt.x())/(vp.x()-pt.x());
+            //ATTENTION : ne prend pas en compte la division par 0
+            //on trouve a=(y2-y1)/(x2-x1) et b=(x1y2-x2y1)/(x2-x1)
+            //on réalise ensuite un test pour voir sur quelles bordures se trouve le point : on teste donc si f(0) est compris entre 0 et size_imagetolabel.height() :
+            //si oui, on prend Point_2 g(0,(int)f(0));
+            //si non, on calcul x pour y=0 => Point_2 g((int)-b/a,0)
+            //Prévoir tous les risques avec un autre cas : hors cadre => on trace rien
+            //On applique les mêmes étapes pour le second point
 
-        qreal a=(vp.y()-pt.y())/(vp.x()-pt.x());
-        qreal b=(vp.x()*pt.y()-vp.y()*pt.x())/(vp.x()-pt.x());
-        //ATTENTION : ne prend pas en compte la division par 0
-        //on trouve a=(y2-y1)/(x2-x1) et b=(x1y2-x2y1)/(x2-x1)
-        //on réalise ensuite un test pour voir sur quelles bordures se trouve le point : on teste donc si f(0) est compris entre 0 et size_imagetolabel.height() :
-        //si oui, on prend Point_2 g(0,(int)f(0));
-        //si non, on calcul x pour y=0 => Point_2 g((int)-b/a,0)
-        //Prévoir tous les risques avec un autre cas : hors cadre => on trace rien
-        //On applique les mêmes étapes pour le second point
+
+
+            qreal limit1=VanishingPoints::instance()->Affine(0,a,b);
+            qreal limit2=VanishingPoints::instance()->Affine(size_imagetolabel.width(),a,b);
+            int imwidth=size_imagetolabel.width();
+            int imheight=size_imagetolabel.height();
 
 
 
-        qreal limit1=VanishingPoints::instance()->Affine(0,a,b);
-        qreal limit2=VanishingPoints::instance()->Affine(size_imagetolabel.width(),a,b);
-        int imwidth=size_imagetolabel.width();
-        int imheight=size_imagetolabel.height();
-
-        int counter=0;//Permet de savoir combien de points ont étés fixés sur la bordure. 1=>il reste d à fixer; 2=>plus de points à fixer
-        Point_2 g;
-        Point_2 d;
-        //On place le point à gauche
-        if (limit1>=0 && limit1<=imheight){
-            Point_2 g1(0, (int) limit1);
-            g=g1;
-            counter+=1;}
-        if((-b/a)>0 && (-b/a)<imwidth){
-            if(counter==0){
-                Point_2 g1((int)-b/a, 0);
+            //On place le point à gauche
+            if (limit1>=0 && limit1<=imheight){
+                Point_2 g1(0, limit1);
                 g=g1;
-                counter+=1;
+                counter+=1;}
+            if((-b/a)>0 && (-b/a)<imwidth){
+                if(counter==0){
+                    Point_2 g1(-b/a, 0);
+                    g=g1;
+                    counter+=1;
+                }
+                else if(counter==1){
+                    Point_2 d1(-b/a, 0);
+                    d=d1;
+                    counter+=1;
+                }
             }
-            else if(counter==1){
-                Point_2 d1((int)-b/a, 0);
+
+           //on place le point à droite
+            qreal c=(imheight-b)/a;
+            if (limit2>=0 && limit2<=imheight){
+                if(counter==0){
+                    Point_2 g1(imwidth,  limit2);
+                    g=g1;
+                    counter+=1;
+                }
+                else if(counter==1){
+                    Point_2 d1(imwidth,  limit2);
+                    d=d1;
+                    counter+=1;
+                }
+            }
+            if(c>0 && c<imwidth && counter==1){
+                Point_2 d1(c, imheight);
                 d=d1;
                 counter+=1;
             }
-        }
-
-       //on place le point à droite
-        double c=(imheight-b)/a;
-        if (limit2>=0 && limit2<=imheight){
-            if(counter==0){
-                Point_2 g1(imwidth, (int) limit2);
-                g=g1;
-                counter+=1;
-            }
-            else if(counter==1){
-                Point_2 d1(imwidth, (int) limit2);
-                d=d1;
-                counter+=1;
-            }
-        }
-        if(c>0 && c<imwidth && counter==1){
-            Point_2 d1((int)c, imheight);
-            d=d1;
-            counter+=1;
-        }
+         }
         if(counter==2){//On vérifie que l'on passe bien par le dessin car counter<2 => Hors du dessin
             this->_points.push_back( g );
             this->_points.push_back( d );
@@ -367,6 +391,9 @@ protected:
     }
         else if( _mode == DEFINE_VANISHING )
         {   //WIP int index=VanishingPoints::instance()->getIndexSelected();
+            if(VanishingPoints::instance()->vide(0)==true){
+                QArrangementLabellingVanishingPointsWidget::instance()->addVanishingPoint();
+            }
             int index=QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint();
             if ( VanishingPoints::instance()->countervanishing==0)
             {
@@ -438,6 +465,10 @@ protected:
                         {
                             this->_scene->addItem( VanishingPoints::instance()->_VanishingLineGuide.back( ) ); // Ajout à la scène du dernier segment (celui qui vient d'être ajouté)
                         }
+                        //WIP auto calculate every time
+                        int num=VanishingPoints::instance()->EdgesSize(index);
+                        if(num>1)
+                            VanishingPoints::instance()->calculate_vanishing_point(index);
                 }
             }
         }

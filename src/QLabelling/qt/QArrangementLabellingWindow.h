@@ -21,10 +21,6 @@
 #define __QARRANGEMENT_LABELLING_WINDOW_H__
 
 #include "ArrangementGraphicsItem.h"
-#include "DeleteCurveCallback.h"
-#include "PointLocationCallback.h"
-#include "MergeEdgeCallback.h"
-#include "SplitEdgeCallback.h"
 #include "QArrangementLabellingTab.h"
 
 #include <CGAL/Arr_default_overlay_traits.h>
@@ -83,6 +79,7 @@ public slots:
     void on_actionZoomIn_triggered( );
     void on_actionZoomOut_triggered( );
     void on_actionPreferences_triggered( );
+    void switchVanishingmode();
 
     void on_actionUndo_triggered();
     void on_actionRedo_triggered();

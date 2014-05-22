@@ -134,7 +134,7 @@ public:
         //TODO : utiliser un autre algorithme si celui ci n'est pas suffisament précis
         //on verifie qu'il y ai au moins 2 droites
         //n : nombre de lignes de fuites définissant le point de fuite
-        if(_vanishingEdges.size()==0)
+        if(_vanishingEdges.size()<=index)
             return;
         int n=_vanishingEdges[index].size();
         if (n<2)
@@ -201,16 +201,23 @@ public:
         }
         //On défini alors le point de fuite
          Arr_pol_point_2 new_vanishing_point(xmin,ymin);
-        if(_vanishingPoints.size()<=index)
-            addVanishingPoint(new_vanishing_point);
+         Arr_pol_point_2 pointzero(0,0);
+        while(_vanishingPoints.size()<index)
+            addVanishingPoint(pointzero);
+        if(_vanishingPoints.size()==index)
+             addVanishingPoint(new_vanishing_point);
         else
             setVanishingPoints(new_vanishing_point,index);
     }
     void erase(unsigned int index){
         _vanishingEdges.erase(_vanishingEdges.begin()+index);
+        if (size()>index)
+        _vanishingPoints.erase(_vanishingPoints.begin()+index);
     }
     void clearEdgesVector(){
         _vanishingEdges.clear();
+        if(size()==1)
+        _vanishingPoints.erase(_vanishingPoints.begin());
     }
 
 private:

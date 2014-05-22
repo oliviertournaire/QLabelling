@@ -413,6 +413,11 @@ void ArrangementGraphicsItem< Arr_, ArrTraits >:: paint(QPainter* painter, TTrai
     infoWidget->setNumVerticesAtInfinity           ( (int)this->arr->number_of_vertices_at_infinity() );
     infoWidget->setChanged                         ( this->changed );
     infoWidget->updateNumberOfArrangementsInHistory();
+    //WIP
+    // Filling Vanishing Points Widget
+    QArrangementLabellingVanishingPointsWidget* vpWidget = QArrangementLabellingVanishingPointsWidget::instance();
+    vpWidget->numEdges();
+    //end WIP
 
     this->painterostream = ArrangementPainterOstream< Traits >( painter, this->boundingRect( ) );
     this->painterostream.setScene( this->_scene );

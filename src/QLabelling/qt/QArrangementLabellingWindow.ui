@@ -43,28 +43,9 @@
    <addaction name="actionSaveProject"/>
    <addaction name="actionOpenImage"/>
    <addaction name="separator"/>
-   <addaction name="actionFill"/>
-   <addaction name="separator"/>
-   <addaction name="actionInsert"/>
-   <addaction name="actionInsert_horizontal_line"/>
-   <addaction name="actionInsert_vertical_line"/>
-   <addaction name="actionCreate_vanishing_point"/>
-   <addaction name="actionEdit_vanishing_point"/>
-   <addaction name="actionRemove_vanishing_point"/>
-   <addaction name="actionDelete"/>
-   <addaction name="separator"/>
-   <addaction name="actionClean"/>
-   <addaction name="separator"/>
-   <addaction name="actionPointLocation"/>
-   <addaction name="actionMerge"/>
-   <addaction name="actionSplit"/>
-   <addaction name="separator"/>
    <addaction name="actionDrag"/>
    <addaction name="actionZoomIn"/>
    <addaction name="actionZoomOut"/>
-   <addaction name="separator"/>
-   <addaction name="actionSnapMode"/>
-   <addaction name="actionGridSnapMode"/>
    <addaction name="separator"/>
    <addaction name="actionUndo"/>
    <addaction name="actionRedo"/>
@@ -129,6 +110,57 @@
    <addaction name="menu_Edit"/>
    <addaction name="menuMode"/>
    <addaction name="menuT_ools"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_drawing">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionFill"/>
+   <addaction name="separator"/>
+   <addaction name="actionInsert"/>
+   <addaction name="actionInsert_horizontal_line"/>
+   <addaction name="actionInsert_vertical_line"/>
+   <addaction name="separator"/>
+   <addaction name="actionDelete"/>
+   <addaction name="actionClean"/>
+   <addaction name="separator"/>
+   <addaction name="actionSnapMode"/>
+   <addaction name="actionGridSnapMode"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_vanishing">
+   <property name="windowTitle">
+    <string>toolBar_3</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionCreate_vanishing_point"/>
+   <addaction name="actionEdit_vanishing_point"/>
+   <addaction name="actionRemove_vanishing_point"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_moreoptions">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
+   <addaction name="actionPointLocation"/>
+   <addaction name="actionMerge"/>
+   <addaction name="actionSplit"/>
+   <addaction name="actionProlonger"/>
   </widget>
   <action name="actionQuit">
    <property name="icon">
@@ -470,9 +502,6 @@
    </property>
   </action>
   <action name="actionRemove_vanishing_point">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
    <property name="icon">
     <iconset resource="../rc/QArrangementLabelling.qrc">
      <normaloff>:/icons/vanishingpointboldmoins.png</normaloff>:/icons/vanishingpointboldmoins.png</iconset>
@@ -482,6 +511,21 @@
    </property>
    <property name="toolTip">
     <string>Supprimer le point de fuite</string>
+   </property>
+  </action>
+  <action name="actionProlonger">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rc/QArrangementLabelling.qrc">
+     <normaloff>:/icons/prolonger.png</normaloff>:/icons/prolonger.png</iconset>
+   </property>
+   <property name="text">
+    <string>prolonger</string>
+   </property>
+   <property name="toolTip">
+    <string>prolonger un segment</string>
    </property>
   </action>
  </widget>

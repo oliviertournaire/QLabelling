@@ -105,9 +105,9 @@ CGAL::Qt::DemosMainWindow( parent ),
     QObject::connect( this->_snapGroup, SIGNAL( triggered( QAction* ) ),
         this, SLOT( updateSnapping( QAction* ) ) );
     //WIP Vanishing
+    QObject::connect(QArrangementLabellingVanishingPointsWidget::instance(),SIGNAL(switchvanishingmode()),this,SLOT(switchVanishingmode()));
    // QObject::connect( this->_ui->actionCreate_vanishing_point, SIGNAL( triggered(bool) ),
       // QArrangementLabellingVanishingPointsWidget::instance(), SLOT( addVanishingPoint()) );
-        QArrangementLabellingVanishingPointsWidget::instance()->addVanishingPointMethod();
     //WIP end
 
     // disable arrangement edition
@@ -283,8 +283,8 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
     else if ( newMode == this->_ui->actionEdit_vanishing_point)
     {   //WIP WIP à enlever
 
-        Arr_pol_point_2 p(1110,235);
-        VanishingPoints::instance()->addVanishingPoint(p);
+//        Arr_pol_point_2 p(1110,235);
+//        VanishingPoints::instance()->addVanishingPoint(p);
         VanishingPoints::instance()->calculate_vanishing_point(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
         //WIP fin
     activeTab->getCurveInputCallback( )->_mode = USE_VANISHING;
@@ -324,6 +324,9 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
             VanishingPoints::instance()->erase(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
             QArrangementLabellingVanishingPointsWidget::instance()->removeVanishingTitle(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
             messageToLog += tr("Vanishing Point cleared");
+            activeTab->getCurveInputCallback( )->_mode = DEFINE_VANISHING;
+             QArrangementLabellingVanishingPointsWidget::instance()->emitswitch();
+            activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
     }
     else if ( newMode == this->_ui->actionSplit )
     {
@@ -1135,3 +1138,7 @@ void QArrangementLabellingWindow::on_actionRedo_triggered()
     QArrangementLabellingLogWidget::instance()->logWarning( tr("Redo currently not implemented") );
 }
 
+void QArrangementLabellingWindow::switchVanishingmode(){
+    this->_ui->actionEdit_vanishing_point->setChecked(false);
+    this->_ui->actionCreate_vanishing_point->setChecked(true);
+}

@@ -11,11 +11,20 @@ QArrangementLabellingVanishingPointsWidget::QArrangementLabellingVanishingPoints
     ui(new Ui::QArrangementLabellingVanishingPointsWidget)
 {
     ui->setupUi(this);
-    _indexVanishingPoint=0;
+    _indexVanishingPoint=-1;
     VanishingPoints::instance()->countervanishing=0;
 
     QObject::connect( this->ui->comboBox, SIGNAL(currentIndexChanged(int)),
                       this, SLOT  ( editIndexVanishingPoint(int) ));
+
+    QObject::connect( this->ui->plusbutton, SIGNAL( clicked() ),
+                      this, SLOT(addVanishingPoint() ) );
+
+    QObject::connect( this->ui->lineEdit, SIGNAL( textEdited(QString) ),
+                     this, SLOT(editComboBoxtext(QString) ) );
+
+    QObject::connect(this->ui->comboBox,SIGNAL(currentIndexChanged(int)),
+                     this,SLOT(numEdgesSlot()));
     //WIP end
 
 }
@@ -30,34 +39,59 @@ void QArrangementLabellingVanishingPointsWidget::editIndexVanishingPoint(int ind
 int QArrangementLabellingVanishingPointsWidget::GetIndexVanishingPoint(){
     return _indexVanishingPoint;
 }
-int QArrangementLabellingVanishingPointsWidget::numEdges(){
-    int num=VanishingPoints::instance()->EdgesSize(GetIndexVanishingPoint());
-    return num;
+void QArrangementLabellingVanishingPointsWidget::numEdges(){
+    if(_indexVanishingPoint==-1){
+         ui->label_3->setText(tr("no vanishing point defines yet"));
+        return;
+    }
+    if (VanishingPoints::instance()->EdgesVectorSize()==0){
+        ui->label_3->setText(tr("no edges define yet"));
+        return;
+    }
+    if(VanishingPoints::instance()->EdgesVectorSize()<_indexVanishingPoint+1){
+        ui->label_3->setText(tr("no edges define yet"));
+        return;
+    }
+    int num=VanishingPoints::instance()->EdgesSize(_indexVanishingPoint);
+    ui->label_3->setText(tr("%n edge(s)","",num));
 }
+void QArrangementLabellingVanishingPointsWidget::numEdgesSlot(){
+    numEdges();
+}
+
 int QArrangementLabellingVanishingPointsWidget::numPoints(){
     int num=ui->comboBox->count();
     return num;
 }
-bool QArrangementLabellingVanishingPointsWidget::DrawnVanishing(){
-    if (numEdges()<2)
-        return false;
-    else
-        return true;
+void QArrangementLabellingVanishingPointsWidget::emitswitch(){
+    emit switchvanishingmode();
 }
-void QArrangementLabellingVanishingPointsWidget::addVanishingPoint(){
+
+void QArrangementLabellingVanishingPointsWidget::addVanishingPoint()
+{
+
+
+    int vanishingexisting=VanishingPoints::instance()->size();
+    if(_indexVanishingPoint<vanishingexisting){
         int n=numPoints()+1;
         QString text="VanishingPoint";
         text.append(QString("%1").arg(n));
         this->ui->comboBox->addItem(text);
        this->ui->comboBox->setCurrentIndex (n-1);
+         emitswitch();
+    }
+    else
+        return;
 
     }
-void QArrangementLabellingVanishingPointsWidget::addVanishingPointMethod(){
-QObject::connect( this->ui->plusbutton, SIGNAL( clicked() ),
-                  this, SLOT(addVanishingPoint() ) );
-}
+
 void QArrangementLabellingVanishingPointsWidget::removeVanishingTitle(unsigned int index){
     this->ui->comboBox->removeItem(index);
 }
+
+void QArrangementLabellingVanishingPointsWidget::editComboBoxtext(QString text){
+   this->ui->comboBox->setItemText(GetIndexVanishingPoint(),text);
+}
+
 
 //WIP

@@ -38,7 +38,8 @@ QArrangementLabellingGraphicsView::QArrangementLabellingGraphicsView( QWidget* p
     _vertexSnappingDistance(5)
 {
     QMatrix m( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
-    this->setMatrix( m );
+    this->translate(5000,0);
+//    this->setMatrix( m );
     this->setBackgroundBrush( QBrush( _backgroundColor ) );
 }
 
@@ -110,12 +111,27 @@ bool QArrangementLabellingGraphicsView::setImageToLabel(const QString& path, QAr
         if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
             currentTab->getScene()->removeItem(p);
     QGraphicsItem* pixItem = currentTab->getScene()->addPixmap(imageToLabel());
+    //WIP setPos permet de translater l'image. Permet donc de la centrer. Mais ne centre pas le tracé qui va avec (bordure)
+//    qreal centerxmid=imageToLabelWidth();
+//    qreal centerx=centerxmid*(-0.5);
+//    qreal centerymid=imageToLabelHeight();
+//    qreal centery=centerymid*(-0.5);
+
+
+//    pixItem->setPos(centerx,centery);
     fitInView(pixItem, Qt::KeepAspectRatio);
+    centerOn(pixItem);
+    centerOn(1000.,2500.);
 
     Arr_pol_point_2 ptl( 0, 0);
     Arr_pol_point_2 pbl(0, imageToLabelHeight() );
     Arr_pol_point_2 pbr(imageToLabelWidth(), imageToLabelHeight());
     Arr_pol_point_2 ptr(imageToLabelWidth(), 0 );
+
+//                                                                Arr_pol_point_2 ptl( centerx, centery);
+//                                                                Arr_pol_point_2 pbl(centerx, -centery );
+//                                                                Arr_pol_point_2 pbr(-centerx, -centery);
+//                                                                Arr_pol_point_2 ptr(-centerx, centery );
 
     QString imageBoundaryMessage = tr("Image boundaries: ");
     imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptl.x())) + "," + QString::number(CGAL::to_double(ptl.y())) + ") / ";
@@ -132,6 +148,9 @@ bool QArrangementLabellingGraphicsView::setImageToLabel(const QString& path, QAr
     allPoints.push_back(ptl);
 
     Arr_pol_2 contour(allPoints.begin(), allPoints.end());
+//WIP
+
+
 
     Pol_arr *arr;
     if ( CGAL::assign( arr, currentArrangement ) )
