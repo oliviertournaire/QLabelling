@@ -55,13 +55,15 @@ public:
     //Taille du singleton
     unsigned int size()
     {
-        return _vanishingPoints.size();
+        return (unsigned int)_vanishingPoints.size();
     }
+
     unsigned int EdgesSize(unsigned int index){//taille d'un vecteur de lignes de fuite
-        return _vanishingEdges[index].size();
+        return (unsigned int)_vanishingEdges[index].size();
     }
+
     unsigned int EdgesVectorSize(){ //taille du vecteur de l'ensemble des lignes de fuites
-        return _vanishingEdges.size();
+        return (unsigned int)_vanishingEdges.size();
     }
 
 
@@ -136,13 +138,13 @@ public:
         //n : nombre de lignes de fuites définissant le point de fuite
         if(_vanishingEdges.size()<=index)
             return;
-        int n=_vanishingEdges[index].size();
+        unsigned int n = (unsigned int)_vanishingEdges[index].size();
         if (n<2)
             return;
         std::vector<qreal> a;
         std::vector<qreal> b;
         //On calcule les coeff ai et bi de chaque droite fi(x)=ai*x+bi
-        for(int i=0;i<n;i++){
+        for(unsigned int i=0;i<n;i++){
             qreal x1=_vanishingEdges[index][i].x1;
             qreal x2=_vanishingEdges[index][i].x2;
             qreal y1=_vanishingEdges[index][i].y1;
@@ -156,13 +158,13 @@ public:
         //On définie les termes sum(bi)/n et sum(ai)/n
         qreal bsum=0;
         qreal asum=0;
-        for(int i=0;i<n;i++){
+        for(unsigned int i=0;i<n;i++){
             bsum=bsum+b[i]/n;
             asum=asum+a[i]/n;
         }
         //On calcul les x potentiels du point de fuites
         std::vector<qreal> xopt;
-        for(int i=0;i<n;i++){
+        for(unsigned int i=0;i<n;i++){
             if(a[i]!=asum){
                 qreal xi=-(b[i]-bsum)/(a[i]-asum);
                 xopt.push_back(xi);
@@ -175,12 +177,12 @@ public:
         //On cherche a présent le minimum
         qreal xmin=xopt[0];
         qreal distancemin;
-        for(int i=0;i<n;i++){
+        for(unsigned int i=0;i<n;i++){
             qreal distance=0;
             qreal mid_sum=0;
-            for(int k=0;k<n;k++){
+            for(unsigned int k=0;k<n;k++){
                mid_sum=mid_sum+(a[k]*xopt[i]+b[k])/n;
-            for(int j=0;j<n;j++){
+            for(unsigned int j=0;j<n;j++){
                   qreal absolute=a[j]*xopt[i]-mid_sum+b[j];
                   if(absolute<0)
                       absolute=-absolute;
@@ -196,7 +198,7 @@ public:
         }
         //fin de la boucle de calcul, il reste a calculer y
         qreal ymin=0;
-        for(int i=0;i<n;i++){
+        for(unsigned int i=0;i<n;i++){
             ymin=ymin+(a[i]*xmin+b[i])/n;
         }
         //On défini alors le point de fuite

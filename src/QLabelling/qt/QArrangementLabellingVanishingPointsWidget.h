@@ -19,7 +19,7 @@ public:
    void QCreateNewVanishingPoint_clicked(bool ckecked=false);
     void setupUi();
         Ui::QArrangementLabellingVanishingPointsWidget *ui;
-        int GetIndexVanishingPoint();
+        unsigned int GetIndexVanishingPoint();
         void numEdges();
         int numPoints();
         void removeVanishingTitle(unsigned int index);
@@ -39,7 +39,7 @@ public slots:
 private:
     explicit QArrangementLabellingVanishingPointsWidget(QDockWidget *parent = 0);
     ~QArrangementLabellingVanishingPointsWidget();
-    int _indexVanishingPoint;
+    unsigned int _indexVanishingPoint;
 
 
 
