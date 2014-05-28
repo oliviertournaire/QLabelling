@@ -292,6 +292,7 @@ protected:
 
             // fill the face according to its color (stored at any of her incidents curves)
             QBrush oldBrush = painter->brush( );
+            QPen oldPen = painter->pen( );
             QColor def_bg_color = this->_backgroundColor;
             // Just add an alpha
             def_bg_color.setAlpha(127);
@@ -302,6 +303,7 @@ protected:
             if (! f->data().color().isValid())
             {
                 painter->setBrush( def_bg_color );
+                painter->setPen(def_bg_color);
             }
             else
             {
@@ -312,9 +314,12 @@ protected:
                 if(removeAlpha)
                     labelColor.setAlpha(255);
                 painter->setBrush( labelColor );
+                painter->setPen( labelColor );
             }
-            painter->drawPolygon( pgn );
+            painter->drawPolygon(pgn);
+            painter->drawPolyline(pts);
             painter->setBrush( oldBrush );
+            painter->setPen( oldPen );
         }
         else
         {
