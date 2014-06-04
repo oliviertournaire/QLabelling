@@ -19,7 +19,7 @@ QArrangementLabellingSaveProjectDialog::QArrangementLabellingSaveProjectDialog(c
     QString extension = qfi.completeSuffix();
 
     ui->_lineEditInputImagePath->setText(_inputImagePath);
-    ui->_lineEditLabelsImagePath->setText(dir.path() + "/" + _projectName + "_labels." + extension);
+    ui->_lineEditLabelsImagePath->setText(dir.path() + "/" + _projectName + "_labels.png" );
     ui->_lineEditArrangementPath->setText(dir.path() + "/" + _projectName + "_arrangement.arr");
     ui->_lineEditLabelsDefinitionPath->setText( QArrangementLabellingWidget::instance()->labelsPath());
     ui->_lineEditProjectPath->setText(dir.path() + "/" + _projectName + ".qlb");

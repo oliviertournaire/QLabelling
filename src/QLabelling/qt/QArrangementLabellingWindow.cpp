@@ -1120,7 +1120,7 @@ void QArrangementLabellingWindow::saveLabelsImage(QGraphicsScene *scene, const Q
     CGAL::Qt::ArrangementGraphicsItem<Pol_arr>* agi = (CGAL::Qt::ArrangementGraphicsItem<Pol_arr>*)getCurrentTab()->getArrangementGraphicsItem();
     agi->paintFaces(true, &painter);
 
-    if(!image.save(filename))
+    if(!image.save(filename, "PNG", 100))
         QArrangementLabellingLogWidget::instance()->logError( tr("Error saving the label image...") );
 }
 
