@@ -218,6 +218,7 @@ void QArrangementLabellingWindow::setupUi( )
     this->_modeGroup->addAction( this->_ui->actionCreate_vanishing_point);
     this->_modeGroup->addAction( this->_ui->actionRemove_vanishing_point);
     this->_modeGroup->addAction( this->_ui->actionDelete );
+    this->_modeGroup->addAction( this->_ui->actionProlonger );
     this->_modeGroup->addAction( this->_ui->actionPointLocation );
     this->_modeGroup->addAction( this->_ui->actionMerge );
     this->_modeGroup->addAction( this->_ui->actionSplit );
@@ -302,6 +303,11 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
         activeScene->installEventFilter( activeTab->getDeleteCurveCallback( ) );
         messageToLog += tr("Delete mode");
     }
+    else if ( newMode == this->_ui->actionProlonger)
+    {
+        activeScene->installEventFilter( activeTab->getExpandEdgeCallback());
+        messageToLog += tr("Expand mode");
+    }
 
     else if ( newMode == this->_ui->actionPointLocation )
     {
@@ -367,6 +373,10 @@ void QArrangementLabellingWindow::resetCallbackState( unsigned int tabIndex )
     {
         activeTab->getDeleteCurveCallback( )->reset( );
     }
+    else if ( activeMode == this->_ui->actionProlonger )
+    {
+        activeTab->getExpandEdgeCallback()->reset( );
+    }
     else if ( activeMode == this->_ui->actionPointLocation )
     {
         activeTab->getPointLocationCallback( )->reset( );
@@ -399,6 +409,7 @@ void QArrangementLabellingWindow::removeCallback( unsigned int tabIndex )
     activeScene->removeEventFilter( activeTab->getCurveInputCallback( ) );
     activeView->setDragMode( QGraphicsView::NoDrag );
     activeScene->removeEventFilter( activeTab->getDeleteCurveCallback( ) );
+    activeScene->removeEventFilter( activeTab->getExpandEdgeCallback() );
     activeScene->removeEventFilter( activeTab->getPointLocationCallback( ) );
     activeScene->removeEventFilter( activeTab->getMergeEdgeCallback( ) );
     activeScene->removeEventFilter( activeTab->getSplitEdgeCallback( ) );

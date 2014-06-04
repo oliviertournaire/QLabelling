@@ -36,6 +36,7 @@
 
 #include "graphics/VanishingPoints.h"
 #include "findnearestedge.h"
+#include "ExpandEdgeCallBack.h"
 
 
 
@@ -102,6 +103,13 @@ public:
     GraphicsViewCurveInput( QObject* parent ):
         GraphicsViewCurveInputBase( parent )
     { }
+    void connectexpand(){
+        QObject::connect(emitexpand::instance(),SIGNAL(emitexpandedge(CGAL::Object)),
+                         this,SLOT(generate(CGAL::Object)));
+        //WIP WIP test
+        QObject::connect(emitexpand::instance(),SIGNAL(emitexpandedge(CGAL::Object)),
+                         emitexpand::instance(),SLOT(emitexpandedgeslot(CGAL::Object)));
+    }
 
 protected:
     void mouseMoveEvent( QGraphicsSceneMouseEvent* event )

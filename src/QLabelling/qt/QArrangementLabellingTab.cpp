@@ -32,7 +32,8 @@ QArrangementLabellingTabBase::QArrangementLabellingTabBase( QWidget* parent ) :
     _pointLocationCallback( NULL ),
     _mergeEdgeCallback( NULL ),
     _splitEdgeCallback( NULL ),
-    _fillFaceCallback( NULL )
+    _fillFaceCallback( NULL ),
+     _expandEdgeCallback( NULL )
 {
     setAttribute( Qt::WA_AlwaysShowToolTips);
     this->setupUi( );
@@ -79,6 +80,10 @@ QArrangementLabellingTabBase::getCurveInputCallback( ) const
 CGAL::Qt::Callback* QArrangementLabellingTabBase::getDeleteCurveCallback( ) const
 {
     return this->_deleteCurveCallback;
+}
+CGAL::Qt::Callback* QArrangementLabellingTabBase::getExpandEdgeCallback( ) const
+{
+    return this->_expandEdgeCallback;
 }
 
 CGAL::Qt::Callback* QArrangementLabellingTabBase::getPointLocationCallback( ) const

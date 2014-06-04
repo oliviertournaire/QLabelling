@@ -32,6 +32,7 @@ class QGridLayout;
 #include "SplitEdgeCallback.h"
 #include "FillFaceCallback.h"
 #include "arrangement/ArrangementBuffer.h"
+#include "ExpandEdgeCallBack.h"
 
 class QArrangementLabellingTabBase : public QWidget
 {
@@ -52,6 +53,7 @@ public:
     virtual CGAL::Qt::Callback* getDeleteCurveCallback( ) const;
     virtual CGAL::Qt::Callback* getPointLocationCallback( ) const;
     virtual CGAL::Qt::Callback* getMergeEdgeCallback( ) const;
+    virtual CGAL::Qt::Callback* getExpandEdgeCallback( ) const;
     virtual SplitEdgeCallbackBase* getSplitEdgeCallback( ) const;
     virtual FillFaceCallbackBase* getFillFaceCallback( ) const;
     void FaceLabelToolTip ();
@@ -76,6 +78,7 @@ protected:
     CGAL::Qt::Callback* _deleteCurveCallback;
     CGAL::Qt::Callback* _pointLocationCallback;
     CGAL::Qt::Callback* _mergeEdgeCallback;
+     CGAL::Qt::Callback* _expandEdgeCallback;
     SplitEdgeCallbackBase* _splitEdgeCallback;
     FillFaceCallbackBase* _fillFaceCallback;
 
@@ -104,6 +107,7 @@ public:
         this->_deleteCurveCallback = new DeleteCurveCallback<Arrangement>( this->_arrangement, this );
         this->_pointLocationCallback = new PointLocationCallback<Arrangement>( this->_arrangement, this );
         this->_mergeEdgeCallback = new MergeEdgeCallback<Arrangement>( this->_arrangement, this );
+        this->_expandEdgeCallback = new ExpandEdgeCallBack<Arrangement>( this->_arrangement, this );
         this->_splitEdgeCallback = new SplitEdgeCallback<Arrangement>( this->_arrangement, this );
         this->_fillFaceCallback = new FillFaceCallback<Arrangement>( this->_arrangement, this );
 
@@ -113,6 +117,7 @@ public:
         this->_deleteCurveCallback->setScene( this->_scene );
         this->_pointLocationCallback->setScene( this->_scene );
         this->_mergeEdgeCallback->setScene( this->_scene );
+        this->_expandEdgeCallback->setScene( this->_scene );
         this->_splitEdgeCallback->setScene( this->_scene );
         this->_fillFaceCallback->setScene( this->_scene );
 
@@ -121,6 +126,8 @@ public:
         QObject::connect(this->_curveInputCallback, SIGNAL(modelChanged()), this,
                          SIGNAL(modelChanged()));
         QObject::connect(this->_deleteCurveCallback, SIGNAL(modelChanged()), this,
+                         SIGNAL(modelChanged()));
+        QObject::connect(this->_expandEdgeCallback, SIGNAL(modelChanged()), this,
                          SIGNAL(modelChanged()));
         QObject::connect(this->_fillFaceCallback, SIGNAL(modelChanged()), this,
                          SIGNAL(modelChanged()));
@@ -144,6 +151,7 @@ public:
         delete this->_deleteCurveCallback;
         delete this->_pointLocationCallback;
         delete this->_mergeEdgeCallback;
+         delete this->_expandEdgeCallback;
         delete this->_splitEdgeCallback;
         delete this->_fillFaceCallback;
 
@@ -160,6 +168,7 @@ public:
         this->_deleteCurveCallback = new DeleteCurveCallback<Arrangement>( this->_arrangement, this );
         this->_pointLocationCallback = new PointLocationCallback<Arrangement>( this->_arrangement, this );
         this->_mergeEdgeCallback = new MergeEdgeCallback<Arrangement>( this->_arrangement, this );
+         this->_expandEdgeCallback = new ExpandEdgeCallBack<Arrangement>( this->_arrangement, this );
         this->_splitEdgeCallback = new SplitEdgeCallback<Arrangement>( this->_arrangement, this );
         this->_fillFaceCallback = new FillFaceCallback<Arrangement>( this->_arrangement, this );
 
@@ -169,6 +178,7 @@ public:
         this->_deleteCurveCallback->setScene( this->_scene );
         this->_pointLocationCallback->setScene( this->_scene );
         this->_mergeEdgeCallback->setScene( this->_scene );
+        this->_expandEdgeCallback->setScene( this->_scene );
         this->_splitEdgeCallback->setScene( this->_scene );
         this->_fillFaceCallback->setScene( this->_scene );
 
@@ -177,6 +187,8 @@ public:
         QObject::connect(this->_curveInputCallback, SIGNAL(modelChanged()), this,
             SIGNAL(modelChanged()));
         QObject::connect(this->_deleteCurveCallback, SIGNAL(modelChanged()), this,
+            SIGNAL(modelChanged()));
+        QObject::connect(this->_expandEdgeCallback, SIGNAL(modelChanged()), this,
             SIGNAL(modelChanged()));
         QObject::connect(this->_fillFaceCallback, SIGNAL(modelChanged()), this,
             SIGNAL(modelChanged()));

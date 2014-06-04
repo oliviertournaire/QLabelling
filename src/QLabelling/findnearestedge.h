@@ -24,5 +24,4 @@ public:
 private:
    CGAL::Qt::Converter< Kernel > _converter;
 };
-
 #endif // FINDNEARESTEDGE_H
