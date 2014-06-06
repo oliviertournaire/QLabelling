@@ -123,6 +123,231 @@ protected:
             this->_polylineGuide.back( )->setLine( qSegment );
         }
         }
+        if( _mode == HORIZONTAL ){
+
+                    Point_2 clickedPoint = this->snapPoint( event );
+                    QRect size_imagetolabel(0,0,1000,1000);
+                    QGraphicsScene* currentScene = this->_scene;
+                    QList<QGraphicsItem*> allItems = currentScene->items();
+                    for(int i=0;i<allItems.count();++i)
+                    {
+                        if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+                            size_imagetolabel = p->pixmap().rect();
+                    }
+                    QPointF pt = this->_converter( clickedPoint );
+                    Point_2 g(0, (int) pt.y());
+                    Point_2 d(size_imagetolabel.width(), (int) pt.y());
+                    // TODO: make it work for the latest line segment
+                    Segment_2 segment( g, d );
+                    QLineF qSegment = this->_converter( segment );
+
+                    if (this->_horizontalGuide.size()==0 ){
+                        QPointF pg=this->_converter(g);
+                        QPointF pd=this->_converter(d);
+                        QGraphicsLineItem* lineItem = new QGraphicsLineItem( pg.x( ), pg.y( ), pd.x( ), pd.y( ) );
+                        lineItem->setZValue( 100 );
+                        QPen pen = lineItem->pen( );
+                        pen.setColor( QColor(255, 175, 0));
+                        lineItem->setPen( pen );
+                        this->_horizontalGuide.push_back( lineItem );
+                        if ( this->_scene != NULL )
+                        {
+                            this->_scene->addItem( this->_horizontalGuide.back( ) );
+                        }
+                    }
+                    else
+                    {
+                         Point_2 hsizepoint(0, size_imagetolabel.height());
+                         QPointF phsizepoint=this->_converter(hsizepoint);
+                         int hsize=(int) phsizepoint.y();
+                         int hsnap=(int)pt.y();
+                        if(hsnap<0 || hsnap>hsize){
+                            if ( this->_scene != NULL )
+                            {
+                                this->_scene->removeItem( this->_horizontalGuide.back());
+                            }
+                            return;
+                        }
+
+                        if ( this->_scene != NULL )
+                        {
+                            this->_scene->removeItem( this->_horizontalGuide.back());
+                        }
+                       this->_horizontalGuide.back( )->setLine( qSegment );
+                        if ( this->_scene != NULL )
+                        {
+                            this->_scene->addItem( this->_horizontalGuide.back( ) );
+                        }
+
+                    }
+
+                }
+        if( _mode == VERTICAL ){
+
+                    Point_2 clickedPoint = this->snapPoint( event );
+                    QRect size_imagetolabel(0,0,1000,1000);
+                    QGraphicsScene* currentScene = this->_scene;
+                    QList<QGraphicsItem*> allItems = currentScene->items();
+                    for(int i=0;i<allItems.count();++i)
+                    {
+                        if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+                            size_imagetolabel = p->pixmap().rect();
+                    }
+                    QPointF pt = this->_converter( clickedPoint );
+                    Point_2 g((int) pt.x(), 0);
+                    Point_2 d((int) pt.x(), size_imagetolabel.height());
+                    // TODO: make it work for the latest line segment
+                    Segment_2 segment( g, d );
+                    QLineF qSegment = this->_converter( segment );
+
+                    if (this->_horizontalGuide.size()==0 ){
+                        QPointF pg=this->_converter(g);
+                        QPointF pd=this->_converter(d);
+                        QGraphicsLineItem* lineItem = new QGraphicsLineItem( pg.x( ), pg.y( ), pd.x( ), pd.y( ) );
+                        lineItem->setZValue( 100 );
+                        QPen pen = lineItem->pen( );
+                        pen.setColor( QColor(255, 175, 0));
+                        lineItem->setPen( pen );
+                        this->_horizontalGuide.push_back( lineItem );
+                        if ( this->_scene != NULL )
+                        {
+                            this->_scene->addItem( this->_horizontalGuide.back( ) );
+                        }
+                    }
+                    else
+                    {
+                         Point_2 vsizepoint(size_imagetolabel.width(), 0);
+                         QPointF pvsizepoint=this->_converter(vsizepoint);
+                         int vsize=(int) pvsizepoint.x();
+                         int vsnap=(int)pt.x();
+                        if(vsnap<0 || vsnap>vsize){
+                            if ( this->_scene != NULL )
+                            {
+                                this->_scene->removeItem( this->_horizontalGuide.back());
+                            }
+                            return;
+                        }
+
+                        if ( this->_scene != NULL )
+                        {
+                            this->_scene->removeItem( this->_horizontalGuide.back());
+                        }
+                       this->_horizontalGuide.back( )->setLine( qSegment );
+                        if ( this->_scene != NULL )
+                        {
+                            this->_scene->addItem( this->_horizontalGuide.back( ) );
+                        }
+
+                    }
+
+                }
+        if( _mode == USE_VANISHING ){
+            Point_2 clickedPoint = this->snapPoint( event );
+            QRect size_imagetolabel(0,0,1000,1000);
+            QGraphicsScene* currentScene = this->_scene;
+            QList<QGraphicsItem*> allItems = currentScene->items();
+            for(int i=0;i<allItems.count();++i){
+            if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+                size_imagetolabel = p->pixmap().rect();
+            }
+
+            QPointF pt = this->_converter( clickedPoint );
+            VanishingPoints::instance()->calculate_vanishing_point(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
+            if(VanishingPoints::instance()->size()<=QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint()){
+                _mode = DEFINE_VANISHING ;
+                QArrangementLabellingVanishingPointsWidget::instance()->emitswitch();
+
+                return;
+            }
+            Point_2 vp0=VanishingPoints::instance()->getVanishingPoints(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
+             QPointF vp = this->_converter( vp0 );
+              Point_2 g;
+             Point_2 d;
+              int counter=0;//Permet de savoir combien de points ont étés fixés sur la bordure. 1=>il reste d à fixer; 2=>plus de points à fixer
+             if(vp.x()==pt.x()){
+                 Point_2 g1(vp.x(),0);
+                 g=g1;
+                 Point_2 d1(vp.x(), size_imagetolabel.height());
+                 d=d1;
+             }
+             else{
+                qreal a=(vp.y()-pt.y())/(vp.x()-pt.x());
+                qreal b=(vp.x()*pt.y()-vp.y()*pt.x())/(vp.x()-pt.x());
+                qreal limit1=VanishingPoints::instance()->Affine(0,a,b);
+                qreal limit2=VanishingPoints::instance()->Affine(size_imagetolabel.width(),a,b);
+                int imwidth=size_imagetolabel.width();
+                int imheight=size_imagetolabel.height();
+                //placement des points
+                if (limit1>=0 && limit1<=imheight){
+                    Point_2 g1(0, limit1);
+                    g=g1;
+                    counter+=1;}
+                if((-b/a)>0 && (-b/a)<imwidth){
+                    if(counter==0){
+                        Point_2 g1(-b/a, 0);
+                        g=g1;
+                        counter+=1;
+                    }
+                    else if(counter==1){
+                        Point_2 d1(-b/a, 0);
+                        d=d1;
+                        counter+=1;
+                    }
+                }
+                qreal c=(imheight-b)/a;
+                if (limit2>=0 && limit2<=imheight){
+                    if(counter==0){
+                        Point_2 g1(imwidth,  limit2);
+                        g=g1;
+                        counter+=1;
+                    }
+                    else if(counter==1){
+                        Point_2 d1(imwidth,  limit2);
+                        d=d1;
+                        counter+=1;
+                    }
+                }
+                if(c>0 && c<imwidth && counter==1){
+                    Point_2 d1(c, imheight);
+                    d=d1;
+                    counter+=1;
+                }
+             }
+            if(counter==2){//On vérifie que l'on passe bien par le dessin car counter<2 => Hors du dessin
+
+                    Segment_2 segment( g, d );
+                    QLineF qSegment = this->_converter( segment );
+
+                    if (this->_horizontalGuide.size()==0 ){
+                        QPointF pg=this->_converter(g);
+                        QPointF pd=this->_converter(d);
+                        QGraphicsLineItem* lineItem = new QGraphicsLineItem( pg.x( ), pg.y( ), pd.x( ), pd.y( ) );
+                        lineItem->setZValue( 100 );
+                        QPen pen = lineItem->pen( );
+                        pen.setColor( QColor(255, 175, 0));
+                        lineItem->setPen( pen );
+                        this->_horizontalGuide.push_back( lineItem );
+                        if ( this->_scene != NULL )
+                        {
+                            this->_scene->addItem( this->_horizontalGuide.back( ) );
+                        }
+                    }
+                    else
+                    {
+                        if ( this->_scene != NULL )
+                        {
+                            this->_scene->removeItem( this->_horizontalGuide.back());
+                        }
+                       this->_horizontalGuide.back( )->setLine( qSegment );
+                        if ( this->_scene != NULL )
+                        {
+                            this->_scene->addItem( this->_horizontalGuide.back( ) );
+                        }
+
+                    }
+            }
+
+                }
         if(_mode==DEFINE_VANISHING){
             if(VanishingPoints::instance()->countervanishing==1){
                 std::cout<<QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint();
@@ -135,6 +360,10 @@ protected:
                       QPointF pt = this->_converter( clickedPoint );
                       QPointF px= this->_converter( pp );
                     QGraphicsLineItem* qSegprov=new QGraphicsLineItem(px.x(),px.y(),pt.x(),pt.y());
+                    qSegprov->setZValue( 100 );
+                    QPen pen = qSegprov->pen( );
+                    pen.setColor( QColor(255, 175, 0));
+                    qSegprov->setPen( pen );
 
                     VanishingPoints::instance()->_VanishingLineGuide.push_back(qSegprov);
                 }
@@ -414,8 +643,8 @@ protected:
                 QGraphicsLineItem* lineItem = new QGraphicsLineItem( pt.x( ), pt.y( ), pt.x( ), pt.y( ) );
                 lineItem->setZValue( 100 );
                 QPen pen = lineItem->pen( );
-                pen.setColor( this->_color );
-                lineItem->setPen( pen );
+                pen.setColor(QColor(255, 175, 0));
+
                 VanishingPoints::instance()->_VanishingLineGuide.push_back( lineItem );
                 if ( this->_scene != NULL )
                 {
@@ -466,7 +695,7 @@ protected:
                         QGraphicsLineItem* lineItem = new QGraphicsLineItem( pt.x( ), pt.y( ), pt.x( ), pt.y( ) );
                         lineItem->setZValue( 100 );
                         QPen pen = lineItem->pen( );
-                        pen.setColor( this->_color );
+                        pen.setColor( QColor(255, 175, 0) );
                         lineItem->setPen( pen );
                         VanishingPoints::instance()->_VanishingLineGuide.push_back( lineItem ); // Ajout à l'objet Polyline de ce nouveau segment
                         if ( this->_scene != NULL )
@@ -494,6 +723,7 @@ protected:
     std::vector< Point_2 > _points;
 
     std::vector< QGraphicsLineItem* > _polylineGuide; // Polyline courante
+     std::vector< QGraphicsLineItem* > _horizontalGuide;
 };
 
 } // namespace Qt

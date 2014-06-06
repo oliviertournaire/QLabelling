@@ -58,7 +58,7 @@ public:
         return (unsigned int)_vanishingPoints.size();
     }
 
-    unsigned int EdgesSize(unsigned int index){//taille d'un vecteur de lignes de fuite
+    unsigned int EdgesSize(int index){//taille d'un vecteur de lignes de fuite
         return (unsigned int)_vanishingEdges[index].size();
     }
 

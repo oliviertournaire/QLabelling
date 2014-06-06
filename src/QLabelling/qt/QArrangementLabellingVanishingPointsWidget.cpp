@@ -36,7 +36,7 @@ QArrangementLabellingVanishingPointsWidget::~QArrangementLabellingVanishingPoint
 void QArrangementLabellingVanishingPointsWidget::editIndexVanishingPoint(int index){
     _indexVanishingPoint=index;
 }
-unsigned int QArrangementLabellingVanishingPointsWidget::GetIndexVanishingPoint(){
+int QArrangementLabellingVanishingPointsWidget::GetIndexVanishingPoint(){
     return _indexVanishingPoint;
 }
 void QArrangementLabellingVanishingPointsWidget::numEdges(){
@@ -71,7 +71,7 @@ void QArrangementLabellingVanishingPointsWidget::addVanishingPoint()
 {
 
 
-    unsigned int vanishingexisting=VanishingPoints::instance()->size();
+    int vanishingexisting=VanishingPoints::instance()->size();
     if(_indexVanishingPoint<vanishingexisting){
         int n=numPoints()+1;
         QString text="VanishingPoint";
