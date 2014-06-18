@@ -36,7 +36,7 @@
 
 #include "graphics/VanishingPoints.h"
 #include "findnearestedge.h"
-#include "ExpandEdgeCallBack.h"
+#include "CopyFaceSingleton.h"
 
 
 
@@ -45,7 +45,7 @@
 
 
 enum InsertType {
-    POLYLINE, HORIZONTAL, VERTICAL,DEFINE_VANISHING,USE_VANISHING,EXTEND
+    POLYLINE, HORIZONTAL, VERTICAL,DEFINE_VANISHING,USE_VANISHING,COPY_FACE
 };
     
 namespace CGAL {
@@ -103,17 +103,22 @@ public:
     GraphicsViewCurveInput( QObject* parent ):
         GraphicsViewCurveInputBase( parent )
     { }
-    void connectexpand(){
-        QObject::connect(emitexpand::instance(),SIGNAL(emitexpandedge(CGAL::Object)),
-                         this,SLOT(generate(CGAL::Object)));
-        //WIP WIP test
-        QObject::connect(emitexpand::instance(),SIGNAL(emitexpandedge(CGAL::Object)),
-                         emitexpand::instance(),SLOT(emitexpandedgeslot(CGAL::Object)));
-    }
+
 
 protected:
     void mouseMoveEvent( QGraphicsSceneMouseEvent* event )
-    { if( _mode == POLYLINE ){
+    {if(_mode!= DEFINE_VANISHING){
+            for ( unsigned int i = 0; i < VanishingPoints::instance()->_VanishingLineGuide.size( ); ++i )
+            {
+                if ( this->_scene != NULL )
+                {
+                    this->_scene->removeItem( VanishingPoints::instance()->_VanishingLineGuide[ i ] );
+                }
+                delete VanishingPoints::instance()->_VanishingLineGuide[ i ];
+            }
+            VanishingPoints::instance()->_VanishingLineGuide.clear( );
+        }
+        if( _mode == POLYLINE ){
         if ( ! this->_polylineGuide.empty( ) )
         {
             Point_2 clickedPoint = this->snapPoint( event );
@@ -157,11 +162,13 @@ protected:
                     }
                     else
                     {
-                         Point_2 hsizepoint(0, size_imagetolabel.height());
-                         QPointF phsizepoint=this->_converter(hsizepoint);
-                         int hsize=(int) phsizepoint.y();
+                         Point_2 sizepoint(size_imagetolabel.width(), size_imagetolabel.height());
+                         QPointF psizepoint=this->_converter(sizepoint);
+                         int hsize=(int) psizepoint.y();
                          int hsnap=(int)pt.y();
-                        if(hsnap<0 || hsnap>hsize){
+                         int vsize=(int) psizepoint.x();
+                         int vsnap=(int)pt.x();
+                        if(hsnap<0 || hsnap>hsize || vsnap<0 || vsnap>vsize){
                             if ( this->_scene != NULL )
                             {
                                 this->_scene->removeItem( this->_horizontalGuide.back());
@@ -216,11 +223,13 @@ protected:
                     }
                     else
                     {
-                         Point_2 vsizepoint(size_imagetolabel.width(), 0);
-                         QPointF pvsizepoint=this->_converter(vsizepoint);
-                         int vsize=(int) pvsizepoint.x();
-                         int vsnap=(int)pt.x();
-                        if(vsnap<0 || vsnap>vsize){
+                        Point_2 sizepoint(size_imagetolabel.width(), size_imagetolabel.height());
+                        QPointF psizepoint=this->_converter(sizepoint);
+                        int hsize=(int) psizepoint.y();
+                        int hsnap=(int)pt.y();
+                        int vsize=(int) psizepoint.x();
+                        int vsnap=(int)pt.x();
+                       if(hsnap<0 || hsnap>hsize || vsnap<0 || vsnap>vsize){
                             if ( this->_scene != NULL )
                             {
                                 this->_scene->removeItem( this->_horizontalGuide.back());
@@ -241,6 +250,144 @@ protected:
                     }
 
                 }
+        if( _mode == COPY_FACE ){
+                    if(CopyFaceSingleton::instance()->getmode()==2){
+                        Point_2 clickedPoint = this->snapPoint( event );
+                        QRect size_imagetolabel(0,0,1000,1000);
+                        QGraphicsScene* currentScene = this->_scene;
+                        QList<QGraphicsItem*> allItems = currentScene->items();
+                        for(int i=0;i<allItems.count();++i)
+                        {
+                            if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+                                size_imagetolabel = p->pixmap().rect();
+                        }
+                        QPointF pt = this->_converter( clickedPoint );
+                        //initialisation
+                        std::vector<Point_2> points_tab;
+                        std::vector<Segment_2>segment_tab;
+                        std::vector<QLineF> qSegment_tab;
+                        std::vector<QPointF> pointf_tab;
+                        for(int i=0;i<CopyFaceSingleton::instance()->size();i++){
+                            Point_2 gi(pt.x()+CopyFaceSingleton::instance()->getPoint(i).x(), pt.y()+CopyFaceSingleton::instance()->getPoint(i).y());
+                             points_tab.push_back(gi);
+                             QPointF pointf=this->_converter(gi);
+                             pointf_tab.push_back(pointf);
+                        }
+                        // TODO: make it work for the latest line segment
+                        for(int i=0;i<points_tab.size()-1;i++){
+                            Segment_2 segment( points_tab[i], points_tab[i+1]);
+                            segment_tab.push_back(segment);
+                            QLineF qSegment = this->_converter(segment);
+                            qSegment_tab.push_back(qSegment);
+                        }
+                         Segment_2 segment( points_tab[points_tab.size()-1], points_tab[0]);
+                           QLineF qSegment = this->_converter(segment);
+                           segment_tab.push_back(segment);
+                           qSegment_tab.push_back(qSegment);
+                        if(this->_horizontalGuide.size()!=0 && this->_horizontalGuide.size()!=points_tab.size())
+                            this->_horizontalGuide.clear();
+                        if (this->_horizontalGuide.size()==0 ){
+                            for(int i=0;i<points_tab.size()-1;i++){
+                                QGraphicsLineItem* lineItem = new QGraphicsLineItem( pointf_tab[i].x( ), pointf_tab[i].y( ), pointf_tab[i+1].x( ), pointf_tab[i+1].y( ) );
+                                lineItem->setZValue( 100 );
+                                QPen pen = lineItem->pen( );
+                                pen.setColor( QColor(255, 175, 0));
+                                lineItem->setPen( pen );
+                                this->_horizontalGuide.push_back( lineItem );
+                                if ( this->_scene != NULL )
+                                    {
+                                    this->_scene->addItem( this->_horizontalGuide.back( ) );
+                                }
+                            }
+                            QGraphicsLineItem* lineItem = new QGraphicsLineItem( pointf_tab[pointf_tab.size()-1].x( ), pointf_tab[points_tab.size()-1].y( ), pointf_tab[0].x( ), pointf_tab[0].y( ) );
+                            lineItem->setZValue( 100 );
+                            QPen pen = lineItem->pen( );
+                            pen.setColor( QColor(255, 175, 0));
+                            lineItem->setPen( pen );
+                            this->_horizontalGuide.push_back( lineItem );
+                            if ( this->_scene != NULL )
+                                {
+                                this->_scene->addItem( this->_horizontalGuide.back( ) );
+                            }
+
+
+
+//                            QPointF pg1=this->_converter(g1);
+//                            QPointF pg2=this->_converter(g2);
+//                             QPointF pg3=this->_converter(g3);
+//                              QPointF pg4=this->_converter(g4);
+//                            QGraphicsLineItem* lineItem1 = new QGraphicsLineItem( pg1.x( ), pg1.y( ), pg2.x( ), pg2.y( ) );
+//                            QGraphicsLineItem* lineItem2 = new QGraphicsLineItem( pg2.x( ), pg2.y( ), pg3.x( ), pg3.y( ) );
+//                            QGraphicsLineItem* lineItem3 = new QGraphicsLineItem( pg3.x( ), pg3.y( ), pg4.x( ), pg4.y( ) );
+//                            QGraphicsLineItem* lineItem4 = new QGraphicsLineItem( pg4.x( ), pg4.y( ), pg1.x( ), pg1.y( ) );
+//                            lineItem1->setZValue( 100 );
+//                            lineItem2->setZValue( 100 );
+//                            lineItem3->setZValue( 100 );
+//                            lineItem4->setZValue( 100 );
+//                            QPen pen = lineItem1->pen( );
+//                            pen.setColor( QColor(255, 175, 0));
+//                            lineItem1->setPen( pen );
+//                            lineItem2->setPen( pen );
+//                            lineItem3->setPen( pen );
+//                            lineItem4->setPen( pen );
+//                            this->_horizontalGuide.push_back( lineItem1 );
+//                            if ( this->_scene != NULL )
+//                            {
+//                                this->_scene->addItem( this->_horizontalGuide.back( ) );
+//                            }
+//                            this->_horizontalGuide.push_back( lineItem2 );
+//                            if ( this->_scene != NULL )
+//                            {
+//                                this->_scene->addItem( this->_horizontalGuide.back( ) );
+//                            }
+//                            this->_horizontalGuide.push_back( lineItem3 );
+//                            if ( this->_scene != NULL )
+//                            {
+//                                this->_scene->addItem( this->_horizontalGuide.back( ) );
+//                            }
+//                            this->_horizontalGuide.push_back( lineItem4 );
+//                            if ( this->_scene != NULL )
+//                            {
+//                                this->_scene->addItem( this->_horizontalGuide.back( ) );
+//                            }
+                        }
+                        else
+                        {
+                            Point_2 sizepoint(size_imagetolabel.width(), size_imagetolabel.height());
+                            QPointF psizepoint=this->_converter(sizepoint);
+                            int hsize=(int) psizepoint.y();
+                            int hsnap=(int)pt.y();
+                            int vsize=(int) psizepoint.x();
+                            int vsnap=(int)pt.x();
+                           if(hsnap<0 || hsnap>hsize || vsnap<0 || vsnap>vsize){
+                                if ( this->_scene != NULL )
+                                {
+                                    for(int i=0;i<points_tab.size();i++)
+                                    this->_scene->removeItem( this->_horizontalGuide.at(i));
+                                }
+                                return;
+                            }
+
+                            if ( this->_scene != NULL )
+                           {
+                               for(int i=0;i<points_tab.size();i++)
+                               this->_scene->removeItem( this->_horizontalGuide.at(i));
+                           }
+                            for(int i=0;i<points_tab.size();i++)
+                                this->_horizontalGuide.at(i)->setLine( qSegment_tab[i] );
+//                            this->_horizontalGuide.at(1)->setLine( qSegment2 );
+//                            this->_horizontalGuide.at(2)->setLine( qSegment3 );
+//                            this->_horizontalGuide.at(3)->setLine( qSegment4 );
+                            if ( this->_scene != NULL )
+                            {
+                                for(int i=0;i<points_tab.size();i++)
+                                this->_scene->addItem(this->_horizontalGuide.at(i));
+                            }
+
+                        }
+                    }
+                }
+
         if( _mode == USE_VANISHING ){
             Point_2 clickedPoint = this->snapPoint( event );
             QRect size_imagetolabel(0,0,1000,1000);
@@ -314,9 +461,8 @@ protected:
                 }
              }
             if(counter==2){//On vérifie que l'on passe bien par le dessin car counter<2 => Hors du dessin
-
-                    Segment_2 segment( g, d );
-                    QLineF qSegment = this->_converter( segment );
+                Segment_2 segment( g, d );
+                QLineF qSegment = this->_converter( segment );
 
                     if (this->_horizontalGuide.size()==0 ){
                         QPointF pg=this->_converter(g);
@@ -345,12 +491,29 @@ protected:
                         }
 
                     }
+
+                        Point_2 sizepoint(size_imagetolabel.width(), size_imagetolabel.height());
+                        QPointF psizepoint=this->_converter(sizepoint);
+                        int hsize=(int) psizepoint.y();
+                        int hsnap=(int)pt.y();
+                        int vsize=(int) psizepoint.x();
+                        int vsnap=(int)pt.x();
+                       if(hsnap<0 || hsnap>hsize || vsnap<0 || vsnap>vsize){
+                             if (this->_horizontalGuide.size()==0 )
+                                 return;
+
+                           if ( this->_scene != NULL )
+                           {
+                               this->_scene->removeItem( this->_horizontalGuide.back());
+                           }
+                   }
             }
 
                 }
+
         if(_mode==DEFINE_VANISHING){
             if(VanishingPoints::instance()->countervanishing==1){
-                std::cout<<QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint();
+                //std::cout<<QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint();
                 Point_2 clickedPoint = this->snapPoint( event );
                 Point_2  pp=VanishingPoints::instance()->GetPointForVanishing();
                 Segment_2 segment( pp, clickedPoint );
@@ -371,10 +534,7 @@ protected:
                     VanishingPoints::instance()->_VanishingLineGuide.back( )->setLine( qSegment );
             }
         }
-        if(_mode==EXTEND){
-            //findnearestedge::getnearestedge(event,this->,this->getScene());
 
-        }
     }
     void mousePressEvent( QGraphicsSceneMouseEvent* event )
     {
@@ -527,6 +687,92 @@ protected:
 	        this->_points.clear( );
 	        emit generate( CGAL::make_object( res ) );
         }
+        else if ( _mode == COPY_FACE)
+        {    if(CopyFaceSingleton::instance()->getmode()==2){
+//                if(CopyFaceSingleton::instance()->getfisrtclick()==1){
+//                    CopyFaceSingleton::instance()->firstclick_ok();
+//                    return;
+//                }
+                // Ligne verticale
+                QRect size_imagetolabel(0,0,1000,1000);
+
+                QGraphicsScene* currentScene = this->_scene;
+                QList<QGraphicsItem*> allItems = currentScene->items();
+                for(int i=0;i<allItems.count();++i)
+                {
+                    if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+                        size_imagetolabel = p->pixmap().rect();
+                }
+
+                QPointF pt = this->_converter( clickedPoint );
+                this->_points.clear( );
+                for(int i=0;i<CopyFaceSingleton::instance()->size();i++){
+                    Point_2 gi(pt.x()+CopyFaceSingleton::instance()->getPoint(i).x(), pt.y()+CopyFaceSingleton::instance()->getPoint(i).y());
+                    this->_points.push_back( gi );
+                }
+                Point_2 g1(pt.x()+CopyFaceSingleton::instance()->getPoint(0).x(), pt.y()+CopyFaceSingleton::instance()->getPoint(0).y());
+                this->_points.push_back( g1 );
+//                Point_2 g1((int) pt.x()+200, (int) pt.y()+200);
+//                 Point_2 g2((int) pt.x()+200, (int) pt.y()-200);
+//                  Point_2 g3((int) pt.x()-200, (int) pt.y()-200);
+//                   Point_2 g4((int) pt.x()-200, (int) pt.y()+200);
+//                this->_points.push_back( g1 );
+//                this->_points.push_back( g2 );
+//                    this->_points.push_back( g3 );
+//                    this->_points.push_back( g4 );
+//                   this->_points.push_back( g1 );
+
+                //Curve_2 res( _points.begin( ), _points.end( ) );
+                int test=_points.size();
+                //_points.clear( );
+                switch(event->button( ))
+                {   case ::Qt::LeftButton :
+                    for(int i=0;i<_points.size();i++){
+                         std::vector< Point_2 > _pointsprov;
+                         for(int j=0;j<i+1;j++){
+                             _pointsprov.push_back(_points.at(j));
+                         }
+                         if (_pointsprov.size()>1){
+                        Curve_2 res( _pointsprov.begin(), _pointsprov.end() );
+                        emit generate( CGAL::make_object( res ) );
+                         }
+                    }
+                    _points.clear( );
+                    //emit generate( CGAL::make_object( res ) );
+                    break;
+                    case ::Qt::MiddleButton :
+                    if ( this->_scene != NULL )
+                    {
+                        for(int i=0;i<CopyFaceSingleton::instance()->size();i++)
+                        this->_scene->removeItem( this->_horizontalGuide.at(i));
+                    }
+                     CopyFaceSingleton::instance()->switchmode();
+                     _points.clear( );
+                     break;
+                    case ::Qt::RightButton :
+                    //emit generate( CGAL::make_object( res ) );
+                    if ( this->_scene != NULL )
+                    {
+                        for(int i=0;i<CopyFaceSingleton::instance()->size();i++)
+                        this->_scene->removeItem( this->_horizontalGuide.at(i));
+                    }
+                    for(int i=0;i<_points.size();i++){
+                         std::vector< Point_2 > _pointsprov;
+                         for(int j=0;j<i+1;j++){
+                             _pointsprov.push_back(_points.at(j));
+                         }
+                         if (_pointsprov.size()>1){
+                        Curve_2 res( _pointsprov.begin(), _pointsprov.end() );
+                        emit generate( CGAL::make_object( res ) );
+                         }
+                    }
+                     _points.clear( );
+                    CopyFaceSingleton::instance()->switchmode();
+                    break;
+                }
+            }
+            else return;
+        }
 
   else if (_mode == USE_VANISHING)
     { // Tracer à l'aide du point de fuite
@@ -672,7 +918,9 @@ protected:
                 VanishingPoints::instance()->countervanishing=0;
 
                 switch(event->button( ))
-                {
+                {   case ::Qt::LeftButton :
+                    this->_points.clear( );
+                    break;
                     case ::Qt::MiddleButton :
                     case ::Qt::RightButton : // finalize polyline input
                         // Destruction de la Polyline courante

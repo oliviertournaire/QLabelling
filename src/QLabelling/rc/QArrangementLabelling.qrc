@@ -1,5 +1,7 @@
 <RCC>
   <qresource>
+    <file>icons/copyface.png</file>
+    <file>icons/copyfacewhite.png</file>
     <file>icons/prolonger.png</file>
     <file>icons/prolongerwhite.png</file>
     <file>icons/vanishingpointboldmoins.png</file>

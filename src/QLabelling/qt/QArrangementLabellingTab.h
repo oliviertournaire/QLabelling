@@ -33,6 +33,7 @@ class QGridLayout;
 #include "FillFaceCallback.h"
 #include "arrangement/ArrangementBuffer.h"
 #include "ExpandEdgeCallBack.h"
+#include "CopyFaceCallback.h"
 
 class QArrangementLabellingTabBase : public QWidget
 {
@@ -54,6 +55,7 @@ public:
     virtual CGAL::Qt::Callback* getPointLocationCallback( ) const;
     virtual CGAL::Qt::Callback* getMergeEdgeCallback( ) const;
     virtual CGAL::Qt::Callback* getExpandEdgeCallback( ) const;
+    virtual CGAL::Qt::Callback* getCopyFaceCallback( ) const;
     virtual SplitEdgeCallbackBase* getSplitEdgeCallback( ) const;
     virtual FillFaceCallbackBase* getFillFaceCallback( ) const;
     void FaceLabelToolTip ();
@@ -65,6 +67,7 @@ public:
     //WIP
 public slots:
    void UpdateFaceLabel();
+
    //WIP
 protected:
     virtual void setupUi( );
@@ -79,6 +82,7 @@ protected:
     CGAL::Qt::Callback* _pointLocationCallback;
     CGAL::Qt::Callback* _mergeEdgeCallback;
      CGAL::Qt::Callback* _expandEdgeCallback;
+      CGAL::Qt::Callback* _copyFaceCallback;
     SplitEdgeCallbackBase* _splitEdgeCallback;
     FillFaceCallbackBase* _fillFaceCallback;
 
@@ -110,6 +114,7 @@ public:
         this->_expandEdgeCallback = new ExpandEdgeCallBack<Arrangement>( this->_arrangement, this );
         this->_splitEdgeCallback = new SplitEdgeCallback<Arrangement>( this->_arrangement, this );
         this->_fillFaceCallback = new FillFaceCallback<Arrangement>( this->_arrangement, this );
+        this->_copyFaceCallback=new CopyFaceCallback<Arrangement>( this->_arrangement, this );
 
         this->_scene->addItem( this->_arrangementGraphicsItem );
         this->_arrangementGraphicsItem->setScene( this->_scene );
@@ -120,6 +125,7 @@ public:
         this->_expandEdgeCallback->setScene( this->_scene );
         this->_splitEdgeCallback->setScene( this->_scene );
         this->_fillFaceCallback->setScene( this->_scene );
+        this->_copyFaceCallback->setScene( this->_scene );
 
         // set up callbacks
         this->_scene->installEventFilter( this->_curveInputCallback );
@@ -130,6 +136,8 @@ public:
         QObject::connect(this->_expandEdgeCallback, SIGNAL(modelChanged()), this,
                          SIGNAL(modelChanged()));
         QObject::connect(this->_fillFaceCallback, SIGNAL(modelChanged()), this,
+                         SIGNAL(modelChanged()));
+        QObject::connect(this->_copyFaceCallback, SIGNAL(modelChanged()), this,
                          SIGNAL(modelChanged()));
         QObject::connect(this, SIGNAL(modelChanged()),
                          this->_arrangementGraphicsItem, SLOT(modelChanged()));
@@ -154,6 +162,7 @@ public:
          delete this->_expandEdgeCallback;
         delete this->_splitEdgeCallback;
         delete this->_fillFaceCallback;
+        delete this->_copyFaceCallback;
 
         this->_arrangement = newArr;
 
@@ -171,6 +180,7 @@ public:
          this->_expandEdgeCallback = new ExpandEdgeCallBack<Arrangement>( this->_arrangement, this );
         this->_splitEdgeCallback = new SplitEdgeCallback<Arrangement>( this->_arrangement, this );
         this->_fillFaceCallback = new FillFaceCallback<Arrangement>( this->_arrangement, this );
+        this->_copyFaceCallback = new CopyFaceCallback<Arrangement>( this->_arrangement, this );
 
         this->_scene->addItem( this->_arrangementGraphicsItem );
         this->_arrangementGraphicsItem->setScene( this->_scene );
@@ -181,6 +191,7 @@ public:
         this->_expandEdgeCallback->setScene( this->_scene );
         this->_splitEdgeCallback->setScene( this->_scene );
         this->_fillFaceCallback->setScene( this->_scene );
+        this->_copyFaceCallback->setScene( this->_scene );
 
         // set up callbacks
         this->_scene->installEventFilter( this->_curveInputCallback );

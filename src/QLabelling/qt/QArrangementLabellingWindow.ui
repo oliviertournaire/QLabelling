@@ -161,6 +161,7 @@
    <addaction name="actionMerge"/>
    <addaction name="actionSplit"/>
    <addaction name="actionProlonger"/>
+   <addaction name="actionCopyFace"/>
   </widget>
   <action name="actionQuit">
    <property name="icon">
@@ -526,6 +527,24 @@
    </property>
    <property name="toolTip">
     <string>prolonger un segment</string>
+   </property>
+  </action>
+  <action name="actionCopyFace">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rc/QArrangementLabelling.qrc">
+     <normaloff>:/icons/copyface.png</normaloff>:/icons/copyface.png</iconset>
+   </property>
+   <property name="text">
+    <string>CopyFace</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy a face</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
    </property>
   </action>
  </widget>

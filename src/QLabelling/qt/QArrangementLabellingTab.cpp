@@ -48,6 +48,8 @@ void QArrangementLabellingTabBase::setupUi( )
     //WIP end
     this->_graphicsView->setMouseTracking( true );
 }
+
+
 //WIP
 void QArrangementLabellingTabBase::UpdateFaceLabel(){//DEF : Affiche une infobulle lorsque l'on passe sur une face de l'arrangement, avec son Label
     setStyleSheet("QToolTip { color: white; background-color: #2a82da; border: 1px solid white; }");
@@ -84,6 +86,10 @@ CGAL::Qt::Callback* QArrangementLabellingTabBase::getDeleteCurveCallback( ) cons
 CGAL::Qt::Callback* QArrangementLabellingTabBase::getExpandEdgeCallback( ) const
 {
     return this->_expandEdgeCallback;
+}
+CGAL::Qt::Callback* QArrangementLabellingTabBase::getCopyFaceCallback( ) const
+{
+    return this->_copyFaceCallback;
 }
 
 CGAL::Qt::Callback* QArrangementLabellingTabBase::getPointLocationCallback( ) const

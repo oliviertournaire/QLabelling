@@ -217,6 +217,7 @@ void QArrangementLabellingWindow::setupUi( )
     this->_modeGroup->addAction( this->_ui->actionEdit_vanishing_point);
     this->_modeGroup->addAction( this->_ui->actionCreate_vanishing_point);
     this->_modeGroup->addAction( this->_ui->actionRemove_vanishing_point);
+    this->_modeGroup->addAction( this->_ui->actionCopyFace);
     this->_modeGroup->addAction( this->_ui->actionDelete );
     this->_modeGroup->addAction( this->_ui->actionProlonger );
     this->_modeGroup->addAction( this->_ui->actionPointLocation );
@@ -259,6 +260,14 @@ void QArrangementLabellingWindow::updateMode( QAction* newMode )
 	activeTab->getCurveInputCallback( )->_mode = POLYLINE;
         activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
         messageToLog += tr("Insertion mode");
+    }
+    if ( newMode == this->_ui->actionCopyFace )
+    {
+    CopyFaceSingleton::instance()->setCopyFace();
+    activeTab->getCurveInputCallback( )->_mode = COPY_FACE;
+     activeScene->installEventFilter( activeTab->getCopyFaceCallback());
+        activeScene->installEventFilter( activeTab->getCurveInputCallback( ) );
+        messageToLog += tr("Copy Face mode");
     }
     else if ( newMode == this->_ui->actionInsert_horizontal_line  )
     {
@@ -373,6 +382,9 @@ void QArrangementLabellingWindow::resetCallbackState( unsigned int tabIndex )
     {
         activeTab->getDeleteCurveCallback( )->reset( );
     }
+    else if(activeMode==this->_ui->actionCopyFace){
+         activeTab->getCopyFaceCallback()->reset( );
+    }
     else if ( activeMode == this->_ui->actionProlonger )
     {
         activeTab->getExpandEdgeCallback()->reset( );
@@ -414,6 +426,7 @@ void QArrangementLabellingWindow::removeCallback( unsigned int tabIndex )
     activeScene->removeEventFilter( activeTab->getMergeEdgeCallback( ) );
     activeScene->removeEventFilter( activeTab->getSplitEdgeCallback( ) );
     activeScene->removeEventFilter( activeTab->getFillFaceCallback( ) );
+     activeScene->removeEventFilter( activeTab->getCopyFaceCallback( ) );
 }
 
 void QArrangementLabellingWindow::openArrFile( QString filename )

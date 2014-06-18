@@ -33,6 +33,7 @@
 
 #include "ui_QArrangementLabellingWindow.h"
 #include "QArrangementLabellingVanishingPointsWidget.h"
+#include "CopyFaceSingleton.h"
 
 class QActionGroup;
 
