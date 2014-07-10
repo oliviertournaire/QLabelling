@@ -19,6 +19,10 @@ if(WIN32)
         add_definitions( -D_SCL_SECURE_NO_WARNINGS )
 endif()
 
+set( QLABELLING_MAJOR_VERSION 2 )
+set( QLABELLING_MINOR_VERSION 0 )
+set( QLABELLING_PATCH_VERSION 0 )
+
 set( DEFAULT_LABEL_PATH ${CMAKE_SOURCE_DIR}/rc/labels/labels_facade_simple.txt )
 configure_file( ${CMAKE_SOURCE_DIR}/config/config.hpp.cmake.in ${CMAKE_SOURCE_DIR}/config/config.hpp )
 
@@ -188,6 +192,11 @@ add_executable( QArrangementLabelling ${APPLICATION_TYPE}
 
 target_link_libraries( QArrangementLabelling ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${QT_LIBRARIES} )
 
+if(WIN32)
+  option(BUILD_INSTALLER "Build installer" OFF)
+endif()
 
-include( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/QLabelling.install.cmake )
-include( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/QLabelling.cpack.cmake )
+if(BUILD_INSTALLER)
+  include( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/QLabelling.install.cmake )
+  include( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/QLabelling.cpack.cmake )
+endif()
