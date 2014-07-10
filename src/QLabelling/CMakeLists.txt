@@ -188,3 +188,6 @@ add_executable( QArrangementLabelling ${APPLICATION_TYPE}
 
 target_link_libraries( QArrangementLabelling ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${QT_LIBRARIES} )
 
+
+include( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/QLabelling.install.cmake )
+include( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/QLabelling.cpack.cmake )

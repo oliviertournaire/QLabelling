@@ -1,0 +1,26 @@
+message( STATUS "CPack-ing")
+
+INCLUDE(InstallRequiredSystemLibraries)
+
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "QLabelling description: TODO!!!")
+SET(CPACK_PACKAGE_VENDOR "Olivier Tournaire, Mickael Bergem, Victor Zini")
+SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.txt")
+SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/Copyright.txt")
+SET(CPACK_PACKAGE_VERSION_MAJOR "2" )
+SET(CPACK_PACKAGE_VERSION_MINOR "0" )
+SET(CPACK_PACKAGE_VERSION_PATCH "0" )
+SET(CPACK_PACKAGE_INSTALL_DIRECTORY "QLabelling")
+IF(WIN32 AND NOT UNIX)
+  # There is a bug in NSI that does not handle full unix paths properly. Make
+  # sure there is at least one set of four (4) backlasshes.
+  SET(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\rc\\\\icons\\\\Arrangement_2.png")
+  SET(CPACK_NSIS_INSTALLED_ICON_NAME "${CMAKE_CURRENT_SOURCE_DIR}\\\\bin\\\\QArrangementLabelling.exe")
+  SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} QLabelling")
+  SET(CPACK_NSIS_HELP_LINK "https://github.com/oliviertournaire/QLabelling")
+  SET(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/oliviertournaire/QLabelling")
+  SET(CPACK_NSIS_CONTACT "https://github.com/oliviertournaire/QLabelling")
+  SET(CPACK_NSIS_MODIFY_PATH ON)
+ELSE(WIN32 AND NOT UNIX)
+ENDIF(WIN32 AND NOT UNIX)
+SET(CPACK_PACKAGE_EXECUTABLES "QLabelling" "QLabelling software")
+INCLUDE(CPack)
