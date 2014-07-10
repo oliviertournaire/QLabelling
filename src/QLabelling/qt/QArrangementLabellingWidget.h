@@ -38,9 +38,11 @@ public:
     const QLabelItem* findLabelItemFromName(const QString &name) const;
     const QString Color2Label(const QColor color) const;
     const QColor Label2Color(const QString label) const;
+    void addLabelPlus(QString labelname, QColor labelcolor);
 
 public slots:
     void on__toolButtonChooseLabelsPath_clicked(bool checked = false);
+    void addLabelChoice();
 //     void on__radioButtonLabelling_toggled(bool checked);
 
     void updateAlphaValue(const int alpha);

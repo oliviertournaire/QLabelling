@@ -109,6 +109,10 @@ CGAL::Qt::DemosMainWindow( parent ),
    // QObject::connect( this->_ui->actionCreate_vanishing_point, SIGNAL( triggered(bool) ),
       // QArrangementLabellingVanishingPointsWidget::instance(), SLOT( addVanishingPoint()) );
     //WIP end
+    //WIP
+    QObject::connect(this->_ui->tabWidget,SIGNAL(tabCloseRequested(int)),this,SLOT(closeTab(int)));
+
+    //WIP end
 
     // disable arrangement edition
     updateToolBarButtonsEnable(false);
@@ -941,7 +945,31 @@ bool QArrangementLabellingWindow::on_actionOpenImage_triggered()
     // the newly chosen file could be add as a QPixmap to the scene. We must also ensures that all attributes are well set after image change (refactoring may help).
     if(currentTab->_imageHasBeenLoaded)
         QMessageBox::warning( this, tr("Warning"), tr("There is already a loaded image, be sure of what you do.") );
+    //WIP
+    if(currentTab->_imageHasBeenLoaded){
+        QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+        QMessageBox mb;
+         mb.setText("Open a new picture");
+         mb.setInformativeText("Do you want to open this picture in a new tab ?");
+          mb.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+          mb.setDefaultButton(QMessageBox::Yes);
+        mb.setButtonText(QMessageBox::Yes, "Open in a new tab");
+        mb.setButtonText(QMessageBox::No, "Open in current tab");
+        switch(mb.exec()) {
+        case QMessageBox::Yes:
+        {
+            this->makeTab( POLYLINE_TRAITS );
+             _ui->actionOpenImage->setEnabled(true);
+        }
+            // save and exit
+            break;
+        case QMessageBox::No:
+            // exit without saving
+            break;
+        }
 
+    }
+    //end WIP
     settings.beginGroup("QLabellingMainWindow");
     QString defaultDirectory = settings.value("defaultDirectory", "").toString();
 
@@ -968,7 +996,13 @@ bool QArrangementLabellingWindow::on_actionOpenImage_triggered()
 bool QArrangementLabellingWindow::doLoadImage(const QString &fileName)
 {
     QArrangementLabellingLogWidget::instance()->logTrace( tr("Opening image ") + fileName );
-    QArrangementLabellingTabBase *currentTab = getCurrentTab();
+   //WIP
+    //int a = this->_ui->tabWidget->currentIndex( );
+     QArrangementLabellingTabBase *currentTab = getCurrentTab();
+
+    //end WIP
+    currentTab = getCurrentTab();
+
     const unsigned int TabIndex = this->_ui->tabWidget->currentIndex( );
 
     QGraphicsScene              *currentTabScene = currentTab->getScene();
@@ -1145,9 +1179,33 @@ void QArrangementLabellingWindow::on_actionUndo_triggered()
         QMessageBox::information( this, tr("Oops"), tr("Create a new tab first") );
         return;
     }
-
+    if(ArrangementBuffer::instance()->size()<=1)
+        return;
     Pol_arr* arr = ArrangementBuffer::instance()->back();
     ArrangementBuffer::instance()->pop_back();
+    //WIP
+    if(ArrangementBuffer::instance()->size()==1){
+        ArrangementBuffer::instance()->push_back(arr);
+//        QArrangementLabellingTabBase *currentTab = getCurrentTab();
+//        const unsigned int TabIndex = this->_ui->tabWidget->currentIndex( );
+//        QArrangementLabellingGraphicsView *currentTabView  = currentTab->getView();
+
+//        bool result = currentTabView->setImageToLabelForUndo(currentTab, getArrangements()[TabIndex]);
+//        if(result)
+//        {
+//            currentTab->_imageHasBeenLoaded = true;
+//            updateMode( this->_ui->actionInsert );
+//        }
+//        else
+//            currentTab->_imageHasBeenLoaded = false;
+//         this->_arrangements[tabIndex] = CGAL::make_object(arr);
+//        typedef QArrangementLabellingTab< Pol_arr >                       TabType;
+//        TabType* tab = static_cast< TabType* >( this->_tabs[ tabIndex ] );
+//        tab->setArrangement( arr, true );
+//        return;
+
+    }
+        //end WIP
     this->_arrangements[tabIndex] = CGAL::make_object(arr);
 
     typedef QArrangementLabellingTab< Pol_arr >                       TabType;
@@ -1165,4 +1223,98 @@ void QArrangementLabellingWindow::on_actionRedo_triggered()
 void QArrangementLabellingWindow::switchVanishingmode(){
     this->_ui->actionEdit_vanishing_point->setChecked(false);
     this->_ui->actionCreate_vanishing_point->setChecked(true);
+}
+void QArrangementLabellingWindow::closeEvent(QCloseEvent * event){
+    if(this->_ui->tabWidget->currentIndex( )==-1 ){
+        event->accept();
+        return;
+    }
+    if(getCurrentTab()->_imageHasBeenLoaded==false){
+        event->accept();
+        return;
+    }
+    int ret = QMessageBox::warning(this, tr("Warning"),tr("Do you want to save your changes ?"),QMessageBox::Save | QMessageBox::Cancel |QMessageBox::Discard, QMessageBox::Save );
+    switch (ret) {
+      case QMessageBox::Save:
+    {
+          // Clic sur Enregistrer
+        QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+
+        int index = this->_ui->tabWidget->currentIndex( );
+        if ( index == -1 )
+            return;
+        QString filename = QFileDialog::getSaveFileName( this, tr( "Save file" ), "", tr("Arrangement (*.arr)") );
+        if ( filename.isNull( ) )
+            return;
+
+        doSaveArrangement(filename);
+            event->accept();
+          break;
+    }
+      case QMessageBox::Discard:
+          // Clic sur Ne pas enregistrer
+        event->accept();
+          break;
+      case QMessageBox::Cancel:
+          // Clic sur Annuler
+        event->ignore();
+          break;
+      default:
+          // ne doit pas se produire
+          break;
+    }
+}
+void QArrangementLabellingWindow::closeTab(int index){
+    QArrangementLabellingLogWidget::instance()->logDebug( QString(__FUNCTION__) );
+    this->_ui->tabWidget->setCurrentIndex(index);
+    unsigned int currentTabIndex = this->_ui->tabWidget->currentIndex( );
+    if (! this->_ui->tabWidget->count() || (currentTabIndex == static_cast<unsigned int>(-1)))
+        return;
+
+    if(! getCurrentTab()->arrHasBeenSaved() && ! getCurrentTab()->_labelsHaveBeenSaved){ // If labels have already been saved, do not complain
+        if(QMessageBox::question(this, tr("Arrangement not saved"), tr("The current arrangement has not been saved, do you really want to close this tab ?"),QMessageBox::Yes, QMessageBox::Cancel) != QMessageBox::Yes){
+            QArrangementLabellingLogWidget::instance()->logInfo( tr("Closing tab aborted") );
+            return;
+        }
+    }
+
+    if(! getCurrentTab()->_labelsHaveBeenSaved){
+        if(QMessageBox::question(this, tr("Labels not saved"), tr("The current labels set has not been saved, do you really want to close this tab ?"),QMessageBox::Yes, QMessageBox::Cancel) != QMessageBox::Yes){
+            QArrangementLabellingLogWidget::instance()->logInfo( tr("Closing tab aborted") );
+            return;
+        }
+    }
+
+    QMessageBox mb;
+     mb.setText("Tab closing");
+     mb.setInformativeText("Do you want to save your work before closing this tab ? ");
+      mb.setStandardButtons(QMessageBox::Yes | QMessageBox::Close | QMessageBox::Cancel);
+      mb.setDefaultButton(QMessageBox::Yes);
+    mb.setButtonText(QMessageBox::Yes, "Yes");
+    mb.setButtonText(QMessageBox::Close, "Close without saving");
+    switch(mb.exec()) {
+    case QMessageBox::Yes:
+    {
+        this->on_actionSaveProject_triggered();
+    }
+        // save and exit
+        break;
+    case QMessageBox::Close:
+        break;
+    case QMessageBox::Cancel:
+        return;
+        // exit without saving
+        break;
+    }
+
+    // delete the tab
+    this->_ui->tabWidget->removeTab( currentTabIndex );
+    this->_tabs.erase( this->_tabs.begin( ) + currentTabIndex );
+
+    // delete the arrangement
+    this->_arrangements.erase( this->_arrangements.begin( ) + currentTabIndex );
+
+    // If we have closed the last tab, we forbid the openImage action
+    if (! this->_ui->tabWidget->count() || (currentTabIndex == static_cast<unsigned int>(-1)))
+        _ui->actionOpenImage->setEnabled(false);
 }

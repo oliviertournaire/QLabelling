@@ -176,6 +176,83 @@ bool QArrangementLabellingGraphicsView::setImageToLabel(const QString& path, QAr
         QArrangementLabellingLogWidget::instance()->logWarning( tr("Unable to retrieve the arrangement!") );
         return false;
     }
+    ArrangementBuffer::instance()->push_back(arr);
+    return true;
+}
+bool QArrangementLabellingGraphicsView::setImageToLabelForUndo(QArrangementLabellingTabBase *currentTab, CGAL::Object currentArrangement)
+{
+
+      // Try to find if an image has already been loaded
+    QList<QGraphicsItem*> allItems = currentTab->getScene()->items();
+    for(int i=0;i<allItems.count();++i)
+        if( QGraphicsPixmapItem *p = qgraphicsitem_cast<QGraphicsPixmapItem*>(allItems[i]) )
+            currentTab->getScene()->removeItem(p);
+    QGraphicsItem* pixItem = currentTab->getScene()->addPixmap(imageToLabel());
+    //WIP setPos permet de translater l'image. Permet donc de la centrer. Mais ne centre pas le tracé qui va avec (bordure)
+//    qreal centerxmid=imageToLabelWidth();
+//    qreal centerx=centerxmid*(-0.5);
+//    qreal centerymid=imageToLabelHeight();
+//    qreal centery=centerymid*(-0.5);
+
+
+//    pixItem->setPos(centerx,centery);
+    fitInView(pixItem, Qt::KeepAspectRatio);
+    centerOn(pixItem);
+    centerOn(1000.,2500.);
+
+    Arr_pol_point_2 ptl( 0, 0);
+    Arr_pol_point_2 pbl(0, imageToLabelHeight() );
+    Arr_pol_point_2 pbr(imageToLabelWidth(), imageToLabelHeight());
+    Arr_pol_point_2 ptr(imageToLabelWidth(), 0 );
+
+//                                                                Arr_pol_point_2 ptl( centerx, centery);
+//                                                                Arr_pol_point_2 pbl(centerx, -centery );
+//                                                                Arr_pol_point_2 pbr(-centerx, -centery);
+//                                                                Arr_pol_point_2 ptr(-centerx, centery );
+
+    QString imageBoundaryMessage = tr("Image boundaries: ");
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptl.x())) + "," + QString::number(CGAL::to_double(ptl.y())) + ") / ";
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbl.x())) + "," + QString::number(CGAL::to_double(pbl.y())) + ") / ";
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(pbr.x())) + "," + QString::number(CGAL::to_double(pbr.y())) + ") / ";
+    imageBoundaryMessage = imageBoundaryMessage + "(" + QString::number(CGAL::to_double(ptr.x())) + "," + QString::number(CGAL::to_double(ptr.y())) + ")";
+    QArrangementLabellingLogWidget::instance()->logTrace( imageBoundaryMessage );
+
+    std::vector<Arr_pol_point_2> allPoints;
+    allPoints.push_back(ptl);
+    allPoints.push_back(pbl);
+    allPoints.push_back(pbr);
+    allPoints.push_back(ptr);
+    allPoints.push_back(ptl);
+
+    Arr_pol_2 contour(allPoints.begin(), allPoints.end());
+//WIP
+
+
+
+    Pol_arr *arr;
+    if ( CGAL::assign( arr, currentArrangement ) )
+    {
+        CGAL::Qt::GraphicsViewCurveInputBase *gvcib = currentTab->getCurveInputCallback();
+        ArrangementCurveInputCallback<Pol_arr> *acic = dynamic_cast< ArrangementCurveInputCallback<Pol_arr>* >(gvcib);
+        if(acic)
+        {
+            acic->processInput( CGAL::make_object(contour) );
+        }
+        // Setting the right label to the newly created frame
+        for(Pol_arr::Face_iterator fit = arr->faces_begin() ; fit != arr->faces_end() ; fit++)
+        {
+            if(!fit->is_unbounded())
+            {
+                fit->data().set_label(QLABELLING_UNKNOW_LABEL_STRING);
+                fit->data().set_color(QLABELLING_UNKNOW_LABEL_BRUSH_COLOR);
+            }
+        }
+    }
+    else
+    {
+        QArrangementLabellingLogWidget::instance()->logWarning( tr("Unable to retrieve the arrangement!") );
+        return false;
+    }
 
     return true;
 }

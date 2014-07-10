@@ -14,7 +14,7 @@
    <string>Labelling</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../rc/RessourcesQLabelling.qrc">
+   <iconset resource="../rc/QArrangementLabelling.qrc">
     <normaloff>:/icons/QArrangementLabellingIcon.png</normaloff>:/icons/QArrangementLabellingIcon.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -45,13 +45,20 @@
       <item>
        <layout class="QGridLayout" name="_gridLayoutLabels"/>
       </item>
+      <item>
+       <widget class="QPushButton" name="addLabel">
+        <property name="text">
+         <string>+ add a label</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
   </layout>
  </widget>
  <resources>
-  <include location="../rc/RessourcesQLabelling.qrc"/>
+  <include location="../rc/QArrangementLabelling.qrc"/>
  </resources>
  <connections/>
 </ui>

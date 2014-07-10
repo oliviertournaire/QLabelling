@@ -81,6 +81,8 @@ public slots:
     void on_actionZoomOut_triggered( );
     void on_actionPreferences_triggered( );
     void switchVanishingmode();
+    void closeEvent(QCloseEvent * event);
+    void closeTab(int index);
 
     void on_actionUndo_triggered();
     void on_actionRedo_triggered();

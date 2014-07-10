@@ -13,6 +13,8 @@
 
 #include "QLabelItem.hpp"
 #include "QArrangementLabellingLogWidget.h"
+#include <QInputDialog>
+#include <QLabel>
 
 using namespace std;
 
@@ -29,6 +31,7 @@ QWidget(),
 
     setEnabledAllLabelButtons(false);
     setWindowIcon( QIcon(":/QLabelling/QLabellingIcon.png") );
+    QObject::connect(this->ui->addLabel,SIGNAL(clicked()),this,SLOT(addLabelChoice()));
 
 //     QLabellingView::instance()->readSettings();
 }
@@ -175,4 +178,36 @@ void QArrangementLabellingWidget::updateAlphaValue(const int alpha)
         labelItemColor.setAlpha(alpha);
         _labelItems[i]->setLabelColor(labelItemColor);
     }
+}
+void QArrangementLabellingWidget::addLabelPlus(QString labelname, QColor labelcolor){
+     QLabelItem *item = new QLabelItem(labelname, labelcolor);
+     item->setLabelColor(labelcolor,127);
+
+     connect(item->radioButtonlabel(), SIGNAL(clicked(bool)),
+         this, SIGNAL(labelChanged()));
+     int row=_labelItems.size()/2+1;
+     int col=((_labelItems.size()+1)/2-_labelItems.size()/2)*2;
+     ui->_gridLayoutLabels->addWidget(item->radioButtonlabel(), row, col);
+     ui->_gridLayoutLabels->addWidget(item->toolButtonLabelColor(), row, col+1);
+     _labelItems.push_back(item);
+     _buttonGroup->addButton(item->radioButtonlabel());
+     if(!_labelItems[0]->radioButtonlabel()->isEnabled())
+      setEnabledAllLabelButtons(false);
+}
+void QArrangementLabellingWidget::addLabelChoice(){
+    QString texttoLabel;
+    bool ok;
+       QString text = QInputDialog::getText(this, tr("New Label"),
+                                            tr("Name your label"), QLineEdit::Normal,
+                                            tr("label") + QString::number(_labelItems.size()+1), &ok);
+       if (ok && !text.isEmpty())
+           texttoLabel=text;
+       QColor defaultcolor(50,50,50,127);
+       QColor choosedColor = QColorDialog::getColor(defaultcolor);
+       if (! choosedColor.isValid())
+       {
+          return;
+       }
+       addLabelPlus(texttoLabel,choosedColor);
+
 }
