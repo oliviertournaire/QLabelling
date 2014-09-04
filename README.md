@@ -5,6 +5,10 @@ _QLabellingArrangement_ is a simple GUI to label images. It was initially develo
 ## How you can help
 If you find a bug or wish to have a new feature, please fill an issue in the dedicated section ([issues][issues_page]). If you want to code yourself a new feature, ask for a pull-request and detail your changes / modifications / improvements.
 
+##Documentation
+You can find a user guide as well as an internship review about QLabelling, written by Victor ZINI, a student at L'Ecole des Ponts ParisTech, in this Dropbox repository :
+https://www.dropbox.com/sh/bt4iezx98exvy3g/AAAR9IP_E8roPlDv8OHocedMa?dl=0
+
 ## Versions notes
 ### Version 1.2.0 (04/07/2013)
 * Complete code reorganisation
