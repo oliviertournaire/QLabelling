@@ -1,10 +1,10 @@
 #include "QArrangementLabellingVanishingPointsWidget.h"
 #include "ui_QArrangementLabellingVanishingPointsWidget.h"
-#include <QActionGroup>
+
 #include "VanishingPoints.h"
+
+#include <QActionGroup>
 #include <QComboBox>
-
-
 
 QArrangementLabellingVanishingPointsWidget::QArrangementLabellingVanishingPointsWidget(QDockWidget *parent) :
     QDockWidget(parent),
@@ -33,8 +33,11 @@ QArrangementLabellingVanishingPointsWidget::~QArrangementLabellingVanishingPoint
 {
     delete ui;
 }
-void QArrangementLabellingVanishingPointsWidget::editIndexVanishingPoint(int index){
+
+void QArrangementLabellingVanishingPointsWidget::editIndexVanishingPoint(int index)
+{
     _indexVanishingPoint=index;
+
 }
 int QArrangementLabellingVanishingPointsWidget::GetIndexVanishingPoint(){
     return _indexVanishingPoint;
@@ -93,5 +96,23 @@ void QArrangementLabellingVanishingPointsWidget::editComboBoxtext(QString text){
    this->ui->comboBox->setItemText(GetIndexVanishingPoint(),text);
 }
 
+void QArrangementLabellingVanishingPointsWidget::updateTextCoordinates()
+{
+    double x, y;
+    try
+    {
+        VanishingPoints::instance()->getVanishingPoints(_indexVanishingPoint, x, y);
+    }
+    catch (...)
+    {
+        ui->_xCoord->setText( tr("Unknown") );
+        ui->_yCoord->setText( tr("Unknown") );
+
+        return;
+    }
+
+    ui->_xCoord->setText( QString::number(x) );
+    ui->_yCoord->setText( QString::number(y) );
+}
 
 //WIP

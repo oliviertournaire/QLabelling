@@ -400,6 +400,7 @@ protected:
 
             QPointF pt = this->_converter( clickedPoint );
             VanishingPoints::instance()->calculate_vanishing_point(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
+            QArrangementLabellingVanishingPointsWidget::instance()->updateTextCoordinates();
             if(VanishingPoints::instance()->size()<=QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint()){
                 _mode = DEFINE_VANISHING ;
                 QArrangementLabellingVanishingPointsWidget::instance()->emitswitch();
@@ -511,17 +512,20 @@ protected:
 
                 }
 
-        if(_mode==DEFINE_VANISHING){
-            if(VanishingPoints::instance()->countervanishing==1){
+        if(_mode==DEFINE_VANISHING)
+        {
+            if(VanishingPoints::instance()->countervanishing==1)
+            {
                 //std::cout<<QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint();
                 Point_2 clickedPoint = this->snapPoint( event );
                 Point_2  pp=VanishingPoints::instance()->GetPointForVanishing();
                 Segment_2 segment( pp, clickedPoint );
                 QLineF qSegment = this->_converter( segment );
                 int index=VanishingPoints::instance()->getIndexSelected();
-                if(VanishingPoints::instance()->_VanishingLineGuide.size()==0){
-                      QPointF pt = this->_converter( clickedPoint );
-                      QPointF px= this->_converter( pp );
+                if(VanishingPoints::instance()->_VanishingLineGuide.size()==0)
+                {
+                    QPointF pt = this->_converter( clickedPoint );
+                    QPointF px= this->_converter( pp );
                     QGraphicsLineItem* qSegprov=new QGraphicsLineItem(px.x(),px.y(),pt.x(),pt.y());
                     qSegprov->setZValue( 100 );
                     QPen pen = qSegprov->pen( );
@@ -536,6 +540,7 @@ protected:
         }
 
     }
+
     void mousePressEvent( QGraphicsSceneMouseEvent* event )
     {
         Point_2 clickedPoint = this->snapPoint( event );
@@ -786,7 +791,10 @@ protected:
         }
 
         QPointF pt = this->_converter( clickedPoint );
+
         VanishingPoints::instance()->calculate_vanishing_point(QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint());
+        QArrangementLabellingVanishingPointsWidget::instance()->updateTextCoordinates();
+
         if(VanishingPoints::instance()->size()<=QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint()){
             _mode = DEFINE_VANISHING ;
             QArrangementLabellingVanishingPointsWidget::instance()->emitswitch();
@@ -873,12 +881,13 @@ protected:
         }
     }
         else if( _mode == DEFINE_VANISHING )
-        {   //WIP int index=VanishingPoints::instance()->getIndexSelected();
-            if(VanishingPoints::instance()->vide(0)==true){
+        {
+            //WIP int index=VanishingPoints::instance()->getIndexSelected();
+            if(VanishingPoints::instance()->vide(0)==true)
                 QArrangementLabellingVanishingPointsWidget::instance()->addVanishingPoint();
-            }
-            int index=QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint();
-            if ( VanishingPoints::instance()->countervanishing==0)
+
+            int index = QArrangementLabellingVanishingPointsWidget::instance()->GetIndexVanishingPoint();
+            if ( VanishingPoints::instance()->countervanishing==0 )
             {
                 // first
                 // add clicked point to polyline
@@ -897,30 +906,29 @@ protected:
                     this->_scene->addItem( VanishingPoints::instance()->_VanishingLineGuide.back( ) );
                 }
                 VanishingPoints::instance()->countervanishing=1;
-           }
+            }
             else
             {
-
-
                 // Fix #37: when the user clicks the same point twice, do not add it to the current polyline and exit now
                 if(clickedPoint == VanishingPoints::instance()->GetPointForVanishing())
                     return;
-                 QPointF point1 = this->_converter( clickedPoint );
+                QPointF point1 = this->_converter( clickedPoint );
                 QPointF point2=this->_converter(VanishingPoints::instance()->GetPointForVanishing());
                 qreal x1=point2.x();
                 VanishingPoints::instance()->addVanishingEdges(point1.x(),point1.y(),point2.x(),point2.y(),index);
                 this->_points.push_back( clickedPoint );
 
                 // #37 (https://github.com/oliviertournaire/QLabelling/issues/37): This is where the crash happens when the user click consecutively the same point
-               std::vector<Point_2>  pp;
-               pp.push_back(VanishingPoints::instance()->GetPointForVanishing());
+                std::vector<Point_2>  pp;
+                pp.push_back(VanishingPoints::instance()->GetPointForVanishing());
 
                 VanishingPoints::instance()->countervanishing=0;
 
                 switch(event->button( ))
-                {   case ::Qt::LeftButton :
-                    this->_points.clear( );
-                    break;
+                {
+                    case ::Qt::LeftButton :
+                        this->_points.clear( );
+                        break;
                     case ::Qt::MiddleButton :
                     case ::Qt::RightButton : // finalize polyline input
                         // Destruction de la Polyline courante
@@ -953,11 +961,16 @@ protected:
                         //WIP auto calculate every time
                         int num=VanishingPoints::instance()->EdgesSize(index);
                         if(num>1)
+                        {
                             VanishingPoints::instance()->calculate_vanishing_point(index);
+                            QArrangementLabellingVanishingPointsWidget::instance()->updateTextCoordinates();
+                        }
                 }
             }
-        }
-    //WIP
+
+            QArrangementLabellingVanishingPointsWidget::instance()->updateTextCoordinates();
+  }
+  //WIP
     }
 
     // override this to snap to the points you like

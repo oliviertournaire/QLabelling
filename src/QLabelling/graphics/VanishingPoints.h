@@ -52,14 +52,33 @@ public:
 
         return _vanishingPoints[index];
     }
+
+    void getVanishingPoints(unsigned int index, double& x, double &y)
+    {
+        if( index>=_vanishingPoints.size() )
+        {
+            throw std::out_of_range("Bad index value");
+        }
+
+        Arr_pol_point_2 vp = _vanishingPoints[index];
+
+        x = CGAL::to_double( vp.x() );
+        y = CGAL::to_double( vp.y() );
+    }
+
     //Taille du singleton
     unsigned int size()
     {
         return (unsigned int)_vanishingPoints.size();
     }
 
-    unsigned int EdgesSize(int index){//taille d'un vecteur de lignes de fuite
-        return (unsigned int)_vanishingEdges[index].size();
+    unsigned int EdgesSize(int index)
+    {
+        //taille d'un vecteur de lignes de fuite
+        if( size() > 0 )
+            return (unsigned int)_vanishingEdges[index].size();
+        else
+            return 0;
     }
 
     unsigned int EdgesVectorSize(){ //taille du vecteur de l'ensemble des lignes de fuites
